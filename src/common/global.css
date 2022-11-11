@@ -1,0 +1,40 @@
+/* Text Styles */
+
+/* Header 1 */
+h1 {
+  font-size: 6em;
+  font-family: 'Quicksand';
+  font-weight: 600;
+}
+
+/* Header 2 */
+h2 {
+  font-size: 3em;
+  font-family: 'Quicksand';
+  font-weight: 600;
+}
+
+/* Header 3 */
+h3 {
+  font-size: 2.25em;
+  font-family: 'Quicksand';
+  font-weight: 600;
+}
+
+/* Header 4 */
+
+/* Buttons */
+
+/* Main */
+
+/* Accent */
+
+
+
+/* Color Styles */
+
+:root {
+  --cds-blue-1: #21307A;
+  --cds-blue-2: #C3CBDB;
+  --cds-blue-3: #F6F7FA;
+}
