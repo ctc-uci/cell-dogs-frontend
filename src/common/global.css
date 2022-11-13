@@ -1,40 +1,25 @@
 /* Text Styles */
 
 @font-face {
-  font-family: 'Quicksand';
-  src: url('../assets/fonts/Quicksand-Regular.ttf');
+  font-family: 'Quicksand Semibold';
+  src: url('../assets/fonts/Quicksand-SemiBold.ttf');
 }
 
 /* Header 1 */
 h1 {
   font-size: 6em;
-  font-family: 'Quicksand';
-  font-weight: 600;
+  font-family: 'Quicksand Semibold';
 }
 
 /* Header 2 */
 h2 {
   font-size: 3em;
-  font-family: 'Quicksand';
-  font-weight: 600;
+  font-family: 'Quicksand Semibold';
 }
-
-/* Header 3 */
 
 /* Header 4 */
 h4 {
   font-size: 1.5em;
-  font-family: 'Quicksand';
-  font-weight: 600;
+  font-family: 'Quicksand Semibold';
 }
 
-/* Buttons */
-
-/* Main */
-
-/* Accent */
-
-/* Color Styles */
-
-:root {
-}
