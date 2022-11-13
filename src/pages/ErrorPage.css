@@ -1,10 +1,14 @@
 h1 {
   margin-block: 0;
 }
+#window {
+  height: 100vh;
+}
 
 #container {
   gap: 60px;
   flex-direction: row;
+  height: 100%;
 }
 
 @media screen and (max-width: 1200px) {
