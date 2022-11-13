@@ -1,0 +1,18 @@
+h1 {
+  margin-block: 0;
+}
+
+#container {
+  gap: 60px;
+  flex-direction: row;
+}
+
+@media screen and (max-width: 1200px) {
+  #container {
+    flex-direction: column;
+  }
+
+  #window {
+    padding: 172px 0;
+  }
+}

@@ -20,13 +20,13 @@ h2 {
 }
 
 /* Header 3 */
-h3 {
-  font-size: 2.25em;
+
+/* Header 4 */
+h4 {
+  font-size: 1.5em;
   font-family: 'Quicksand';
   font-weight: 600;
 }
-
-/* Header 4 */
 
 /* Buttons */
 
@@ -37,6 +37,4 @@ h3 {
 /* Color Styles */
 
 :root {
-  --cds-blue-1: #21307a;
-  --cds-blue-2: #c3cbdb;
 }
