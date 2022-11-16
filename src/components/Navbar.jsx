@@ -1,52 +1,69 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { QuestionOutlineIcon, PlusSquareIcon } from '@chakra-ui/icons';
 import './Navbar.css';
 import cellDogsLogoHorizontal2 from '../assets/CellDogs_logo_horizontal 2.png';
+import cellDogsSampleProfilePicture from '../assets/CellDogs_sample_profile_picture.png';
 
 const Navbar = () => {
   return (
     <div className="navbar">
-      <div className="cell-dogs-logo">
-        <Link to="/">
-          <img src={cellDogsLogoHorizontal2} alt="Cell Dogs Logo Horizontal 2" />
-        </Link>
-      </div>
-
-      <nav className="nav-links">
-        <ul>
-          <li>
-            <Link class="nav-page" to="/adoption-log">
-              Adoption Log
-            </Link>
-          </li>
-          <li>
-            <Link class="nav-page" to="/facilities">
-              Facilities
-            </Link>
-          </li>
-          <li>
-            <Link class="nav-page" to="/users">
-              Users
-            </Link>
-          </li>
-        </ul>
-      </nav>
-
-      <div className="navbar-right">
-        <div className="navbar-icons">
-          <button type="button" onClick={() => alert('Navbar Icon 1 Button Clicked')}>
-            <QuestionOutlineIcon w={25} h={25} />
-          </button>
-
-          <button type="button" onClick={() => alert('Navbar Icon 2 Button Clicked')}>
-            <PlusSquareIcon w={25} h={25} />
-          </button>
+      <div className="navbar-long">
+        <div className="cell-dogs-logo">
+          <NavLink to="/">
+            <img src={cellDogsLogoHorizontal2} alt="Cell Dogs Logo Horizontal 2" />
+          </NavLink>
         </div>
-        <div className="navbar-user-profile">
-          <button type="button" onClick={() => alert('User Profile Button Clicked')}>
-            PLACEHOLDER (USER PROFILE)
-          </button>
+
+        <div className="nav-links-and-icons">
+          <div className="nav-links">
+            <nav>
+              <ul>
+                <li>
+                  <NavLink to="/adoption-log">Adoption Log</NavLink>
+                </li>
+                <li>
+                  <NavLink to="/facilities">Facilities</NavLink>
+                </li>
+                <li>
+                  <NavLink to="/users">Users</NavLink>
+                </li>
+              </ul>
+            </nav>
+          </div>
+          <div className="navbar-right">
+            <div className="navbar-icon">
+              <button type="button" onClick={() => alert('Navbar Icon 1 Button Clicked')}>
+                <QuestionOutlineIcon w={25} h={25} />
+              </button>
+            </div>
+            <div className="navbar-icon">
+              <button
+                type="button"
+                className="navbar-icon"
+                onClick={() => alert('Navbar Icon 2 Button Clicked')}
+              >
+                <PlusSquareIcon w={25} h={25} />
+              </button>
+            </div>
+            <div className="navbar-user-profile">
+              <button type="button" onClick={() => alert('User Profile Button Clicked')}>
+                <img src={cellDogsSampleProfilePicture} alt="Cell Dogs Sample Profile" />
+                <div className="profile-text">
+                  <p className="profile-name">Rayvan Dog</p>
+                  <p className="profile-role">Developer</p>
+                </div>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="navbar-short">
+        <p>Short Navbar Here</p>
+        <div className="cell-dogs-logo">
+          <NavLink to="/">
+            <img src={cellDogsLogoHorizontal2} alt="Cell Dogs Logo Horizontal 2" />
+          </NavLink>
         </div>
       </div>
     </div>
