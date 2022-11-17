@@ -59,12 +59,28 @@ const Navbar = () => {
           </div>
         </div>
       </div>
+
       <div className="navbar-short">
-        <HamburgerIcon w={25} h={25} />
+        <div className="hamburger-icon">
+          <HamburgerIcon w={20} h={20} />
+        </div>
         <div className="cell-dogs-logo">
           <NavLink to="/">
             <img src={cellDogsLogoHorizontal2} alt="Cell Dogs Logo Horizontal 2" />
           </NavLink>
+        </div>
+        <div className="navbar-right-short">
+          <div className="navbar-icon">
+            <button type="button" onClick={() => alert('Navbar Icon 2 Button Clicked')}>
+              <PlusSquareIcon w={20} h={20} />
+            </button>
+          </div>
+
+          <img
+            className="navbar-user-profile-image"
+            src={cellDogsSampleProfilePicture}
+            alt="Cell Dogs Sample Profile"
+          />
         </div>
       </div>
     </div>
