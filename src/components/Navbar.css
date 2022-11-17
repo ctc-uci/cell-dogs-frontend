@@ -4,6 +4,8 @@
   padding: 0;
 }
 
+/* LONG NAVBAR CSS */
+
 .navbar-long {
   color: #f6f7fa;
   background-color: #21307a;
@@ -11,7 +13,6 @@
   width: 100%;
   align-items: center;
   display: flex;
-  overflow: auto;
 }
 
 .cell-dogs-logo {
@@ -138,6 +139,18 @@
 
 .profile-role {
   font-size: 12px;
+}
+
+/* SHORT NAVBAR CSS */
+
+.navbar-short {
+  color: #f6f7fa;
+  background-color: #21307a;
+  font-family: 'Noto Sans', sans-serif;
+  width: 100%;
+  align-items: center;
+  display: flex;
+  margin: auto;
 }
 
 .navbar-short {

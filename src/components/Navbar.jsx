@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { QuestionOutlineIcon, PlusSquareIcon } from '@chakra-ui/icons';
+import { QuestionOutlineIcon, PlusSquareIcon, HamburgerIcon } from '@chakra-ui/icons';
 import './Navbar.css';
 import cellDogsLogoHorizontal2 from '../assets/CellDogs_logo_horizontal 2.png';
 import cellDogsSampleProfilePicture from '../assets/CellDogs_sample_profile_picture.png';
@@ -60,7 +60,7 @@ const Navbar = () => {
         </div>
       </div>
       <div className="navbar-short">
-        <p>Short Navbar Here</p>
+        <HamburgerIcon w={25} h={25} />
         <div className="cell-dogs-logo">
           <NavLink to="/">
             <img src={cellDogsLogoHorizontal2} alt="Cell Dogs Logo Horizontal 2" />
