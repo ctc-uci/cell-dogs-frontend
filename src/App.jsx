@@ -1,26 +1,28 @@
 import React from 'react';
-import logo from './logo.svg';
+// import logo from './logo.svg';
+import { Route, Switch, useLocation } from 'react-router-dom';
 import './App.css';
+import Home from './pages/Home';
+import Forgot from './pages/Forgot';
+import Dogs from './pages/Dogs';
+import AddDog from './pages/AddDog';
+import Facilities from './pages/Facilities';
 
-function App() {
+const App = () => {
+  const location = useLocation();
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      {/* <Header /> */}
+      <Switch key={location.pathname} location={location}>
+        <Route path="/login" render={() => <Home />} />
+        <Route path="/forgot" render={() => <Forgot />} />
+        <Route path="/dogs" render={() => <Dogs />} />
+        <Route path="/dogs/new" render={() => <AddDog />} />
+        <Route path="/facilities" render={() => <Facilities />} />
+        <Route path="*" render={() => ''} />
+      </Switch>
     </div>
   );
-}
+};
 
 export default App;
