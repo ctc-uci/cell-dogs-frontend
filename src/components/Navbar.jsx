@@ -31,6 +31,7 @@ const Navbar = () => {
               </ul>
             </nav>
           </div>
+
           <div className="navbar-right">
             <div className="navbar-icon">
               <button type="button" onClick={() => alert('Navbar Icon 1 Button Clicked')}>

@@ -30,6 +30,14 @@
   height: auto;
 }
 
+.nav-links-and-icons {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  float: right;
+  height: 100%;
+}
+
 ​ .nav-links {
   display: flex;
   justify-content: space-between;
@@ -70,18 +78,11 @@
   border-bottom-left-radius: 4px;
 }
 
-.nav-links-and-icons {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  float: right;
-  height: 100%;
-}
-
 .navbar-right {
-  display: flex;
+  display: inline-flex;
+  width: 320px;
   float: right;
-  justify-content: flex-end;
+  justify-content: space-between;
 }
 
 .navbar-right button {
@@ -98,13 +99,11 @@
 .navbar-icon {
   display: flex;
   align-items: center;
-  padding: 0px 10px 0px 10px;
 }
 
 .navbar-user-profile {
-  width: 55%;
+  width: 65%;
   display: flex;
-  padding: 0px 0px 0px 10px;
 }
 
 .navbar-user-profile button {
