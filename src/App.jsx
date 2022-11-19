@@ -3,6 +3,7 @@ import './App.css';
 import { CookiesProvider } from 'react-cookie';
 import { Route, Routes, BrowserRouter as Router } from 'react-router-dom';
 import ErrorPage from './pages/ErrorPage';
+import './common/global.css';
 
 function App() {
   return (

@@ -1,14 +1,27 @@
-h1 {
+.error_h1 {
   margin-block: 0;
 }
-#window {
+.error_h2 {
+  margin-block: 0;
+}
+.error_h4 {
+  margin-block: 0;
+}
+.window {
   height: 100vh;
 }
 
-#container {
+.container {
   gap: 60px;
   flex-direction: row;
   height: 100%;
+  align-items: center;
+}
+
+.stack {
+  align-items:flex-start;
+  height: fit-content;
+  flex-direction:column;
 }
 
 @media screen and (max-width: 1200px) {
