@@ -1,7 +1,7 @@
 import React from 'react';
-import Location from '../components/Location';
+import Location from '../../components/Location';
 
-const Forgot = () => {
+const ForgotPassword = () => {
   return (
     <div>
       <p>This is the Forgot Password page</p>
@@ -9,4 +9,4 @@ const Forgot = () => {
     </div>
   );
 };
-export default Forgot;
+export default ForgotPassword;
