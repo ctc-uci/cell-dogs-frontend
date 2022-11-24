@@ -1,6 +1,6 @@
 import React from 'react';
 // import { useForm } from 'react-hook-form';
-// import * as yup from 'yup';
+import * as yup from 'yup';
 import { NavLink } from 'react-router-dom';
 import { Input, Stack, Button, Text } from '@chakra-ui/react';
 import cellDogsLogoHorizontal4 from '../assets/CellDogs_logo_horizontal 4.png';
@@ -8,10 +8,20 @@ import cellDogsLogoHorizontal5 from '../assets/CellDogs_logo_horizontal 5.png';
 import loginDogImage1 from '../assets/P_Puppy_Maekawa_Genuine-removebg-preview 1.png';
 import './LoginPage.css';
 
-// const schema = yup.object().shape({
-//   Username: yup.string().required(),
-//   Password: yup.string().required(),
-// });
+const schema = yup.object().shape({
+  username: yup.string().required(),
+  password: yup.string().min(4).max(10).required(),
+});
+
+const loginUser = async event => {
+  event.preventDefault();
+  const formData = {
+    username: event.target[0].value,
+    password: event.target[1].value,
+  };
+  const isValid = await schema.isValid(formData);
+  console.log(isValid);
+};
 
 const LoginPage = () => {
   return (
@@ -34,10 +44,10 @@ const LoginPage = () => {
               alt="cellDogsLogoHorizontal4"
             />
           </NavLink>
-          <form className="input-form">
+          <form className="input-form" onSubmit={loginUser}>
             <Input htmlSize={50} width="auto" placeholder="Username" size="md" />
-            <Input htmlSize={50} width="auto" placeholder="Password" size="md" />
-            <Button colorScheme="blue" variant="solid">
+            <Input htmlSize={50} width="auto" placeholder="Password" size="md" type="password" />
+            <Button className="submit-button" colorScheme="blue" variant="solid" type="submit">
               Submit
             </Button>
           </form>
