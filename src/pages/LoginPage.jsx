@@ -1,10 +1,11 @@
 import React from 'react';
+// import { useForm } from 'react-hook-form';
 // import * as yup from 'yup';
 import { NavLink } from 'react-router-dom';
-import { Input, Stack, Button } from '@chakra-ui/react';
+import { Input, Stack, Button, Text } from '@chakra-ui/react';
 import cellDogsLogoHorizontal4 from '../assets/CellDogs_logo_horizontal 4.png';
 import cellDogsLogoHorizontal5 from '../assets/CellDogs_logo_horizontal 5.png';
-
+import loginDogImage1 from '../assets/P_Puppy_Maekawa_Genuine-removebg-preview 1.png';
 import './LoginPage.css';
 
 // const schema = yup.object().shape({
@@ -15,7 +16,10 @@ import './LoginPage.css';
 const LoginPage = () => {
   return (
     <div className="login-page">
-      <div className="information">Welcome to the Adoption Log!</div>
+      <div className="information">
+        <img className="login-dog-image-1" src={loginDogImage1} alt="loginDogImage1" />
+        <Text>Welcome to the Adoption Log!</Text>
+      </div>
       <div className="login">
         <Stack spacing={3} align="center">
           <NavLink to="/">
@@ -30,12 +34,14 @@ const LoginPage = () => {
               alt="cellDogsLogoHorizontal4"
             />
           </NavLink>
-          <Input placeholder="Username" size="md" />
-          <Input placeholder="Password" size="md" />
-          <Button colorScheme="blue" variant="solid">
-            Submit
-          </Button>
-          <NavLink to="/forgotpassword">Forgot Password</NavLink>
+          <form className="input-form">
+            <Input htmlSize={50} width="auto" placeholder="Username" size="md" />
+            <Input htmlSize={50} width="auto" placeholder="Password" size="md" />
+            <Button colorScheme="blue" variant="solid">
+              Submit
+            </Button>
+          </form>
+          <NavLink to="/forgotpassword">Forgot Password?</NavLink>
         </Stack>
       </div>
     </div>
