@@ -1,12 +1,12 @@
 import React from 'react';
 import { Container, Image, Flex } from '@chakra-ui/react';
 import styles from './ErrorPage.module.css';
-import image2 from '../assets/images/image2.png';
+import errorPageLogo from '../assets/images/errorPageLogo.png';
 
 const ErrorPage = () => (
   <Container className={styles.window}>
     <Flex className={styles.container}>
-      <Image w="519px" h="332px" src={image2} alt="Error Dog Picture" />
+      <Image w="519px" h="332px" src={errorPageLogo} alt="Error Dog Picture" />
       <Flex alignItems="center">
         <Flex className={styles.stack}>
           <h1 className={styles.error_h1}>Oh no!</h1>
