@@ -63,14 +63,12 @@ accent {
   font-weight: 600;
 }
 
-
 /* Color Styles */
 
 :root {
-  --cds-blue-1: #21307A;
-  --cds-blue-2: #C3CBDB;
-  --cds-blue-3: #F6F7FA;
-  --cds-green-1: #96C93D;
-  --cds-grey-1: #25222A;
+  --cds-blue-1: #21307a;
+  --cds-blue-2: #c3cbdb;
+  --cds-blue-3: #f6f7fa;
+  --cds-green-1: #96c93d;
+  --cds-grey-1: #25222a;
 }
-

@@ -1,20 +1,30 @@
 import React from 'react';
-import './App.css';
-import { CookiesProvider } from 'react-cookie';
 import { Route, Routes, BrowserRouter as Router } from 'react-router-dom';
+import { CookiesProvider } from 'react-cookie';
+import Home from './pages/Home/Home';
+import ForgotPassword from './pages/ForgotPassword/ForgotPassword';
+import Dogs from './pages/Dogs/Dogs';
+import AddDog from './pages/AddDog/AddDog';
+import Facilities from './pages/Facilities/Facilities';
 import ErrorPage from './pages/ErrorPage';
+import './App.css';
 import './common/global.css';
 
-function App() {
+const App = () => {
   return (
     <CookiesProvider>
       <Router>
         <Routes>
+          <Route path="/login" element={<Home />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/" element={<Dogs />} />
+          <Route path="/dogs/new" element={<AddDog />} />
+          <Route path="/facilities" element={<Facilities />} />
           <Route path="*" element={<ErrorPage />} />
         </Routes>
       </Router>
     </CookiesProvider>
   );
-}
+};
 
 export default App;

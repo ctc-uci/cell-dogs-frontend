@@ -22,9 +22,9 @@
 }
 
 .stack {
-  align-items:flex-start;
+  align-items: flex-start;
   height: fit-content;
-  flex-direction:column;
+  flex-direction: column;
 }
 
 @media screen and (max-width: 1200px) {
