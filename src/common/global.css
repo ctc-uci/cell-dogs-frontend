@@ -1,0 +1,76 @@
+/* Text Styles */
+
+@font-face {
+  font-family: 'Quicksand Semibold';
+  src: url('../assets/fonts/Quicksand-SemiBold.ttf');
+}
+
+@font-face {
+  font-family: 'Noto Sans';
+  src: url('../assets/fonts/NotoSans-Regular.ttf');
+}
+
+@font-face {
+  font-family: 'Noto Sans Semibold';
+  src: url('../assets/fonts/NotoSans-SemiBold.ttf');
+}
+
+@font-face {
+  font-family: 'Noto Serif';
+  src: url('../assets/fonts/NotoSerif-Regular.ttf');
+}
+
+/* Header 1 */
+h1 {
+  font-size: 6em;
+  font-family: 'Quicksand Semibold';
+}
+
+/* Header 2 */
+h2 {
+  font-size: 3em;
+  font-family: 'Quicksand Semibold';
+}
+
+/* Header 3 */
+h3 {
+  font-size: 2.25em;
+  font-family: 'Quicksand Semibold';
+}
+
+/* Header 4 */
+h4 {
+  font-size: 1.5em;
+  font-family: 'Quicksand Semibold';
+}
+
+/* Buttons */
+button {
+  font-size: 1em;
+  font-family: 'Noto Sans Semibold';
+}
+
+/* Main */
+main {
+  font-size: 1em;
+  font-family: 'Noto Sans';
+}
+
+/* Accent */
+accent {
+  font-size: 2em;
+  font-family: 'Noto Serif';
+  font-weight: 600;
+}
+
+
+/* Color Styles */
+
+:root {
+  --cds-blue-1: #21307A;
+  --cds-blue-2: #C3CBDB;
+  --cds-blue-3: #F6F7FA;
+  --cds-green-1: #96C93D;
+  --cds-grey-1: #25222A;
+}
+

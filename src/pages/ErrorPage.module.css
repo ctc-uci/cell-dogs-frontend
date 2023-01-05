@@ -1,0 +1,38 @@
+.error_h1 {
+  margin-block: 0;
+}
+.error_h2 {
+  margin-block: 0;
+}
+.error_h4 {
+  margin-block: 0;
+}
+.window {
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+}
+
+.container {
+  gap: 60px;
+  flex-direction: row;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.stack {
+  align-items:flex-start;
+  height: fit-content;
+  flex-direction:column;
+}
+
+@media screen and (max-width: 1200px) {
+  .container {
+    flex-direction: column;
+  }
+
+  .window {
+    padding: 172px 0;
+  }
+}
