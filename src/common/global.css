@@ -47,13 +47,21 @@ h4 {
 /* Buttons */
 button {
   font-size: 1em;
-  font-family: 'Noto Sans Semibold';
 }
 
-/* Main */
-main {
+/* Input, TextArea, Button */
+input,
+textarea,
+button {
+  font-family: inherit;
+}
+
+/* All elements */
+* {
   font-size: 1em;
   font-family: 'Noto Sans';
+  min-height: 100%;
+  min-width: 100%;
 }
 
 /* Accent */
@@ -63,13 +71,18 @@ accent {
   font-weight: 600;
 }
 
+/* Body */
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 
 /* Color Styles */
 
 :root {
-  --cds-blue-1: #21307A;
-  --cds-blue-2: #C3CBDB;
-  --cds-blue-3: #F6F7FA;
-  --cds-green-1: #96C93D;
-  --cds-grey-1: #25222A;
+  --cds-blue-1: #21307a;
+  --cds-blue-2: #c3cbdb;
+  --cds-blue-3: #f6f7fa;
+  --cds-green-1: #96c93d;
+  --cds-grey-1: #25222a;
 }
