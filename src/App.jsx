@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Routes, BrowserRouter as Router } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import { CookiesProvider } from 'react-cookie';
 import Home from './pages/Home/Home';
 import ForgotPassword from './pages/ForgotPassword/ForgotPassword';
@@ -15,16 +15,14 @@ const App = () => {
   return (
     <CookiesProvider>
       <Navbar />
-      <Router>
-        <Routes>
-          <Route path="/login" element={<Home />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route path="/" element={<Dogs />} />
-          <Route path="/dogs/new" element={<AddDog />} />
-          <Route path="/facilities" element={<Facilities />} />
-          <Route path="*" element={<ErrorPage />} />
-        </Routes>
-      </Router>
+      <Routes>
+        <Route path="/login" element={<Home />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/" element={<Dogs />} />
+        <Route path="/dogs/new" element={<AddDog />} />
+        <Route path="/facilities" element={<Facilities />} />
+        <Route path="*" element={<ErrorPage />} />
+      </Routes>
     </CookiesProvider>
   );
 };
