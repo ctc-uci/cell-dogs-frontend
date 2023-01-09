@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@chakra-ui/icons": "1.1.1",
+    "@chakra-ui/provider": "^1.7.14",
     "@chakra-ui/react": "^1.8.6",
     "@chakra-ui/system": "1.12.1",
     "@testing-library/jest-dom": "^5.11.4",
