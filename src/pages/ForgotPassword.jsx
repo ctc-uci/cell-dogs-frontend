@@ -5,8 +5,8 @@ import { NavLink } from 'react-router-dom';
 import { Input, Stack, Button, Text } from '@chakra-ui/react';
 import cellDogsLogoHorizontal4 from '../assets/CellDogs_logo_horizontal 4.png';
 import cellDogsLogoHorizontal5 from '../assets/CellDogs_logo_horizontal 5.png';
-import loginDogImage1 from '../assets/P_Puppy_Maekawa_Genuine-removebg-preview 1.png';
-import './LoginPage.css';
+import dogArmy from '../assets/dog army.png';
+import './ForgotPassword.css';
 
 const schema = yup.object().shape({
   username: yup.string().required(),
@@ -23,12 +23,12 @@ const loginUser = async event => {
   console.log(isValid);
 };
 
-const LoginPage = () => {
+const ForgotPassword = () => {
   return (
     <div className="login-page">
       <div className="information">
-        <img className="login-dog-image-1" src={loginDogImage1} alt="loginDogImage1" />
-        <Text>Welcome to the Adoption Log!</Text>
+        <img className="dog-army" src={dogArmy} alt="dogArmy" />
+        <Text>Forgot your password?</Text>
       </div>
       <div className="login">
         <Stack spacing={3} align="center">
@@ -45,23 +45,30 @@ const LoginPage = () => {
             />
           </NavLink>
           <form className="input-form" onSubmit={loginUser}>
-            <Input htmlSize={50} width="auto" placeholder="Username" size="md" />
-            <Input htmlSize={50} width="auto" placeholder="Password" size="md" type="password" />
+            <div className="info-text">
+              <Text>
+                Enter the email address associated with your account and we&apos;ll send you a link
+                to reset your password.
+              </Text>
+              <Text className="email-text">Email</Text>
+            </div>
+
+            <Input htmlSize={50} width="auto" placeholder="Enter a valid email address" size="md" />
             <Button
               className="submit-button"
               bg="CDSBlue1"
               color="white"
               variant="solid"
+              width="200px"
               type="submit"
             >
-              Log in
+              Continue
             </Button>
           </form>
-          <NavLink to="/forgot-password">Forgot Password?</NavLink>
         </Stack>
       </div>
     </div>
   );
 };
 
-export default LoginPage;
+export default ForgotPassword;
