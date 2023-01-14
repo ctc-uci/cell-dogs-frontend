@@ -5,8 +5,8 @@ import { NavLink } from 'react-router-dom';
 import { Input, Stack, Button, Text } from '@chakra-ui/react';
 import cellDogsLogoHorizontal4 from '../../assets/CellDogs_logo_horizontal 4.png';
 import cellDogsLogoHorizontal5 from '../../assets/CellDogs_logo_horizontal 5.png';
-import dogArmy from '../../assets/dog army.png';
-import './ForgotPassword.css';
+import loginDogImage1 from '../../assets/P_Puppy_Maekawa_Genuine-removebg-preview 1.png';
+import styles from './LoginPage.module.css';
 
 const schema = yup.object().shape({
   username: yup.string().required(),
@@ -20,54 +20,47 @@ const loginUser = async event => {
     password: event.target[1].value,
   };
   await schema.isValid(formData);
-  // console.log(isValid);
 };
 
-const ForgotPassword = () => {
+const LoginPage = () => {
   return (
     <div className="login-page">
       <div className="information">
-        <img className="dog-army" src={dogArmy} alt="dogArmy" />
-        <Text>Forgot your password?</Text>
+        <img className={styles['login-dog-image-1']} src={loginDogImage1} alt="loginDogImage1" />
+        <Text>Welcome to the Adoption Log!</Text>
       </div>
-      <div className="login">
+      <div className={styles.login}>
         <Stack spacing={3} align="center">
           <NavLink to="/">
             <img
-              className="cds-logo-horizontal-4"
+              className={styles['cds-logo-horizontal-4']}
               src={cellDogsLogoHorizontal4}
               alt="cellDogsLogoHorizontal4"
             />
             <img
-              className="cds-logo-horizontal-5"
+              className={styles['cds-logo-horizontal-5']}
               src={cellDogsLogoHorizontal5}
               alt="cellDogsLogoHorizontal4"
             />
           </NavLink>
-          <form className="input-form" onSubmit={loginUser}>
-            <div className="info-text">
-              <Text>
-                Enter the email address associated with your account and we&apos;ll send you a link
-                to reset your password.
-              </Text>
-              <Text className="email-text">Email</Text>
-            </div>
-
-            <Input htmlSize={50} width="auto" placeholder="Enter a valid email address" size="md" />
+          <form className={styles['input-form']} onSubmit={loginUser}>
+            <Input htmlSize={50} width="auto" placeholder="Username" size="md" />
+            <Input htmlSize={50} width="auto" placeholder="Password" size="md" type="password" />
             <Button
-              className="submit-button"
+              className={styles['submit-button']}
               bg="CDSBlue1"
-              variant="outline"
-              width="200px"
+              color="white"
+              variant="solid"
               type="submit"
             >
-              Continue
+              Log in
             </Button>
           </form>
+          <NavLink to="/forgot-password">Forgot Password?</NavLink>
         </Stack>
       </div>
     </div>
   );
 };
 
-export default ForgotPassword;
+export default LoginPage;
