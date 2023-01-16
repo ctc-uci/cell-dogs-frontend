@@ -1,5 +1,4 @@
 import React from 'react';
-// import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { NavLink } from 'react-router-dom';
 import { Input, Stack, Button, Text } from '@chakra-ui/react';
@@ -10,7 +9,7 @@ import styles from './LoginPage.module.css';
 
 const schema = yup.object().shape({
   username: yup.string().required(),
-  password: yup.string().min(4).max(10).required(),
+  password: yup.string().min(4).max(18).required(),
 });
 
 const loginUser = async event => {
@@ -19,7 +18,8 @@ const loginUser = async event => {
     username: event.target[0].value,
     password: event.target[1].value,
   };
-  await schema.isValid(formData);
+  const isValid = await schema.isValid(formData); // isValid = true if valid input entered
+  console.log(isValid);
 };
 
 const LoginPage = () => {
@@ -44,8 +44,20 @@ const LoginPage = () => {
             />
           </NavLink>
           <form className={styles['input-form']} onSubmit={loginUser}>
-            <Input htmlSize={50} width="auto" placeholder="Username" size="md" />
-            <Input htmlSize={50} width="auto" placeholder="Password" size="md" type="password" />
+            <Input
+              htmlSize={50}
+              width="auto"
+              placeholder="Username"
+              size="md"
+              _focusVisible={{ bg: 'gray.200' }}
+            />
+            <Input
+              htmlSize={50}
+              width="auto"
+              placeholder="Password"
+              size="md"
+              _focusVisible={{ bg: 'gray.200' }}
+            />
             <Button
               className={styles['submit-button']}
               bg="CDSBlue1"

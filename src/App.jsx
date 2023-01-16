@@ -12,16 +12,24 @@ import Navbar from './components/Navbar';
 import './App.css';
 import './common/global.css';
 import LoginPage from './pages/Login/LoginPage';
+import CDSTheme from './styles/theme';
 
 const App = () => {
   return (
-    <ChakraProvider>
+    <ChakraProvider theme={CDSTheme}>
       <CookiesProvider>
-        <Navbar />
         <Routes>
           <Route path="/login" element={<LoginPage />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route path="/" element={<Dogs />} />
+          <Route
+            path="/"
+            element={
+              <>
+                <Navbar />
+                <Dogs />
+              </>
+            }
+          />
           <Route path="/dogs/new" element={<AddDog />} />
           <Route path="/facilities" element={<Facilities />} />
           <Route path="*" element={<ErrorPage />} />

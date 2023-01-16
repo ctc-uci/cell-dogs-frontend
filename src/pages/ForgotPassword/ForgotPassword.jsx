@@ -1,5 +1,4 @@
 import React from 'react';
-// import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { NavLink } from 'react-router-dom';
 import { Input, Stack, Button, Text } from '@chakra-ui/react';
@@ -9,18 +8,16 @@ import dogArmy from '../../assets/dog army.png';
 import './ForgotPassword.css';
 
 const schema = yup.object().shape({
-  username: yup.string().required(),
-  password: yup.string().min(4).max(10).required(),
+  email: yup.string().email().required(),
 });
 
-const loginUser = async event => {
+const submitEmail = async event => {
   event.preventDefault();
   const formData = {
-    username: event.target[0].value,
-    password: event.target[1].value,
+    email: event.target[0].value,
   };
-  await schema.isValid(formData);
-  // console.log(isValid);
+  const isValid = await schema.isValid(formData); // isValid = true if valid input entered
+  console.log(isValid);
 };
 
 const ForgotPassword = () => {
@@ -44,7 +41,7 @@ const ForgotPassword = () => {
               alt="cellDogsLogoHorizontal4"
             />
           </NavLink>
-          <form className="input-form" onSubmit={loginUser}>
+          <form className="input-form" onSubmit={submitEmail}>
             <div className="info-text">
               <Text>
                 Enter the email address associated with your account and we&apos;ll send you a link
@@ -53,13 +50,21 @@ const ForgotPassword = () => {
               <Text className="email-text">Email</Text>
             </div>
 
-            <Input htmlSize={50} width="auto" placeholder="Enter a valid email address" size="md" />
+            <Input
+              htmlSize={50}
+              width="auto"
+              placeholder="Enter a valid email address"
+              size="md"
+              _focusVisible={{ bg: 'gray.200' }}
+            />
             <Button
               className="submit-button"
               bg="CDSBlue1"
+              color="white"
               variant="outline"
               width="200px"
               type="submit"
+              _focusVisible={{ bg: 'gray.200' }}
             >
               Continue
             </Button>
