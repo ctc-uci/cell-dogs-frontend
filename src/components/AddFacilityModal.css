@@ -1,0 +1,36 @@
+.modalHeader {
+  display: flex;
+  justify-content: center;
+}
+.uploadButton {
+  width: 122px;
+  height: 24px;
+  border-radius: 25px;
+}
+p {
+  font-size: 16px;
+  font-weight: medium;
+  margin: 10px 0px 10px 0px;
+}
+img {
+  width: 48px;
+  height: 48px;
+  align-items: center;
+}
+.nameInput {
+  height: 40px;
+  border-radius: 25px;
+}
+.addressInput {
+  height: 40px;
+  border-radius: 25px;
+}
+.notesInput {
+  height: 130px;
+  border-radius: 25px;
+}
+.ModalFooter {
+  width: 226px;
+  height: 32px;
+  border-radius: 25px;
+}
