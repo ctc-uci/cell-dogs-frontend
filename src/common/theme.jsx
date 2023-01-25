@@ -21,6 +21,16 @@ const theme = extendTheme({
       },
     },
   },
+  components: {
+    IconButton: {
+      variants: {
+        noHover: {
+          _hover: {},
+          _active: {},
+        },
+      },
+    },
+  },
   // h2: {
   //   fontFamily: 'Quicksand-SemiBold, sans-serif',
   //   fontSize: '3em',
