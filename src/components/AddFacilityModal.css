@@ -1,7 +1,26 @@
+.facilityModalContent {
+  padding: 0px 150px 0px 150px;
+}
+
 .modalHeader {
   display: flex;
-  justify-content: center;
+  flex-direction: column-reverse;
+  align-items: center;
 }
+
+.modalCloseButtons {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+
+.cancelButton {
+  margin-right: 10px;
+}
+.saveButton {
+  margin-left: 10px;
+}
+
 .uploadButton {
   width: 122px;
   height: 24px;
@@ -20,15 +39,70 @@ img {
 .nameInput {
   height: 40px;
   border-radius: 25px;
+  margin: 6px 0px 6px 0px;
 }
+
 .addressInput {
   height: 40px;
   border-radius: 25px;
+  margin: 6px 0px 6px 0px;
 }
+
 .notesInput {
-  height: 130px;
   border-radius: 25px;
+  margin: 6px 0px 20px 0px;
 }
+
+.pointsOfContact {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+
+.pocTitle {
+  width: 47%;
+  margin-top: 6px;
+}
+
+.pocTitleInput {
+  margin-top: 6px;
+}
+
+.pocName {
+  width: 47%;
+}
+
+.pocNameInput {
+  margin-top: 6px;
+}
+
+.pocPhoneNumber{
+  width: 47%;
+}
+
+.pocPhoneNumberInput {
+  margin-top: 6px;
+}
+
+.pocEmail {
+  width: 47%;
+}
+
+.pocEmailInput {
+  margin-top: 6px;
+}
+
+.pocRow1 {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+.pocRow2 {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 150px;
+}
+
 .ModalFooter {
   width: 226px;
   height: 32px;

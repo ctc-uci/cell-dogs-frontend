@@ -10,7 +10,7 @@ import {
   useDisclosure,
   Input,
 } from '@chakra-ui/react';
-import { AddIcon } from '@chakra-ui/icons';
+// import { AddIcon } from '@chakra-ui/icons';
 import React from 'react';
 import './AddFacilityModal.css';
 
@@ -28,46 +28,104 @@ import './AddFacilityModal.css';
 
 const AddFacilityModal = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [scrollBehavior] = React.useState('inside');
+
   return (
     <>
       <div className="addFacilityModal">
         <Button onClick={onOpen}>+ Add Facility</Button>
-        <Modal isOpen={isOpen} onClose={onClose} isCentered>
+        <Modal
+          size="full"
+          isOpen={isOpen}
+          onClose={onClose}
+          scrollBehavior={scrollBehavior}
+          isCentered
+        >
           <ModalOverlay />
-          <ModalContent>
+          <ModalContent className="facilityModalContent">
             <img src="./../images/Avatar.png" alt="Avatar" />
-            <div className="uploadButton">
+            {/* <div className="uploadButton">
               <Button colorScheme="white" mr={3} onClick={onClose}>
                 <AddIcon boxSize={2} />
                 Upload Picture
               </Button>
-            </div>
+            </div> */}
             <div className="modalHeader">
-              <ModalHeader>Add Facility</ModalHeader>
+              <ModalHeader>
+                <h1>Enter Name</h1>
+              </ModalHeader>
             </div>
+            <ModalFooter display="flex" justifyContent="center">
+              <Button
+                className="cancelButton"
+                width="250px"
+                size="sm"
+                color="--cds-blue-2"
+                variant="outline"
+                onClick={onClose}
+              >
+                Cancel
+              </Button>
+              <Button
+                className="saveButton"
+                width="250px"
+                size="sm"
+                bg="#21307a"
+                color="white"
+                onClick={onClose}
+              >
+                Save
+              </Button>
+            </ModalFooter>
             <ModalCloseButton />
             <ModalBody>
-              <p>Name</p>
+              <div className="pointsOfContact">
+                <h1>Points of Contact</h1>
+                <Button size="sm" colorScheme="gray" color="--cds-grey-1" onClick={onClose}>
+                  Add Another Point of Contact
+                </Button>
+              </div>
+              <h3>Facility Name</h3>
               <div className="nameInput">
                 <Input placeholder="OC Juvenile Hall" />
               </div>
-              <p>Address</p>
+              <h3>Address</h3>
               <div className="addressInput">
                 <Input placeholder="123 Irvine Way Fountain Valley, CA 92728" />
               </div>
-              <p>Notes</p>
+              <h3>Notes</h3>
               <div className="notesInput">
-                <Input placeholder="Enter notes here" />
+                <Input height="150px" padding-top="0px" placeholder="Enter notes here" />
+              </div>
+              <div className="pocRow1">
+                <div className="pocName">
+                  <h3>Name</h3>
+                  <div className="pocNameInput">
+                    <Input placeholder="Jane Smith" />
+                  </div>
+                </div>
+                <div className="pocTitle">
+                  <h3>Title</h3>
+                  <div className="pocTitleInput">
+                    <Input placeholder="Programs Officer" />
+                  </div>
+                </div>
+              </div>
+              <div className="pocRow2">
+                <div className="pocPhoneNumber">
+                  <h3>Phone Number</h3>
+                  <div className="pocPhoneNumberInput">
+                    <Input placeholder="(123)456-7890" />
+                  </div>
+                </div>
+                <div className="pocEmail">
+                  <h3>Email</h3>
+                  <div className="pocEmailInput">
+                    <Input placeholder="email@uci.edu" />
+                  </div>
+                </div>
               </div>
             </ModalBody>
-            <ModalFooter>
-              <Button colorScheme="brand" variant="outline" onClick={onClose}>
-                Cancel
-              </Button>
-              <Button colorScheme="blue" onClick={onClose}>
-                Add
-              </Button>
-            </ModalFooter>
           </ModalContent>
         </Modal>
       </div>
