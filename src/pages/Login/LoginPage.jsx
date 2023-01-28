@@ -20,8 +20,7 @@ const LoginPage = () => {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const { login } = useAuth();
-
+  const { login, currentUser } = useAuth();
   const loginUser = async event => {
     event.preventDefault();
     const formData = {
@@ -48,6 +47,7 @@ const LoginPage = () => {
         <Text>Welcome to the Adoption Log!</Text>
       </div>
       <div className={styles.login}>
+        {currentUser && currentUser.email}
         <Stack spacing={3} align="center">
           <NavLink to="/">
             <img

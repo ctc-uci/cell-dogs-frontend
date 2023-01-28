@@ -27,8 +27,8 @@ const App = () => {
               path="/"
               element={
                 <>
-                  <Dogs />
                   <Navbar />
+                  <Dogs />
                 </>
               }
             />
@@ -36,7 +36,8 @@ const App = () => {
               path="/dogs/new"
               element={
                 <>
-                  <AddDog /> <Navbar />
+                  <Navbar />
+                  <AddDog />
                 </>
               }
             />
@@ -44,8 +45,8 @@ const App = () => {
               path="/facilities"
               element={
                 <>
-                  <Facilities />
                   <Navbar />
+                  <Facilities />
                 </>
               }
             />
