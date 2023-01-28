@@ -9,25 +9,58 @@ import AddDog from './pages/AddDog/AddDog';
 import Facilities from './pages/Facilities/Facilities';
 import ErrorPage from './pages/ErrorPage';
 import Navbar from './components/Navbar';
+import LoginPage from './pages/Login/LoginPage';
 import './App.css';
 import './common/global.css';
-import LoginPage from './pages/Login/LoginPage';
+import { AuthProvider } from './contexts/AuthContext';
+import CDSTheme from './styles/theme';
 
 const App = () => {
   return (
-    <ChakraProvider>
-      <CookiesProvider>
-        <Navbar />
-        <Routes>
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route path="/" element={<Dogs />} />
-          <Route path="/dogs/new" element={<AddDog />} />
-          <Route path="/facilities" element={<Facilities />} />
-          <Route path="*" element={<ErrorPage />} />
-        </Routes>
-      </CookiesProvider>
-    </ChakraProvider>
+    <AuthProvider>
+      <ChakraProvider theme={CDSTheme}>
+        <CookiesProvider>
+          <Routes>
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route
+              path="/"
+              element={
+                <>
+                  <Dogs />
+                  <Navbar />
+                </>
+              }
+            />
+            <Route
+              path="/dogs/new"
+              element={
+                <>
+                  <AddDog /> <Navbar />
+                </>
+              }
+            />
+            <Route
+              path="/facilities"
+              element={
+                <>
+                  <Facilities />
+                  <Navbar />
+                </>
+              }
+            />
+            <Route
+              path="*"
+              element={
+                <>
+                  <ErrorPage />
+                </>
+              }
+            />
+          </Routes>
+        </CookiesProvider>
+      </ChakraProvider>
+    </AuthProvider>
   );
 };
 
