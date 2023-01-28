@@ -12,10 +12,11 @@ import Navbar from './components/Navbar';
 import './App.css';
 import './common/global.css';
 import LoginPage from './pages/Login/LoginPage';
+import theme from './common/theme';
 
 const App = () => {
   return (
-    <ChakraProvider>
+    <ChakraProvider theme={theme}>
       <CookiesProvider>
         <Navbar />
         <Routes>
