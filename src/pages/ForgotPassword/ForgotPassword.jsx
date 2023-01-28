@@ -3,9 +3,9 @@ import React from 'react';
 import * as yup from 'yup';
 import { NavLink } from 'react-router-dom';
 import { Input, Stack, Button, Text } from '@chakra-ui/react';
-import cellDogsLogoHorizontal4 from '../../assets/CellDogs_logo_horizontal 4.png';
-import cellDogsLogoHorizontal5 from '../../assets/CellDogs_logo_horizontal 5.png';
-import dogArmy from '../../assets/dog army.png';
+import cellDogsLogoHorizontal4 from '../../assets/CellDogs_logo_horizontal-4.png';
+import cellDogsLogoHorizontal5 from '../../assets/CellDogs_logo_horizontal-5.png';
+import dogArmy from '../../assets/dog-army.png';
 import './ForgotPassword.css';
 
 const schema = yup.object().shape({
