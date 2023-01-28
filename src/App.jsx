@@ -4,6 +4,7 @@ import { CookiesProvider } from 'react-cookie';
 import { ChakraProvider } from '@chakra-ui/react';
 // import Home from './pages/Home/Home';
 import ForgotPassword from './pages/ForgotPassword/ForgotPassword';
+import ResetPassword from './pages/ResetPassword/ResetPassword';
 import Dogs from './pages/Dogs/Dogs';
 import AddDog from './pages/AddDog/AddDog';
 import Facilities from './pages/Facilities/Facilities';
@@ -23,6 +24,7 @@ const App = () => {
           <Routes>
             <Route path="/login" element={<LoginPage />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/reset-password" element={<ResetPassword />} />
             <Route
               path="/"
               element={
