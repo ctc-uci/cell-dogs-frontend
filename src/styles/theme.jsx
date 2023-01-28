@@ -5,4 +5,5 @@ const CDSTheme = extendTheme({
     CDSBlue1: '#21307a',
   },
 });
+
 export default CDSTheme;
