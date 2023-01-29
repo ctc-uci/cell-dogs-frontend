@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 // import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { Input, Stack, Button, Text, Alert, AlertIcon, AlertTitle } from '@chakra-ui/react';
+import { Input, Stack, Button, Text, Alert, AlertIcon, AlertTitle, Hide } from '@chakra-ui/react';
 import cellDogsLogoHorizontal4 from '../../assets/CellDogs_logo_horizontal-4.png';
 import cellDogsLogoHorizontal5 from '../../assets/CellDogs_logo_horizontal-5.png';
 import loginDogImage1 from '../../assets/P_Puppy_Maekawa_Genuine-removebg-preview 1.png';
@@ -20,7 +20,7 @@ const LoginPage = () => {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const { login, currentUser } = useAuth();
+  const { login } = useAuth();
   const loginUser = async event => {
     event.preventDefault();
     const formData = {
@@ -42,12 +42,13 @@ const LoginPage = () => {
 
   return (
     <div className="login-page">
-      <div className="information">
-        <img className={styles['login-dog-image-1']} src={loginDogImage1} alt="loginDogImage1" />
-        <Text>Welcome to the Adoption Log!</Text>
-      </div>
+      <Hide below="md">
+        <div className="information">
+          <img className={styles['login-dog-image-1']} src={loginDogImage1} alt="loginDogImage1" />
+          <Text>Welcome to the Adoption Log!</Text>
+        </div>
+      </Hide>
       <div className={styles.login}>
-        {currentUser && currentUser.email}
         <Stack spacing={3} align="center">
           <NavLink to="/">
             <img
@@ -61,6 +62,7 @@ const LoginPage = () => {
               alt="cellDogsLogoHorizontal4"
             />
           </NavLink>
+
           <form className={styles['input-form']} onSubmit={loginUser}>
             <Input htmlSize={50} width="auto" placeholder="Username" size="md" ref={emailRef} />
             <Input

@@ -14,13 +14,18 @@ import { BsFillPersonPlusFill } from 'react-icons/bs';
 import './Navbar.css';
 import cellDogsLogoHorizontal2 from '../assets/CellDogs_logo_horizontal 2.png';
 import cellDogsSampleProfilePicture from '../assets/CellDogs_sample_profile_picture.png';
+import { useAuth } from '../contexts/AuthContext';
 
 const Navbar = () => {
   const { isOpen, onToggle } = useDisclosure();
+  const { currentUser } = useAuth();
+
   const [isLargerThan1012] = useMediaQuery('(min-width: 1012px)');
   const icons = { false: <HamburgerIcon />, true: <CloseIcon /> };
 
-  return (
+  return !currentUser ? (
+    <></>
+  ) : (
     <>
       <div className="navbar">
         <div className="navbar-long">
