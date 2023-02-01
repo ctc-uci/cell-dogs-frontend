@@ -1,5 +1,5 @@
 import React from 'react';
-import Button from 'react-bootstrap/Button';
+import { Button } from '@chakra-ui/react';
 import Location from '../../components/Location';
 import AddFacilityModal from '../../components/AddFacilityModal';
 

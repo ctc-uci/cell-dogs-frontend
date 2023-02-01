@@ -3,12 +3,12 @@ import {
   ModalOverlay,
   ModalContent,
   ModalHeader,
-  ModalFooter,
   ModalBody,
   ModalCloseButton,
   Button,
   useDisclosure,
   Input,
+  Avatar,
 } from '@chakra-ui/react';
 // import { AddIcon } from '@chakra-ui/icons';
 import React from 'react';
@@ -43,42 +43,38 @@ const AddFacilityModal = () => {
         >
           <ModalOverlay />
           <ModalContent className="facilityModalContent">
-            <img src="./../images/Avatar.png" alt="Avatar" />
-            {/* <div className="uploadButton">
-              <Button colorScheme="white" mr={3} onClick={onClose}>
-                <AddIcon boxSize={2} />
-                Upload Picture
-              </Button>
-            </div> */}
+            <div className="placeholder">
+              <Avatar />
+            </div>
             <div className="modalHeader">
               <ModalHeader>
                 <h1>Enter Name</h1>
               </ModalHeader>
             </div>
-            <ModalFooter display="flex" justifyContent="center">
-              <Button
-                className="cancelButton"
-                width="250px"
-                size="sm"
-                color="--cds-blue-2"
-                variant="outline"
-                onClick={onClose}
-              >
-                Cancel
-              </Button>
-              <Button
-                className="saveButton"
-                width="250px"
-                size="sm"
-                bg="#21307a"
-                color="white"
-                onClick={onClose}
-              >
-                Save
-              </Button>
-            </ModalFooter>
-            <ModalCloseButton />
             <ModalBody>
+              <ModalCloseButton />
+              <div className="buttons">
+                <Button
+                  className="cancelButton"
+                  width="250px"
+                  size="sm"
+                  color="--cds-blue-2"
+                  variant="outline"
+                  onClick={onClose}
+                >
+                  Cancel
+                </Button>
+                <Button
+                  className="saveButton"
+                  width="250px"
+                  size="sm"
+                  bg="#21307a"
+                  color="white"
+                  onClick={onClose}
+                >
+                  Save
+                </Button>
+              </div>
               <div className="pointsOfContact">
                 <h1>Points of Contact</h1>
                 <Button size="sm" colorScheme="gray" color="--cds-grey-1" onClick={onClose}>
@@ -132,5 +128,4 @@ const AddFacilityModal = () => {
     </>
   );
 };
-
 export default AddFacilityModal;

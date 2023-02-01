@@ -1,17 +1,29 @@
 .facilityModalContent {
   padding: 0px 150px 0px 150px;
 }
-
+.placeholder {
+  margin-top: 20px;
+  height: auto;
+  display: inline-flex;
+  object-fit: cover;
+}
 .modalHeader {
   display: flex;
   flex-direction: column-reverse;
   align-items: center;
 }
 
-.modalCloseButtons {
+.modalCloseButton {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   margin-bottom: 30px;
+}
+
+.buttons {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 100px;
 }
 
 .cancelButton {
@@ -76,7 +88,7 @@ img {
   margin-top: 6px;
 }
 
-.pocPhoneNumber{
+.pocPhoneNumber {
   width: 47%;
 }
 
