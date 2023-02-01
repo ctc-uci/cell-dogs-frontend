@@ -18,29 +18,29 @@ import { useBackend } from '../../contexts/BackendContext';
 import Location from '../../components/Location';
 
 const AddDog = () => {
-const [facilityid, setFacilityID] = useState(0);
-const [groupnum, setGroupNum] = useState(0);
-const [graddate, setGradDate] = useState('');
-const [dogname, setDogName] = useState('');
-const [age, setAge] = useState(0);
-const [shelter, setShelter] = useState('');
-const [breed, setBreed] = useState('');
-const [chiptype, setChipType] = useState('');
-const [chipnum, setChipNum] = useState(0);
-const [gender, setGender] = useState('');
-const [profilepic, setProfilePic] = useState('');
-const [altname, setAltName] = useState('');
-const [notes, setNotes] = useState('');
-const [adoptername, setAdopterName] = useState('');
-const [adopterphone, setAdopterPhone] = useState('');
-const [addrline, setAddrLine] = useState('');
-const [adoptcity, setAdoptCity] = useState('');
-const [adoptstate, setAdoptState] = useState('');
-const [zip, setZip] = useState('');
-const [adoptemail, setAdoptEmail] = useState('');
-const [fees, setFees] = useState(0);
-const [revenue, setRevenue] = useState(0);
-const { backend } = useBackend();
+  const [facilityid, setFacilityID] = useState(0);
+  const [groupnum, setGroupNum] = useState(0);
+  const [graddate, setGradDate] = useState('');
+  const [dogname, setDogName] = useState('');
+  const [age, setAge] = useState(0);
+  const [shelter, setShelter] = useState('');
+  const [breed, setBreed] = useState('');
+  const [chiptype, setChipType] = useState('');
+  const [chipnum, setChipNum] = useState(0);
+  const [gender, setGender] = useState('');
+  const [profilepic, setProfilePic] = useState('');
+  const [altname, setAltName] = useState('');
+  const [notes, setNotes] = useState('');
+  const [adoptername, setAdopterName] = useState('');
+  const [adopterphone, setAdopterPhone] = useState('');
+  const [addrline, setAddrLine] = useState('');
+  const [adoptcity, setAdoptCity] = useState('');
+  const [adoptstate, setAdoptState] = useState('');
+  const [zip, setZip] = useState('');
+  const [adoptemail, setAdoptEmail] = useState('');
+  const [fees, setFees] = useState(0);
+  const [revenue, setRevenue] = useState(0);
+  const { backend } = useBackend();
 
   // backend
   //   .post('/dog')
@@ -53,14 +53,14 @@ const { backend } = useBackend();
   //   });
 
   const saveAllChanges = async () => {
-  // const dogs = await backend.get('/dog');
-  // const dogNames = dogs.data.map(dog => dog.dogname);
+    // const dogs = await backend.get('/dog');
+    // const dogNames = dogs.data.map(dog => dog.dogname);
 
-  // if (dogNames.indexOf(dogname) > -1) {
-  //   // dog already in table
-  //   // update row
-  //   return;
-  // }
+    // if (dogNames.indexOf(dogname) > -1) {
+    //   // dog already in table
+    //   // update row
+    //   return;
+    // }
 
     backend
       .post('/dog', {
@@ -86,11 +86,9 @@ const { backend } = useBackend();
         adoptemail,
         fees,
         revenue,
-      }
-      )
+      })
       .then(() => {
         console.log('Successfully updated dog');
-        return;
       });
   };
 
@@ -134,7 +132,7 @@ const { backend } = useBackend();
                 size="lg"
                 variant="unstyled"
                 onChange={e => {
-                setDogName(e.target.value);
+                  setDogName(e.target.value);
                 }}
               />
             </FormControl>
@@ -166,7 +164,9 @@ const { backend } = useBackend();
             </ButtonGroup>
           </div>
           <div className="saveButton">
-            <Button colorScheme="facebook" onClick = {saveAllChanges}>Save All Changes</Button>
+            <Button colorScheme="facebook" onClick={saveAllChanges}>
+              Save All Changes
+            </Button>
           </div>
         </div>
       </div>
@@ -181,7 +181,7 @@ const { backend } = useBackend();
               type="text"
               className="formInput"
               onChange={e => {
-              setAdopterName(e.target.value);
+                setAdopterName(e.target.value);
               }}
             />
           </FormControl>
@@ -191,8 +191,8 @@ const { backend } = useBackend();
               type="email"
               className="formInput"
               onChange={e => {
-                 setAdoptEmail(e.target.value);
-               }}
+                setAdoptEmail(e.target.value);
+              }}
             />
           </FormControl>
           <FormControl>
@@ -263,11 +263,13 @@ const { backend } = useBackend();
             </FormControl>
             <FormControl>
               <FormLabel>Chip Number</FormLabel>
-              <Input type="text"
-              className="formInput"
-              onChange={e => {
-                setGradDate(e.target.value);
-              }}/>
+              <Input
+                type="text"
+                className="formInput"
+                onChange={e => {
+                  setGradDate(e.target.value);
+                }}
+              />
             </FormControl>
           </div>
         </div>
@@ -279,37 +281,45 @@ const { backend } = useBackend();
           </Heading>
           <FormControl>
             <FormLabel>Address</FormLabel>
-            <Input type="text"
-            className="formInput"
-            onChange={e => {
-              setGradDate(e.target.value);
-            }}/>
+            <Input
+              type="text"
+              className="formInput"
+              onChange={e => {
+                setGradDate(e.target.value);
+              }}
+            />
           </FormControl>
           <div className="cityAndState">
             <FormControl className="city">
               <FormLabel>City</FormLabel>
-              <Input type="text"
-              className="formInput"
-              onChange={e => {
-                setGradDate(e.target.value);
-              }}/>
+              <Input
+                type="text"
+                className="formInput"
+                onChange={e => {
+                  setGradDate(e.target.value);
+                }}
+              />
             </FormControl>
             <FormControl>
               <FormLabel>State</FormLabel>
-              <Input type="text"
-              className="formInput"
-              onChange={e => {
-                setGradDate(e.target.value);
-              }}/>
+              <Input
+                type="text"
+                className="formInput"
+                onChange={e => {
+                  setGradDate(e.target.value);
+                }}
+              />
             </FormControl>
           </div>
           <FormControl>
             <FormLabel>Zip Code</FormLabel>
-            <Input type="text"
-            className="formInput"
-            onChange={e => {
-              setGradDate(e.target.value);
-            }}/>
+            <Input
+              type="text"
+              className="formInput"
+              onChange={e => {
+                setGradDate(e.target.value);
+              }}
+            />
           </FormControl>
           <div className="financial">
             <Heading as="h2" fontSize="24px">
@@ -318,19 +328,23 @@ const { backend } = useBackend();
             <div className="financialFields">
               <FormControl className="fees">
                 <FormLabel>Fees</FormLabel>
-                <Input type="text"
-                 className="formInput"
-                 onChange={e => {
-                  setGradDate(e.target.value);
-                }} />
+                <Input
+                  type="text"
+                  className="formInput"
+                  onChange={e => {
+                    setGradDate(e.target.value);
+                  }}
+                />
               </FormControl>
               <FormControl>
                 <FormLabel>Revenue</FormLabel>
-                <Input type="text"
-                className="formInput"
-                onChange={e => {
-                  setGradDate(e.target.value);
-                }}/>
+                <Input
+                  type="text"
+                  className="formInput"
+                  onChange={e => {
+                    setGradDate(e.target.value);
+                  }}
+                />
               </FormControl>
             </div>
           </div>
@@ -347,45 +361,55 @@ const { backend } = useBackend();
           </Select>
           <FormControl>
             <FormLabel>Facility Unit</FormLabel>
-            <Input type="text"
-            className="formInput"
-            onChange={e => {
-              setGradDate(e.target.value);
-            }}/>
+            <Input
+              type="text"
+              className="formInput"
+              onChange={e => {
+                setGradDate(e.target.value);
+              }}
+            />
           </FormControl>
           <div className="GradAndGroup">
             <FormControl className="gradDate">
               <FormLabel>Graduation Date</FormLabel>
-              <Input type="text"
-              className="formInput"
-              onChange={e => {
-                setGradDate(e.target.value);
-              }}/>
+              <Input
+                type="text"
+                className="formInput"
+                onChange={e => {
+                  setGradDate(e.target.value);
+                }}
+              />
             </FormControl>
             <FormControl>
               <FormLabel>Group Number</FormLabel>
-              <Input type="text"
-              className="formInput"
-              onChange={e => {
-                setGradDate(e.target.value);
-              }}/>
+              <Input
+                type="text"
+                className="formInput"
+                onChange={e => {
+                  setGradDate(e.target.value);
+                }}
+              />
             </FormControl>
           </div>
           <FormControl>
             <FormLabel>Shelter</FormLabel>
-            <Input type="text"
-            className="formInput"
-            onChange={e => {
-              setGradDate(e.target.value);
-            }}/>
+            <Input
+              type="text"
+              className="formInput"
+              onChange={e => {
+                setGradDate(e.target.value);
+              }}
+            />
           </FormControl>
           <FormControl>
             <FormLabel>Animal ID</FormLabel>
-            <Input type="text"
-            className="formInput"
-            onChange={e => {
-              setGradDate(e.target.value);
-            }} />
+            <Input
+              type="text"
+              className="formInput"
+              onChange={e => {
+                setGradDate(e.target.value);
+              }}
+            />
           </FormControl>
         </div>
       </div>
