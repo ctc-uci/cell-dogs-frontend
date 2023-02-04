@@ -1,4 +1,4 @@
-import { React } from 'react';
+import React from 'react';
 import { NavLink } from 'react-router-dom';
 import {
   Collapse,
@@ -8,9 +8,22 @@ import {
   Button,
   Link,
   useMediaQuery,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  FormControl,
+  FormLabel,
+  Input,
+  Select,
 } from '@chakra-ui/react';
 import { QuestionOutlineIcon, HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 import { BsFillPersonPlusFill } from 'react-icons/bs';
+
+// import AddNewUserModal from './AddNewUserModal';
 import './Navbar.css';
 import cellDogsLogoHorizontal2 from '../assets/CellDogs_logo_horizontal 2.png';
 import cellDogsSampleProfilePicture from '../assets/CellDogs_sample_profile_picture.png';
@@ -18,6 +31,13 @@ import { useAuth } from '../contexts/AuthContext';
 
 const Navbar = () => {
   const { isOpen, onToggle } = useDisclosure();
+  const {
+    isOpen: accountModalisOpen,
+    onOpen: accountModalonOpen,
+    onClose: accountModalonClose,
+  } = useDisclosure();
+  const initialRef = React.useRef(null);
+  const finalRef = React.useRef(null);
   const { currentUser } = useAuth();
 
   const [isLargerThan1012] = useMediaQuery('(min-width: 1012px)');
@@ -59,13 +79,56 @@ const Navbar = () => {
                 </button>
               </div>
               <div className="navbar-icon">
-                <button
-                  type="button"
-                  className="navbar-icon"
-                  onClick={() => alert('Navbar Icon 2 Button Clicked')}
-                >
+                <button type="button" className="navbar-icon" onClick={accountModalonOpen}>
                   <BsFillPersonPlusFill size={28} />
                 </button>
+                <Modal
+                  initialFocusRef={initialRef}
+                  finalFocusRef={finalRef}
+                  isOpen={accountModalisOpen}
+                  onClose={accountModalonClose}
+                >
+                  <ModalOverlay />
+                  <ModalContent>
+                    <ModalHeader>Add New User</ModalHeader>
+                    <ModalCloseButton />
+                    <ModalBody pb={6}>
+                      <FormControl>
+                        <FormLabel>Full Name</FormLabel>
+                        <Input ref={initialRef} placeholder="Full Name" />
+                      </FormControl>
+
+                      <FormControl mt={4}>
+                        <FormLabel>Add Email</FormLabel>
+                        <Input placeholder="Add Email" type="email" />
+                      </FormControl>
+
+                      <FormControl mt={4}>
+                        <FormLabel>Add Role</FormLabel>
+                        <Input placeholder="Add Roll" />
+                      </FormControl>
+
+                      <FormControl mt={4}>
+                        <FormLabel>Add Role</FormLabel>
+                        <Input placeholder="Add Roll" />
+                      </FormControl>
+
+                      <FormControl>
+                        <Select placeholder="Select Account Type">
+                          <option>Guest</option>
+                          <option>Administrator</option>
+                        </Select>
+                      </FormControl>
+                    </ModalBody>
+
+                    <ModalFooter>
+                      <Button onClick={accountModalonClose}>Cancel</Button>
+                      <Button colorScheme="blue" mr={3}>
+                        Send Email
+                      </Button>
+                    </ModalFooter>
+                  </ModalContent>
+                </Modal>
               </div>
               <div className="navbar-user-profile">
                 <button type="button" onClick={() => alert('User Profile Button Clicked')}>
