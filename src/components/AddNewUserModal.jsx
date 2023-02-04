@@ -20,7 +20,7 @@ import {
 //   return <div className={styles.box}></div>;
 // };
 
-const AddNewUserModal = ({ accountModalisOpen, accountModalonOpen, accountModalonClose }) => {
+const AddNewUserModal = ({ isOpen, onClose }) => {
   // const { isOpen, onOpen, onClose } = useDisclosure();
 
   const initialRef = React.useRef(null);
@@ -28,13 +28,13 @@ const AddNewUserModal = ({ accountModalisOpen, accountModalonOpen, accountModalo
 
   return (
     <>
-      <Button onClick={accountModalonOpen}>Open Modal</Button>
+      {/* <Button onClick={onOpen}>Open Modal</Button> */}
 
       <Modal
         initialFocusRef={initialRef}
         finalFocusRef={finalRef}
-        isOpen={accountModalisOpen}
-        onClose={accountModalonClose}
+        isOpen={isOpen}
+        onClose={onClose}
       >
         <ModalOverlay />
         <ModalContent>
@@ -70,7 +70,7 @@ const AddNewUserModal = ({ accountModalisOpen, accountModalonOpen, accountModalo
           </ModalBody>
 
           <ModalFooter>
-            <Button onClick={accountModalonClose}>Cancel</Button>
+            <Button onClick={onClose}>Cancel</Button>
             <Button colorScheme="blue" mr={3}>
               Send Email
             </Button>
