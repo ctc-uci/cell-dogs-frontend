@@ -7,14 +7,15 @@ import {
   ModalHeader,
   ModalFooter,
   ModalBody,
-  ModalCloseButton,
   Button,
   FormControl,
   FormLabel,
   Input,
   Select,
 } from '@chakra-ui/react';
-// import styles from './AddNe// wUserModal.module.css';
+
+import newProfilePic from '../assets/new-user-avatar.svg';
+import styles from './AddNewUserModal.module.css';
 //
 // const AddNewUserModal = () => {
 //   return <div className={styles.box}></div>;
@@ -28,8 +29,6 @@ const AddNewUserModal = ({ isOpen, onClose }) => {
 
   return (
     <>
-      {/* <Button onClick={onOpen}>Open Modal</Button> */}
-
       <Modal
         initialFocusRef={initialRef}
         finalFocusRef={finalRef}
@@ -37,43 +36,47 @@ const AddNewUserModal = ({ isOpen, onClose }) => {
         onClose={onClose}
       >
         <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>Add New User</ModalHeader>
-          <ModalCloseButton />
+        <ModalContent className={styles.box} maxW="56vw" m={8}>
+          <ModalHeader className={styles.modalHeader}>
+            <img
+              src={newProfilePic}
+              className={styles.profilePic}
+              alt="A default profile for new users"
+            />
+            Add New User
+          </ModalHeader>
           <ModalBody pb={6}>
             <FormControl>
               <FormLabel>Full Name</FormLabel>
               <Input ref={initialRef} placeholder="Full Name" />
             </FormControl>
 
-            <FormControl mt={4}>
+            <FormControl mt={5}>
               <FormLabel>Add Email</FormLabel>
               <Input placeholder="Add Email" type="email" />
             </FormControl>
 
-            <FormControl mt={4}>
+            <FormControl mt={5}>
               <FormLabel>Add Role</FormLabel>
               <Input placeholder="Add Roll" />
             </FormControl>
 
-            <FormControl mt={4}>
+            <FormControl mt={5}>
               <FormLabel>Add Role</FormLabel>
               <Input placeholder="Add Roll" />
             </FormControl>
 
-            <FormControl>
-              <Select placeholder="Select Account TYpe">
+            <FormControl mt={6}>
+              <Select placeholder="Select Account Type">
                 <option>Guest</option>
                 <option>Administrator</option>
               </Select>
             </FormControl>
           </ModalBody>
 
-          <ModalFooter>
+          <ModalFooter className={styles.buttonContainer}>
             <Button onClick={onClose}>Cancel</Button>
-            <Button colorScheme="blue" mr={3}>
-              Send Email
-            </Button>
+            <Button className={styles.sendEmailButton}>Send Email</Button>
           </ModalFooter>
         </ModalContent>
       </Modal>
