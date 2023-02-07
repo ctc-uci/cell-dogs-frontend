@@ -4,6 +4,7 @@ import { QuestionOutlineIcon, PlusSquareIcon, HamburgerIcon } from '@chakra-ui/i
 import './Navbar.css';
 import cellDogsLogoHorizontal2 from '../assets/CellDogs_logo_horizontal 2.png';
 import cellDogsSampleProfilePicture from '../assets/CellDogs_sample_profile_picture.png';
+import ProfileMenuModal from './PorfileMenuModal';
 
 const Navbar = () => {
   return (
@@ -14,7 +15,6 @@ const Navbar = () => {
             <img src={cellDogsLogoHorizontal2} alt="Cell Dogs Logo Horizontal 2" />
           </NavLink>
         </div>
-
         <div className="nav-links-and-icons">
           <div className="nav-links">
             <nav>
@@ -31,7 +31,6 @@ const Navbar = () => {
               </ul>
             </nav>
           </div>
-
           <div className="navbar-right">
             <div className="navbar-icon">
               <button type="button" onClick={() => alert('Navbar Icon 1 Button Clicked')}>
@@ -48,13 +47,7 @@ const Navbar = () => {
               </button>
             </div>
             <div className="navbar-user-profile">
-              <button type="button" onClick={() => alert('User Profile Button Clicked')}>
-                <img src={cellDogsSampleProfilePicture} alt="Cell Dogs Sample Profile" />
-                <div className="profile-text">
-                  <p className="profile-name">Rayvan Dog</p>
-                  <p className="profile-role">Developer</p>
-                </div>
-              </button>
+              <ProfileMenuModal />
             </div>
           </div>
         </div>
