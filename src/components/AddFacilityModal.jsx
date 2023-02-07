@@ -44,11 +44,11 @@ const AddFacilityModal = () => {
           <ModalOverlay />
           <ModalContent className="facilityModalContent">
             <div className="placeholder">
-              <Avatar />
+              <Avatar height="100px" width="100px" />
             </div>
             <div className="modalHeader">
               <ModalHeader>
-                <h1>Enter Name</h1>
+                <h1 className="enterName">Enter Name</h1>
               </ModalHeader>
             </div>
             <ModalBody>
@@ -76,7 +76,7 @@ const AddFacilityModal = () => {
                 </Button>
               </div>
               <div className="pointsOfContact">
-                <h1>Points of Contact</h1>
+                <h1 className="POCText">Points of Contact</h1>
                 <Button size="sm" colorScheme="gray" color="--cds-grey-1" onClick={onClose}>
                   Add Another Point of Contact
                 </Button>
