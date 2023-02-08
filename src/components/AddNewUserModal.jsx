@@ -12,18 +12,12 @@ import {
   FormLabel,
   Input,
   Select,
+  Avatar,
 } from '@chakra-ui/react';
 
-import newProfilePic from '../assets/new-user-avatar.svg';
 import styles from './AddNewUserModal.module.css';
-//
-// const AddNewUserModal = () => {
-//   return <div className={styles.box}></div>;
-// };
 
 const AddNewUserModal = ({ isOpen, onClose }) => {
-  // const { isOpen, onOpen, onClose } = useDisclosure();
-
   const initialRef = React.useRef(null);
   const finalRef = React.useRef(null);
 
@@ -38,11 +32,7 @@ const AddNewUserModal = ({ isOpen, onClose }) => {
         <ModalOverlay />
         <ModalContent className={styles.box} maxW="56vw" m={8}>
           <ModalHeader className={styles.modalHeader}>
-            <img
-              src={newProfilePic}
-              className={styles.profilePic}
-              alt="A default profile for new users"
-            />
+            <Avatar className={styles.profilePic} />
             Add New User
           </ModalHeader>
           <ModalBody pb={6}>
@@ -58,12 +48,7 @@ const AddNewUserModal = ({ isOpen, onClose }) => {
 
             <FormControl mt={5}>
               <FormLabel>Add Role</FormLabel>
-              <Input placeholder="Add Roll" />
-            </FormControl>
-
-            <FormControl mt={5}>
-              <FormLabel>Add Role</FormLabel>
-              <Input placeholder="Add Roll" />
+              <Input placeholder="Add Role" />
             </FormControl>
 
             <FormControl mt={6}>

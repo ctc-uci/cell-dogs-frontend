@@ -1,19 +1,15 @@
 @import '../common/global.css';
 
-/* .box {
-  width: 80vw;
-} */
-
 .profilePic {
-  background-color: white;
-  width: 4vw;
-  margin: auto;
   margin-bottom: 3vh;
   margin-top: 3vh;
 }
 
 .modalHeader {
-  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
 
 .buttonContainer {
