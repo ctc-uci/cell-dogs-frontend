@@ -112,9 +112,10 @@ const Navbar = () => {
           </div>
           <div className="navbar-right-short">
             <div className="navbar-icon">
-              <button type="button" onClick={() => alert('Navbar Icon 2 Button Clicked')}>
-                <BsFillPersonPlusFill />
+              <button type="button" className="navbar-icon" onClick={accountModalonOpen}>
+                <BsFillPersonPlusFill size={28} />
               </button>
+              <AddNewUserModal isOpen={accountModalisOpen} onClose={accountModalonClose} />
             </div>
 
             <img

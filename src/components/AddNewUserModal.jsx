@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 
 import {
   Modal,
@@ -18,8 +18,8 @@ import {
 import styles from './AddNewUserModal.module.css';
 
 const AddNewUserModal = ({ isOpen, onClose }) => {
-  const initialRef = React.useRef(null);
-  const finalRef = React.useRef(null);
+  const initialRef = useRef(null);
+  const finalRef = useRef(null);
 
   return (
     <>
@@ -28,9 +28,10 @@ const AddNewUserModal = ({ isOpen, onClose }) => {
         finalFocusRef={finalRef}
         isOpen={isOpen}
         onClose={onClose}
+        size="md"
       >
         <ModalOverlay />
-        <ModalContent className={styles.box} maxW="56vw" m={8}>
+        <ModalContent className={styles.box} m={8}>
           <ModalHeader className={styles.modalHeader}>
             <Avatar className={styles.profilePic} />
             Add New User
