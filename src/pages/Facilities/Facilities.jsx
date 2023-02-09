@@ -1,16 +1,17 @@
 import React from 'react';
 import { Button } from '@chakra-ui/react';
+import { useNavigate } from 'react-router-dom';
 import Location from '../../components/Location';
-import AddFacilityModal from '../../components/AddFacilityModal';
 
 const Facilities = () => {
+  const Navigation = useNavigate();
   return (
     <div>
       <p>This is the Facilities page</p>
       <Location />
       <Button>
         <div>
-          <AddFacilityModal />
+          <Button onClick={() => Navigation('/add-facility')}>Add Facility</Button>
         </div>
       </Button>
     </div>
