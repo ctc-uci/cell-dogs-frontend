@@ -1,6 +1,7 @@
-import { Menu, MenuButton, MenuList, MenuItem, Button, ChakraProvider } from '@chakra-ui/react';
+import { Menu, MenuButton, MenuList, Button, ChakraProvider, MenuItem } from '@chakra-ui/react';
 import React from 'react';
 import cellDogsSampleProfilePicture from '../assets/CellDogs_sample_profile_picture.png';
+import './ProfileMenuModal.css';
 
 const ProfileMenuModal = () => {
   return (
@@ -8,34 +9,44 @@ const ProfileMenuModal = () => {
       <Menu>
         <MenuButton as={Button} height="100%">
           <div className="navbar-user-profile">
-            <img src={cellDogsSampleProfilePicture} alt="Cell Dogs Sample Profile" />
+            <img
+              id="profilePic"
+              src={cellDogsSampleProfilePicture}
+              alt="Cell Dogs Sample Profile"
+            />
             <div className="profile-text">
-              <p className="profile-name">Rayvan Dog</p>
+              <p className="profile-name-button">Rayvan Dog</p>
               <p className="profile-role">Developer</p>
             </div>
           </div>
         </MenuButton>
-        <MenuList>
-          <MenuItem>
-            <div className="user-profile-dropdown">
-              <img src={cellDogsSampleProfilePicture} alt="Cell Dogs Sample Profile" />
-              <p className="profile-name">Rayvan Dog</p>
-              <p className="email">rayvandog@gmail.com</p>
-              <p className="role">Developer</p>
-              <div className="profileMenuButtons">
+        <MenuList minWidth="300px">
+          <div className="user-profile-dropdown">
+            <img
+              className="menuPic"
+              src={cellDogsSampleProfilePicture}
+              alt="Cell Dogs Sample Profile"
+            />
+            <p className="profile-name">Rayvan Dog</p>
+            <p className="email">rayvandog@gmail.com</p>
+            <p className="role">Developer</p>
+            <div className="profileMenuButtons">
+              <MenuItem>
                 <div className="helpButtonWrapper">
-                  <Button className="helpButton" colorScheme="green" width="20px">
-                    Help
+                  <Button className="helpButton" colorScheme="blue">
+                    {' '}
+                    Help{' '}
                   </Button>
                 </div>
                 <div className="signOutDiv">
-                  <Button className="signOutButton" colorScheme="red" width="20px">
-                    Sign out
+                  <Button type="button" className="signOutButton">
+                    {' '}
+                    Sign Out{' '}
                   </Button>
                 </div>
-              </div>
+              </MenuItem>
             </div>
-          </MenuItem>
+          </div>
         </MenuList>
       </Menu>
     </ChakraProvider>

@@ -8,18 +8,31 @@
   font-size: 16px;
   margin-left: 10px;
 }
+
+.profilePic {
+  height: 90px;
+  width: 90px;
+}
+
 .profile-name {
   font-weight: 600;
 }
 
 .profile-role {
   font-size: 12px;
+  font-weight: 200;
+}
+
+button {
+  padding-left: 10px;
 }
 
 .navbar-user-profile {
-  width: 65%;
+  width: 100%;
   display: flex;
+  align-items: center;
   height: 100%;
+  margin-left: 15px;
 }
 
 .user-profile-dropdown {
@@ -29,16 +42,26 @@
   align-items: center;
 }
 
-.profile-name{
-  color:#171923;
+.profile-name {
+  text-decoration: bold;
+  color: #171923;
+  font-size: 18px;
+  padding-bottom: 8px;
+}
+
+.profile-name-button {
+  text-decoration: bold;
+  color: #ffffff;
+  padding-bottom: 2px;
 }
 
 .email {
-    color: #718096;
+  color: #718096;
 }
 
-.role{
+.role {
   color: #718096;
+  padding-bottom: 15px;
 }
 
 .navbar-user-profile button {
@@ -50,8 +73,13 @@
   align-items: center;
 }
 
-.navbar-user-profile button:hover{
+.navbar-user-profile button:hover {
   background: none;
+}
+
+.menuPic {
+  padding-top: 15px;
+  padding-bottom: 15px;
 }
 
 .profileMenuButtons {
@@ -61,20 +89,25 @@
 }
 
 .helpButton {
-    background-color: #718096;
-    border-color: red;
+  background-color: #718096;
+  color: blue;
+  position: relative;
+  left: -50px;
 }
 
-.helpButtonWrapper{
-    align-content: center;
+.helpButtonWrapper {
+  align-content: center;
 }
 
-.signOutButton{
-  background-color: #21307A;
+.signOutButton {
+  background-color: #21307a;
+  color: red;
+  position: relative;
+  left: 50px;
 }
 
-.navbar-user-profile img {
+/* .navbar-user-profile img {
   width: 23%;
   border-radius: 50%;
   margin-right: 10px;
-}
+} */
