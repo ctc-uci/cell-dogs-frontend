@@ -1,0 +1,29 @@
+@import '../common/global.css';
+
+.profilePic {
+  margin-bottom: 3vh;
+  margin-top: 3vh;
+}
+
+.modalHeader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.buttonContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2vw;
+}
+
+.sendEmailButton {
+  background-color: var(--cds-blue-1);
+  color: white;
+}
+
+.buttonContainer button {
+  width: 30vw;
+}

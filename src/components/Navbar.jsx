@@ -1,4 +1,4 @@
-import { React } from 'react';
+import React from 'react';
 import { NavLink } from 'react-router-dom';
 import {
   Collapse,
@@ -8,16 +8,35 @@ import {
   Button,
   Link,
   useMediaQuery,
+  // Modal,
+  // ModalOverlay,
+  // ModalContent,
+  // ModalHeader,
+  // ModalFooter,
+  // ModalBody,
+  // ModalCloseButton,
+  // FormControl,
+  // FormLabel,
+  // Input,
+  // Select,
 } from '@chakra-ui/react';
 import { QuestionOutlineIcon, HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 import { BsFillPersonPlusFill } from 'react-icons/bs';
+
+// import AddNewUserModal from './AddNewUserModal';
 import './Navbar.css';
 import cellDogsLogoHorizontal2 from '../assets/CellDogs_logo_horizontal 2.png';
 import cellDogsSampleProfilePicture from '../assets/CellDogs_sample_profile_picture.png';
 import { useAuth } from '../contexts/AuthContext';
+import AddNewUserModal from './AddNewUserModal';
 
 const Navbar = () => {
   const { isOpen, onToggle } = useDisclosure();
+  const {
+    isOpen: accountModalisOpen,
+    onOpen: accountModalonOpen,
+    onClose: accountModalonClose,
+  } = useDisclosure();
   const { currentUser } = useAuth();
 
   const [isLargerThan1012] = useMediaQuery('(min-width: 1012px)');
@@ -59,13 +78,10 @@ const Navbar = () => {
                 </button>
               </div>
               <div className="navbar-icon">
-                <button
-                  type="button"
-                  className="navbar-icon"
-                  onClick={() => alert('Navbar Icon 2 Button Clicked')}
-                >
+                <button type="button" className="navbar-icon" onClick={accountModalonOpen}>
                   <BsFillPersonPlusFill size={28} />
                 </button>
+                <AddNewUserModal isOpen={accountModalisOpen} onClose={accountModalonClose} />
               </div>
               <div className="navbar-user-profile">
                 <button type="button" onClick={() => alert('User Profile Button Clicked')}>
@@ -96,9 +112,10 @@ const Navbar = () => {
           </div>
           <div className="navbar-right-short">
             <div className="navbar-icon">
-              <button type="button" onClick={() => alert('Navbar Icon 2 Button Clicked')}>
-                <BsFillPersonPlusFill />
+              <button type="button" className="navbar-icon" onClick={accountModalonOpen}>
+                <BsFillPersonPlusFill size={28} />
               </button>
+              <AddNewUserModal isOpen={accountModalisOpen} onClose={accountModalonClose} />
             </div>
 
             <img
