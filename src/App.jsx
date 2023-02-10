@@ -15,6 +15,7 @@ import './App.css';
 import './common/global.css';
 import { AuthProvider } from './contexts/AuthContext';
 import CDSTheme from './styles/theme';
+import AddFacility from './components/AddFacility';
 
 const App = () => {
   return (
@@ -58,6 +59,15 @@ const App = () => {
                 <>
                   <Navbar />
                   <ErrorPage />
+                </>
+              }
+            />
+            <Route
+              path="/add-facility"
+              element={
+                <>
+                  <Navbar />
+                  <AddFacility />
                 </>
               }
             />

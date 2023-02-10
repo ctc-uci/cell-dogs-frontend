@@ -32,6 +32,7 @@ import AddNewUserModal from './AddNewUserModal';
 
 const Navbar = () => {
   const { isOpen, onToggle } = useDisclosure();
+
   const {
     isOpen: accountModalisOpen,
     onOpen: accountModalonOpen,
@@ -73,7 +74,7 @@ const Navbar = () => {
 
             <div className="navbar-right">
               <div className="navbar-icon">
-                <button type="button" onClick={() => alert('Navbar Icon 1 Button Clicked')}>
+                <button type="button">
                   <QuestionOutlineIcon w="1.75em" h="1.75em" />
                 </button>
               </div>
@@ -84,7 +85,7 @@ const Navbar = () => {
                 <AddNewUserModal isOpen={accountModalisOpen} onClose={accountModalonClose} />
               </div>
               <div className="navbar-user-profile">
-                <button type="button" onClick={() => alert('User Profile Button Clicked')}>
+                <button type="button">
                   <img src={cellDogsSampleProfilePicture} alt="Cell Dogs Sample Profile" />
                   <div className="profile-text">
                     <p className="profile-name">Rayvan Dog</p>
@@ -141,7 +142,6 @@ const Navbar = () => {
           </Stack>
         </Collapse>
       )}
-      )
     </>
   );
 };
