@@ -1,51 +1,50 @@
 @import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');
 
-.facilitiesTable{
-    padding-top: 50px;
-    padding-right: 30px;
-    padding-bottom: 50px;
-    padding-left: 80px;
-  }
-  
-  #button {
-    background-color: black;
-    color: white;
-    font-size: 20px;
-    padding: 10px 60px;
-    border-radius: 5px;
-    margin: 10px 0px;
-    cursor: pointer;
-  }
-  
-  .facilitiesText1{
-    
-    padding: 100px;
-    margin: 1px;
-  }
-  
-  #p.title {
-    /*
+.facilitiesTable {
+  padding-top: 50px;
+  padding-right: 30px;
+  padding-bottom: 50px;
+  padding-left: 80px;
+}
+
+#button {
+  background-color: black;
+  color: white;
+  font-size: 20px;
+  padding: 10px 60px;
+  border-radius: 5px;
+  margin: 10px 0px;
+  cursor: pointer;
+}
+
+.facilitiesText1 {
+  padding: 100px;
+  margin: 1px;
+}
+
+#p.title {
+  /*
     border-bottom: 500px;
     margin: 5px 0 0 0;
     */
-    font-family: 'Quicksand', sans-serif;
-    font-size: 60px;
-  }
+  font-family: 'Quicksand', sans-serif;
+  font-size: 60px;
+}
 
-  #giant {
-    position: absolute;
-    width: 670px;
-    height: 60px;
-    left: 84px;
-    top: 166px;
+#giant {
+  position: absolute;
+  width: 670px;
+  height: 60px;
+  left: 84px;
+  top: 166px;
 
-    /* CDS H2 */
+  /* CDS H2 */
 
-    font-family: 'Quicksand';
-    font-style: normal;
-    font-weight: 600;
-    font-size: 48px;
-    line-height: 60px;
-    /* identical to box height */
-    color: #000000;
-  }
+  font-family: 'Quicksand';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 48px;
+  line-height: 60px;
+  /* identical to box height */
+  color: #000000;
+}

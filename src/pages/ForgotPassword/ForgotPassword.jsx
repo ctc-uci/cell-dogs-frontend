@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import * as yup from 'yup';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { Input, Stack, Button, Text } from '@chakra-ui/react';
+
+import { useAuth } from '../../contexts/AuthContext';
+
 import cellDogsLogoHorizontal4 from '../../assets/CellDogs_logo_horizontal-4.png';
 import cellDogsLogoHorizontal5 from '../../assets/CellDogs_logo_horizontal-5.png';
 import dogArmy from '../../assets/dog-army.png';
@@ -21,6 +24,15 @@ const submitEmail = async event => {
 };
 
 const ForgotPassword = () => {
+  const { currentUser } = useAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (currentUser) {
+      navigate('/');
+    }
+  });
+
   return (
     <div className="login-page">
       <div className="information">
