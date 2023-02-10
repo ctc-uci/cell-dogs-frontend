@@ -142,7 +142,6 @@ const Navbar = () => {
           </Stack>
         </Collapse>
       )}
-      )
     </>
   );
 };
