@@ -1,18 +1,17 @@
 import axios from 'axios';
-import React, { useContext } from 'react';
+import React, { createContext, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from './AuthContext';
 
 const baseURL =
-  process.env.NODE_ENV === 'development' ? `http://localhost:3001` : `some-production-url`;
+  !process.env.NODE_ENV || process.env.NODE_ENV === 'development'
+    ? process.env.REACT_APP_BACKEND_HOST
+    : process.env.REACT_APP_BACKEND_HOST_PROD;
 
-const BackendContext = React.createContext();
+const BackendContext = createContext();
+const useBackend = () => useContext(BackendContext);
 
-export function useBackend() {
-  return useContext(BackendContext);
-}
-
-export function BackendProvider({ children }) {
+const BackendProvider = ({ children }) => {
   const { currentUser } = useAuth();
   const navigate = useNavigate();
 
@@ -28,35 +27,29 @@ export function BackendProvider({ children }) {
 
   backend.interceptors.request.use(
     async config => {
-      let token = '';
       if (currentUser) {
         // get token from firebase if there's a current user
-
-        token = await currentUser?.getIdToken();
+        const token = await currentUser?.getIdToken();
         // eslint-disable-next-line
         config.headers.authorization = `Bearer ${token}`;
       }
-
       return config;
     },
     error => Promise.reject(error),
   );
 
   backend.interceptors.response.use(
-    response => {
-      return response;
-    },
+    response => response,
     error => {
       // import 404 redirection from utils.jsx here
       if (error?.response?.status === 404) {
         navigate('*');
       }
-
       return Promise.reject(error.response);
     },
   );
 
-  const value = { backend };
+  return <BackendContext.Provider value={{ backend }}>{children}</BackendContext.Provider>;
+};
 
-  return <BackendContext.Provider value={value}>{children}</BackendContext.Provider>;
-}
+export { BackendProvider, useBackend };

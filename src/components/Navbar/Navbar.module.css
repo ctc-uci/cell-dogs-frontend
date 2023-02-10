@@ -1,0 +1,160 @@
+@import '../../common/global.css';
+
+/* LONG NAVBAR CSS */
+
+.navbar-long {
+  /* height: 72px; */
+  color: var(--cds-gray);
+  background-color: var(--cds-blue-1);
+  display: flex;
+  flex-direction: space-between;
+}
+
+.cell-dogs-logo {
+  padding: 5px 40px;
+  width: 260px;
+  flex: none;
+}
+
+.cell-dogs-logo-img {
+  padding: 10px 0px;
+  width: 100%;
+}
+
+.nav-links-and-icons {
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: space-between;
+  float: right;
+  height: auto;
+}
+
+.nav-links-ul {
+  list-style: none;
+  display: flex;
+}
+
+.nav-link-desktop {
+  text-decoration: none;
+  color: white;
+  display: flex;
+  padding: 25px 25px 21px 25px;
+  font-size: 16px;
+}
+
+.nav-link-desktop:not(.active):hover, .nav-link-desktop-active {
+  background: rgba(195, 203, 219, 0.08);
+  border-bottom: 4px solid var(--cds-gray);
+}
+
+.navbar-right {
+  display: inline-flex;
+  float: right;
+  justify-content: space-around;
+}
+
+.navbar-add-user-button-container {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-add-user-button {
+  display: flex;
+  gap: 5px;
+  margin-right: 20px;
+  border: none;
+  color: white;
+}
+
+.navbar-user-profile {
+  width: 70%;
+  display: flex;
+}
+
+/* SHORT NAVBAR CSS */
+
+.navbar-short {
+  display: none;
+  color: var(--cds-white);
+  background-color: var(--cds-blue-1);
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+  flex-basis: auto;
+  padding: 5px 0px;
+}
+
+.navbar-short-left-icon {
+  margin-left: 15px;
+}
+
+.navbar-short-right {
+  display: flex;
+  justify-content: right;
+  margin-right: 20px;
+}
+
+.navbar-user-profile-image {
+  display: block;
+  height: 70%;
+  margin-left: 3px;
+  border-radius: 50%;
+}
+
+@media (max-width: 1075px) {
+  .navbar-long {
+    display: none;
+  }
+
+  .navbar-short {
+    display: flex;
+    height: 80px;
+  }
+
+  .navbar-short-left-icon {
+    margin-left: 10px;
+  }
+
+  .cell-dogs-logo {
+    width: calc(200px + 5vw);
+    margin-left: min(4vw, 50px);
+  }
+
+  .navbar-short-cds-logo {
+    height: 50%;
+    width: auto;
+  }
+
+  .navbar-short-right {
+    display: flex;
+    justify-content: right;
+    margin-right: 10px;
+  }
+
+  .navbar-add-user-button {
+    margin-top: 5px;
+    margin-right: 18px;
+  }
+
+  .navbar-user-profile-image {
+    display: block;
+    height: 70%;
+    margin-left: 0;
+    border-radius: 50%;
+  }
+
+  .navbar-short-links {
+    filter: drop-shadow(0 3px 5px rgba(0, 0, 0, 0.07));
+    margin-bottom: 10px;
+  }
+
+  .navbar-short-link {
+    font-family: Noto Sans;
+    text-decoration: none !important;
+  }
+
+  .navbar-short-link-button {
+    padding: 25px 0 25px 21px !important;
+  }
+}
