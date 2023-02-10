@@ -88,22 +88,11 @@ button {
   justify-content: space-evenly;
 }
 
-.helpButton {
-  background-color: #718096;
-  color: blue;
-  position: relative;
-  left: -50px;
-}
-
-.helpButtonWrapper {
-  align-content: center;
-}
-
 .signOutButton {
-  background-color: #21307a;
-  color: red;
+  background-color: #21307a !important;
+  width: 272px !important;
   position: relative;
-  left: 50px;
+  border-radius: 10px !important;
 }
 
 /* .navbar-user-profile img {

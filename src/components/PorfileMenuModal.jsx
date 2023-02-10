@@ -32,12 +32,6 @@ const ProfileMenuModal = () => {
             <p className="role">Developer</p>
             <div className="profileMenuButtons">
               <MenuItem>
-                <div className="helpButtonWrapper">
-                  <Button className="helpButton" colorScheme="blue">
-                    {' '}
-                    Help{' '}
-                  </Button>
-                </div>
                 <div className="signOutDiv">
                   <Button type="button" className="signOutButton">
                     {' '}
