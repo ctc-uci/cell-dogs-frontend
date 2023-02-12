@@ -90,9 +90,10 @@ button {
 
 .signOutButton {
   background-color: #21307a !important;
-  width: 272px !important;
+  width: 250px !important;
   position: relative;
   border-radius: 10px !important;
+  margin-bottom: 20px !important;
 }
 
 /* .navbar-user-profile img {
