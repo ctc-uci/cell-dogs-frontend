@@ -163,6 +163,7 @@
 
   .navbar-short {
     display: flex;
+    height: 80px;
   }
 
   .cell-dogs-logo {
