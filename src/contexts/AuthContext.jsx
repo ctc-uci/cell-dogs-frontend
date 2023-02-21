@@ -19,8 +19,9 @@ export const AuthProvider = ({ children }) => {
     return auth.signInWithEmailAndPassword(email, password); // may have to change depending on server
   };
 
-  const logout = () => {
-    return auth.signOut();
+  const logout = async () => {
+    await auth.signOut();
+    window.location = '/login';
   };
 
   useEffect(() => {

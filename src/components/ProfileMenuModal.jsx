@@ -2,8 +2,10 @@ import { Menu, MenuButton, MenuList, Button, ChakraProvider, MenuItem } from '@c
 import React from 'react';
 import cellDogsSampleProfilePicture from '../assets/CellDogs_sample_profile_picture.png';
 import './ProfileMenuModal.css';
+import { useAuth } from '../contexts/AuthContext';
 
 const ProfileMenuModal = () => {
+  const { logout } = useAuth();
   return (
     <ChakraProvider>
       <Menu>
@@ -33,7 +35,7 @@ const ProfileMenuModal = () => {
             <div className="profileMenuButtons">
               <MenuItem>
                 <div className="signOutDiv">
-                  <Button type="button" className="signOutButton">
+                  <Button type="button" className="signOutButton" onClick={logout}>
                     {' '}
                     Sign Out{' '}
                   </Button>
