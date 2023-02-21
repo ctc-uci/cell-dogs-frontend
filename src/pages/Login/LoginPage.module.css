@@ -80,3 +80,35 @@ html {
 .submit-button {
   margin-top: 0.5rem;
 }
+
+.login-dog-image-1-mobile {
+  width: 344px;
+  height: 344px;
+  margin: 20px;
+}
+
+.informationmobile {
+  background-color: #21307a;
+  width: 100%;
+  height: auto;
+  flex-direction: column;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 120%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+}
+
+.loginmobile {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}

@@ -104,11 +104,46 @@ const LoginPage = () => {
         </div>
       </Hide>
       <Show below="md">
-        <img
-          className={styles['cds-logo-horizontal-4']}
-          src={cellDogsLogoHorizontal4}
-          alt="cellDogsLogoHorizontal4"
-        />
+        <div className={styles.informationmobile}>
+          <img
+            className={styles['login-dog-image-1-mobile']}
+            src={loginDogImage1}
+            alt="loginDogImage1"
+          />
+        </div>
+        <div className={styles.loginmobile}>
+          <Stack spacing={3} align="center">
+            <Text>Welcome to the Adoption Log!</Text>
+            <form className={styles['input-form']} onSubmit={loginUser}>
+              <Input htmlSize={30} width="auto" placeholder="Username" size="md" ref={emailRef} />
+              <Input
+                htmlSize={30}
+                width="auto"
+                placeholder="Password"
+                size="md"
+                type="password"
+                ref={passwordRef}
+              />
+              <Button
+                disabled={loading}
+                className={styles['submit-button']}
+                bg="CDSBlue1"
+                color="white"
+                variant="solid"
+                type="submit"
+              >
+                Log in
+              </Button>
+            </form>
+            {error && (
+              <Alert status="error" width={200} justifyContent="center">
+                <AlertIcon />
+                <AlertTitle>{error}</AlertTitle>
+              </Alert>
+            )}
+            <NavLink to="/forgot-password">Forgot Password?</NavLink>
+          </Stack>
+        </div>
       </Show>
     </div>
   );
