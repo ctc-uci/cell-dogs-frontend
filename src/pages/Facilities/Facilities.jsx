@@ -16,6 +16,7 @@ import {
   Spacer,
   Center,
 } from '@chakra-ui/react';
+import { useNavigate } from 'react-router-dom';
 import {
   BsFillClockFill,
   BsPlusLg,
@@ -26,6 +27,7 @@ import {
 } from 'react-icons/bs';
 
 const Facilities = () => {
+  const Navigate = useNavigate();
   return (
     <>
       <Flex width="100%" p={3}>
@@ -33,14 +35,21 @@ const Facilities = () => {
           Facilities
         </p>
         <Spacer />
-        <Button size="xs" colorScheme="gray" m={0.1} justify="right">
+        <Button
+          size="xs"
+          colorScheme="gray"
+          m={0.1}
+          justify="right"
+          onClick={() => {
+            Navigate('/add-facility');
+          }}
+        >
           <BsPlusLg boxSize={3} marginRight="4px" />
           Add Facility
         </Button>
       </Flex>
       <hr />
       <div>
-        <pre id="title">Facilities</pre>
         <TableContainer
           borderRadius="10px"
           padding="20px"
