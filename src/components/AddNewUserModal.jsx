@@ -69,8 +69,8 @@ const AddNewUserModal = ({ isOpen, onClose }) => {
 
   const handleNameChange = event => {
     // setFullName(event.target.value);
-    setFirstName(event.target.value.split(' ')[0]);
-    setLastName(event.target.value.split(' ')[1]);
+    setFirstName(event.target.value);
+    setLastName(event.target.value);
   };
 
   const handleEmailChange = event => {
