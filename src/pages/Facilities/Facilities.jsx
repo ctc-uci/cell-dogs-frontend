@@ -77,17 +77,16 @@ const Facilities = () => {
     setTotalPages(Math.ceil(facilities.length / pageLength));
   }, [pageLength, page, totalPages]);
 
-  backend
-    .get('/facility')
-    .then(response => {
-      // const jsonData = response.data;
-      setJsonData(response.data);
-      // console.log(jsonData); // or do something else with the data
-    })
-    .catch(error => {
-      console.error(error);
-    });
-
+  useEffect(() => {
+    backend
+      .get('/facility')
+      .then(response => {
+        // const jsonData = response.data;
+        setJsonData(response.data);
+        // console.log(jsonData); // or do something else with the data
+      })
+      .catch(error => {});
+  }, []);
   return (
     <div>
       <Flex width="100%" p={3}>
