@@ -12,6 +12,8 @@ import {
   BreadcrumbItem,
   BreadcrumbLink,
   Avatar,
+  Flex,
+  Textarea,
 } from '@chakra-ui/react';
 import { ArrowBackIcon, ChevronRightIcon, AddIcon } from '@chakra-ui/icons';
 import './AddDog.css';
@@ -414,12 +416,14 @@ const AddDog = () => {
           </FormControl>
         </div>
       </div>
-      <div className="additionalNotesTitle">
+
+      <Flex direction="column" align="center" px="6.5%">
         <Heading as="h2" fontSize="24px">
           Additional Notes
         </Heading>
-      </div>
-      <textarea id="additionalNotes" name="additionalNotes" rows="10" />
+
+        <Textarea borderWidth={1} name="additionalNotes" rows="10" />
+      </Flex>
     </div>
   );
 };
