@@ -1,5 +1,4 @@
-import React, { useRef } from 'react';
-
+import React, { useRef, useState } from 'react';
 import {
   Modal,
   ModalOverlay,
@@ -14,12 +13,81 @@ import {
   Select,
   Avatar,
 } from '@chakra-ui/react';
+import { useBackend } from '../contexts/BackendContext';
 
 import styles from './AddNewUserModal.module.css';
 
 const AddNewUserModal = ({ isOpen, onClose }) => {
+  const { backend } = useBackend();
+
+  // backend
+  //   .post('http://localhost:3001/users')
+  //   .then(response => {
+  //     const jsonData = response.data;
+  //     console.log(jsonData); // or do something else with the data
+  //   })
+  //   .catch(error => {
+  //     console.error(error);
+  //   });
+
   const initialRef = useRef(null);
   const finalRef = useRef(null);
+
+  // ID, email, first name, last name, facility
+
+  // const [fullName, setFullName] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  // const [facility, setFacility] = useState(1); // hard coded for now until the input form is updated
+  const facility = 1;
+  const id = 10; // hard coded for now until id is fixed
+  // const [accountType, setAccountType] = useState('');
+  // const [role, setRole] = useState('');
+
+  const handleSendEmail = () => {
+    const user = {
+      id,
+      email,
+      firstName,
+      lastName,
+      facility,
+      // accountType,
+      // role
+    };
+
+    backend
+      .post('http://localhost:3001/users', user)
+      .then(response => {
+        console.log(response.data); // or do something else with the data
+        onClose(); // close the modal after successfully adding user
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  };
+
+  const handleNameChange = event => {
+    // setFullName(event.target.value);
+    setFirstName(event.target.value.split(' ')[0]);
+    setLastName(event.target.value.split(' ')[1]);
+  };
+
+  const handleEmailChange = event => {
+    setEmail(event.target.value);
+  };
+
+  //   const handleFacilityChange = (event) => {
+  //   setEmail(event.target.value);
+  // };
+
+  // const handleRoleChange = event => {
+  //   setRole(event.target.value);
+  // };
+
+  // const handleAccountTypeChange = event => {
+  //   setAccountType(event.target.value);
+  // };
 
   return (
     <>
@@ -39,16 +107,17 @@ const AddNewUserModal = ({ isOpen, onClose }) => {
           <ModalBody pb={6}>
             <FormControl>
               <FormLabel>Full Name</FormLabel>
-              <Input ref={initialRef} placeholder="Full Name" />
+              <Input ref={initialRef} placeholder="Full Name" onChange={handleNameChange} />
             </FormControl>
 
             <FormControl mt={5}>
               <FormLabel>Add Email</FormLabel>
-              <Input placeholder="Add Email" type="email" />
+              <Input placeholder="Add Email" type="email" onChange={handleEmailChange} />
             </FormControl>
 
             <FormControl mt={5}>
               <FormLabel>Add Role</FormLabel>
+              {/* <Input placeholder="Add Role" onChange={handleRoleChange} /> */}
               <Input placeholder="Add Role" />
             </FormControl>
 
@@ -62,7 +131,9 @@ const AddNewUserModal = ({ isOpen, onClose }) => {
 
           <ModalFooter className={styles.buttonContainer}>
             <Button onClick={onClose}>Cancel</Button>
-            <Button className={styles.sendEmailButton}>Send Email</Button>
+            <Button className={styles.sendEmailButton} onClick={handleSendEmail}>
+              Send Email
+            </Button>
           </ModalFooter>
         </ModalContent>
       </Modal>
