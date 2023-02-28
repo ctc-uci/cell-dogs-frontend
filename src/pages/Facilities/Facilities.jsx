@@ -40,7 +40,24 @@ const Facilities = () => {
   const Navigate = useNavigate();
   /* eslint-disable  no-unused-vars */
   const [facilities, setFacilities] = useState([]);
-  const [page, setPage] = useState(1);
+  const [pagedFacilities, setPagedFacilities] = useState([[]]);
+  const [resultsPerPage, setResultsPerPage] = useState(10);
+  const [page, setPage] = useState(0);
+
+  useEffect(() => {
+    // have it so that each page has resultsPerPage facilities
+    setPage(0);
+    const temp = facilities.reduce((acc, cur, i) => {
+      if (i % resultsPerPage === 0) {
+        acc.push([cur]);
+      } else {
+        acc[acc.length - 1].push(cur);
+      }
+      return acc;
+    }, []);
+
+    setPagedFacilities(temp);
+  }, [facilities, resultsPerPage]);
 
   const { backend } = useBackend();
   const getFacilities = async () => {
@@ -117,16 +134,16 @@ const Facilities = () => {
                   <Th> </Th>
                 </Tr>
               </Thead>
-              <Tbody height="200px">
+              <Tbody>
                 {/* This is where we map over the facilities we want to display */}
-                {facilities.map(
+                {pagedFacilities[page]?.map(
                   ({
                     name,
                     address_line: addressLine,
                     description,
                     contact_person: contactPerson,
                   }) => (
-                    <Tr key={name}>
+                    <Tr key={name} py={2}>
                       <Td>
                         <Avatar
                           marginRight="10px"
@@ -139,7 +156,6 @@ const Facilities = () => {
                       <Td>{description}</Td>
                       <Td>Some Random Contact</Td>
                       <Td>
-                        {' '}
                         <Button size="sm" colorScheme="teal" p={3}>
                           View More
                         </Button>
@@ -163,15 +179,22 @@ const Facilities = () => {
               <Text margin="auto" fontSize="sm" mr={5} whiteSpace="nowrap">
                 Show Pages Per Page
               </Text>
-              <Select maxWidth={100} size="sm" variant="outline" borderRadius="md">
-                {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(number => (
-                  <option key={number}>{number}</option>
+              <Select
+                maxWidth={100}
+                size="sm"
+                variant="outline"
+                borderRadius="md"
+                value={resultsPerPage}
+                onChange={e => setResultsPerPage(e.target.value)}
+              >
+                {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map(number => (
+                  <option key={number}>{number + 1}</option>
                 ))}
               </Select>
             </Flex>
             <Flex direction="row" justify="center">
               <Text margin="auto" fontSize="sm" mr={3}>
-                Page {page} of 10
+                Page {page + 1} of {pagedFacilities.length}
               </Text>
               <IconButton
                 aria-label="Previous Page"
@@ -180,6 +203,8 @@ const Facilities = () => {
                 variant="ghost"
                 colorScheme="gray.500"
                 margin="auto"
+                onClick={() => setPage(page - 1)}
+                isDisabled={page - 1 < 0}
               />
               <IconButton
                 aria-label="Next Page"
@@ -188,6 +213,8 @@ const Facilities = () => {
                 variant="ghost"
                 colorScheme="gray.500"
                 margin="auto"
+                onClick={() => setPage(page + 1)}
+                isDisabled={page + 1 > pagedFacilities.length - 1}
               />
             </Flex>
           </Flex>
