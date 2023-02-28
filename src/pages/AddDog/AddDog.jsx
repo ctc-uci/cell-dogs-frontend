@@ -1,19 +1,50 @@
 import React from 'react';
-import { FormControl, FormLabel, Input, Button, Heading, Select } from '@chakra-ui/react';
+import {
+  FormControl,
+  FormLabel,
+  Input,
+  Button,
+  Heading,
+  Select,
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+} from '@chakra-ui/react';
+import { ArrowBackIcon, ChevronRightIcon, AddIcon } from '@chakra-ui/icons';
 import cellDogsSampleProfilePicture from '../../assets/CellDogs_sample_profile_picture.png';
 import './AddDog.css';
-import Location from '../../components/Location';
+
+// import Location from '../../components/Location';
 
 const AddDog = () => {
   return (
     <div>
-      <p>This is the Adding Dog page</p>
-      <Location />
-      <div>
-        <Button variant="ghost">Go Back</Button>
+      {/* <Location /> */}
+      <div className="breadcrumbAndAdd">
+        <div className="breadcrumb">
+          <Breadcrumb spacing="8px" separator={<ChevronRightIcon color="gray.500" />}>
+            <BreadcrumbItem>
+              <BreadcrumbLink href="#">Adoption Log</BreadcrumbLink>
+            </BreadcrumbItem>
+
+            <BreadcrumbItem>
+              <BreadcrumbLink href="#">Lucky</BreadcrumbLink>
+            </BreadcrumbItem>
+          </Breadcrumb>
+        </div>
+        <div className="addDogButton">
+          <Button leftIcon={<AddIcon />} size="sm">
+            Add Dog
+          </Button>
+        </div>
       </div>
       <div className="profileSection">
         <div className="dogPic">
+          <div className="backButton">
+            <Button variant="link" leftIcon={<ArrowBackIcon />}>
+              Go Back
+            </Button>
+          </div>
           <img id="profilePic" src={cellDogsSampleProfilePicture} alt="Cell Dogs Sample Profile" />
         </div>
         <h2 className="dogName">Lucky</h2>
@@ -57,23 +88,29 @@ const AddDog = () => {
             <FormLabel>Breed</FormLabel>
             <Input type="text" />
           </FormControl>
-          <Select placeholder="Select Gender">
-            <FormLabel>Gender</FormLabel>
-            <option value="Male">Male</option>
-            <option value="Female">Female</option>
-          </Select>
-          <FormControl>
-            <FormLabel>Graduation Age</FormLabel>
-            <Input type="text" />
-          </FormControl>
-          <FormControl>
-            <FormLabel>Chip Type</FormLabel>
-            <Input type="text" />
-          </FormControl>
-          <FormControl>
-            <FormLabel>Chip Number</FormLabel>
-            <Input type="text" />
-          </FormControl>
+          <div className="genderAndGrad">
+            <div className="gender">
+              <FormLabel>Gender</FormLabel>
+              <Select placeholder="Select Gender">
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+              </Select>
+            </div>
+            <FormControl className="grad">
+              <FormLabel>Graduation Age</FormLabel>
+              <Input type="text" />
+            </FormControl>
+          </div>
+          <div className="chipInputFields">
+            <FormControl className="chipType">
+              <FormLabel>Chip Type</FormLabel>
+              <Input type="text" />
+            </FormControl>
+            <FormControl>
+              <FormLabel>Chip Number</FormLabel>
+              <Input type="text" />
+            </FormControl>
+          </div>
         </div>
       </div>
       <div className="row2">
@@ -85,14 +122,16 @@ const AddDog = () => {
             <FormLabel>Address</FormLabel>
             <Input type="text" />
           </FormControl>
-          <FormControl>
-            <FormLabel>City</FormLabel>
-            <Input type="text" />
-          </FormControl>
-          <FormControl>
-            <FormLabel>State</FormLabel>
-            <Input type="text" />
-          </FormControl>
+          <div className="cityAndState">
+            <FormControl className="city">
+              <FormLabel>City</FormLabel>
+              <Input type="text" />
+            </FormControl>
+            <FormControl>
+              <FormLabel>State</FormLabel>
+              <Input type="text" />
+            </FormControl>
+          </div>
           <FormControl>
             <FormLabel>Zip Code</FormLabel>
             <Input type="text" />
@@ -101,14 +140,16 @@ const AddDog = () => {
             <Heading as="h2" fontSize="24px">
               Financial
             </Heading>
-            <FormControl>
-              <FormLabel>Fees</FormLabel>
-              <Input type="text" />
-            </FormControl>
-            <FormControl>
-              <FormLabel>Revenue</FormLabel>
-              <Input type="text" />
-            </FormControl>
+            <div className="financialFields">
+              <FormControl className="fees">
+                <FormLabel>Fees</FormLabel>
+                <Input type="text" />
+              </FormControl>
+              <FormControl>
+                <FormLabel>Revenue</FormLabel>
+                <Input type="text" />
+              </FormControl>
+            </div>
           </div>
         </div>
 
@@ -116,19 +157,25 @@ const AddDog = () => {
           <Heading as="h2" fontSize="24px">
             Facility Info
           </Heading>
+          <FormLabel>Facility</FormLabel>
           <Select placeholder="Select Facility">
-            <FormLabel>Facility</FormLabel>
             <option value="Male">Male</option>
             <option value="Female">Female</option>
           </Select>
           <FormControl>
-            <FormLabel>Graduation Date</FormLabel>
+            <FormLabel>Facility Unit</FormLabel>
             <Input type="text" />
           </FormControl>
-          <FormControl>
-            <FormLabel>Group Number</FormLabel>
-            <Input type="text" />
-          </FormControl>
+          <div className="GradAndGroup">
+            <FormControl className="gradDate">
+              <FormLabel>Graduation Date</FormLabel>
+              <Input type="text" />
+            </FormControl>
+            <FormControl>
+              <FormLabel>Group Number</FormLabel>
+              <Input type="text" />
+            </FormControl>
+          </div>
           <FormControl>
             <FormLabel>Shelter</FormLabel>
             <Input type="text" />
@@ -139,6 +186,12 @@ const AddDog = () => {
           </FormControl>
         </div>
       </div>
+      <div className="additionalNotesTitle">
+        <Heading as="h2" fontSize="24px">
+          Additional Notes
+        </Heading>
+      </div>
+      <textarea id="additionalNotes" name="additionalNotes" rows="10" />
     </div>
   );
 };

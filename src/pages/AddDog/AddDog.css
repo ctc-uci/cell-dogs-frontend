@@ -18,6 +18,28 @@
   margin: 10px 0px 10px 0px;
 }
 
+.breadcrumbAndAdd {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom:1px solid #E2E2E2;
+  margin-bottom: 18px;
+}
+
+.breadcrumb {
+  margin: 19px 0px 19px 30px;
+}
+
+.addDogButton {
+  margin-right: 30px;
+}
+
+.backButton {
+  position: absolute;
+  top: 208px;
+  left: 30px
+}
+
 .dogPic {
   width: 100%;
   height: 100%;
@@ -54,7 +76,86 @@
 }
 
 .adopterInfo{
-margin-right: 100px;
+width:400px;
+}
+
+.dogInfo{
+  width: 400px;
+}
+
+.genderAndGrad {
+  display: flex;
+}
+
+.gender {
+  width: 300px;
+  padding-right:20px;
+}
+
+.grad {
+  padding-left: 20px;
+  width: 300px;
+}
+
+.addressFinancial{
+  width: 400px;
+}
+
+.cityAndState {
+  display: flex;
+}
+
+.city {
+  margin-right: 40px;
+}
+
+.facilityInfo{
+  width: 400px;
+}
+
+.financial {
+  margin-top: 45px;
+}
+
+.financialFields {
+  display: flex;
+}
+
+.fees {
+  margin-right: 40px;
+}
+
+.chipInputFields {
+  display: flex;
+}
+
+.chipType {
+  margin-right: 40px;
+}
+
+.GradAndGroup {
+  display: flex;
+}
+
+.gradDate {
+  margin-right: 40px;
+}
+
+.additionalNotesTitle{
+  position:relative;
+  padding-top: 100px;
+  padding-bottom: 10px;
+  left: 15%;
+}
+
+#additionalNotes{
+  width:1050px;
+  position: relative;
+  left: 15%;
+  outline: 1px solid rgb(220, 220, 220);
+  border-radius: 10px;
+  margin-bottom: 60px;
+
 }
 
 .row2{
@@ -64,11 +165,10 @@ margin-right: 100px;
   justify-content: space-evenly;
   flex-direction: row;
   flex-wrap: nowrap;
+  padding-top: 40px;
 }
 
 
-.adopterInfo{
-}
 
 .profileSection {
   display: flex;
