@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from './AuthContext';
 
 const baseURL =
-  process.env.NODE_ENV === 'development'
+  !process.env.NODE_ENV || process.env.NODE_ENV === 'development'
     ? process.env.REACT_APP_BACKEND_HOST
     : process.env.REACT_APP_BACKEND_HOST_PROD;
 
