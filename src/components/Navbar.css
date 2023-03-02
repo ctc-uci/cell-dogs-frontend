@@ -81,7 +81,7 @@
 
 .navbar-right {
   display: inline-flex;
-  width: 320px;
+  width: 367px;
   float: right;
   justify-content: space-between;
 }
@@ -100,6 +100,13 @@
 .navbar-icon {
   display: flex;
   align-items: center;
+}
+
+.navbar-icon-add-user {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  gap: 10px;
 }
 
 .navbar-user-profile {

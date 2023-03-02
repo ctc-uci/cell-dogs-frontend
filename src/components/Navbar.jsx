@@ -8,20 +8,8 @@ import {
   Link,
   useDisclosure,
   useMediaQuery,
-
-  // Modal,
-  // ModalOverlay,
-  // ModalContent,
-  // ModalHeader,
-  // ModalFooter,
-  // ModalBody,
-  // ModalCloseButton,
-  // FormControl,
-  // FormLabel,
-  // Input,
-  // Select,
 } from '@chakra-ui/react';
-import { QuestionOutlineIcon, PlusSquareIcon, HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
+import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 import { BsFillPersonPlusFill } from 'react-icons/bs';
 import AddNewUserModal from './AddNewUserModal';
 import './Navbar.css';
@@ -67,14 +55,11 @@ const Navbar = () => {
           </div>
           <div className="navbar-right">
             <div className="navbar-icon">
-              <button type="button">
-                <QuestionOutlineIcon w={25} h={25} />
+              <button type="button" className="navbar-icon-add-user" onClick={accountModalonOpen}>
+                <BsFillPersonPlusFill size={28} />
+                <p>Add user</p>
               </button>
-            </div>
-            <div className="navbar-icon">
-              <button type="button" className="navbar-icon">
-                <PlusSquareIcon w={25} h={25} />
-              </button>
+              <AddNewUserModal isOpen={accountModalisOpen} onClose={accountModalonClose} />
             </div>
             <div className="navbar-user-profile">
               <ProfileMenuModal />
