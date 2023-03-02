@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, Image, Flex } from '@chakra-ui/react';
 import styles from './ErrorPage.module.css';
-import errorPageLogo from '../assets/images/errorPageLogo.png';
+import errorPageLogo from '../../assets/images/errorPageLogo.png';
 
 const ErrorPage = () => (
   <Container className={styles.window}>

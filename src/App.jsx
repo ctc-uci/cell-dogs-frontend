@@ -2,21 +2,26 @@ import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { CookiesProvider } from 'react-cookie';
 import { ChakraProvider } from '@chakra-ui/react';
+
+// Pages & Components
 // import Home from './pages/Home/Home';
 import ForgotPassword from './pages/ForgotPassword/ForgotPassword';
 import ResetPassword from './pages/ResetPassword/ResetPassword';
 import Dogs from './pages/Dogs/Dogs';
 import AddDog from './pages/AddDog/AddDog';
 import Facilities from './pages/Facilities/Facilities';
-import ErrorPage from './pages/ErrorPage';
-import Navbar from './components/Navbar';
+import ErrorPage from './pages/ErrorPage/ErrorPage';
 import LoginPage from './pages/Login/LoginPage';
-import './App.css';
-import './common/global.css';
+import Navbar from './components/Navbar/Navbar';
+import AddFacility from './components/AddFacility/AddFacility';
+
+// Utils
 import { AuthProvider } from './contexts/AuthContext';
-import CDSTheme from './styles/theme';
-import AddFacility from './components/AddFacility';
 import { BackendProvider } from './contexts/BackendContext';
+
+// Styles/Theme
+import CDSTheme from './styles/theme';
+import './common/global.css';
 
 const App = () => {
   return (

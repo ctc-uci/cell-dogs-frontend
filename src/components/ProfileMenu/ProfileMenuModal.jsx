@@ -1,8 +1,8 @@
 import { Menu, MenuButton, MenuList, Button, ChakraProvider, MenuItem } from '@chakra-ui/react';
 import React from 'react';
-import cellDogsSampleProfilePicture from '../assets/CellDogs_sample_profile_picture.png';
+import cellDogsSampleProfilePicture from '../../assets/CellDogs_sample_profile_picture.png';
 import './ProfileMenuModal.css';
-import { useAuth } from '../contexts/AuthContext';
+import { useAuth } from '../../contexts/AuthContext';
 
 const ProfileMenuModal = () => {
   const { logout } = useAuth();

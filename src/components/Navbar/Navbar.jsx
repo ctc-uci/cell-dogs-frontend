@@ -11,11 +11,13 @@ import {
 } from '@chakra-ui/react';
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 import { BsFillPersonPlusFill } from 'react-icons/bs';
-import AddNewUserModal from './AddNewUserModal';
+import AddNewUserModal from '../AddNewUserModal/AddNewUserModal';
+import ProfileMenuModal from '../ProfileMenu/ProfileMenuModal';
+
+import cellDogsLogoHorizontal2 from '../../assets/CellDogs_logo_horizontal 2.png';
+import cellDogsSampleProfilePicture from '../../assets/CellDogs_sample_profile_picture.png';
+
 import './Navbar.css';
-import cellDogsLogoHorizontal2 from '../assets/CellDogs_logo_horizontal 2.png';
-import cellDogsSampleProfilePicture from '../assets/CellDogs_sample_profile_picture.png';
-import ProfileMenuModal from './ProfileMenuModal';
 
 const Navbar = () => {
   const { isOpen, onToggle } = useDisclosure();
