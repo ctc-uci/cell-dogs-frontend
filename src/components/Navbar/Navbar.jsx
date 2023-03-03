@@ -1,6 +1,6 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
-import { Collapse, Stack, IconButton, Button, Link, useDisclosure } from '@chakra-ui/react';
+import { NavLink, Link } from 'react-router-dom';
+import { Collapse, Stack, IconButton, Button, useDisclosure } from '@chakra-ui/react';
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 import { BsPersonPlus } from 'react-icons/bs';
 
@@ -118,14 +118,13 @@ const Navbar = () => {
             </div>
           </div>
           <Collapse in={isOpen} padding="0" zIndex="1">
-            <Stack>
+            <Stack className={styles['navbar-short-links']} spacing="0">
               <Link className={styles['navbar-short-link']} to="/">
                 <Button
-                  borderRadius={0}
+                  className={styles['navbar-short-link-button']}
                   bg="white"
                   justifyContent="left"
                   w="100%"
-                  margin={0}
                   textDecoration="none"
                 >
                   Adoption Log
@@ -133,23 +132,23 @@ const Navbar = () => {
               </Link>
               <Link className={styles['navbar-short-link']} to="/facilities">
                 <Button
-                  borderRadius={0}
+                  className={styles['navbar-short-link-button']}
                   bg="white"
                   justifyContent="left"
                   w="100%"
-                  margin={0}
                   textDecoration="none"
                 >
                   Facilities
                 </Button>
               </Link>
-              <Link className={styles['navbar-short-link']} to="/">
+              <Link className={styles['navbar-short-link']} to="/users">
                 <Button
-                  borderRadius={0}
+                  className={styles['navbar-short-link-button']}
                   bg="white"
                   justifyContent="left"
                   w="100%"
-                  margin={0}
+                  paddingTop="10px"
+                  paddingLeft="20px"
                   textDecoration="none"
                 >
                   Users
