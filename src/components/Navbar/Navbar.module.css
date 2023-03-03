@@ -1,0 +1,139 @@
+@import '../../common/global.css';
+
+/* LONG NAVBAR CSS */
+
+.navbar-long {
+  /* height: 72px; */
+  color: var(--cds-gray);
+  background-color: var(--cds-blue-1);
+  display: flex;
+  flex-direction: space-between;
+}
+
+.cell-dogs-logo {
+  padding: 5px 40px;
+  width: 260px;
+  flex: none;
+}
+
+.cell-dogs-logo-img {
+  padding: 10px 0px;
+  width: 100%;
+}
+
+.nav-links-and-icons {
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: space-between;
+  float: right;
+  height: auto;
+}
+
+.nav-links-ul {
+  list-style: none;
+  display: flex;
+}
+
+.nav-link-desktop {
+  text-decoration: none;
+  color: white;
+  display: flex;
+  padding: 25px 25px 21px 25px;
+  font-size: 16px;
+}
+
+.nav-link-desktop:not(.active):hover {
+  background: rgba(195, 203, 219, 0.08);
+  border-bottom: 4px solid var(--cds-gray);
+}
+
+.navbar-right {
+  display: inline-flex;
+  float: right;
+  justify-content: space-around;
+}
+
+.navbar-add-user-button-container {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-add-user-button {
+  display: flex;
+  gap: 5px;
+  margin-right: 20px;
+  border: none;
+  color: white;
+}
+
+.navbar-user-profile {
+  width: 70%;
+  display: flex;
+}
+
+/* SHORT NAVBAR CSS */
+
+.navbar-short {
+  display: none;
+  color: #f6f7fa;
+  background-color: #21307a;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+  flex-basis: auto;
+  padding: 5px 0px 5px 0px;
+}
+
+@media (max-width: 1075px) {
+  .navbar-long {
+    display: none;
+  }
+
+  .navbar-short {
+    display: flex;
+    height: 80px;
+  }
+
+  .cell-dogs-logo {
+    display: flex;
+    height: auto;
+    max-width: 200px;
+    min-width: 200px;
+    flex: 1;
+  }
+  .navbar-icon button {
+    border-radius: 16px;
+    padding: 10px;
+    background: rgba(195, 203, 219, 0.1);
+    display: flex;
+    justify-content: center;
+    border: none;
+    color: white;
+    cursor: pointer;
+  }
+  .navbar-right {
+    justify-content: center;
+  }
+}
+
+.hamburger-icon {
+  flex: 1;
+  align-content: left;
+  margin-left: 15px;
+}
+
+.navbar-right-short {
+  display: flex;
+  justify-content: right;
+  flex: 1;
+  margin-right: 15px;
+}
+.navbar-user-profile-image {
+  display: block;
+  max-width: 40px;
+  max-height: 40px;
+  margin-left: 15px;
+  border-radius: 50%;
+}

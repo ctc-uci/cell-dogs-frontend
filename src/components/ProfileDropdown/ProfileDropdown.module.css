@@ -1,0 +1,79 @@
+@import '../../common/global.css';
+
+.navbar-user-profile {
+  display: flex;
+  align-items: center;
+  margin-left: 5px;
+}
+
+.profile-pic {
+  border-radius: 50%;
+  margin: 5px 10px 5px 0;
+}
+
+.profile-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: right;
+  font-size: 16px;
+  margin-left: 10px;
+}
+
+.profile-role {
+  color: white;
+  margin-top: 2px;
+  font-size: 14px;
+  font-weight: 300;
+}
+
+.user-profile-dropdown {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+
+}
+
+.profile-preview-name {
+  text-decoration: bold;
+  color: #ffffff;
+  padding-bottom: 2px;
+}
+
+.dropdown-pic {
+  border-radius: 50%;
+  height: 90px;
+  width: auto;
+  padding-top: 15px;
+  padding-bottom: 10px;
+}
+
+.dropdown-name {
+  text-decoration: bold;
+  color: #171923;
+  font-size: 20px;
+  padding-bottom: 8px;
+  font-weight: 600;
+}
+
+.dropdown-email {
+  color: #718096;
+  font-size: 16px;
+}
+
+.dropdown-role {
+  color: #718096;
+  font-size: 16px;
+  padding-bottom: 12px;
+}
+
+.profileMenuButtons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.signOutButton {
+  position: relative;
+}
