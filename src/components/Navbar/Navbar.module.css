@@ -118,7 +118,7 @@
 
   .cell-dogs-logo {
     width: calc(200px + 5vw);
-    margin-left: min(2vw, 50px);
+    margin-left: min(4vw, 50px);
   }
 
   .navbar-short-cds-logo {
@@ -129,11 +129,12 @@
   .navbar-short-right {
     display: flex;
     justify-content: right;
-    margin-right: 15px;
+    margin-right: 10px;
   }
 
   .navbar-add-user-button {
-    margin-right: 15px;
+    margin-top: 5px;
+    margin-right: 18px;
   }
 
   .navbar-user-profile-image {

@@ -9,7 +9,6 @@ import ProfileDropdown from '../ProfileDropdown/ProfileDropdown';
 import { screenWidthExceeds } from '../../util/utils';
 
 import cellDogsLogo from '../../assets/CellDogs_logo_horizontal 2.png';
-import cellDogsSampleProfilePicture from '../../assets/CellDogs_sample_profile_picture.png';
 
 import styles from './Navbar.module.css';
 
@@ -85,7 +84,7 @@ const Navbar = () => {
               <AddNewUserModal isOpen={accountModalisOpen} onClose={accountModalonClose} />
             </div>
             <div className={styles['navbar-user-profile']}>
-              <ProfileDropdown />
+              <ProfileDropdown mobile={!isLargerThan1075} />
             </div>
           </div>
         </div>
@@ -125,11 +124,7 @@ const Navbar = () => {
                 />
                 <AddNewUserModal isOpen={accountModalisOpen} onClose={accountModalonClose} />
               </div>
-              <img
-                className={styles['navbar-user-profile-image']}
-                src={cellDogsSampleProfilePicture}
-                alt="Cell Dogs Sample Profile"
-              />
+              <ProfileDropdown mobile={!isLargerThan1075} />
             </div>
           </div>
           <Collapse in={isOpen} padding="0" zIndex="1">

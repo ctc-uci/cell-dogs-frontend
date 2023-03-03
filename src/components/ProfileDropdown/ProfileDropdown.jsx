@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { Menu, MenuButton, MenuList, Button } from '@chakra-ui/react';
 
 import { useAuth } from '../../contexts/AuthContext';
@@ -7,7 +8,7 @@ import { useBackend } from '../../contexts/BackendContext';
 import cellDogsSampleProfilePicture from '../../assets/CellDogs_sample_profile_picture.png';
 import styles from './ProfileDropdown.module.css';
 
-const ProfileDropdown = () => {
+const ProfileDropdown = ({ mobile }) => {
   const { currentUser, logout } = useAuth();
   const { backend } = useBackend();
   const [userData, setUserData] = useState({});
@@ -25,35 +26,45 @@ const ProfileDropdown = () => {
 
   return (
     <Menu>
-      <MenuButton
-        className={styles['navbar-profile-button']}
-        as={Button}
-        bg="rgba(195, 203, 219, 0.1)"
-        borderRadius="15px 0 0 15px"
-        height="100%"
-        padding="7px 25px 8px 15px"
-        _hover={{ bg: 'none' }}
-        _expanded={{ bg: 'rgba(195, 203, 219, 0.2)' }}
-      >
-        <div className={styles['navbar-user-profile']}>
+      {mobile ? (
+        <MenuButton>
           <img
             className={styles['profile-pic']}
             src={cellDogsSampleProfilePicture}
             alt="Cell Dogs Sample Profile"
           />
-          <div className={styles['profile-text']}>
-            <p className={styles['profile-preview-name']}>
-              {userData.firstName} {userData.lastName}
-            </p>
-            <p className={styles['profile-role']}>{userData.role}</p>
+        </MenuButton>
+      ) : (
+        <MenuButton
+          className={styles['navbar-profile-button']}
+          as={Button}
+          bg="rgba(195, 203, 219, 0.1)"
+          borderRadius="15px 0 0 15px"
+          height="100%"
+          padding="7px 25px 8px 15px"
+          _hover={{ bg: 'none' }}
+          _expanded={{ bg: 'rgba(195, 203, 219, 0.2)' }}
+        >
+          <div className={styles['navbar-user-profile']}>
+            <img
+              className={styles['profile-pic']}
+              src={cellDogsSampleProfilePicture}
+              alt="Cell Dogs Sample Profile"
+            />
+            <div className={styles['profile-text']}>
+              <p className={styles['profile-preview-name']}>
+                {userData.firstName} {userData.lastName}
+              </p>
+              <p className={styles['profile-role']}>{userData.role}</p>
+            </div>
           </div>
-        </div>
-      </MenuButton>
+        </MenuButton>
+      )}
       <MenuList
         border="none"
         filter="drop-shadow(0 3px 10px rgba(0, 0, 0, 0.07))"
         minWidth="320px"
-        marginTop="-7px"
+        marginTop={mobile ? '5px' : '-7px'}
       >
         <div className={styles['user-profile-dropdown']}>
           <img
@@ -85,6 +96,10 @@ const ProfileDropdown = () => {
       </MenuList>
     </Menu>
   );
+};
+
+ProfileDropdown.propTypes = {
+  mobile: PropTypes.bool.isRequired,
 };
 
 export default ProfileDropdown;
