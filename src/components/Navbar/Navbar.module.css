@@ -76,14 +76,30 @@
 
 .navbar-short {
   display: none;
-  color: #f6f7fa;
-  background-color: #21307a;
-  width: 100%;
+  color: var(--cds-white);
+  background-color: var(--cds-blue-1);
   align-items: center;
   justify-content: space-between;
   flex-direction: row;
   flex-basis: auto;
-  padding: 5px 0px 5px 0px;
+  padding: 5px 0px;
+}
+
+.navbar-short-left-icon {
+  margin-left: 15px;
+}
+
+.navbar-short-right {
+  display: flex;
+  justify-content: right;
+  margin-right: 20px;
+}
+
+.navbar-user-profile-image {
+  display: block;
+  height: 70%;
+  margin-left: 3px;
+  border-radius: 50%;
 }
 
 @media (max-width: 1075px) {
@@ -96,44 +112,40 @@
     height: 80px;
   }
 
+  .navbar-short-left-icon {
+    margin-left: 10px;
+  }
+
   .cell-dogs-logo {
-    display: flex;
-    height: auto;
-    max-width: 200px;
-    min-width: 200px;
-    flex: 1;
+    width: calc(200px + 5vw);
+    margin-left: min(2vw, 50px);
   }
-  .navbar-icon button {
-    border-radius: 16px;
-    padding: 10px;
-    background: rgba(195, 203, 219, 0.1);
-    display: flex;
-    justify-content: center;
-    border: none;
-    color: white;
-    cursor: pointer;
-  }
-  .navbar-right {
-    justify-content: center;
-  }
-}
 
-.hamburger-icon {
-  flex: 1;
-  align-content: left;
-  margin-left: 15px;
-}
+  .navbar-short-cds-logo {
+    height: 50%;
+    width: auto;
+  }
 
-.navbar-right-short {
-  display: flex;
-  justify-content: right;
-  flex: 1;
-  margin-right: 15px;
-}
-.navbar-user-profile-image {
-  display: block;
-  max-width: 40px;
-  max-height: 40px;
-  margin-left: 15px;
-  border-radius: 50%;
+  .navbar-short-right {
+    display: flex;
+    justify-content: right;
+    margin-right: 15px;
+  }
+
+  .navbar-add-user-button {
+    margin-right: 15px;
+  }
+
+  .navbar-user-profile-image {
+    display: block;
+    height: 70%;
+    margin-left: 0;
+    border-radius: 50%;
+  }
+
+  .navbar-short-link {
+    font-family: Noto Sans;
+    margin: 7px 0 0 4px !important;
+    text-decoration: none !important;
+  }
 }

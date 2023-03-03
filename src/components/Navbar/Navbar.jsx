@@ -23,10 +23,11 @@ const Navbar = () => {
   } = useDisclosure();
   // const { currentUser } = useAuth();
 
-  const icons = { false: <HamburgerIcon />, true: <CloseIcon /> };
+  const icons = { false: <HamburgerIcon boxSize={6} />, true: <CloseIcon boxSize={4} /> };
   const isLargerThan1075 = screenWidthExceeds(1075);
   return (
     <div className={styles.navbar}>
+      {/* Desktop navbar */}
       <div className={styles['navbar-long']}>
         <div className={styles['cell-dogs-logo']}>
           <NavLink to="/">
@@ -75,10 +76,11 @@ const Navbar = () => {
         </div>
       </div>
 
+      {/* Mobile navbar */}
       {!isLargerThan1075 && (
         <>
           <div className={styles['navbar-short']}>
-            <div className={styles['hamburger-icon']}>
+            <div className={styles['navbar-short-left-icon']}>
               <IconButton
                 icon={icons[isOpen]}
                 onClick={onToggle}
@@ -88,21 +90,28 @@ const Navbar = () => {
             </div>
             <div className={styles['cell-dogs-logo']}>
               <NavLink to="/">
-                <img src={cellDogsLogo} alt="Cell Dogs Logo" />
+                <img
+                  className={styles['navbar-short-cds-logo']}
+                  src={cellDogsLogo}
+                  alt="Cell Dogs Logo"
+                />
               </NavLink>
             </div>
-            <div className="navbar-right-short">
-              <div className="navbar-icon">
-                <Button
+            <div className={styles['navbar-short-right']}>
+              <div className={styles['navbar-icon']}>
+                <IconButton
                   className={styles['navbar-add-user-button']}
-                  leftIcon={<BsPersonPlus size={24} />}
+                  icon={<BsPersonPlus size={24} />}
                   onClick={accountModalonOpen}
+                  bg="rgba(195, 203, 219, 0.1)"
+                  borderRadius={15}
+                  padding="23px 10px"
+                  _hover={{ bg: 'rgba(195, 203, 219, 0.2)' }}
                 />
                 <AddNewUserModal isOpen={accountModalisOpen} onClose={accountModalonClose} />
               </div>
-
               <img
-                className="navbar-user-profile-image"
+                className={styles['navbar-user-profile-image']}
                 src={cellDogsSampleProfilePicture}
                 alt="Cell Dogs Sample Profile"
               />
@@ -110,15 +119,42 @@ const Navbar = () => {
           </div>
           <Collapse in={isOpen} padding="0" zIndex="1">
             <Stack>
-              <Button borderRadius={0} bg="white" justifyContent="left" w="100%" marginLeft={0}>
-                <Link to="/">Adoption Log</Link>
-              </Button>
-              <Button borderRadius={0} bg="white" justifyContent="left" w="100%" marginLeft={0}>
-                <Link to="/facilities">Facilities</Link>
-              </Button>
-              <Button borderRadius={0} bg="white" justifyContent="left" w="100%" marginLeft={0}>
-                <Link to="/">Users</Link>
-              </Button>
+              <Link className={styles['navbar-short-link']} to="/">
+                <Button
+                  borderRadius={0}
+                  bg="white"
+                  justifyContent="left"
+                  w="100%"
+                  margin={0}
+                  textDecoration="none"
+                >
+                  Adoption Log
+                </Button>
+              </Link>
+              <Link className={styles['navbar-short-link']} to="/facilities">
+                <Button
+                  borderRadius={0}
+                  bg="white"
+                  justifyContent="left"
+                  w="100%"
+                  margin={0}
+                  textDecoration="none"
+                >
+                  Facilities
+                </Button>
+              </Link>
+              <Link className={styles['navbar-short-link']} to="/">
+                <Button
+                  borderRadius={0}
+                  bg="white"
+                  justifyContent="left"
+                  w="100%"
+                  margin={0}
+                  textDecoration="none"
+                >
+                  Users
+                </Button>
+              </Link>
             </Stack>
           </Collapse>
         </>
