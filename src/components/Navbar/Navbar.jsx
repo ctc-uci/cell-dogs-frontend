@@ -38,17 +38,32 @@ const Navbar = () => {
           <nav className={styles['nav-links']}>
             <ul className={styles['nav-links-ul']}>
               <li>
-                <NavLink className={styles['nav-link-desktop']} to="/adoption-log">
+                <NavLink
+                  className={({ isActive }) =>
+                    `${styles['nav-link-desktop']} ${isActive && styles['nav-link-desktop-active']}`
+                  }
+                  to="/adoption-log"
+                >
                   Adoption Log
                 </NavLink>
               </li>
               <li>
-                <NavLink className={styles['nav-link-desktop']} to="/facilities">
+                <NavLink
+                  className={({ isActive }) =>
+                    `${styles['nav-link-desktop']} ${isActive && styles['nav-link-desktop-active']}`
+                  }
+                  to="/facilities"
+                >
                   Facilities
                 </NavLink>
               </li>
               <li>
-                <NavLink className={styles['nav-link-desktop']} to="/users">
+                <NavLink
+                  className={({ isActive }) =>
+                    `${styles['nav-link-desktop']} ${isActive && styles['nav-link-desktop-active']}`
+                  }
+                  to="/users"
+                >
                   Users
                 </NavLink>
               </li>
@@ -119,7 +134,7 @@ const Navbar = () => {
           </div>
           <Collapse in={isOpen} padding="0" zIndex="1">
             <Stack className={styles['navbar-short-links']} spacing="0">
-              <Link className={styles['navbar-short-link']} to="/">
+              <Link className={styles['navbar-short-link']} to="/adoption-log">
                 <Button
                   className={styles['navbar-short-link-button']}
                   bg="white"
