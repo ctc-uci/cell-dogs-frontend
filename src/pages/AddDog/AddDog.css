@@ -9,6 +9,7 @@
   border-radius: 6px;
   background-color: #48BB78;
   color: white;
+  margin: 8px 0px 8px 0px;
 }
 
 .tagRow {
@@ -48,6 +49,30 @@
   justify-content: center;
 }
 
+.name {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: 10px 0px 20px 0px;
+}
+
+#nameField {
+  text-align: center;
+  font-size: 36px;
+  font-family: "Quicksand Semibold";
+}
+
+#nameField::placeholder {
+  color: black;
+}
+
+.nameInput {
+  width: 700px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
 #profilePic {
   width: 126px;
   height: 126px;
@@ -67,6 +92,10 @@
   flex-direction: row;
   justify-content: center;
   padding: 8px 0px 30px 0px;
+}
+
+.formInput {
+  margin-bottom: 10px;
 }
 
 .row1{
@@ -168,9 +197,12 @@ width:400px;
   padding-top: 40px;
 }
 
-
-
 .profileSection {
   display: flex;
   flex-direction: column;
+}
+
+.addTag{
+  width: 250px;
+  margin: auto;
 }
