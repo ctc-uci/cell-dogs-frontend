@@ -53,7 +53,7 @@ const App = () => {
                 element={<ProtectedRoute Component={AddFacility} redirectPath="/login" />}
               />
               <Route path="/404" element={<ErrorPage />} />
-              <Route path="*" element={<Navigate to="/404" />} />
+              <Route path="*" element={<Navigate to="/404" replace />} />
             </Routes>
           </CookiesProvider>
         </ChakraProvider>
