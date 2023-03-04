@@ -14,13 +14,16 @@ const ProfileDropdown = ({ mobile }) => {
   const [userData, setUserData] = useState({});
 
   const fetchUserData = async email => {
+    if (!email) {
+      return;
+    }
     const { data: userInfo } = await backend.get(`/users/${email}`);
     setUserData(userInfo);
   };
 
   useEffect(() => {
     if (currentUser) {
-      fetchUserData(currentUser.email);
+      fetchUserData(currentUser?.email);
     }
   }, []);
 
@@ -53,9 +56,9 @@ const ProfileDropdown = ({ mobile }) => {
             />
             <div className={styles['profile-text']}>
               <p className={styles['profile-preview-name']}>
-                {userData.firstName} {userData.lastName}
+                {userData?.firstName} {userData?.lastName}
               </p>
-              <p className={styles['profile-role']}>{userData.role}</p>
+              <p className={styles['profile-role']}>{userData?.role}</p>
             </div>
           </div>
         </MenuButton>
@@ -73,10 +76,10 @@ const ProfileDropdown = ({ mobile }) => {
             alt="Cell Dogs Sample Profile"
           />
           <p className={styles['dropdown-name']}>
-            {userData.firstName} {userData.lastName}
+            {userData?.firstName} {userData?.lastName}
           </p>
-          <p className={styles['dropdown-email']}>{currentUser.email}</p>
-          <p className={styles['dropdown-role']}>{userData.role}</p>
+          <p className={styles['dropdown-email']}>{currentUser?.email}</p>
+          <p className={styles['dropdown-role']}>{userData?.role}</p>
           <div className={styles.profileMenuButtons}>
             <Button
               className={styles.signOutButton}
