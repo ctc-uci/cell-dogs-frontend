@@ -67,8 +67,8 @@ accent {
 
 :root {
   --cds-blue-1: #21307a;
-  --cds-blue-2: #c3cbdb;
-  --cds-blue-3: #f6f7fa;
   --cds-green-1: #96c93d;
-  --cds-grey-1: #25222a;
+  --cds-gray: #c3cbdb;
+  --cds-white: #f6f7fa;
+  --cds-black: #25222a;
 }

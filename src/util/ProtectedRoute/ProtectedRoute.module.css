@@ -1,0 +1,7 @@
+@import '../../common/global.css';
+
+.loading {
+  font-family: Noto Sans;
+  font-size: 20px;
+  font-weight: 600;
+}

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { useMediaQuery } from '@chakra-ui/react';
 
 // See auth_utils for AuthInterceptor
 const CDSBackend = axios.create({
@@ -9,5 +10,7 @@ const CDSBackend = axios.create({
   withCredentials: true,
 });
 
+const screenWidthExceeds = size => useMediaQuery(`(min-width: ${size}px)`)[0];
+
 // eslint-disable-next-line import/prefer-default-export
-export { CDSBackend };
+export { CDSBackend, screenWidthExceeds };
