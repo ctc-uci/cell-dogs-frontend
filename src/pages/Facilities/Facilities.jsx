@@ -31,7 +31,8 @@ import { useBackend } from '../../contexts/BackendContext';
 const Facilities = () => {
   // This is ALL OF THE FACILITIES
   const Navigate = useNavigate();
-  const [facilities] = useState([
+  /* eslint-disable  no-unused-vars */
+  const [facilities, setFacilities] = useState([
     {
       name: 'OC Probation',
       address: '123 Irvine Way',
@@ -56,7 +57,7 @@ const Facilities = () => {
   ]);
 
   // This is only the facilities we'd like to display
-  const [setDisplayedFacilities] = useState([]);
+  const [displayedFacilities, setDisplayedFacilities] = useState([]);
 
   // This is the current page we're on
   const [page, setPage] = useState(1);
