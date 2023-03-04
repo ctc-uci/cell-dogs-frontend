@@ -2,7 +2,6 @@ import React from 'react';
 import { Button } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import Location from '../../components/Location';
-
 import { useAuth } from '../../contexts/AuthContext';
 
 const Dogs = () => {

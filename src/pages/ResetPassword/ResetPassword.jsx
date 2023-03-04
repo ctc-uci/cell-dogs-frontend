@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 // import { useForm } from 'react-hook-form';
 // import * as yup from 'yup';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
 import { Input, Stack, Button, Text } from '@chakra-ui/react';
+
+import { useAuth } from '../../contexts/AuthContext';
+
 import cellDogsLogoHorizontal4 from '../../assets/CellDogs_logo_horizontal-4.png';
 import cellDogsLogoHorizontal5 from '../../assets/CellDogs_logo_horizontal-5.png';
 import dogArmy from '../../assets/dog-army.png';
@@ -38,6 +41,15 @@ const resetPassword = async event => {
 };
 
 const ResetPassword = () => {
+  const { currentUser } = useAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (currentUser) {
+      navigate('/');
+    }
+  });
+
   return (
     <div className={styles.login_page}>
       <div className={styles.information}>

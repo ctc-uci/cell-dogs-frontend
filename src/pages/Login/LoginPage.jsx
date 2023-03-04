@@ -1,18 +1,8 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 // import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { NavLink, useNavigate } from 'react-router-dom';
-import {
-  Input,
-  Stack,
-  Button,
-  Text,
-  Alert,
-  AlertIcon,
-  AlertTitle,
-  Show,
-  Hide,
-} from '@chakra-ui/react';
+import { Input, Stack, Button, Text, Alert, AlertIcon, AlertTitle } from '@chakra-ui/react';
 import cellDogsLogoHorizontal4 from '../../assets/CellDogs_logo_horizontal-4.png';
 import cellDogsLogoHorizontal5 from '../../assets/CellDogs_logo_horizontal-5.png';
 import loginDogImage1 from '../../assets/P_Puppy_Maekawa_Genuine-removebg-preview 1.png';
@@ -27,10 +17,10 @@ const schema = yup.object().shape({
 const LoginPage = () => {
   const emailRef = useRef();
   const passwordRef = useRef();
+  const navigate = useNavigate();
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
-  const { login } = useAuth();
+  const { currentUser, login } = useAuth();
   const loginUser = async event => {
     event.preventDefault();
     const formData = {
@@ -50,15 +40,22 @@ const LoginPage = () => {
     setLoading(false);
   };
 
+  useEffect(() => {
+    if (currentUser) {
+      navigate('/');
+    }
+  });
+
   return (
-    <div className="login-page">
-      <Hide below="md">
-        <div className="information">
-          <img className={styles['login-dog-image-1']} src={loginDogImage1} alt="loginDogImage1" />
-          <Text>Welcome to the Adoption Log!</Text>
-        </div>
-        <div className={styles.login}>
-          <Stack spacing={3} align="center">
+    <div className={styles['login-page']}>
+      {/* <Hide below="md"> */}
+      <div className="information">
+        <img className={styles['login-dog-image-1']} src={loginDogImage1} alt="loginDogImage1" />
+        <Text>Welcome to the Adoption Log!</Text>
+      </div>
+      <div className={styles.login}>
+        <Stack spacing={3} align="center">
+          <div className={styles['cell-dogs-logo']}>
             <NavLink to="/">
               <img
                 className={styles['cds-logo-horizontal-4']}
@@ -71,80 +68,38 @@ const LoginPage = () => {
                 alt="cellDogsLogoHorizontal4"
               />
             </NavLink>
+          </div>
 
-            <form className={styles['input-form']} onSubmit={loginUser}>
-              <Input htmlSize={50} width="auto" placeholder="Username" size="md" ref={emailRef} />
-              <Input
-                htmlSize={50}
-                width="auto"
-                placeholder="Password"
-                size="md"
-                type="password"
-                ref={passwordRef}
-              />
-              <Button
-                disabled={loading}
-                className={styles['submit-button']}
-                bg="CDSBlue1"
-                color="white"
-                variant="solid"
-                type="submit"
-              >
-                Log in
-              </Button>
-            </form>
-            {error && (
-              <Alert status="error" width={200} justifyContent="center">
-                <AlertIcon />
-                <AlertTitle>{error}</AlertTitle>
-              </Alert>
-            )}
-            <NavLink to="/forgot-password">Forgot Password?</NavLink>
-          </Stack>
-        </div>
-      </Hide>
-      <Show below="md">
-        <div className={styles.informationmobile}>
-          <img
-            className={styles['login-dog-image-1-mobile']}
-            src={loginDogImage1}
-            alt="loginDogImage1"
-          />
-        </div>
-        <div className={styles.loginmobile}>
-          <Stack spacing={3} align="center">
-            <Text>Welcome to the Adoption Log!</Text>
-            <form className={styles['input-form']} onSubmit={loginUser}>
-              <Input htmlSize={30} width="auto" placeholder="Username" size="md" ref={emailRef} />
-              <Input
-                htmlSize={30}
-                width="auto"
-                placeholder="Password"
-                size="md"
-                type="password"
-                ref={passwordRef}
-              />
-              <Button
-                disabled={loading}
-                className={styles['submit-button']}
-                bg="CDSBlue1"
-                color="white"
-                variant="solid"
-                type="submit"
-              >
-                Log in
-              </Button>
-            </form>
-            {error && (
-              <Alert status="error" width={200} justifyContent="center">
-                <AlertIcon />
-                <AlertTitle>{error}</AlertTitle>
-              </Alert>
-            )}
-            <NavLink to="/forgot-password">Forgot Password?</NavLink>
-          </Stack>
-        </div>
-      </Show>
+          <form className={styles['input-form']} onSubmit={loginUser}>
+            <Input htmlSize={50} width="auto" placeholder="Username" size="md" ref={emailRef} />
+            <Input
+              htmlSize={50}
+              width="auto"
+              placeholder="Password"
+              size="md"
+              type="password"
+              ref={passwordRef}
+            />
+            <Button
+              disabled={loading}
+              className={styles['submit-button']}
+              bg="CDSBlue1"
+              color="white"
+              variant="solid"
+              type="submit"
+            >
+              Log in
+            </Button>
+          </form>
+          {error && (
+            <Alert status="error" width={200} justifyContent="center">
+              <AlertIcon />
+              <AlertTitle>{error}</AlertTitle>
+            </Alert>
+          )}
+          <NavLink to="/forgot-password">Forgot Password?</NavLink>
+        </Stack>
+      </div>
     </div>
   );
 };
