@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Navigate, useLocation } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import { PropTypes } from 'prop-types';
 
 import { useAuth } from '../../contexts/AuthContext';
@@ -16,17 +16,14 @@ import styles from './ProtectedRoute.module.css';
  */
 const ProtectedRoute = ({ Component, redirectPath }) => {
   const { currentUser } = useAuth();
-  const { pathname } = useLocation();
   const [isLoading, setIsLoading] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
-    if (currentUser) {
-      setIsAuthenticated(true);
-    }
-    setIsAuthenticated(false);
+    console.log('currentUser', currentUser);
+    setIsAuthenticated(currentUser !== null);
     setIsLoading(false);
-  }, [pathname]);
+  }, []);
 
   if (isLoading) {
     return <h1 className={styles.loading}>Loading...</h1>;

@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 // import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { NavLink, useNavigate } from 'react-router-dom';
@@ -20,7 +20,7 @@ const LoginPage = () => {
   const navigate = useNavigate();
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const { login } = useAuth();
+  const { currentUser, login } = useAuth();
   const loginUser = async event => {
     event.preventDefault();
     const formData = {
@@ -39,6 +39,12 @@ const LoginPage = () => {
     }
     setLoading(false);
   };
+
+  useEffect(() => {
+    if (currentUser) {
+      navigate('/');
+    }
+  });
 
   return (
     <div className={styles['login-page']}>
