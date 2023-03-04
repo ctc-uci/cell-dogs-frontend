@@ -20,7 +20,6 @@ const ProtectedRoute = ({ Component, redirectPath }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
-    console.log('currentUser', currentUser);
     setIsAuthenticated(currentUser !== null);
     setIsLoading(false);
   }, []);

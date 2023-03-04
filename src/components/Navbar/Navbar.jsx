@@ -41,7 +41,7 @@ const Navbar = () => {
                   className={({ isActive }) =>
                     `${styles['nav-link-desktop']} ${isActive && styles['nav-link-desktop-active']}`
                   }
-                  to="/adoption-log"
+                  to="/"
                 >
                   Adoption Log
                 </NavLink>
@@ -129,7 +129,7 @@ const Navbar = () => {
           </div>
           <Collapse in={isOpen} padding="0" zIndex="1">
             <Stack className={styles['navbar-short-links']} spacing="0">
-              <Link className={styles['navbar-short-link']} to="/adoption-log">
+              <Link className={styles['navbar-short-link']} to="/">
                 <Button
                   className={styles['navbar-short-link-button']}
                   bg="white"
