@@ -13,7 +13,7 @@ import {
   Select,
   Avatar,
 } from '@chakra-ui/react';
-import { useBackend } from '../contexts/BackendContext';
+import { useBackend } from '../../contexts/BackendContext';
 
 import styles from './AddNewUserModal.module.css';
 
