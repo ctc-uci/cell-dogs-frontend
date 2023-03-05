@@ -1,4 +1,4 @@
-import { React } from 'react';
+import React, { useState } from 'react';
 import {
   FormControl,
   FormLabel,
@@ -15,82 +15,84 @@ import {
 import { ArrowBackIcon, ChevronRightIcon, AddIcon } from '@chakra-ui/icons';
 import './AddDog.css';
 import { useBackend } from '../../contexts/BackendContext';
-// import Location from '../../components/Location';
+import Location from '../../components/Location';
 
 const AddDog = () => {
-  // const [facilityid, setFacilityID] = useState(0);
-  // const [groupnum, setGroupNum] = useState(0);
-  // const [graddate, setGradDate] = useState('');
-  // const [dogname, setDogName] = useState('');
-  // const [age, setAge] = useState(0);
-  // const [shelter, setShelter] = useState('');
-  // const [breed, setBreed] = useState('');
-  // const [chiptype, setChipType] = useState('');
-  // const [chipnum, setChipNum] = useState(0);
-  // const [gender, setGender] = useState('');
-  // const [profilepic, setProfilePic] = useState('');
-  // const [altname, setAltName] = useState('');
-  // const [notes, setNotes] = useState('');
-  // const [adoptername, setAdopterName] = useState('');
-  // const [adopterphone, setAdopterPhone] = useState('');
-  // const [addrline, setAddrLine] = useState('');
-  // const [adoptcity, setAdoptCity] = useState('');
-  // const [adoptstate, setAdoptState] = useState('');
-  // const [zip, setZip] = useState('');
-  // const [adoptemail, setAdoptEmail] = useState('');
-  // const [fees, setFees] = useState(0);
-  // const [revenue, setRevenue] = useState(0);
-  const { backend } = useBackend();
+const [facilityid, setFacilityID] = useState(0);
+const [groupnum, setGroupNum] = useState(0);
+const [graddate, setGradDate] = useState('');
+const [dogname, setDogName] = useState('');
+const [age, setAge] = useState(0);
+const [shelter, setShelter] = useState('');
+const [breed, setBreed] = useState('');
+const [chiptype, setChipType] = useState('');
+const [chipnum, setChipNum] = useState(0);
+const [gender, setGender] = useState('');
+const [profilepic, setProfilePic] = useState('');
+const [altname, setAltName] = useState('');
+const [notes, setNotes] = useState('');
+const [adoptername, setAdopterName] = useState('');
+const [adopterphone, setAdopterPhone] = useState('');
+const [addrline, setAddrLine] = useState('');
+const [adoptcity, setAdoptCity] = useState('');
+const [adoptstate, setAdoptState] = useState('');
+const [zip, setZip] = useState('');
+const [adoptemail, setAdoptEmail] = useState('');
+const [fees, setFees] = useState(0);
+const [revenue, setRevenue] = useState(0);
+const { backend } = useBackend();
 
-  backend
-    .post('http://localhost:3001/dog')
-    .then(response => {
-      const jsonData = response.data;
-      console.log(jsonData); // or do something else with the data
-    })
-    .catch(error => {
-      console.error(error);
-    });
+  // backend
+  //   .post('/dog')
+  //   .then(response => {
+  //     const jsonData = response.data;
+  //     console.log(jsonData); // or do something else with the data
+  //   })
+  //   .catch(error => {
+  //     console.error(error);
+  //   });
 
-  // const saveAllChanges = async () => {
-  //   const dogs = await backend.get('/dog');
-  //   const dogNames = dogs.data.map(dog => dog.dogname);
+  const saveAllChanges = async () => {
+  // const dogs = await backend.get('/dog');
+  // const dogNames = dogs.data.map(dog => dog.dogname);
 
-  //   if (dogNames.indexOf(dogname) > -1) {
-  //     // dog already in table
-  //     // update row
-  //     return;
-  //   }
+  // if (dogNames.indexOf(dogname) > -1) {
+  //   // dog already in table
+  //   // update row
+  //   return;
+  // }
 
-  //   backend
-  //     .post('/dog', {
-  //       // facilityid,
-  //       // groupnum,
-  //       graddate,
-  //       dogname,
-  //       // age,
-  //       // shelter,
-  //       breed,
-  //       // chiptype,
-  //       // chipnum,
-  //       gender,
-  //       // profilepic,
-  //       altname,
-  //       // notes,
-  //       adoptername,
-  //       adopterphone,
-  //       // addrline,
-  //       // adoptcity,
-  //       // adoptstate,
-  //       // zip,
-  //       adoptemail,
-  //       // fees,
-  //       // revenue,
-  //     })
-  //     .then(() => {
-  //       console.log('Successfully updated dog');
-  //     });
-  // };
+    backend
+      .post('/dog', {
+        facilityid,
+        groupnum,
+        graddate,
+        dogname,
+        age,
+        shelter,
+        breed,
+        chiptype,
+        chipnum,
+        gender,
+        profilepic,
+        altname,
+        notes,
+        adoptername,
+        adopterphone,
+        addrline,
+        adoptcity,
+        adoptstate,
+        zip,
+        adoptemail,
+        fees,
+        revenue,
+      }
+      )
+      .then(() => {
+        console.log('Successfully updated dog');
+        return;
+      });
+  };
 
   return (
     <div>
@@ -131,9 +133,9 @@ const AddDog = () => {
                 placeholder="Enter Name"
                 size="lg"
                 variant="unstyled"
-                // onChange={e => {
-                //   setDogName(e.target.value);
-                // }}
+                onChange={e => {
+                setDogName(e.target.value);
+                }}
               />
             </FormControl>
           </div>
@@ -164,7 +166,7 @@ const AddDog = () => {
             </ButtonGroup>
           </div>
           <div className="saveButton">
-            <Button colorScheme="facebook">Save All Changes</Button>
+            <Button colorScheme="facebook" onClick = {saveAllChanges}>Save All Changes</Button>
           </div>
         </div>
       </div>
@@ -178,9 +180,9 @@ const AddDog = () => {
             <Input
               type="text"
               className="formInput"
-              // onChange={e => {
-              //   setAdopterName(e.target.value);
-              // }}
+              onChange={e => {
+              setAdopterName(e.target.value);
+              }}
             />
           </FormControl>
           <FormControl>
@@ -188,9 +190,9 @@ const AddDog = () => {
             <Input
               type="email"
               className="formInput"
-              // onChange={e => {
-              //   setAdoptEmail(e.target.value);
-              // }}
+              onChange={e => {
+                 setAdoptEmail(e.target.value);
+               }}
             />
           </FormControl>
           <FormControl>
@@ -198,9 +200,9 @@ const AddDog = () => {
             <Input
               type="text"
               className="formInput"
-              // onChange={e => {
-              //   setAdopterPhone(e.target.value);
-              // }}
+              onChange={e => {
+                setAdopterPhone(e.target.value);
+              }}
             />
           </FormControl>
         </div>
@@ -214,9 +216,9 @@ const AddDog = () => {
             <Input
               type="text"
               className="formInput"
-              // onChange={e => {
-              //   setAltName(e.target.value);
-              // }}
+              onChange={e => {
+                setAltName(e.target.value);
+              }}
             />
           </FormControl>
           <FormControl>
@@ -224,9 +226,9 @@ const AddDog = () => {
             <Input
               type="text"
               className="formInput"
-              // onChange={e => {
-              //   setBreed(e.target.value);
-              // }}
+              onChange={e => {
+                setBreed(e.target.value);
+              }}
             />
           </FormControl>
           <div className="genderAndGrad">
@@ -235,9 +237,9 @@ const AddDog = () => {
               <Select
                 placeholder="Select Gender"
                 className="formInput"
-                // onChange={e => {
-                //   setGender(e.target.value);
-                // }}
+                onChange={e => {
+                  setGender(e.target.value);
+                }}
               >
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
@@ -248,9 +250,9 @@ const AddDog = () => {
               <Input
                 type="text"
                 className="formInput"
-                // onChange={e => {
-                //   setGradDate(e.target.value);
-                // }}
+                onChange={e => {
+                  setGradDate(e.target.value);
+                }}
               />
             </FormControl>
           </div>
@@ -261,7 +263,11 @@ const AddDog = () => {
             </FormControl>
             <FormControl>
               <FormLabel>Chip Number</FormLabel>
-              <Input type="text" className="formInput" />
+              <Input type="text"
+              className="formInput"
+              onChange={e => {
+                setGradDate(e.target.value);
+              }}/>
             </FormControl>
           </div>
         </div>
@@ -273,21 +279,37 @@ const AddDog = () => {
           </Heading>
           <FormControl>
             <FormLabel>Address</FormLabel>
-            <Input type="text" className="formInput" />
+            <Input type="text"
+            className="formInput"
+            onChange={e => {
+              setGradDate(e.target.value);
+            }}/>
           </FormControl>
           <div className="cityAndState">
             <FormControl className="city">
               <FormLabel>City</FormLabel>
-              <Input type="text" className="formInput" />
+              <Input type="text"
+              className="formInput"
+              onChange={e => {
+                setGradDate(e.target.value);
+              }}/>
             </FormControl>
             <FormControl>
               <FormLabel>State</FormLabel>
-              <Input type="text" className="formInput" />
+              <Input type="text"
+              className="formInput"
+              onChange={e => {
+                setGradDate(e.target.value);
+              }}/>
             </FormControl>
           </div>
           <FormControl>
             <FormLabel>Zip Code</FormLabel>
-            <Input type="text" className="formInput" />
+            <Input type="text"
+            className="formInput"
+            onChange={e => {
+              setGradDate(e.target.value);
+            }}/>
           </FormControl>
           <div className="financial">
             <Heading as="h2" fontSize="24px">
@@ -296,11 +318,19 @@ const AddDog = () => {
             <div className="financialFields">
               <FormControl className="fees">
                 <FormLabel>Fees</FormLabel>
-                <Input type="text" className="formInput" />
+                <Input type="text"
+                 className="formInput"
+                 onChange={e => {
+                  setGradDate(e.target.value);
+                }} />
               </FormControl>
               <FormControl>
                 <FormLabel>Revenue</FormLabel>
-                <Input type="text" className="formInput" />
+                <Input type="text"
+                className="formInput"
+                onChange={e => {
+                  setGradDate(e.target.value);
+                }}/>
               </FormControl>
             </div>
           </div>
@@ -317,25 +347,45 @@ const AddDog = () => {
           </Select>
           <FormControl>
             <FormLabel>Facility Unit</FormLabel>
-            <Input type="text" className="formInput" />
+            <Input type="text"
+            className="formInput"
+            onChange={e => {
+              setGradDate(e.target.value);
+            }}/>
           </FormControl>
           <div className="GradAndGroup">
             <FormControl className="gradDate">
               <FormLabel>Graduation Date</FormLabel>
-              <Input type="text" className="formInput" />
+              <Input type="text"
+              className="formInput"
+              onChange={e => {
+                setGradDate(e.target.value);
+              }}/>
             </FormControl>
             <FormControl>
               <FormLabel>Group Number</FormLabel>
-              <Input type="text" className="formInput" />
+              <Input type="text"
+              className="formInput"
+              onChange={e => {
+                setGradDate(e.target.value);
+              }}/>
             </FormControl>
           </div>
           <FormControl>
             <FormLabel>Shelter</FormLabel>
-            <Input type="text" className="formInput" />
+            <Input type="text"
+            className="formInput"
+            onChange={e => {
+              setGradDate(e.target.value);
+            }}/>
           </FormControl>
           <FormControl>
             <FormLabel>Animal ID</FormLabel>
-            <Input type="text" className="formInput" />
+            <Input type="text"
+            className="formInput"
+            onChange={e => {
+              setGradDate(e.target.value);
+            }} />
           </FormControl>
         </div>
       </div>
