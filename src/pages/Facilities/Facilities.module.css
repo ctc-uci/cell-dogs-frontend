@@ -30,21 +30,3 @@
   font-family: 'Quicksand', sans-serif;
   font-size: 60px;
 }
-
-#giant {
-  position: absolute;
-  width: 670px;
-  height: 60px;
-  left: 84px;
-  top: 166px;
-
-  /* CDS H2 */
-
-  font-family: 'Quicksand';
-  font-style: normal;
-  font-weight: 600;
-  font-size: 48px;
-  line-height: 60px;
-  /* identical to box height */
-  color: #000000;
-}
