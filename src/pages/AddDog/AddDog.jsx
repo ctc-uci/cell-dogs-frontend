@@ -116,13 +116,14 @@ const AddDog = () => {
           </Button>
         </div>
       </div>
+
+      <Flex width="100%" justifyContent="flex-start" py={10} ml={10}>
+        <Button variant="link" leftIcon={<ArrowBackIcon />}>
+          Go Back
+        </Button>
+      </Flex>
       <div className="profileSection">
         <div className="dogPic">
-          <div className="backButton">
-            <Button variant="link" leftIcon={<ArrowBackIcon />}>
-              Go Back
-            </Button>
-          </div>
           <Avatar height="100px" width="100px" />
         </div>
         <div className="name">

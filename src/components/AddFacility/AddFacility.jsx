@@ -1,14 +1,13 @@
-import { Button, Input, Avatar, Textarea, Box } from '@chakra-ui/react';
+/* eslint-disable */
+import { Button, Input, Avatar, Textarea, Box, Flex } from '@chakra-ui/react';
 // import { AddIcon } from '@chakra-ui/icons';
 import React, { useState } from 'react';
 import './AddFacility.css';
 import { useNavigate } from 'react-router-dom';
 import { useBackend } from '../../contexts/BackendContext';
 import BreadcrumbBar from '../../components/BreadcrumbBar/BreadcrumbBar';
-import {
-  BsPlusLg,
-} from 'react-icons/bs';
-import { ArrowBackIcon} from '@chakra-ui/icons';
+import { BsPlusLg } from 'react-icons/bs';
+import { ArrowBackIcon } from '@chakra-ui/icons';
 
 // export const theme = extendTheme({
 //   colors: {
@@ -39,11 +38,10 @@ const AddFacility = () => {
 
   const showFacilityName = () => {
     if (facilityName == '') {
-      return "Enter Name";
+      return 'Enter Name';
     }
     return facilityName;
-  }
-
+  };
 
   return (
     <Box>
@@ -61,14 +59,14 @@ const AddFacility = () => {
           Add Facility
         </Button>
       </BreadcrumbBar>
+      <Flex width="100%" justifyContent="flex-start" py={10} ml={10}>
+        <Button variant="link" leftIcon={<ArrowBackIcon />}>
+          Go Back
+        </Button>
+      </Flex>
 
       <Box className="facilityModalContent" p={5}>
         <div className="userInfoButtons">
-          <div className="backButton">
-            <Button variant="link" leftIcon={<ArrowBackIcon />}>
-              Go Back
-            </Button>
-          </div>
           <div className="placeholder">
             <Avatar height="100px" width="100px" />
           </div>
@@ -106,10 +104,10 @@ const AddFacility = () => {
         </div>
         <h3>Facility Name</h3>
         <div className="nameInput">
-          <Input 
+          <Input
             placeholder="OC Juvenile Hall"
             value={facilityName}
-            onChange={(e) => setFacilityName(e.target.value)}
+            onChange={e => setFacilityName(e.target.value)}
           />
         </div>
         <h3>Address</h3>
