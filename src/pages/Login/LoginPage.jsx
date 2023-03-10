@@ -71,7 +71,7 @@ const LoginPage = () => {
           </div>
 
           <form className={styles['input-form']} onSubmit={loginUser}>
-            <Input htmlSize={50} width="auto" placeholder="Username" size="md" ref={emailRef} />
+            <Input htmlSize={50} width="auto" placeholder="Email" size="md" ref={emailRef} />
             <Input
               htmlSize={50}
               width="auto"
