@@ -19,6 +19,7 @@ import { ArrowBackIcon, ChevronRightIcon, AddIcon } from '@chakra-ui/icons';
 import './AddDog.css';
 import { useBackend } from '../../contexts/BackendContext';
 import Location from '../../components/Location';
+import { useNavigate } from 'react-router-dom';
 
 const AddDog = () => {
   const [facilityid, setFacilityID] = useState(0);
@@ -44,6 +45,7 @@ const AddDog = () => {
   const [fees, setFees] = useState(0);
   const [revenue, setRevenue] = useState(0);
   const { backend } = useBackend();
+  const Navigate = useNavigate();
 
   // backend
   //   .post('/dog')
@@ -117,11 +119,16 @@ const AddDog = () => {
         </div>
       </div>
 
-      <Flex width="100%" justifyContent="flex-start" py={10} ml={10}>
-        <Button variant="link" leftIcon={<ArrowBackIcon />}>
+      <Flex width="100%" justifyContent="flex-start" pt={4} ml={10}>
+        <Button 
+          variant="link"
+          leftIcon={<ArrowBackIcon />}
+          onClick={() => Navigate('/')}  
+        >
           Go Back
         </Button>
       </Flex>
+
       <div className="profileSection">
         <div className="dogPic">
           <Avatar height="100px" width="100px" />
