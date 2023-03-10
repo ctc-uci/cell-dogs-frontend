@@ -21,7 +21,7 @@ html {
   bottom: 0;
   right: 0;
   overflow: auto;
-  font-family: 'Inter', sans-serif;
+
   font-weight: 400;
 }
 
@@ -30,9 +30,9 @@ html {
     flex-direction: column;
   }
 
-  .cell-dogs-logo {
+  /* .cell-dogs-logo {
     display: none;
-  }
+  } */
 }
 
 .information {

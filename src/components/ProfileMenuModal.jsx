@@ -36,10 +36,6 @@ const ProfileMenuModal = () => {
             src={cellDogsSampleProfilePicture}
             alt="Cell Dogs Sample Profile"
             borderRadius={50}
-            boxSize={{
-              base: 8,
-              md: 10,
-            }}
           />
           <Hide below="md">
             <Flex direction="column" color="white">
@@ -65,7 +61,6 @@ const ProfileMenuModal = () => {
           my={3}
           src={cellDogsSampleProfilePicture}
           alt="Cell Dogs Sample Profile"
-          boxSize={10}
           borderRadius={50}
         />
         <Text>Janette Thomas</Text>

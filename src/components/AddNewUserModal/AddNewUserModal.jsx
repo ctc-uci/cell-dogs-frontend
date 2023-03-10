@@ -3,8 +3,6 @@ import {
   Modal,
   ModalOverlay,
   ModalContent,
-  ModalHeader,
-  ModalFooter,
   ModalBody,
   Button,
   FormControl,
@@ -12,10 +10,12 @@ import {
   Input,
   Select,
   Avatar,
+  VStack,
+  Heading,
+  ModalCloseButton,
+  Flex,
 } from '@chakra-ui/react';
 import { useBackend } from '../../contexts/BackendContext';
-
-import styles from './AddNewUserModal.module.css';
 
 const AddNewUserModal = ({ isOpen, onClose }) => {
   const { backend } = useBackend();
@@ -39,32 +39,29 @@ const AddNewUserModal = ({ isOpen, onClose }) => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
+  const [loading, setLoading] = useState(false);
   // const [facility, setFacility] = useState(1); // hard coded for now until the input form is updated
   const facility = 1;
-  const id = 10; // hard coded for now until id is fixed
+  // const id = 10; // hard coded for now until id is fixed
   // const [accountType, setAccountType] = useState('');
   // const [role, setRole] = useState('');
 
-  const handleSendEmail = () => {
-    const user = {
-      id,
-      email,
-      firstName,
-      lastName,
-      facility,
-      // accountType,
-      // role
-    };
+  const handleSendEmail = async () => {
+    try {
+      const user = {
+        email,
+        firstName,
+        lastName,
+        facility,
+      };
+      setLoading(true);
 
-    backend
-      .post('http://localhost:3001/users', user)
-      .then(response => {
-        console.log(response.data); // or do something else with the data
-        onClose(); // close the modal after successfully adding user
-      })
-      .catch(error => {
-        console.error(error);
-      });
+      await backend.post('/users', user);
+
+      onClose();
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleNameChange = event => {
@@ -97,44 +94,56 @@ const AddNewUserModal = ({ isOpen, onClose }) => {
         isOpen={isOpen}
         onClose={onClose}
         size="md"
+        isCentered
       >
         <ModalOverlay />
-        <ModalContent className={styles.box} m={8}>
-          <ModalHeader className={styles.modalHeader}>
-            <Avatar className={styles.profilePic} />
-            Add New User
-          </ModalHeader>
-          <ModalBody pb={6}>
-            <FormControl>
-              <FormLabel>Full Name</FormLabel>
-              <Input ref={initialRef} placeholder="Full Name" onChange={handleNameChange} />
-            </FormControl>
+        <ModalContent>
+          <ModalCloseButton />
+          <ModalBody>
+            <VStack gap={2} width="100%" mt={4}>
+              <Avatar />
+              <Heading fontWeight={500} size="md">
+                Add New User
+              </Heading>
 
-            <FormControl mt={5}>
-              <FormLabel>Add Email</FormLabel>
-              <Input placeholder="Add Email" type="email" onChange={handleEmailChange} />
-            </FormControl>
+              <FormControl>
+                <FormLabel>Full Name</FormLabel>
+                <Input ref={initialRef} placeholder="Full Name" onChange={handleNameChange} />
+              </FormControl>
 
-            <FormControl mt={5}>
-              <FormLabel>Add Role</FormLabel>
-              {/* <Input placeholder="Add Role" onChange={handleRoleChange} /> */}
-              <Input placeholder="Add Role" />
-            </FormControl>
+              <FormControl mt={5}>
+                <FormLabel>Add Email</FormLabel>
+                <Input placeholder="Add Email" type="email" onChange={handleEmailChange} />
+              </FormControl>
 
-            <FormControl mt={6}>
-              <Select placeholder="Select Account Type">
-                <option>Guest</option>
-                <option>Administrator</option>
-              </Select>
-            </FormControl>
+              <FormControl mt={5}>
+                <FormLabel>Add Role</FormLabel>
+                {/* <Input placeholder="Add Role" onChange={handleRoleChange} /> */}
+                <Input placeholder="Add Role" />
+              </FormControl>
+
+              <FormControl mt={6}>
+                <Select placeholder="Select Account Type">
+                  <option>Guest</option>
+                  <option>Administrator</option>
+                </Select>
+              </FormControl>
+              <Flex direction="row" width="100%" gap={2} pt={3}>
+                <Button flex={1} color="black" variant="outline">
+                  Cancel
+                </Button>
+                <Button
+                  flex={1}
+                  bg="#21307A"
+                  color="white"
+                  onClick={handleSendEmail}
+                  isLoading={loading}
+                >
+                  Send Email
+                </Button>
+              </Flex>
+            </VStack>
           </ModalBody>
-
-          <ModalFooter className={styles.buttonContainer}>
-            <Button onClick={onClose}>Cancel</Button>
-            <Button className={styles.sendEmailButton} onClick={handleSendEmail}>
-              Send Email
-            </Button>
-          </ModalFooter>
         </ModalContent>
       </Modal>
     </>

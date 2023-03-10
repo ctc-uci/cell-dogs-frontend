@@ -36,17 +36,20 @@
     "react-scripts": "5.0.1",
     "react-table": "^7.8.0",
     "webpack": "^5.75.0",
-    "yup": "^0.32.11"
+    "yup": "^0.32.11",
+    "vite": "^4.1.4",
+    "vite-plugin-html": "^3.2.0",
+    "@vitejs/plugin-react": "^3.1.0",
+    "@vitejs/plugin-react-swc": "^3.2.0"
   },
   "optionalDependencies": {
     "babel-loader": "8.0.4"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
+    "build": "vite build",
+    "dev": "vite serve",
     "lint": "eslint '**/*.{js,jsx}'",
+    "preview": "vite preview",
     "format": "prettier --write \"**/*.+(js|jsx|css)\"",
     "prepare": "husky install"
   },

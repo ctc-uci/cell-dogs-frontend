@@ -1,6 +1,5 @@
 import React from 'react';
 import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
-import { CookiesProvider } from 'react-cookie';
 import { ChakraProvider } from '@chakra-ui/react';
 
 // Pages & Components
@@ -23,6 +22,7 @@ import ProtectedRoute from './util/ProtectedRoute/ProtectedRoute';
 // Styles/Theme
 import CDSTheme from './styles/theme';
 import './common/global.css';
+import Users from './pages/Users';
 
 const DISALLOWED_NAVBAR_PATHS = ['/login', '/forgot-password', '/reset-password', '/404'];
 
@@ -33,29 +33,31 @@ const App = () => {
     <AuthProvider>
       <BackendProvider>
         <ChakraProvider theme={CDSTheme}>
-          <CookiesProvider>
-            {!DISALLOWED_NAVBAR_PATHS.includes(location.pathname) && <Navbar />}
-            <Routes>
-              <Route path="/login" element={<LoginPage />} />
-              <Route path="/forgot-password" element={<ForgotPassword />} />
-              <Route path="/reset-password" element={<ResetPassword />} />
-              <Route path="/" element={<ProtectedRoute Component={Dogs} redirectPath="/login" />} />
-              <Route
-                path="/dogs/new"
-                element={<ProtectedRoute Component={AddDog} redirectPath="/login" />}
-              />
-              <Route
-                path="/facilities"
-                element={<ProtectedRoute Component={Facilities} redirectPath="/login" />}
-              />
-              <Route
-                path="/add-facility"
-                element={<ProtectedRoute Component={AddFacility} redirectPath="/login" />}
-              />
-              <Route path="/404" element={<ErrorPage />} />
-              <Route path="*" element={<Navigate to="/404" replace />} />
-            </Routes>
-          </CookiesProvider>
+          {!DISALLOWED_NAVBAR_PATHS.includes(location.pathname) && <Navbar />}
+          <Routes>
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/reset-password" element={<ResetPassword />} />
+            <Route path="/" element={<ProtectedRoute Component={Dogs} redirectPath="/login" />} />
+            <Route
+              path="/dogs/new"
+              element={<ProtectedRoute Component={AddDog} redirectPath="/login" />}
+            />
+            <Route
+              path="/facilities"
+              element={<ProtectedRoute Component={Facilities} redirectPath="/login" />}
+            />
+            <Route
+              path="/add-facility"
+              element={<ProtectedRoute Component={AddFacility} redirectPath="/login" />}
+            />
+            <Route
+              path="/users"
+              element={<ProtectedRoute Component={Users} redirectPath="/login" />}
+            />
+            <Route path="/404" element={<ErrorPage />} />
+            <Route path="*" element={<Navigate to="/404" replace />} />
+          </Routes>
         </ChakraProvider>
       </BackendProvider>
     </AuthProvider>

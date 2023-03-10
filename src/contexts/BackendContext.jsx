@@ -5,8 +5,8 @@ import { useAuth } from './AuthContext';
 
 const baseURL =
   !process.env.NODE_ENV || process.env.NODE_ENV === 'development'
-    ? `${process.env.REACT_APP_BACKEND_HOST}:${process.env.REACT_APP_BACKEND_PORT}`
-    : process.env.REACT_APP_BACKEND_HOST_PROD;
+    ? `${process.env.VITE_BACKEND_HOST}:${process.env.VITE_BACKEND_PORT}`
+    : process.env.VITE_BACKEND_HOST_PROD;
 
 const BackendContext = createContext();
 const useBackend = () => useContext(BackendContext);
