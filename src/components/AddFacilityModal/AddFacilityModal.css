@@ -1,16 +1,27 @@
 .facilityModalContent {
   padding: 0px 150px 0px 150px;
 }
+
 .placeholder {
   margin-top: 20px;
   height: auto;
-  display: inline-flex;
+  display: flex;
+  justify-content: center;
   object-fit: cover;
 }
+
 .modalHeader {
   display: flex;
   flex-direction: column-reverse;
   align-items: center;
+}
+
+.enterName {
+  font-size: 30px;
+}
+
+.POCText {
+  font-size: 24px;
 }
 
 .modalCloseButton {
@@ -68,7 +79,7 @@ img {
 .pointsOfContact {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 
 .pocTitle {

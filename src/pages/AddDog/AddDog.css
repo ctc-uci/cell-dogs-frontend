@@ -1,0 +1,208 @@
+.tag {
+  font-size: 14px;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+  width: 69px;
+  height: 25px;
+  border-radius: 6px;
+  background-color: #48BB78;
+  color: white;
+  margin: 8px 0px 8px 0px;
+}
+
+.tagRow {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: 10px 0px 10px 0px;
+}
+
+.breadcrumbAndAdd {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom:1px solid #E2E2E2;
+  margin-bottom: 18px;
+}
+
+.breadcrumb {
+  margin: 19px 0px 19px 30px;
+}
+
+.addDogButton {
+  margin-right: 30px;
+}
+
+.backButton {
+  position: absolute;
+  top: 208px;
+  left: 30px
+}
+
+.dogPic {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.name {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: 10px 0px 20px 0px;
+}
+
+#nameField {
+  text-align: center;
+  font-size: 36px;
+  font-family: "Quicksand Semibold";
+}
+
+#nameField::placeholder {
+  color: black;
+}
+
+.nameInput {
+  width: 700px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+#profilePic {
+  width: 126px;
+  height: 126px;
+  border-radius: 50%;
+}
+
+.dogName {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  font-size: 34px;
+  padding-top: 8px;
+}
+
+.editDogButton {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding: 8px 0px 30px 0px;
+}
+
+.formInput {
+  margin-bottom: 10px;
+}
+
+.row1{
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: row;
+}
+
+.adopterInfo{
+width:400px;
+}
+
+.dogInfo{
+  width: 400px;
+}
+
+.genderAndGrad {
+  display: flex;
+}
+
+.gender {
+  width: 300px;
+  padding-right:20px;
+}
+
+.grad {
+  padding-left: 20px;
+  width: 300px;
+}
+
+.addressFinancial{
+  width: 400px;
+}
+
+.cityAndState {
+  display: flex;
+}
+
+.city {
+  margin-right: 40px;
+}
+
+.facilityInfo{
+  width: 400px;
+}
+
+.financial {
+  margin-top: 45px;
+}
+
+.financialFields {
+  display: flex;
+}
+
+.fees {
+  margin-right: 40px;
+}
+
+.chipInputFields {
+  display: flex;
+}
+
+.chipType {
+  margin-right: 40px;
+}
+
+.GradAndGroup {
+  display: flex;
+}
+
+.gradDate {
+  margin-right: 40px;
+}
+
+.additionalNotesTitle{
+  position:relative;
+  padding-top: 100px;
+  padding-bottom: 10px;
+  left: 15%;
+}
+
+#additionalNotes{
+  width:1050px;
+  position: relative;
+  left: 15%;
+  outline: 1px solid rgb(220, 220, 220);
+  border-radius: 10px;
+  margin-bottom: 60px;
+
+}
+
+.row2{
+  display: flex;
+  align-content: center;
+  align-items: flex-start;
+  justify-content: space-evenly;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  padding-top: 40px;
+}
+
+.profileSection {
+  display: flex;
+  flex-direction: column;
+}
+
+.addTag{
+  width: 250px;
+  margin: auto;
+}
