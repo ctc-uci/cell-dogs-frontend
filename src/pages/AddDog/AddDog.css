@@ -196,7 +196,15 @@ width:400px;
   flex-wrap: nowrap;
   padding-top: 40px;
 }
+<<<<<<< HEAD
+=======
 
+<<<<<<< HEAD
+
+>>>>>>> 3336435 (finish most of the styling)
+
+=======
+>>>>>>> 63e5352 (finish styling and start backend connection)
 .profileSection {
   display: flex;
   flex-direction: column;
