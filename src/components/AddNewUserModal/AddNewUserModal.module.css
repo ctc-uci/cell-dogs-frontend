@@ -1,29 +1,16 @@
 @import '../../common/global.css';
 
-.profilePic {
-  margin-bottom: 3vh;
-  margin-top: 3vh;
-}
-
-.modalHeader {
+.box {
   display: flex;
-  align-items: center;
-  justify-content: center;
   flex-direction: column;
-}
-
-.buttonContainer {
-  display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 2vw;
-}
+  padding: 24px;
+  gap: 24px;
 
-.sendEmailButton {
-  background-color: var(--cds-blue-1);
-  color: white;
-}
-
-.buttonContainer button {
-  width: 30vw;
+  position: relative;
+  width: 527.72px;
+  height: 554.21px;
+  left: 438px;
+  top: 100px;
+  background-color: white;
 }
