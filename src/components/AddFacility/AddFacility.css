@@ -127,3 +127,23 @@ img {
   height: 32px;
   border-radius: 25px;
 }
+
+.userInfoButtons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.userInfoButtons > * {
+  margin-top: 1%;
+}
+
+.facilityModalContent {
+  max-width: 1200px;
+  margin: 0 auto; /* center the content horizontally */
+}
+
+.backButton {
+  align-self: flex-start;
+}
