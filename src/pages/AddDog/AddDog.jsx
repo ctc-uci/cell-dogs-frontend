@@ -120,11 +120,7 @@ const AddDog = () => {
       </div>
 
       <Flex width="100%" justifyContent="flex-start" pt={4} ml={10}>
-        <Button 
-          variant="link"
-          leftIcon={<ArrowBackIcon />}
-          onClick={() => Navigate('/')}  
-        >
+        <Button variant="link" leftIcon={<ArrowBackIcon />} onClick={() => Navigate('/')}>
           Go Back
         </Button>
       </Flex>

@@ -7,7 +7,7 @@
   width: 69px;
   height: 25px;
   border-radius: 6px;
-  background-color: #48BB78;
+  background-color: #48bb78;
   color: white;
   margin: 8px 0px 8px 0px;
 }
@@ -23,7 +23,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom:1px solid #E2E2E2;
+  border-bottom: 1px solid #e2e2e2;
   margin-bottom: 18px;
 }
 
@@ -38,7 +38,7 @@
 .backButton {
   position: absolute;
   top: 208px;
-  left: 30px
+  left: 30px;
 }
 
 .dogPic {
@@ -59,7 +59,7 @@
 #nameField {
   text-align: center;
   font-size: 36px;
-  font-family: "Quicksand Semibold";
+  font-family: 'Quicksand Semibold';
 }
 
 #nameField::placeholder {
@@ -98,17 +98,17 @@
   margin-bottom: 10px;
 }
 
-.row1{
+.row1 {
   display: flex;
   justify-content: space-evenly;
   flex-direction: row;
 }
 
-.adopterInfo{
-width:400px;
+.adopterInfo {
+  width: 400px;
 }
 
-.dogInfo{
+.dogInfo {
   width: 400px;
 }
 
@@ -118,7 +118,7 @@ width:400px;
 
 .gender {
   width: 300px;
-  padding-right:20px;
+  padding-right: 20px;
 }
 
 .grad {
@@ -126,7 +126,7 @@ width:400px;
   width: 300px;
 }
 
-.addressFinancial{
+.addressFinancial {
   width: 400px;
 }
 
@@ -138,7 +138,7 @@ width:400px;
   margin-right: 40px;
 }
 
-.facilityInfo{
+.facilityInfo {
   width: 400px;
 }
 
@@ -170,24 +170,23 @@ width:400px;
   margin-right: 40px;
 }
 
-.additionalNotesTitle{
-  position:relative;
+.additionalNotesTitle {
+  position: relative;
   padding-top: 100px;
   padding-bottom: 10px;
   left: 15%;
 }
 
-#additionalNotes{
-  width:1050px;
+#additionalNotes {
+  width: 1050px;
   position: relative;
   left: 15%;
   outline: 1px solid rgb(220, 220, 220);
   border-radius: 10px;
   margin-bottom: 60px;
-
 }
 
-.row2{
+.row2 {
   display: flex;
   align-content: center;
   align-items: flex-start;
@@ -196,31 +195,31 @@ width:400px;
   flex-wrap: nowrap;
   padding-top: 40px;
 }
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
-
-<<<<<<< HEAD
-
->>>>>>> 3336435 (finish most of the styling)
->>>>>>> f91b19b (finish most of the styling)
-
-<<<<<<< HEAD
-<<<<<<< HEAD
-
->>>>>>> 3336435 (finish most of the styling)
-
-=======
->>>>>>> 5bf46d6 (idk anymore bruh)
-=======
->>>>>>> 63e5352 (finish styling and start backend connection)
-.profileSection {
+<<<<<<<
+  HEAD
+  =======
+  <<<<<<<
+  HEAD
+  =======
+  <<<<<<<
+  HEAD>>>>>>>3336435
+  (finish most of the styling)>>>>>>>f91b19b
+  (finish most of the styling)
+  <<<<<<<
+  HEAD
+  <<<<<<<
+  HEAD>>>>>>>3336435
+  (finish most of the styling)
+  =======>>>>>>>5bf46d6
+  (idk anymore bruh)
+  =======>>>>>>>63e5352
+  (finish styling and start backend connection)
+  .profileSection {
   display: flex;
   flex-direction: column;
 }
 
-.addTag{
+.addTag {
   width: 250px;
   margin: auto;
 }

@@ -60,11 +60,7 @@ const AddFacility = () => {
         </Button>
       </BreadcrumbBar>
       <Flex width="100%" justifyContent="flex-start" pt={4} ml={10}>
-        <Button 
-          variant="link"
-          leftIcon={<ArrowBackIcon />}
-          onClick={() => Navigate('/facilities')}  
-        >
+        <Button variant="link" leftIcon={<ArrowBackIcon />} onClick={() => Navigate('/facilities')}>
           Go Back
         </Button>
       </Flex>

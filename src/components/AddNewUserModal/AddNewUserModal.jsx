@@ -16,6 +16,8 @@ import {
   Flex,
 } from '@chakra-ui/react';
 import { useBackend } from '../../contexts/BackendContext';
+import CreateToast from '../Toasts/CreateToast';
+// import UploadAvatar from '../UploadAvatar/UploadAvatar'
 
 const AddNewUserModal = ({ isOpen, onClose }) => {
   const { backend } = useBackend();
@@ -45,6 +47,16 @@ const AddNewUserModal = ({ isOpen, onClose }) => {
   // const id = 10; // hard coded for now until id is fixed
   // const [accountType, setAccountType] = useState('');
   // const [role, setRole] = useState('');
+  // const toast = useToast();
+
+  // const successToast = CreateToast('{user.firstName} invited to the adoption log', 'success');
+
+  // return (
+  //   <div>
+  //     <Input type="file" onChange={handleAvatarChange} />
+  //     {avatar && <Image src={avatar} boxSize="150px" objectFit="cover" />}
+  //   </div>
+  // );
 
   const handleSendEmail = async () => {
     try {
@@ -56,9 +68,37 @@ const AddNewUserModal = ({ isOpen, onClose }) => {
       };
       setLoading(true);
 
-      await backend.post('/users', user);
+      const response = await backend.post('/users', user);
 
       onClose();
+      // console.log(response.status);
+
+      // attempting to add toast
+      if (response.status === 200) {
+        //   console.log('inside 200 ');
+        //   // CreateToast('{user.firstName} invited to the adoption log', 'success');
+        //   // toast({
+        //   //   position: 'bottom-right',
+        //   //   description: `${user.firstName} invited to the adoption log`,
+        //   //   status: 'success',
+        //   //   duration: 3000,
+        //   //   isClosable: true,
+        //   // });
+        //   // <CreateToast description={(`${user.firstName} invited to the adoption log`, 'success')} />;
+      }
+      // } else if (response.status <= 499) {
+      //   // CreateToast('{user.firstName} unable to be invited to the adoption log', 'error');
+      //   toast({
+      //     position: 'bottom-right',
+      //     description: `${user.firstName} invited to the adoption log`,
+      //     status: 'success',
+      //     duration: 3000,
+      //     isClosable: true,
+      //   });
+      //   // <CreateToast
+      //   //   description={(`${user.firstName} unable to be invited to the adoption log`, 'error')}
+      //   // />;
+      // }
     } finally {
       setLoading(false);
     }
@@ -136,7 +176,10 @@ const AddNewUserModal = ({ isOpen, onClose }) => {
                   flex={1}
                   bg="#21307A"
                   color="white"
-                  onClick={handleSendEmail}
+                  onClick={() => {
+                    handleSendEmail();
+                    CreateToast();
+                  }}
                   isLoading={loading}
                 >
                   Send Email

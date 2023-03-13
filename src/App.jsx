@@ -39,7 +39,10 @@ const App = () => {
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/" element={<ProtectedRoute Component={Dogs} redirectPath="/login" />} />
-            <Route path="/dogs/new" element={<ProtectedRoute Component={AddDog} redirectPath="/login" />} />
+            <Route
+              path="/dogs/new"
+              element={<ProtectedRoute Component={AddDog} redirectPath="/login" />}
+            />
             <Route
               path="/facilities"
               element={<ProtectedRoute Component={Facilities} redirectPath="/login" />}
