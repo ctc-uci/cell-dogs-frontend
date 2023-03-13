@@ -16,11 +16,14 @@ import {
   Flex,
 } from '@chakra-ui/react';
 import { useBackend } from '../../contexts/BackendContext';
-import CreateToast from '../Toasts/CreateToast';
+import CreateToast  from '../Toasts/CreateToast';
+import { useToast } from '@chakra-ui/react';
+
 // import UploadAvatar from '../UploadAvatar/UploadAvatar'
 
 const AddNewUserModal = ({ isOpen, onClose }) => {
   const { backend } = useBackend();
+  const toast = useToast();
 
   // backend
   //   .post('http://localhost:3001/users')
@@ -178,7 +181,7 @@ const AddNewUserModal = ({ isOpen, onClose }) => {
                   color="white"
                   onClick={() => {
                     handleSendEmail();
-                    CreateToast();
+                    CreateToast({ description: "Hello!", status: 'success', toast: toast });
                   }}
                   isLoading={loading}
                 >
