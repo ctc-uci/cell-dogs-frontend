@@ -1,8 +1,8 @@
-const CreateToast = ({description, status, toast}) => {
+const CreateToast = ({ description, status, toast }) => {
   toast({
     position: 'bottom-right',
-    description: description,
-    status: status,
+    description: { description },
+    status: { status },
     duration: 3000,
     isClosable: true,
   });

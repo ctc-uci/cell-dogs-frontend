@@ -21,6 +21,7 @@ import {
   AlertTitle,
   AlertDescription,
   AlertIcon,
+  useToast,
 } from '@chakra-ui/react';
 import CreateToast from '../Toasts/CreateToast';
 import { useBackend } from '../../contexts/BackendContext';
@@ -164,7 +165,7 @@ const RemoveUser = ({ setModalStep, onSubmit, onClose }) => {
 const EditUserModal = ({ info, setRender, render }) => {
   const [modalStep, setModalStep] = useState('editUser');
   const { isOpen, onOpen, onClose } = useDisclosure();
-
+  const toast = useToast();
   // remove user
   const { backend } = useBackend();
   const removeUser = async () => {
@@ -172,7 +173,11 @@ const EditUserModal = ({ info, setRender, render }) => {
     // console.log(info.email);
     await backend.delete(`users/${info.email}`);
     setRender(!render);
-    CreateToast('{userData.firstName} removed from adoption log', backend.status);
+    CreateToast({
+      description: `${info.firstName} removed from adoption log`,
+      status: 'info',
+      toast: { toast },
+    });
   };
 
   useEffect(() => {

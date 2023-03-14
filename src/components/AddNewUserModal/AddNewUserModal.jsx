@@ -14,10 +14,10 @@ import {
   Heading,
   ModalCloseButton,
   Flex,
+  useToast,
 } from '@chakra-ui/react';
 import { useBackend } from '../../contexts/BackendContext';
-import CreateToast  from '../Toasts/CreateToast';
-import { useToast } from '@chakra-ui/react';
+import CreateToast from '../Toasts/CreateToast';
 
 // import UploadAvatar from '../UploadAvatar/UploadAvatar'
 
@@ -79,7 +79,7 @@ const AddNewUserModal = ({ isOpen, onClose }) => {
       // attempting to add toast
       if (response.status === 200) {
         //   console.log('inside 200 ');
-        //   // CreateToast('{user.firstName} invited to the adoption log', 'success');
+        CreateToast(`${firstName} invited to the adoption log`, 'success', toast);
         //   // toast({
         //   //   position: 'bottom-right',
         //   //   description: `${user.firstName} invited to the adoption log`,
@@ -90,7 +90,7 @@ const AddNewUserModal = ({ isOpen, onClose }) => {
         //   // <CreateToast description={(`${user.firstName} invited to the adoption log`, 'success')} />;
       }
       // } else if (response.status <= 499) {
-      //   // CreateToast('{user.firstName} unable to be invited to the adoption log', 'error');
+      CreateToast(`${user.firstName} unable to be invited to the adoption log`, 'error', toast);
       //   toast({
       //     position: 'bottom-right',
       //     description: `${user.firstName} invited to the adoption log`,
@@ -181,7 +181,11 @@ const AddNewUserModal = ({ isOpen, onClose }) => {
                   color="white"
                   onClick={() => {
                     handleSendEmail();
-                    CreateToast({ description: "Hello!", status: 'success', toast: toast });
+                    CreateToast({
+                      description: `${firstName} added to adoption log`,
+                      status: 'success',
+                      toast: { toast },
+                    });
                   }}
                   isLoading={loading}
                 >
