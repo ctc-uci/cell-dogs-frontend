@@ -9,7 +9,7 @@ import {
   FormLabel,
   Input,
   Select,
-  Avatar,
+  // Avatar,
   VStack,
   Heading,
   ModalCloseButton,
@@ -18,8 +18,8 @@ import {
 } from '@chakra-ui/react';
 import { useBackend } from '../../contexts/BackendContext';
 import CreateToast from '../Toasts/CreateToast';
-
-// import UploadAvatar from '../UploadAvatar/UploadAvatar'
+// import UploadAvatar from '../UploadAvatar/UploadAvatar';
+import UploadAvatar from '../UploadAvatar/UploadAvatar';
 
 const AddNewUserModal = ({ isOpen, onClose }) => {
   const { backend } = useBackend();
@@ -144,7 +144,15 @@ const AddNewUserModal = ({ isOpen, onClose }) => {
           <ModalCloseButton />
           <ModalBody>
             <VStack gap={2} width="100%" mt={4}>
-              <Avatar />
+              {/* <Avatar
+                // onClick={() => {
+                //   console.log('it worked');
+                // }}
+                // onClick={() => {
+                //   handleAvatarChange();
+                // }}
+              /> */}
+              <UploadAvatar />
               <Heading fontWeight={500} size="md">
                 Add New User
               </Heading>
