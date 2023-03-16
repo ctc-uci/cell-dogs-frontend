@@ -21,6 +21,7 @@ import ProtectedRoute from './util/ProtectedRoute/ProtectedRoute';
 
 // Styles/Theme
 import CDSTheme from './styles/theme';
+import Fonts from './styles/fonts';
 import './common/global.css';
 import Users from './pages/Users';
 
@@ -32,6 +33,7 @@ const App = () => {
   return (
     <AuthProvider>
       <BackendProvider>
+        <Fonts />
         <ChakraProvider theme={CDSTheme}>
           {!DISALLOWED_NAVBAR_PATHS.includes(location.pathname) && <Navbar />}
           <Routes>
@@ -39,7 +41,10 @@ const App = () => {
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/" element={<ProtectedRoute Component={Dogs} redirectPath="/login" />} />
-            <Route path="/dogs/new" element={<ProtectedRoute Component={AddDog} redirectPath="/login" />} />
+            <Route
+              path="/dogs/new"
+              element={<ProtectedRoute Component={AddDog} redirectPath="/login" />}
+            />
             <Route
               path="/facilities"
               element={<ProtectedRoute Component={Facilities} redirectPath="/login" />}

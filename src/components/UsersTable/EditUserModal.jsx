@@ -143,7 +143,7 @@ const RemoveUser = ({ setModalStep, onSubmit, onClose }) => {
           </Button>
           <Button
             w="50%"
-            bg="cdsBlue1"
+            bg="CDSBlue1"
             color="white"
             onClick={() => {
               onSubmit();
