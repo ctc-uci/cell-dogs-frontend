@@ -43,7 +43,8 @@
   font-size: 16px;
 }
 
-.nav-link-desktop:not(.active):hover, .nav-link-desktop-active {
+.nav-link-desktop:not(.active):hover,
+.nav-link-desktop-active {
   background: rgba(195, 203, 219, 0.08);
   border-bottom: 4px solid var(--cds-gray);
 }
