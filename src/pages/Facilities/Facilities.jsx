@@ -44,6 +44,16 @@ const Facilities = () => {
   const [resultsPerPage, setResultsPerPage] = useState(10);
   const [page, setPage] = useState(0);
 
+  const navigateViewMore = (username, address, desc) => {
+    Navigate('/view-more', {
+      state: {
+        name: username,
+        addressLine: address,
+        description: desc,
+      },
+    });
+  };
+
   useEffect(() => {
     // have it so that each page has resultsPerPage facilities
     setPage(0);
@@ -156,7 +166,12 @@ const Facilities = () => {
                       <Td>{description}</Td>
                       <Td>Some Random Contact</Td>
                       <Td>
-                        <Button size="sm" colorScheme="teal" p={3}>
+                        <Button
+                          size="sm"
+                          colorScheme="teal"
+                          p={3}
+                          onClick={() => navigateViewMore(name, addressLine, description)}
+                        >
                           View More
                         </Button>
                       </Td>
