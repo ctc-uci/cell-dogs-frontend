@@ -20,6 +20,7 @@ function UploadAvatar() {
   //  };
   return (
     <div>
+      <Avatar src={avatar} onClick={() => {}} />
       <div className="uploadAvatarButton">
         <Icon
           as={AddIcon}
@@ -44,7 +45,6 @@ function UploadAvatar() {
         />
       ) : null}
       {/* {avatar && <Image src={avatar} boxSize="150px" objectFit="cover" />} */}
-      <Avatar src={avatar} onClick={() => {}} />
     </div>
   );
 }

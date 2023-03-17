@@ -1,4 +1,5 @@
 import React, { useRef, useState } from 'react';
+// import { useToast } from '@chakra-ui/react';
 import {
   Modal,
   ModalOverlay,
@@ -23,7 +24,6 @@ import UploadAvatar from '../UploadAvatar/UploadAvatar';
 
 const AddNewUserModal = ({ isOpen, onClose }) => {
   const { backend } = useBackend();
-  const toast = useToast();
 
   // backend
   //   .post('http://localhost:3001/users')
@@ -61,6 +61,7 @@ const AddNewUserModal = ({ isOpen, onClose }) => {
   //   </div>
   // );
 
+  const toast = useToast();
   const handleSendEmail = async () => {
     try {
       const user = {
@@ -78,8 +79,12 @@ const AddNewUserModal = ({ isOpen, onClose }) => {
 
       // attempting to add toast
       if (response.status === 200) {
-        //   console.log('inside 200 ');
-        CreateToast(`${firstName} invited to the adoption log`, 'success', toast);
+        console.log('inside 200 ');
+        CreateToast({
+          description: `michelle invited to the adoption log`,
+          status: 'success',
+          toast: { toast },
+        });
         //   // toast({
         //   //   position: 'bottom-right',
         //   //   description: `${user.firstName} invited to the adoption log`,
@@ -88,20 +93,20 @@ const AddNewUserModal = ({ isOpen, onClose }) => {
         //   //   isClosable: true,
         //   // });
         //   // <CreateToast description={(`${user.firstName} invited to the adoption log`, 'success')} />;
+      } else if (response.status <= 499) {
+        // CreateToast(`${user.firstName} unable to be invited to the adoption log`, 'error', toast);
+        //   toast({
+        //     position: 'bottom-right',
+        //     description: `${user.firstName} invited to the adoption log`,
+        //     status: 'success',
+        //     duration: 3000,
+        //     isClosable: true,
+        //   });
+        //   // <CreateToast
+        //   //   description={(`${user.firstName} unable to be invited to the adoption log`, 'error')}
+        //   // />;
+        // }
       }
-      // } else if (response.status <= 499) {
-      CreateToast(`${user.firstName} unable to be invited to the adoption log`, 'error', toast);
-      //   toast({
-      //     position: 'bottom-right',
-      //     description: `${user.firstName} invited to the adoption log`,
-      //     status: 'success',
-      //     duration: 3000,
-      //     isClosable: true,
-      //   });
-      //   // <CreateToast
-      //   //   description={(`${user.firstName} unable to be invited to the adoption log`, 'error')}
-      //   // />;
-      // }
     } finally {
       setLoading(false);
     }
@@ -189,11 +194,11 @@ const AddNewUserModal = ({ isOpen, onClose }) => {
                   color="white"
                   onClick={() => {
                     handleSendEmail();
-                    CreateToast({
-                      description: `${firstName} added to adoption log`,
-                      status: 'success',
-                      toast: { toast },
-                    });
+                    // CreateToast({
+                    //   description: `${firstName} added to adoption log`,
+                    //   status: 'success',
+                    //   toast: { toast },
+                    // });
                   }}
                   isLoading={loading}
                 >
