@@ -25,14 +25,23 @@ const AddFacility = () => {
   const [facilityName, setFacilityName] = useState('');
   const [address, setAddress] = useState('');
   const [notes, setNotes] = useState('');
-  const [name, setName] = useState('');
-  const [title, setTitle] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
+  // const [name, setName] = useState('');
+  // const [title, setTitle] = useState('');
+  // const [phoneNumber, setPhoneNumber] = useState('');
   const { backend } = useBackend();
 
   const Navigate = useNavigate();
 
-  const onClose = () => {
+  const addFacility = async () => {
+    const facilityData = {
+      name: facilityName,
+      addressLine: address,
+      city: 'Irvine',
+      state: 'CA',
+      zipcode: '92697',
+      description: notes,
+    };
+    await backend.post(`/facility`, facilityData);
     Navigate('/facilities');
   };
 
@@ -60,11 +69,7 @@ const AddFacility = () => {
         </Button>
       </BreadcrumbBar>
       <Flex width="100%" justifyContent="flex-start" pt={4} ml={10}>
-        <Button 
-          variant="link"
-          leftIcon={<ArrowBackIcon />}
-          onClick={() => Navigate('/facilities')}  
-        >
+        <Button variant="link" leftIcon={<ArrowBackIcon />} onClick={() => Navigate('/facilities')}>
           Go Back
         </Button>
       </Flex>
@@ -84,7 +89,7 @@ const AddFacility = () => {
               size="sm"
               color="--cds-blue-2"
               variant="outline"
-              onClick={onClose}
+              onClick={() => Navigate('/facilities')}
             >
               Cancel
             </Button>
@@ -94,7 +99,7 @@ const AddFacility = () => {
               size="sm"
               bg="#21307a"
               color="white"
-              onClick={onClose}
+              onClick={() => addFacility()}
             >
               Save
             </Button>
@@ -102,7 +107,12 @@ const AddFacility = () => {
         </div>
         <div className="pointsOfContact">
           <h1 className="POCText">Points of Contact</h1>
-          <Button size="sm" colorScheme="gray" color="--cds-grey-1" onClick={onClose}>
+          <Button
+            size="sm"
+            colorScheme="gray"
+            color="--cds-grey-1"
+            onClick={() => Navigate('/facilities')}
+          >
             Add Another Point of Contact
           </Button>
         </div>
@@ -116,11 +126,19 @@ const AddFacility = () => {
         </div>
         <h3>Address</h3>
         <div className="addressInput">
-          <Input placeholder="123 Irvine Way Fountain Valley, CA 92728" />
+          <Input
+            placeholder="123 Irvine Way Fountain Valley, CA 92728"
+            onChange={e => setAddress(e.target.value)}
+          />
         </div>
         <h3>Notes</h3>
         <div className="notesInput">
-          <Textarea height="150px" padding-top="0px" placeholder="Enter notes here" />
+          <Textarea
+            height="150px"
+            padding-top="0px"
+            placeholder="Enter notes here"
+            onChange={e => setNotes(e.target.value)}
+          />
         </div>
         <div className="pocRow1">
           <div className="pocName">
