@@ -16,6 +16,7 @@ import {
   Grid,
   Text,
   Stack,
+  Flex,
 } from '@chakra-ui/react';
 import UserPageHeader from './UserTableHeader';
 import CellStructure from './UserTableStructure';
@@ -142,13 +143,6 @@ const UserPageTable = () => {
                     <Text>{user.role}</Text>
                   </Stack>
                 </CardBody>
-<<<<<<< HEAD
-                <CardFooter align="right">
-                  <Box w="100%">
-                    <EditUserModal info={user} setRender={setRender} render={render} />
-                  </Box>
-                </CardFooter>
-=======
                 <Flex minWidth="max-content" w="100%" justifyContent="flex-end">
                   <CardFooter>
                     <Flex>
@@ -161,7 +155,6 @@ const UserPageTable = () => {
                     </Flex>
                   </CardFooter>
                 </Flex>
->>>>>>> 58580a9 (finished mobile 404 and users table)
               </Card>
             );
           })}
