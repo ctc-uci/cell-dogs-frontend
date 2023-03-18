@@ -1,5 +1,4 @@
 import React, { useRef, useState } from 'react';
-// import { useToast } from '@chakra-ui/react';
 import {
   Modal,
   ModalOverlay,
@@ -10,7 +9,7 @@ import {
   FormLabel,
   Input,
   Select,
-  // Avatar,
+  Avatar,
   VStack,
   Heading,
   ModalCloseButton,
@@ -18,9 +17,9 @@ import {
   useToast,
 } from '@chakra-ui/react';
 import { useBackend } from '../../contexts/BackendContext';
-import CreateToast from '../Toasts/CreateToast';
-// import UploadAvatar from '../UploadAvatar/UploadAvatar';
-import UploadAvatar from '../UploadAvatar/UploadAvatar';
+import CreateToast  from '../Toasts/CreateToast';
+
+// import UploadAvatar from '../UploadAvatar/UploadAvatar'
 
 const AddNewUserModal = ({ isOpen, onClose }) => {
   const { backend } = useBackend();
@@ -62,6 +61,7 @@ const AddNewUserModal = ({ isOpen, onClose }) => {
   // );
 
   const toast = useToast();
+
   const handleSendEmail = async () => {
     try {
       const user = {
@@ -79,12 +79,9 @@ const AddNewUserModal = ({ isOpen, onClose }) => {
 
       // attempting to add toast
       if (response.status === 200) {
-        console.log('inside 200 ');
-        CreateToast({
-          description: `michelle invited to the adoption log`,
-          status: 'success',
-          toast: { toast },
-        });
+        CreateToast({ description: "Hello!", status: 'success', toast: toast });
+        //   console.log('inside 200 ');
+        //   // CreateToast('{user.firstName} invited to the adoption log', 'success');
         //   // toast({
         //   //   position: 'bottom-right',
         //   //   description: `${user.firstName} invited to the adoption log`,
@@ -93,20 +90,20 @@ const AddNewUserModal = ({ isOpen, onClose }) => {
         //   //   isClosable: true,
         //   // });
         //   // <CreateToast description={(`${user.firstName} invited to the adoption log`, 'success')} />;
-      } else if (response.status <= 499) {
-        // CreateToast(`${user.firstName} unable to be invited to the adoption log`, 'error', toast);
-        //   toast({
-        //     position: 'bottom-right',
-        //     description: `${user.firstName} invited to the adoption log`,
-        //     status: 'success',
-        //     duration: 3000,
-        //     isClosable: true,
-        //   });
-        //   // <CreateToast
-        //   //   description={(`${user.firstName} unable to be invited to the adoption log`, 'error')}
-        //   // />;
-        // }
       }
+      // } else if (response.status <= 499) {
+      //   // CreateToast('{user.firstName} unable to be invited to the adoption log', 'error');
+      //   toast({
+      //     position: 'bottom-right',
+      //     description: `${user.firstName} invited to the adoption log`,
+      //     status: 'success',
+      //     duration: 3000,
+      //     isClosable: true,
+      //   });
+      //   // <CreateToast
+      //   //   description={(`${user.firstName} unable to be invited to the adoption log`, 'error')}
+      //   // />;
+      // }
     } finally {
       setLoading(false);
     }
@@ -149,15 +146,7 @@ const AddNewUserModal = ({ isOpen, onClose }) => {
           <ModalCloseButton />
           <ModalBody>
             <VStack gap={2} width="100%" mt={4}>
-              {/* <Avatar
-                // onClick={() => {
-                //   console.log('it worked');
-                // }}
-                // onClick={() => {
-                //   handleAvatarChange();
-                // }}
-              /> */}
-              <UploadAvatar />
+              <Avatar />
               <Heading fontWeight={500} size="md">
                 Add New User
               </Heading>
@@ -194,11 +183,6 @@ const AddNewUserModal = ({ isOpen, onClose }) => {
                   color="white"
                   onClick={() => {
                     handleSendEmail();
-                    // CreateToast({
-                    //   description: `${firstName} added to adoption log`,
-                    //   status: 'success',
-                    //   toast: { toast },
-                    // });
                   }}
                   isLoading={loading}
                 >
