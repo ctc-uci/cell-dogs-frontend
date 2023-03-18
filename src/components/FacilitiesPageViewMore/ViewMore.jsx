@@ -8,6 +8,7 @@ import { useBackend } from '../../contexts/BackendContext';
 import BreadcrumbBar from '../../components/BreadcrumbBar/BreadcrumbBar';
 import { BsPlusLg } from 'react-icons/bs';
 import { ArrowBackIcon } from '@chakra-ui/icons';
+import axios from 'axios';
 
 // export const theme = extendTheme({
 //   colors: {
@@ -23,11 +24,9 @@ import { ArrowBackIcon } from '@chakra-ui/icons';
 
 const ViewMore = () => {
   const [facilityName, setFacilityName] = useState('');
-  const [address, setAddress] = useState('');
-  const [notes, setNotes] = useState('');
-  const [name, setName] = useState('');
-  const [title, setTitle] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
+  const [editable, setEditable] = useState(false);
+  const [inputValue, setInputValue] = useState('');
+
   const { backend } = useBackend();
 
   const { state } = useLocation();
@@ -38,17 +37,20 @@ const ViewMore = () => {
     Navigate('/facilities');
   };
 
+  const handleButtonClick = () => {
+    setEditable(true);
+  };
+
   const showFacilityName = () => {
-    if (facilityName == '') {
+    if (state.name == '') {
       return 'Enter Name';
     }
-    return facilityName;
+    return state.name;
   };
 
   return (
     <Box>
-      {console.log(state)}
-      <BreadcrumbBar left={'Facilities > ' + showFacilityName()}>
+      <BreadcrumbBar left={'Facilities > ' + state.name}>
         <Button
           size="sm"
           colorScheme="gray"
@@ -63,7 +65,7 @@ const ViewMore = () => {
         </Button>
       </BreadcrumbBar>
       <Flex width="100%" justifyContent="flex-start" pt={4} ml={10}>
-        <Button variant="link" leftIcon={<ArrowBackIcon />} onClick={() => Navigate('/facilities')}>
+        <Button variant="link" leftIcon={<ArrowBackIcon />} onClick={onClose}>
           Go Back
         </Button>
       </Flex>
@@ -76,7 +78,7 @@ const ViewMore = () => {
             <h1 className="enterName">{showFacilityName()}</h1>
           </div>
           <div className="buttons">
-            <Button className="editButton" width="62.5px" size="sm" color="gray" variant="outline">
+            <Button className="editButton" width="62.5px" size="sm" color="gray" variant="outline" onClick={() => handleButtonClick()}>
               Edit
             </Button>
           </div>
@@ -85,30 +87,30 @@ const ViewMore = () => {
         <h3>Facility Name</h3>
         <div className="nameInput">
           <Input
-            placeholder="OC Juvenile Hall"
-            value={facilityName}
+            defaultValue={state.name}
+            disabled={!editable}
             onChange={e => setFacilityName(e.target.value)}
           />
         </div>
         <h3>Address</h3>
         <div className="addressInput">
-          <Input placeholder="123 Irvine Way Fountain Valley, CA 92728" />
+          <Input disabled={!editable} defaultValue={state.addressLine} />
         </div>
         <h3>Notes</h3>
         <div className="notesInput">
-          <Textarea height="150px" padding-top="0px" placeholder="Enter notes here" />
+          <Textarea disabled={!editable} height="150px" padding-top="0px" defaultValue={state.description} />
         </div>
         <div className="pocRow1">
           <div className="pocName">
             <h3>Name</h3>
             <div className="pocNameInput">
-              <Input placeholder="Jane Smith" />
+              <Input disabled={!editable} defaultValue='Some Random Contact' />
             </div>
           </div>
           <div className="pocTitle">
             <h3>Title</h3>
             <div className="pocTitleInput">
-              <Input placeholder="Programs Officer" />
+              <Input disabled={!editable} defaultValue="Programs Officer" />
             </div>
           </div>
         </div>
@@ -116,13 +118,13 @@ const ViewMore = () => {
           <div className="pocPhoneNumber">
             <h3>Phone Number</h3>
             <div className="pocPhoneNumberInput">
-              <Input placeholder="(123)456-7890" />
+              <Input disabled={!editable} defaultValue="(123)456-7890" />
             </div>
           </div>
           <div className="pocEmail">
             <h3>Email</h3>
             <div className="pocEmailInput">
-              <Input placeholder="email@uci.edu" />
+              <Input disabled={!editable} defaultValue="email@uci.edu" />
             </div>
           </div>
         </div>
