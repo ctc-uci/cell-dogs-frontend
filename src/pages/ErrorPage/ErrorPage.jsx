@@ -1,21 +1,15 @@
 import React from 'react';
-import { Container, Image, Flex, Link, VStack, AbsoluteCenter, Text } from '@chakra-ui/react';
+import { Container, Image, Flex, Link, VStack, AbsoluteCenter, Text, Box } from '@chakra-ui/react';
 import errorPageLogo from '../../assets/dog-army.png';
 import styles from './ErrorPage.module.css';
 
 const ErrorPage = () => (
   <Container h="100vh" className={styles.window}>
     <AbsoluteCenter>
-      <Flex
-        margin="auto"
-        flexDirection="row"
-        gap="60px"
-        align="center"
-        className={styles.container}
-      >
-        <Flex>
-          <Image h="380px" w="419px" src={errorPageLogo} alt="Error Dog Picture" />
-        </Flex>
+      <Flex margin="auto" gap="60px" align="center" flexDirection={{ base: 'column', xl: 'row' }}>
+        <Box>
+          <Image maxWidth="none" h="380px" w="419px" src={errorPageLogo} alt="Error Dog Picture" />
+        </Box>
         <Flex>
           <VStack align="flex-start">
             <Flex>
