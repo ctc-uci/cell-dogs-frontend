@@ -169,14 +169,12 @@ const EditUserModal = ({ info, setRender, render }) => {
   // remove user
   const { backend } = useBackend();
   const removeUser = async () => {
-    // console.log('Removed');
-    // console.log(info.email);
     await backend.delete(`users/${info.email}`);
     setRender(!render);
     CreateToast({
-      description: `${info.firstName} removed from adoption log`,
+      description: `${info.firstName} removed`,
       status: 'info',
-      toast: { toast },
+      toast,
     });
   };
 

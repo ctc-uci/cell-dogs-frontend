@@ -8,11 +8,12 @@ import {
   Button,
   useDisclosure,
   Input,
-  Avatar,
+  // Avatar,
 } from '@chakra-ui/react';
 // import { AddIcon } from '@chakra-ui/icons';
 import React from 'react';
 import './AddFacilityModal.css';
+import UploadAvatar from '../UploadAvatar/UploadAvatar';
 
 // export const theme = extendTheme({
 //   colors: {
@@ -44,7 +45,8 @@ const AddFacilityModal = () => {
           <ModalOverlay />
           <ModalContent className="facilityModalContent">
             <div className="placeholder">
-              <Avatar height="100px" width="100px" />
+              {/* <Avatar height="100px" width="100px" /> */}
+              {/* <UploadAvatar /> */}
             </div>
             <div className="modalHeader">
               <ModalHeader>

@@ -3,13 +3,14 @@ import { Avatar, Input } from '@chakra-ui/react';
 import { AddIcon, Icon } from '@chakra-ui/icons';
 import './UploadAvatar.css';
 
-function UploadAvatar() {
+function UploadAvatar({ width = '40px', height = '40px' }) {
   const [avatar, setAvatar] = useState(null);
   const [showInput, setShowInput] = useState(false);
 
   const handleAvatarChange = event => {
     console.log('it worked');
     setAvatar(URL.createObjectURL(event.target.files[0]));
+    setShowInput(false);
   };
 
   // const hiddenFileInput = React.useRef(null);
@@ -20,8 +21,19 @@ function UploadAvatar() {
   //  };
   return (
     <div>
-      <Avatar src={avatar} onClick={() => {}} />
-      <div className="uploadAvatarButton">
+      <Avatar
+        src={avatar}
+        width={width}
+        height={height}
+        onClick={() => {
+          if (showInput) {
+            setShowInput(false);
+          } else {
+            setShowInput(true);
+          }
+        }}
+      />
+      {/* <div className="uploadAvatarButton">
         <Icon
           as={AddIcon}
           // onClick={() => {
@@ -35,7 +47,7 @@ function UploadAvatar() {
             }
           }}
         />
-      </div>
+      </div> */}
       {showInput ? (
         <Input
           type="file"

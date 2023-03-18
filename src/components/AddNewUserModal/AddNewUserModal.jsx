@@ -9,7 +9,6 @@ import {
   FormLabel,
   Input,
   Select,
-  Avatar,
   VStack,
   Heading,
   ModalCloseButton,
@@ -17,48 +16,25 @@ import {
   useToast,
 } from '@chakra-ui/react';
 import { useBackend } from '../../contexts/BackendContext';
+import UploadAvatar from '../UploadAvatar/UploadAvatar';
 import CreateToast  from '../Toasts/CreateToast';
 
-// import UploadAvatar from '../UploadAvatar/UploadAvatar'
 
 const AddNewUserModal = ({ isOpen, onClose }) => {
   const { backend } = useBackend();
 
-  // backend
-  //   .post('http://localhost:3001/users')
-  //   .then(response => {
-  //     const jsonData = response.data;
-  //     console.log(jsonData); // or do something else with the data
-  //   })
-  //   .catch(error => {
-  //     console.error(error);
-  //   });
 
   const initialRef = useRef(null);
   const finalRef = useRef(null);
 
   // ID, email, first name, last name, facility
 
-  // const [fullName, setFullName] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
-  // const [facility, setFacility] = useState(1); // hard coded for now until the input form is updated
   const facility = 1;
-  // const id = 10; // hard coded for now until id is fixed
-  // const [accountType, setAccountType] = useState('');
-  // const [role, setRole] = useState('');
-  // const toast = useToast();
 
-  // const successToast = CreateToast('{user.firstName} invited to the adoption log', 'success');
-
-  // return (
-  //   <div>
-  //     <Input type="file" onChange={handleAvatarChange} />
-  //     {avatar && <Image src={avatar} boxSize="150px" objectFit="cover" />}
-  //   </div>
-  // );
 
   const toast = useToast();
 
@@ -75,42 +51,21 @@ const AddNewUserModal = ({ isOpen, onClose }) => {
       const response = await backend.post('/users', user);
 
       onClose();
-      // console.log(response.status);
 
       // attempting to add toast
       if (response.status === 200) {
-        CreateToast({ description: "Hello!", status: 'success', toast: toast });
-        //   console.log('inside 200 ');
-        //   // CreateToast('{user.firstName} invited to the adoption log', 'success');
-        //   // toast({
-        //   //   position: 'bottom-right',
-        //   //   description: `${user.firstName} invited to the adoption log`,
-        //   //   status: 'success',
-        //   //   duration: 3000,
-        //   //   isClosable: true,
-        //   // });
-        //   // <CreateToast description={(`${user.firstName} invited to the adoption log`, 'success')} />;
+        CreateToast({
+          description: `${user.firstName} invited to the adoption log`,
+          status: 'success',
+          toast,
+        });
       }
-      // } else if (response.status <= 499) {
-      //   // CreateToast('{user.firstName} unable to be invited to the adoption log', 'error');
-      //   toast({
-      //     position: 'bottom-right',
-      //     description: `${user.firstName} invited to the adoption log`,
-      //     status: 'success',
-      //     duration: 3000,
-      //     isClosable: true,
-      //   });
-      //   // <CreateToast
-      //   //   description={(`${user.firstName} unable to be invited to the adoption log`, 'error')}
-      //   // />;
-      // }
     } finally {
       setLoading(false);
     }
   };
 
   const handleNameChange = event => {
-    // setFullName(event.target.value);
     setFirstName(event.target.value.split(' ')[0]);
     setLastName(event.target.value.split(' ')[1]);
   };
@@ -118,18 +73,6 @@ const AddNewUserModal = ({ isOpen, onClose }) => {
   const handleEmailChange = event => {
     setEmail(event.target.value);
   };
-
-  //   const handleFacilityChange = (event) => {
-  //   setEmail(event.target.value);
-  // };
-
-  // const handleRoleChange = event => {
-  //   setRole(event.target.value);
-  // };
-
-  // const handleAccountTypeChange = event => {
-  //   setAccountType(event.target.value);
-  // };
 
   return (
     <>
@@ -146,7 +89,8 @@ const AddNewUserModal = ({ isOpen, onClose }) => {
           <ModalCloseButton />
           <ModalBody>
             <VStack gap={2} width="100%" mt={4}>
-              <Avatar />
+              {/* <Avatar /> */}
+              <UploadAvatar />
               <Heading fontWeight={500} size="md">
                 Add New User
               </Heading>

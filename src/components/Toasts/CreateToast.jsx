@@ -1,4 +1,6 @@
-const CreateToast = ({description, status, toast}) => {
+/* eslint-disable object-shorthand */
+
+const CreateToast = ({ description, status, toast }) => {
   toast({
     position: 'bottom-right',
     description: description,
