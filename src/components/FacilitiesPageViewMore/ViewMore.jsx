@@ -69,7 +69,7 @@ const ViewMore = () => {
 
   return (
     <Box>
-      <BreadcrumbBar left={'Facilities > ' + state.name}>
+      <BreadcrumbBar left={'Facilities > ' + showFacilityName()}>
         <Button
           size="sm"
           colorScheme="gray"
