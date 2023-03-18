@@ -45,7 +45,10 @@ const UserPageTable = () => {
     }
   };
 
-  const columns = useMemo(() => CellStructure(setRender, render), [setRender, render]);
+  const columns = useMemo(
+    () => CellStructure(setRender, render, !isLargerThan1075),
+    [setRender, render, isLargerThan1075],
+  );
   const {
     getTableProps,
     getTableBodyProps,
@@ -139,11 +142,26 @@ const UserPageTable = () => {
                     <Text>{user.role}</Text>
                   </Stack>
                 </CardBody>
+<<<<<<< HEAD
                 <CardFooter align="right">
                   <Box w="100%">
                     <EditUserModal info={user} setRender={setRender} render={render} />
                   </Box>
                 </CardFooter>
+=======
+                <Flex minWidth="max-content" w="100%" justifyContent="flex-end">
+                  <CardFooter>
+                    <Flex>
+                      <EditUserModal
+                        info={user}
+                        setRender={setRender}
+                        render={render}
+                        isMobile={!isLargerThan1075}
+                      />
+                    </Flex>
+                  </CardFooter>
+                </Flex>
+>>>>>>> 58580a9 (finished mobile 404 and users table)
               </Card>
             );
           })}

@@ -159,7 +159,7 @@ const RemoveUser = ({ setModalStep, onSubmit, onClose }) => {
 };
 
 // modal for the edit user button
-const EditUserModal = ({ info, setRender, render }) => {
+const EditUserModal = ({ info, setRender, render, isMobile }) => {
   const [modalStep, setModalStep] = useState('editUser');
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -191,6 +191,8 @@ const EditUserModal = ({ info, setRender, render }) => {
     ),
   };
 
+  const width1 = { true: '130px', false: '60px' };
+
   return (
     <>
       <Button
@@ -199,6 +201,7 @@ const EditUserModal = ({ info, setRender, render }) => {
         bg="
         #319795"
         color="white"
+        width={width1[isMobile]}
       >
         Edit
       </Button>
@@ -219,6 +222,7 @@ EditUserModal.propTypes = {
   }).isRequired,
   setRender: PropTypes.func.isRequired,
   render: PropTypes.bool.isRequired,
+  isMobile: PropTypes.bool.isRequired,
 };
 
 EditUser.propTypes = {

@@ -25,7 +25,7 @@ import Fonts from './styles/fonts';
 import './common/global.css';
 import Users from './pages/Users';
 
-const DISALLOWED_NAVBAR_PATHS = ['/login', '/forgot-password', '/reset-password', '/404'];
+const DISALLOWED_NAVBAR_PATHS = ['/login', '/forgot-password', '/reset-password'];
 
 const App = () => {
   const location = useLocation();

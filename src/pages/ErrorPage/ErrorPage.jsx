@@ -1,14 +1,37 @@
 import React from 'react';
-import { Container, Image, Flex, Link, VStack, AbsoluteCenter, Text, Box } from '@chakra-ui/react';
+import {
+  Container,
+  Image,
+  Flex,
+  Link,
+  VStack,
+  AbsoluteCenter,
+  Text,
+  Box,
+  // Hide,
+} from '@chakra-ui/react';
 import errorPageLogo from '../../assets/dog-army.png';
 import styles from './ErrorPage.module.css';
 
 const ErrorPage = () => (
   <Container h="100vh" className={styles.window}>
     <AbsoluteCenter>
-      <Flex margin="auto" gap="60px" align="center" flexDirection={{ base: 'column', xl: 'row' }}>
+      <Flex
+        margin="auto"
+        gap="60px"
+        alignItems="center"
+        justifyContent="flex-end"
+        flexDirection={{ base: 'column', xl: 'row' }}
+      >
         <Box>
-          <Image maxWidth="none" h="380px" w="419px" src={errorPageLogo} alt="Error Dog Picture" />
+          <Image
+            className={styles.errorDogPic}
+            maxWidth="none"
+            h="380px"
+            w="419px"
+            src={errorPageLogo}
+            alt="Error Dog Picture"
+          />
         </Box>
         <Flex>
           <VStack align="flex-start">
@@ -26,7 +49,7 @@ const ErrorPage = () => (
               <Text>
                 <h4 className={styles.error_h4}>
                   Try going back to the{' '}
-                  <Link as="span" color="#0075FF" href="/">
+                  <Link color="#0075FF" href="/">
                     Adoption Log
                   </Link>
                   .
