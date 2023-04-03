@@ -8,6 +8,7 @@ import { useBackend } from '../../contexts/BackendContext';
 import BreadcrumbBar from '../../components/BreadcrumbBar/BreadcrumbBar';
 import { BsPlusLg } from 'react-icons/bs';
 import { ArrowBackIcon } from '@chakra-ui/icons';
+import UploadAvatar from '../UploadAvatar/UploadAvatar';
 
 // export const theme = extendTheme({
 //   colors: {
@@ -77,7 +78,8 @@ const AddFacility = () => {
       <Box className="facilityModalContent" p={5}>
         <div className="userInfoButtons">
           <div className="placeholder">
-            <Avatar height="100px" width="100px" />
+            {/* <Avatar height="100px" width="100px" /> */}
+            <UploadAvatar width="100px" height="100px" />
           </div>
           <div className="modalHeader">
             <h1 className="enterName">{showFacilityName()}</h1>

@@ -21,7 +21,9 @@ import {
   AlertTitle,
   AlertDescription,
   AlertIcon,
+  useToast,
 } from '@chakra-ui/react';
+import CreateToast from '../Toasts/CreateToast';
 import { useBackend } from '../../contexts/BackendContext';
 
 // modal to edit user
@@ -148,6 +150,7 @@ const RemoveUser = ({ setModalStep, onSubmit, onClose }) => {
             onClick={() => {
               onSubmit();
               onClose();
+              // const toast = useToast();
             }}
           >
             Yes, remove the user
@@ -162,14 +165,17 @@ const RemoveUser = ({ setModalStep, onSubmit, onClose }) => {
 const EditUserModal = ({ info, setRender, render }) => {
   const [modalStep, setModalStep] = useState('editUser');
   const { isOpen, onOpen, onClose } = useDisclosure();
-
+  const toast = useToast();
   // remove user
   const { backend } = useBackend();
   const removeUser = async () => {
-    console.log('Removed');
-    console.log(info.email);
     await backend.delete(`users/${info.email}`);
     setRender(!render);
+    CreateToast({
+      description: `${info.firstName} removed`,
+      status: 'info',
+      toast,
+    });
   };
 
   useEffect(() => {

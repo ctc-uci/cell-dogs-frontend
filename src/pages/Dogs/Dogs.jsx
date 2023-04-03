@@ -1,10 +1,10 @@
 import React from 'react';
 import { Button } from '@chakra-ui/react';
+import { AddIcon } from '@chakra-ui/icons';
 import { useNavigate } from 'react-router-dom';
 import Location from '../../components/Location';
 import { useAuth } from '../../contexts/AuthContext';
 import BreadcrumbBar from '../../components/BreadcrumbBar/BreadcrumbBar';
-import { AddIcon } from '@chakra-ui/icons';
 
 const Dogs = () => {
   const { currentUser, logout } = useAuth();
@@ -15,15 +15,14 @@ const Dogs = () => {
     navigate('/login');
   };
 
-
   return (
     <div>
       <div className="breadcrumbAndAdd">
         <BreadcrumbBar left="Adoption Log">
           <div className="addDogButton">
-            <Button 
-              leftIcon={<AddIcon />} 
-              size="sm" 
+            <Button
+              leftIcon={<AddIcon />}
+              size="sm"
               onClick={() => {
                 navigate('/dogs/new');
               }}
