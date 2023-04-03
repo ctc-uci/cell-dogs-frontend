@@ -13,6 +13,7 @@ import ErrorPage from './pages/ErrorPage/ErrorPage';
 import LoginPage from './pages/Login/LoginPage';
 import Navbar from './components/Navbar/Navbar';
 import AddFacility from './components/AddFacility/AddFacility';
+import ViewMore from './components/FacilitiesPageViewMore/ViewMore';
 
 // Utils
 import { AuthProvider } from './contexts/AuthContext';
@@ -21,10 +22,11 @@ import ProtectedRoute from './util/ProtectedRoute/ProtectedRoute';
 
 // Styles/Theme
 import CDSTheme from './styles/theme';
+import Fonts from './styles/fonts';
 import './common/global.css';
 import Users from './pages/Users';
 
-const DISALLOWED_NAVBAR_PATHS = ['/login', '/forgot-password', '/reset-password', '/404'];
+const DISALLOWED_NAVBAR_PATHS = ['/login', '/forgot-password', '/reset-password'];
 
 const App = () => {
   const location = useLocation();
@@ -32,6 +34,7 @@ const App = () => {
   return (
     <AuthProvider>
       <BackendProvider>
+        <Fonts />
         <ChakraProvider theme={CDSTheme}>
           {!DISALLOWED_NAVBAR_PATHS.includes(location.pathname) && <Navbar />}
           <Routes>
@@ -55,6 +58,7 @@ const App = () => {
               path="/users"
               element={<ProtectedRoute Component={Users} redirectPath="/login" />}
             />
+            <Route path="view-more" element={<ViewMore />} />
             <Route path="/404" element={<ErrorPage />} />
             <Route path="*" element={<Navigate to="/404" replace />} />
           </Routes>

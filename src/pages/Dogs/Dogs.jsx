@@ -1,11 +1,11 @@
-import { React, useState, useEffect } from 'react';
+/* eslint-disable */
+import { React, useState } from 'react';
 import { Button } from '@chakra-ui/react';
 import { AddIcon } from '@chakra-ui/icons';
 import { useNavigate } from 'react-router-dom';
 // import Location from '../../components/Location';
 import BreadcrumbBar from '../../components/BreadcrumbBar/BreadcrumbBar';
 import { useBackend } from '../../contexts/BackendContext';
-import AdoptionLog from './AdoptionLog';
 
 const Dogs = () => {
   // const { currentUser, logout } = useAuth();
@@ -29,10 +29,6 @@ const Dogs = () => {
       console.log(err);
     }
   };
-
-  useEffect(() => {
-    getFacilities();
-  }, []);
 
   return (
     <div>

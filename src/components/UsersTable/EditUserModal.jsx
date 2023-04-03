@@ -21,7 +21,9 @@ import {
   AlertTitle,
   AlertDescription,
   AlertIcon,
+  useToast,
 } from '@chakra-ui/react';
+import CreateToast from '../Toasts/CreateToast';
 import { useBackend } from '../../contexts/BackendContext';
 
 // modal to edit user
@@ -143,11 +145,12 @@ const RemoveUser = ({ setModalStep, onSubmit, onClose }) => {
           </Button>
           <Button
             w="50%"
-            bg="cdsBlue1"
+            bg="CDSBlue1"
             color="white"
             onClick={() => {
               onSubmit();
               onClose();
+              // const toast = useToast();
             }}
           >
             Yes, remove the user
@@ -159,17 +162,20 @@ const RemoveUser = ({ setModalStep, onSubmit, onClose }) => {
 };
 
 // modal for the edit user button
-const EditUserModal = ({ info, setRender, render }) => {
+const EditUserModal = ({ info, setRender, render, isMobile }) => {
   const [modalStep, setModalStep] = useState('editUser');
   const { isOpen, onOpen, onClose } = useDisclosure();
-
+  const toast = useToast();
   // remove user
   const { backend } = useBackend();
   const removeUser = async () => {
-    console.log('Removed');
-    console.log(info.email);
     await backend.delete(`users/${info.email}`);
     setRender(!render);
+    CreateToast({
+      description: `${info.firstName} removed`,
+      status: 'info',
+      toast,
+    });
   };
 
   useEffect(() => {
@@ -191,6 +197,8 @@ const EditUserModal = ({ info, setRender, render }) => {
     ),
   };
 
+  const width1 = { true: '130px', false: '60px' };
+
   return (
     <>
       <Button
@@ -199,6 +207,7 @@ const EditUserModal = ({ info, setRender, render }) => {
         bg="
         #319795"
         color="white"
+        width={width1[isMobile]}
       >
         Edit
       </Button>
@@ -219,6 +228,7 @@ EditUserModal.propTypes = {
   }).isRequired,
   setRender: PropTypes.func.isRequired,
   render: PropTypes.bool.isRequired,
+  isMobile: PropTypes.bool.isRequired,
 };
 
 EditUser.propTypes = {

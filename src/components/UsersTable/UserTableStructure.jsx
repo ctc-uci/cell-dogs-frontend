@@ -1,10 +1,11 @@
 import React from 'react';
-import { Text, Icon, HStack } from '@chakra-ui/react';
+import { Text, Icon, HStack, Box } from '@chakra-ui/react';
 import { BsPersonFill } from 'react-icons/bs';
 import { AiOutlineInfoCircle } from 'react-icons/ai';
 import EditUserModal from './EditUserModal';
 
-const CellStructure = (setRender, render) => {
+const CellStructure = (setRender, render, isMobile) => {
+  console.log(isMobile);
   /* eslint-disable react/destructuring-assignment, react/prop-types */
   const cellStructure = [
     {
@@ -62,7 +63,11 @@ const CellStructure = (setRender, render) => {
         lastName: d.lastName,
         email: d.email,
       }),
-      Cell: ({ value }) => <EditUserModal info={value} setRender={setRender} render={render} />,
+      Cell: ({ value }) => (
+        <Box align="right" mr="30px">
+          <EditUserModal info={value} setRender={setRender} render={render} isMobile={isMobile} />
+        </Box>
+      ),
     },
   ];
   return cellStructure;
