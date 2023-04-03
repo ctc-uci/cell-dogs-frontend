@@ -2,12 +2,13 @@
 import { Button, Input, Avatar, Textarea, Box, Flex } from '@chakra-ui/react';
 // import { AddIcon } from '@chakra-ui/icons';
 import React, { useState } from 'react';
-import './AddFacility.css';
-import { useNavigate } from 'react-router-dom';
+import './ViewMore.css';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useBackend } from '../../contexts/BackendContext';
 import BreadcrumbBar from '../../components/BreadcrumbBar/BreadcrumbBar';
 import { BsPlusLg } from 'react-icons/bs';
 import { ArrowBackIcon } from '@chakra-ui/icons';
+import axios from 'axios';
 
 // export const theme = extendTheme({
 //   colors: {
@@ -21,29 +22,33 @@ import { ArrowBackIcon } from '@chakra-ui/icons';
 //   }
 // })
 
-const AddFacility = () => {
-  const [facilityName, setFacilityName] = useState('');
-  const [address, setAddress] = useState('');
-  const [notes, setNotes] = useState('');
-  // const [name, setName] = useState('');
-  // const [title, setTitle] = useState('');
-  // const [phoneNumber, setPhoneNumber] = useState('');
+const ViewMore = () => {
+  const [editable, setEditable] = useState(false);
+  // const [inputValue, setInputValue] = useState('');
+
   const { backend } = useBackend();
+
+  const { state } = useLocation();
 
   const Navigate = useNavigate();
 
-  const addFacility = async () => {
-    const facilityData = {
-      name: facilityName,
-      addressLine: address,
-      city: 'Irvine',
-      state: 'CA',
-      zipcode: '92697',
-      description: notes,
-    };
-    await backend.post(`/facility`, facilityData);
+  const onClose = () => {
     Navigate('/facilities');
   };
+
+  const handleEditButton = () => {
+    setEditable(true);
+  };
+
+  const [facilityName, setFacilityName] = useState(state.name);
+  const [address, setAddress] = useState(state.addressLine);
+  const [notes, setNotes] = useState(state.description);
+
+  // the four below are currently empty in the database
+  const [contactName, setContactName] = useState(state.contactPerson);
+  const [title, setTitle] = useState(state.title);
+  const [phoneNumber, setPhoneNumber] = useState(state.phoneNumber);
+  const [email, setEmail] = useState(state.email);
 
   const showFacilityName = () => {
     if (facilityName == '') {
@@ -52,9 +57,19 @@ const AddFacility = () => {
     return facilityName;
   };
 
+  const saveFacility = async () => {
+    const facilityData = {
+      name: facilityName,
+      addressLine: address,
+      description: notes,
+    };
+    await backend.put(`facility/${state.id}`, facilityData);
+    setEditable(false);
+  };
+
   return (
     <Box>
-      <BreadcrumbBar left="Facilities > New Facility">
+      <BreadcrumbBar left={'Facilities > ' + showFacilityName()}>
         <Button
           size="sm"
           colorScheme="gray"
@@ -69,11 +84,10 @@ const AddFacility = () => {
         </Button>
       </BreadcrumbBar>
       <Flex width="100%" justifyContent="flex-start" pt={4} ml={10}>
-        <Button variant="link" leftIcon={<ArrowBackIcon />} onClick={() => Navigate('/facilities')}>
+        <Button variant="link" leftIcon={<ArrowBackIcon />} onClick={onClose}>
           Go Back
         </Button>
       </Flex>
-
       <Box className="facilityModalContent" p={5}>
         <div className="userInfoButtons">
           <div className="placeholder">
@@ -84,59 +98,47 @@ const AddFacility = () => {
           </div>
           <div className="buttons">
             <Button
-              className="cancelButton"
-              width="250px"
+              className="editButton"
+              //width="62.5px"
               size="sm"
-              color="--cds-blue-2"
+              color="gray"
               variant="outline"
-              onClick={() => Navigate('/facilities')}
+              onClick={() => handleEditButton()}
             >
-              Cancel
+              Edit
             </Button>
             <Button
               className="saveButton"
-              width="250px"
+              //width="62.5px"
               size="sm"
-              bg="#21307a"
-              color="white"
-              onClick={() => addFacility()}
+              colorScheme="blue"
+              variant="solid"
+              onClick={() => saveFacility()}
             >
               Save
             </Button>
           </div>
         </div>
-        <div className="pointsOfContact">
-          <h1 className="POCText">Points of Contact</h1>
-          <Button
-            size="sm"
-            colorScheme="gray"
-            color="--cds-grey-1"
-            onClick={() => Navigate('/facilities')}
-          >
-            Add Another Point of Contact
-          </Button>
-        </div>
+
         <h3>Facility Name</h3>
         <div className="nameInput">
           <Input
-            placeholder="OC Juvenile Hall"
             value={facilityName}
+            disabled={!editable}
             onChange={e => setFacilityName(e.target.value)}
           />
         </div>
         <h3>Address</h3>
         <div className="addressInput">
-          <Input
-            placeholder="123 Irvine Way Fountain Valley, CA 92728"
-            onChange={e => setAddress(e.target.value)}
-          />
+          <Input disabled={!editable} value={address} onChange={e => setAddress(e.target.value)} />
         </div>
         <h3>Notes</h3>
         <div className="notesInput">
           <Textarea
+            disabled={!editable}
             height="150px"
             padding-top="0px"
-            placeholder="Enter notes here"
+            value={notes}
             onChange={e => setNotes(e.target.value)}
           />
         </div>
@@ -144,13 +146,17 @@ const AddFacility = () => {
           <div className="pocName">
             <h3>Name</h3>
             <div className="pocNameInput">
-              <Input placeholder="Jane Smith" />
+              <Input
+                disabled={!editable}
+                value={contactName}
+                onChange={e => setContactName(e.target.value)}
+              />
             </div>
           </div>
           <div className="pocTitle">
             <h3>Title</h3>
             <div className="pocTitleInput">
-              <Input placeholder="Programs Officer" />
+              <Input disabled={!editable} value={title} onChange={e => setTitle(e.target.value)} />
             </div>
           </div>
         </div>
@@ -158,13 +164,17 @@ const AddFacility = () => {
           <div className="pocPhoneNumber">
             <h3>Phone Number</h3>
             <div className="pocPhoneNumberInput">
-              <Input placeholder="(123)456-7890" />
+              <Input
+                disabled={!editable}
+                value={phoneNumber}
+                onChange={e => setPhoneNumber(e.target.value)}
+              />
             </div>
           </div>
           <div className="pocEmail">
             <h3>Email</h3>
             <div className="pocEmailInput">
-              <Input placeholder="email@uci.edu" />
+              <Input disabled={!editable} value={email} onChange={e => setEmail(e.target.value)} />
             </div>
           </div>
         </div>
@@ -172,4 +182,4 @@ const AddFacility = () => {
     </Box>
   );
 };
-export default AddFacility;
+export default ViewMore;

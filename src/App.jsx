@@ -13,6 +13,7 @@ import ErrorPage from './pages/ErrorPage/ErrorPage';
 import LoginPage from './pages/Login/LoginPage';
 import Navbar from './components/Navbar/Navbar';
 import AddFacility from './components/AddFacility/AddFacility';
+import ViewMore from './components/FacilitiesPageViewMore/ViewMore';
 
 // Utils
 import { AuthProvider } from './contexts/AuthContext';
@@ -39,7 +40,10 @@ const App = () => {
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/" element={<ProtectedRoute Component={Dogs} redirectPath="/login" />} />
-            <Route path="/dogs/new" element={<ProtectedRoute Component={AddDog} redirectPath="/login" />} />
+            <Route
+              path="/dogs/new"
+              element={<ProtectedRoute Component={AddDog} redirectPath="/login" />}
+            />
             <Route
               path="/facilities"
               element={<ProtectedRoute Component={Facilities} redirectPath="/login" />}
@@ -52,6 +56,7 @@ const App = () => {
               path="/users"
               element={<ProtectedRoute Component={Users} redirectPath="/login" />}
             />
+            <Route path="view-more" element={<ViewMore />} />
             <Route path="/404" element={<ErrorPage />} />
             <Route path="*" element={<Navigate to="/404" replace />} />
           </Routes>
