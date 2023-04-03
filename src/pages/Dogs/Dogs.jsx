@@ -1,18 +1,33 @@
-import React from 'react';
+/* eslint-disable */
+import { React, useState } from 'react';
 import { Button } from '@chakra-ui/react';
 import { AddIcon } from '@chakra-ui/icons';
 import { useNavigate } from 'react-router-dom';
-import Location from '../../components/Location';
-import { useAuth } from '../../contexts/AuthContext';
+// import Location from '../../components/Location';
 import BreadcrumbBar from '../../components/BreadcrumbBar/BreadcrumbBar';
+import { useBackend } from '../../contexts/BackendContext';
 
 const Dogs = () => {
-  const { currentUser, logout } = useAuth();
+  // const { currentUser, logout } = useAuth();
+  // const { logout } = useAuth();
   const navigate = useNavigate();
 
-  const handleLogout = async () => {
-    await logout();
-    navigate('/login');
+  // const handleLogout = async () => {
+  //   await logout();
+  //   navigate('/login');
+  // };
+
+  const { backend } = useBackend();
+  const [data, setData] = useState([]);
+
+  const getFacilities = async () => {
+    try {
+      const res = await backend.get('/facility');
+      setData(res.data);
+      console.log(res);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -32,13 +47,17 @@ const Dogs = () => {
           </div>
         </BreadcrumbBar>
       </div>
-      <p>This is the Dog Table page</p>
+      {/* <AdoptionLogFunctionalities></AdoptionLogFunctionalities> */}
+      {data.map(facility => (
+        <AdoptionLog key={facility.name} tableName={facility.name} />
+      ))}
+      {/* <p>This is the Dog Table page</p>
       <strong>User email/username:</strong>
       {currentUser.email}
       <Button variant="link" onClick={handleLogout}>
         Log out
       </Button>
-      <Location />
+      <Location /> */}
     </div>
   );
 };

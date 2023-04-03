@@ -1,0 +1,23 @@
+.adoptionLog {
+  padding: 4vw;
+}
+
+.tableHeader {
+  display: flex;
+  gap: 2vw;
+  margin-bottom: 1vh;
+  align-items: center;
+}
+
+.table {
+  border: 1px solid #e2e8f0;
+  border-radius: 100vw;
+}
+
+.dogName {
+  font-weight: bold;
+}
+
+.dogNameSub {
+  color: #718096;
+}
