@@ -25,6 +25,7 @@ import {
 } from '@chakra-ui/react';
 import CreateToast from '../Toasts/CreateToast';
 import { useBackend } from '../../contexts/BackendContext';
+import './EditUserModal.css';
 
 // modal to edit user
 const EditUser = ({ setModalStep, onClose, info, setRender, render }) => {
@@ -67,6 +68,7 @@ const EditUser = ({ setModalStep, onClose, info, setRender, render }) => {
     };
     await backend.put(`users/${info.email}`, usersData);
     setRender(!render);
+    onClose()
   };
 
   return (
@@ -138,13 +140,13 @@ const RemoveUser = ({ setModalStep, onSubmit, onClose }) => {
           </AlertDescription>
         </Alert>
       </ModalBody>
-      <ModalFooter w="100%">
-        <HStack w="100%">
-          <Button w="50%" variant="outline" onClick={() => setModalStep('editUser')}>
+      <ModalFooter>
+        <div className="buttons-container">
+          <Button className="button" variant="outline" onClick={() => setModalStep('editUser')}>
             Cancel
           </Button>
           <Button
-            w="50%"
+            className="button"
             bg="CDSBlue1"
             color="white"
             onClick={() => {
@@ -155,7 +157,7 @@ const RemoveUser = ({ setModalStep, onSubmit, onClose }) => {
           >
             Yes, remove the user
           </Button>
-        </HStack>
+        </div>
       </ModalFooter>
     </>
   );
@@ -214,7 +216,7 @@ const EditUserModal = ({ info, setRender, render, isMobile }) => {
 
       <Modal closeOnOverlayClick={false} isOpen={isOpen} onClose={onClose} isCentered>
         <ModalOverlay />
-        <ModalContent maxW="60%">{modalContent[modalStep]}</ModalContent>
+        <ModalContent className="modal-content">{modalContent[modalStep]}</ModalContent>
       </Modal>
     </>
   );

@@ -263,18 +263,18 @@ const Facilities = () => {
       <Hide above="md">
         <VStack gap={3}>
           {facilities.map(
-            ({ name, address_line: addressLine, description, contact_person: contactPerson }) => (
+            ({ name, address_line: addressLine, description, id, title, phoneNumber, email, contact_person: contactPerson }) => (
               <Card
+                boxShadow="dark-lg"
+                m={6}
                 size="md"
-                boxShadow="sm"
-                borderWidth={1}
-                borderColor="gray.200"
                 p="4"
                 rounded="md"
                 bg="white"
+                minWidth="90%"
+                maxWidth="90%" 
+                justifyContent="flex-end"
                 key={name}
-                width={500}
-                cursor="pointer"
               >
                 <CardHeader>
                   <Flex spacing="4">
@@ -305,7 +305,23 @@ const Facilities = () => {
                   </Flex>
                 </CardBody>
                 <CardFooter justifyContent="flex-end" display="flex" width="100%">
-                  <Button size="sm" colorScheme="teal">
+                  <Button
+                    size="sm"
+                    colorScheme="teal"
+                    p={3}
+                    onClick={() =>
+                      navigateViewMore(
+                        name,
+                        addressLine,
+                        description,
+                        id,
+                        contactPerson,
+                        title,
+                        phoneNumber,
+                        email,
+                      )
+                    }
+                  >
                     View More
                   </Button>
                 </CardFooter>
