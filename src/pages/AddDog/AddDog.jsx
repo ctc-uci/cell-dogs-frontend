@@ -46,6 +46,12 @@ const AddDog = () => {
   const [adoptemail, setAdoptEmail] = useState('');
   const [fees, setFees] = useState(0);
   const [revenue, setRevenue] = useState(0);
+  const [therapyTag, setTherapyTag] = useState(false);
+  const [stfAdptTag, setStfAdptTag] = useState(false);
+  const [descdTag, setDescdTag] = useState(false);
+  const [specialTag, setSpecialTag] = useState(false);
+  const [serviceTag, setServiceTag] = useState(false);
+  
   const { backend } = useBackend();
   const Navigate = useNavigate();
 
@@ -150,16 +156,16 @@ const AddDog = () => {
         </div>
         <div className="addTag">
           <Select placeholder="Add Tag" isMulti>
-            <option value="Service">Service</option>
-            <option value="Therapy">Therapy</option>
-            <option value="Staff Adoption">Staff Adoption</option>
-            <option value="Special Needs">Special Needs</option>
-            <option value="Deceased">Deceased</option>
+            <option value="Service" >Service</option>
+            <option value="Therapy" >Therapy</option>
+            <option value="Staff Adoption" >Staff Adoption</option>
+            <option value="Special Needs" >Special Needs</option>
+            <option value="Deceased" >Deceased</option>
           </Select>
         </div>
         <div className="tagRow">
           <div className="tag">
-            <h3>Service</h3>
+            <h5>Temp</h5>
           </div>
         </div>
         <div className="buttons">
@@ -424,11 +430,11 @@ const AddDog = () => {
         </div>
       </div>
 
-      <Flex direction="column" align="center" px="6.5%">
+      <Flex direction="column" align="center" justify-content="center">
         <Heading as="h2" fontSize="24px">
           Additional Notes
         </Heading>
-        <Textarea borderWidth={1} name="additionalNotes" rows="10" />
+        <Textarea borderWidth={1} name="additionalNotes" rows="7" width="70%" />
       </Flex>
     </div>
   );

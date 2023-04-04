@@ -64,6 +64,7 @@ const AdoptionLog = props => {
       addrline,
       adoptcity,
       adoptstate,
+      dogid
     } = dog;
 
     if (shelter !== tableName) {
@@ -79,7 +80,7 @@ const AdoptionLog = props => {
     const address = `${addrline} ${adoptcity} ${adoptstate}`;
 
     return (
-      <Tr>
+      <Tr key={dogid}>
         <Td>
           <Checkbox />
         </Td>
