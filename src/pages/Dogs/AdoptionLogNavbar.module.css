@@ -33,6 +33,13 @@
     margin-bottom: 4px;
 }
 
-.searchBarContainer {
-    width: 30%;
+
+
+@media (max-width: 768px) {
+    .mobile-container {
+        display: none;
+        padding: 0%;
+    }
+
+
 }

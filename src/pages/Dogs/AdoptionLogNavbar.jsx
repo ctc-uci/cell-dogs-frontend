@@ -10,6 +10,7 @@ import {
 } from '@chakra-ui/react';
 import { Search2Icon, DownloadIcon } from '@chakra-ui/icons';
 import styles from './AdoptionLogNavbar.module.css';
+import  './AdoptionLogNavbar.module.css';
 
 const AdoptionLogNavbar = () => {
   const [view, setView] = useState('table');
@@ -26,37 +27,40 @@ const AdoptionLogNavbar = () => {
   return (
     <div className={styles.navbarContainer}>
       <div className={styles.subnavbar}>
-        <div className="view" width="10%">
-          <Button
-            variant={view === 'card' ? 'solid' : 'outline'}
-            colorScheme={view === 'card' ? 'facebook' : 'grey'}
-            size="md"
-            onClick={() => handleViewToggle('card')}
-          >
-            Card View
-          </Button>
+        <div className={styles['mobile-container']}>
+          <div className="view" width="10%">
+            <Button
+              variant={view === 'card' ? 'solid' : 'outline'}
+              colorScheme={view === 'card' ? 'facebook' : 'grey'}
+              size="md"
+              onClick={() => handleViewToggle('card')}
+            >
+              Card View
+            </Button>
 
-          <Button
-            variant={view === 'table' ? 'solid' : 'outline'}
-            colorScheme={view === 'table' ? 'facebook' : 'grey'}
-            size="md"
-            onClick={() => handleViewToggle('table')}
-          >
-            Table View
-          </Button>
+            <Button
+              variant={view === 'table' ? 'solid' : 'outline'}
+              colorScheme={view === 'table' ? 'facebook' : 'grey'}
+              size="md"
+              onClick={() => handleViewToggle('table')}
+            >
+              Table View
+            </Button>
+          </div>
         </div>
-        <InputGroup size="sm" width="30%">
-          <InputLeftElement pointerEvents="none" children={<Search2Icon color="gray.300" />} />
-          <Input
-            type="text"
-            placeholder="Search"
-            size="sm"
-            value={search}
-            onChange={e => setSearch(e.target.value)}
-            className={styles.customSelectInput}
-          />
-        </InputGroup>
-        <div width="50%">
+        <div className={styles['mobile-search-container']}>
+          <InputGroup size="sm">
+            <InputLeftElement pointerEvents="none" children={<Search2Icon color="gray.300" />} />
+            <Input
+              type="text"
+              placeholder="Search"
+              size="sm"
+              value={search}
+              onChange={e => setSearch(e.target.value)}
+              className={styles.customSelectInput}
+            />
+          </InputGroup>
+        </div>
           <select
             value={filter}
             border="1px solid black"
@@ -73,27 +77,28 @@ const AdoptionLogNavbar = () => {
             <option value="all-males">All Males</option>
             <option value="all-females">All Females</option>
           </select>
-          <label className={styles.label}>
-            Facility:
-            <select value={facility} onChange={e => setFacility(e.target.value)} className={styles.customSelectInput}>
-              <option value="">All</option>
-              <option value="facility-1">OC Probation</option>
-              <option value="facility-2">Theo Lacy Facility</option>
-              <option value="facility-3">OC Sheriffs Department</option>
-            </select>
-          </label>
-          <Button size="md" onClick={() => setSelectAll(true)} style={{ marginRight: '10px' }}>
-            Select All
-          </Button>
-          <Button
-            size="md"
-            aria-label="Export"
-            rightIcon={<DownloadIcon />}
-            onClick={() => setExportData()}
-          >
-            Export
-          </Button>
-        </div>
+          <div className={styles['mobile-container']}>
+            <label className={styles.label}>
+              Facility:
+              <select value={facility} onChange={e => setFacility(e.target.value)} className={styles.customSelectInput}>
+                <option value="">All</option>
+                <option value="facility-1">OC Probation</option>
+                <option value="facility-2">Theo Lacy Facility</option>
+                <option value="facility-3">OC Sheriffs Department</option>
+              </select>
+            </label>
+            <Button size="md" onClick={() => setSelectAll(true)} style={{ marginRight: '10px' }}>
+              Select All
+            </Button>
+            <Button
+              size="md"
+              aria-label="Export"
+              rightIcon={<DownloadIcon />}
+              onClick={() => setExportData()}
+            >
+              Export
+            </Button>
+          </div>
       </div>
     </div>
   );

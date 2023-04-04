@@ -58,7 +58,8 @@ const ProfileDropdown = ({ mobile }) => {
               <p className={styles['profile-preview-name']}>
                 {userData?.firstName} {userData?.lastName}
               </p>
-              <p className={styles['profile-role']}>{userData?.role}</p>
+              {/* <p className={styles['profile-role']}>{userData?.role}</p> */}
+              <p className={styles['profile-role']}>Executive Director</p>
             </div>
           </div>
         </MenuButton>
