@@ -137,8 +137,8 @@ const AdoptionLog = props => {
                 <Th>Facility</Th>
                 <Th>Adopter</Th>
                 <Th>Contact Info</Th>
-                <Th>Dog Name</Th>
                 <Th>Address</Th>
+                <Th></Th>
               </Tr>
             </Thead>
             <Tbody backgroundColor="#FDFDFD">
