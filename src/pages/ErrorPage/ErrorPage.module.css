@@ -1,30 +1,14 @@
 .error_h1 {
   margin-block: 0;
+  line-height: '120px';
 }
 .error_h2 {
   margin-block: 0;
+  white-space: nowrap;
+  line-height: '60px';
 }
 .error_h4 {
   margin-block: 0;
-}
-.window {
-  height: 100vh;
-  align-items: center;
-  justify-content: center;
-}
-
-.container {
-  gap: 60px;
-  flex-direction: row;
-  height: 100%;
-  align-items: center;
-  justify-content: center;
-}
-
-.stack {
-  align-items: flex-start;
-  height: fit-content;
-  flex-direction: column;
 }
 
 @media screen and (max-width: 1200px) {
@@ -34,5 +18,25 @@
 
   .window {
     padding: 172px 0;
+  }
+
+  .errorDogPic {
+    margin-top: 150px;
+    margin-bottom: -50px;
+  }
+
+  .error_h1 {
+    /* font-size: 36px; */
+    line-height: '45px';
+  }
+
+  .error_h2 {
+    /* font-size: 24px; */
+    line-height: '30px';
+  }
+
+  .error_h4 {
+    /* font-size: 16px; */
+    line-height: '21.79px';
   }
 }

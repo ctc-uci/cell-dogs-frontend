@@ -44,6 +44,26 @@ const Facilities = () => {
   const [resultsPerPage, setResultsPerPage] = useState(10);
   const [page, setPage] = useState(0);
 
+  const navigateViewMore = (
+    username,
+    address,
+    desc,
+    id,
+    contactPerson,
+    title,
+    phoneNumber,
+    email,
+  ) => {
+    Navigate('/view-more', {
+      state: {
+        name: username,
+        addressLine: address,
+        description: desc,
+        id,
+      },
+    });
+  };
+
   useEffect(() => {
     // have it so that each page has resultsPerPage facilities
     setPage(0);
@@ -141,7 +161,11 @@ const Facilities = () => {
                     name,
                     address_line: addressLine,
                     description,
+                    id,
                     contact_person: contactPerson,
+                    title,
+                    phoneNumber,
+                    email,
                   }) => (
                     <Tr key={name} py={2}>
                       <Td>
@@ -156,7 +180,23 @@ const Facilities = () => {
                       <Td>{description}</Td>
                       <Td>Some Random Contact</Td>
                       <Td>
-                        <Button size="sm" colorScheme="teal" p={3}>
+                        <Button
+                          size="sm"
+                          colorScheme="teal"
+                          p={3}
+                          onClick={() =>
+                            navigateViewMore(
+                              name,
+                              addressLine,
+                              description,
+                              id,
+                              contactPerson,
+                              title,
+                              phoneNumber,
+                              email,
+                            )
+                          }
+                        >
                           View More
                         </Button>
                       </Td>
@@ -223,18 +263,18 @@ const Facilities = () => {
       <Hide above="md">
         <VStack gap={3}>
           {facilities.map(
-            ({ name, address_line: addressLine, description, contact_person: contactPerson }) => (
+            ({ name, address_line: addressLine, description, id, title, phoneNumber, email, contact_person: contactPerson }) => (
               <Card
+                boxShadow="dark-lg"
+                m={6}
                 size="md"
-                boxShadow="sm"
-                borderWidth={1}
-                borderColor="gray.200"
                 p="4"
                 rounded="md"
                 bg="white"
+                minWidth="90%"
+                maxWidth="90%" 
+                justifyContent="flex-end"
                 key={name}
-                width={500}
-                cursor="pointer"
               >
                 <CardHeader>
                   <Flex spacing="4">
@@ -265,7 +305,23 @@ const Facilities = () => {
                   </Flex>
                 </CardBody>
                 <CardFooter justifyContent="flex-end" display="flex" width="100%">
-                  <Button size="sm" colorScheme="teal">
+                  <Button
+                    size="sm"
+                    colorScheme="teal"
+                    p={3}
+                    onClick={() =>
+                      navigateViewMore(
+                        name,
+                        addressLine,
+                        description,
+                        id,
+                        contactPerson,
+                        title,
+                        phoneNumber,
+                        email,
+                      )
+                    }
+                  >
                     View More
                   </Button>
                 </CardFooter>

@@ -94,6 +94,8 @@ const AdoptionLogNavbar = () => {
         alignItems: 'center',
         gap: '10px',
         flexWrap: 'wrap',
+        borderBottom: '2px solid rgba(0, 0, 0, 0.1)',
+        paddingBottom: '10px',
       }}
     >
       <div className="view" width="10%">

@@ -17,11 +17,13 @@ import {
 } from '@chakra-ui/react';
 import { ArrowBackIcon, ChevronRightIcon, AddIcon } from '@chakra-ui/icons';
 import './AddDog.css';
+import UploadAvatar from '../../components/UploadAvatar/UploadAvatar';
 import { useBackend } from '../../contexts/BackendContext';
 import Location from '../../components/Location';
 import { useNavigate } from 'react-router-dom';
 
 const AddDog = () => {
+  const [dogid, setDogID] = useState(0);
   const [facilityid, setFacilityID] = useState(0);
   const [groupnum, setGroupNum] = useState(0);
   const [graddate, setGradDate] = useState('');
@@ -69,6 +71,7 @@ const AddDog = () => {
 
     backend
       .post('/dog', {
+        dogid,
         facilityid,
         groupnum,
         graddate,
@@ -127,7 +130,7 @@ const AddDog = () => {
 
       <div className="profileSection">
         <div className="dogPic">
-          <Avatar height="100px" width="100px" />
+          <UploadAvatar width="100px" height="100px"/>
         </div>
         <div className="name">
           <div className="nameInput">
@@ -274,7 +277,7 @@ const AddDog = () => {
                 type="text"
                 className="formInput"
                 onChange={e => {
-                  setGradDate(e.target.value);
+                  setChipNum(e.target.value);
                 }}
               />
             </FormControl>
@@ -292,7 +295,7 @@ const AddDog = () => {
               type="text"
               className="formInput"
               onChange={e => {
-                setGradDate(e.target.value);
+                setAddrLine(e.target.value);
               }}
             />
           </FormControl>
@@ -303,7 +306,7 @@ const AddDog = () => {
                 type="text"
                 className="formInput"
                 onChange={e => {
-                  setGradDate(e.target.value);
+                  setAdoptCity(e.target.value);
                 }}
               />
             </FormControl>
@@ -313,7 +316,7 @@ const AddDog = () => {
                 type="text"
                 className="formInput"
                 onChange={e => {
-                  setGradDate(e.target.value);
+                  setAdoptState(e.target.value);
                 }}
               />
             </FormControl>
@@ -324,7 +327,7 @@ const AddDog = () => {
               type="text"
               className="formInput"
               onChange={e => {
-                setGradDate(e.target.value);
+                setZip(e.target.value);
               }}
             />
           </FormControl>
@@ -339,7 +342,7 @@ const AddDog = () => {
                   type="text"
                   className="formInput"
                   onChange={e => {
-                    setGradDate(e.target.value);
+                    setFees(e.target.value);
                   }}
                 />
               </FormControl>
@@ -349,7 +352,7 @@ const AddDog = () => {
                   type="text"
                   className="formInput"
                   onChange={e => {
-                    setGradDate(e.target.value);
+                    setRevenue(e.target.value);
                   }}
                 />
               </FormControl>
@@ -372,7 +375,7 @@ const AddDog = () => {
               type="text"
               className="formInput"
               onChange={e => {
-                setGradDate(e.target.value);
+                setFacilityID(e.target.value);
               }}
             />
           </FormControl>
@@ -393,7 +396,7 @@ const AddDog = () => {
                 type="text"
                 className="formInput"
                 onChange={e => {
-                  setGradDate(e.target.value);
+                  setGroupNum(e.target.value);
                 }}
               />
             </FormControl>
@@ -404,7 +407,7 @@ const AddDog = () => {
               type="text"
               className="formInput"
               onChange={e => {
-                setGradDate(e.target.value);
+                setShelter(e.target.value);
               }}
             />
           </FormControl>
@@ -414,7 +417,7 @@ const AddDog = () => {
               type="text"
               className="formInput"
               onChange={e => {
-                setGradDate(e.target.value);
+                setDogID(e.target.value);
               }}
             />
           </FormControl>
@@ -425,7 +428,6 @@ const AddDog = () => {
         <Heading as="h2" fontSize="24px">
           Additional Notes
         </Heading>
-
         <Textarea borderWidth={1} name="additionalNotes" rows="10" />
       </Flex>
     </div>

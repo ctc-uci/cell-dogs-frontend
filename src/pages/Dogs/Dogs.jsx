@@ -1,21 +1,39 @@
-import React from 'react';
+import { React, useState, useEffect } from 'react';
 import { Button } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import { AddIcon } from '@chakra-ui/icons';
-import Location from '../../components/Location';
-import { useAuth } from '../../contexts/AuthContext';
 import BreadcrumbBar from '../../components/BreadcrumbBar/BreadcrumbBar';
 // eslint-disable-next-line import/no-useless-path-segments
-import AdoptionLogNavbar from '../../pages/AdoptionLog';
+import AdoptionLogNavbar from './AdoptionLogNavbar';
+import { useBackend } from '../../contexts/BackendContext';
+import AdoptionLog from './AdoptionLog';
 
 const Dogs = () => {
-  const { currentUser, logout } = useAuth();
+  // const { currentUser, logout } = useAuth();
+  // const { logout } = useAuth();
   const navigate = useNavigate();
 
-  const handleLogout = async () => {
-    await logout();
-    navigate('/login');
+  // const handleLogout = async () => {
+  //   await logout();
+  //   navigate('/login');
+  // };
+
+  const { backend } = useBackend();
+  const [data, setData] = useState([]);
+
+  const getFacilities = async () => {
+    try {
+      const res = await backend.get('/facility');
+      setData(res.data);
+      console.log(res);
+    } catch (err) {
+      console.log(err);
+    }
   };
+
+  useEffect(() => {
+    getFacilities();
+  }, []);
 
   return (
     <div>
@@ -35,14 +53,9 @@ const Dogs = () => {
         </BreadcrumbBar>
       </div>
       <AdoptionLogNavbar />
-      <hr />
-      <p>This is the Dog Table page</p>
-      <strong>User email/username:</strong>
-      {currentUser.email}
-      <Button variant="link" onClick={handleLogout}>
-        Log out
-      </Button>
-      <Location />
+      {data.map(facility => (
+        <AdoptionLog key={facility.name} tableName={facility.name} />
+      ))}
     </div>
   );
 };

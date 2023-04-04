@@ -21,15 +21,18 @@ import {
   AlertTitle,
   AlertDescription,
   AlertIcon,
+  useToast,
 } from '@chakra-ui/react';
+import CreateToast from '../Toasts/CreateToast';
 import { useBackend } from '../../contexts/BackendContext';
+import './EditUserModal.css';
 
 // modal to edit user
 const EditUser = ({ setModalStep, onClose, info, setRender, render }) => {
   const [user, setUser] = useState({
     fullName: `${info.firstName} ${info.lastName}`,
     email: `${info.email}`,
-    role: '',
+    role: 'Developer',
   });
 
   const changeFullName = e => {
@@ -65,6 +68,7 @@ const EditUser = ({ setModalStep, onClose, info, setRender, render }) => {
     };
     await backend.put(`users/${info.email}`, usersData);
     setRender(!render);
+    onClose()
   };
 
   return (
@@ -80,7 +84,7 @@ const EditUser = ({ setModalStep, onClose, info, setRender, render }) => {
           <FormLabel mt={5}>Add Email</FormLabel>
           <Input value={user.email} onChange={changeEmail} />
           <FormLabel mt={5}>Add Role</FormLabel>
-          <Input value={user.role} onChange={changeRole} />
+          <Input value={'Developer'} onChange={changeRole} />
           <Select mt={5}>
             <option value="administrator">Administrator</option>
           </Select>
@@ -136,40 +140,44 @@ const RemoveUser = ({ setModalStep, onSubmit, onClose }) => {
           </AlertDescription>
         </Alert>
       </ModalBody>
-      <ModalFooter w="100%">
-        <HStack w="100%">
-          <Button w="50%" variant="outline" onClick={() => setModalStep('editUser')}>
+      <ModalFooter>
+        <div className="buttons-container">
+          <Button className="button" variant="outline" onClick={() => setModalStep('editUser')}>
             Cancel
           </Button>
           <Button
-            w="50%"
-            bg="cdsBlue1"
+            className="button"
+            bg="CDSBlue1"
             color="white"
             onClick={() => {
               onSubmit();
               onClose();
+              // const toast = useToast();
             }}
           >
             Yes, remove the user
           </Button>
-        </HStack>
+        </div>
       </ModalFooter>
     </>
   );
 };
 
 // modal for the edit user button
-const EditUserModal = ({ info, setRender, render }) => {
+const EditUserModal = ({ info, setRender, render, isMobile }) => {
   const [modalStep, setModalStep] = useState('editUser');
   const { isOpen, onOpen, onClose } = useDisclosure();
-
+  const toast = useToast();
   // remove user
   const { backend } = useBackend();
   const removeUser = async () => {
-    console.log('Removed');
-    console.log(info.email);
     await backend.delete(`users/${info.email}`);
     setRender(!render);
+    CreateToast({
+      description: `${info.firstName} removed`,
+      status: 'info',
+      toast,
+    });
   };
 
   useEffect(() => {
@@ -191,6 +199,8 @@ const EditUserModal = ({ info, setRender, render }) => {
     ),
   };
 
+  const width1 = { true: '130px', false: '60px' };
+
   return (
     <>
       <Button
@@ -199,13 +209,14 @@ const EditUserModal = ({ info, setRender, render }) => {
         bg="
         #319795"
         color="white"
+        width={width1[isMobile]}
       >
         Edit
       </Button>
 
       <Modal closeOnOverlayClick={false} isOpen={isOpen} onClose={onClose} isCentered>
         <ModalOverlay />
-        <ModalContent maxW="60%">{modalContent[modalStep]}</ModalContent>
+        <ModalContent className="modal-content">{modalContent[modalStep]}</ModalContent>
       </Modal>
     </>
   );
@@ -219,6 +230,7 @@ EditUserModal.propTypes = {
   }).isRequired,
   setRender: PropTypes.func.isRequired,
   render: PropTypes.bool.isRequired,
+  isMobile: PropTypes.bool.isRequired,
 };
 
 EditUser.propTypes = {
