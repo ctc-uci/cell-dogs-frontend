@@ -1,9 +1,10 @@
 import { React, useState, useEffect } from 'react';
 import { Button } from '@chakra-ui/react';
-import { AddIcon } from '@chakra-ui/icons';
 import { useNavigate } from 'react-router-dom';
-// import Location from '../../components/Location';
+import { AddIcon } from '@chakra-ui/icons';
 import BreadcrumbBar from '../../components/BreadcrumbBar/BreadcrumbBar';
+// eslint-disable-next-line import/no-useless-path-segments
+import AdoptionLogNavbar from './AdoptionLogNavbar';
 import { useBackend } from '../../contexts/BackendContext';
 import AdoptionLog from './AdoptionLog';
 
@@ -51,17 +52,10 @@ const Dogs = () => {
           </div>
         </BreadcrumbBar>
       </div>
-      {/* <AdoptionLogFunctionalities></AdoptionLogFunctionalities> */}
+      <AdoptionLogNavbar />
       {data.map(facility => (
         <AdoptionLog key={facility.name} tableName={facility.name} />
       ))}
-      {/* <p>This is the Dog Table page</p>
-      <strong>User email/username:</strong>
-      {currentUser.email}
-      <Button variant="link" onClick={handleLogout}>
-        Log out
-      </Button>
-      <Location /> */}
     </div>
   );
 };
