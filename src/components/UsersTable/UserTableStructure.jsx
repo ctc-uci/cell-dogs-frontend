@@ -53,7 +53,7 @@ const CellStructure = (setRender, render, isMobile) => {
         </>
       ),
       accessor: 'role',
-      Cell: ({ value }) => <Text>{value}</Text>,
+      Cell: ({ value }) => <Text>{'Developer'}</Text>,
     },
     {
       id: 'edit',

@@ -32,7 +32,7 @@ const EditUser = ({ setModalStep, onClose, info, setRender, render }) => {
   const [user, setUser] = useState({
     fullName: `${info.firstName} ${info.lastName}`,
     email: `${info.email}`,
-    role: '',
+    role: 'Developer',
   });
 
   const changeFullName = e => {
@@ -84,7 +84,7 @@ const EditUser = ({ setModalStep, onClose, info, setRender, render }) => {
           <FormLabel mt={5}>Add Email</FormLabel>
           <Input value={user.email} onChange={changeEmail} />
           <FormLabel mt={5}>Add Role</FormLabel>
-          <Input value={user.role} onChange={changeRole} />
+          <Input value={'Developer'} onChange={changeRole} />
           <Select mt={5}>
             <option value="administrator">Administrator</option>
           </Select>

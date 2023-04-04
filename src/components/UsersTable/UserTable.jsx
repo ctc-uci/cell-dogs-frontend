@@ -140,7 +140,7 @@ const UserPageTable = () => {
                     <Heading size="xs">Email</Heading>
                     <Text>{user.email}</Text>
                     <Heading size="xs">Role</Heading>
-                    <Text>{user.role}</Text>
+                    <Text>Developer</Text>
                   </Stack>
                 </CardBody>
                 <Flex minWidth="max-content" w="100%" justifyContent="flex-end">
