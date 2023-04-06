@@ -15,6 +15,7 @@ import {
   Show,
   useToast,
 } from '@chakra-ui/react';
+
 import { sendPasswordResetEmail } from 'firebase/auth';
 
 import { useAuth } from '../../contexts/AuthContext';
