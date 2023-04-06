@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { sendPasswordResetEmail } from 'firebase/auth';
 import { auth } from '../firebase';
 
 const AuthContext = createContext();
@@ -17,6 +18,7 @@ const AuthProvider = ({ children }) => {
     navigate('/login');
   };
 
+  const sendPwdResetEmail = email => sendPasswordResetEmail(auth, email);
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(user => {
       setCurrentUser(user);
@@ -33,6 +35,7 @@ const AuthProvider = ({ children }) => {
         signup,
         login,
         logout,
+        sendPwdResetEmail,
       }}
     >
       {!loading && children}
