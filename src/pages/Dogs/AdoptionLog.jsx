@@ -10,10 +10,11 @@ import {
   Td,
   TableContainer,
   Checkbox,
+  Avatar
 } from '@chakra-ui/react';
 
 import { useBackend } from '../../contexts/BackendContext';
-
+import ShowTags from "../AddDog/ShowTags";
 import styles from './AdoptionLog.module.css';
 
 // import { DropDownList } from "@progress/kendo-react-dropdowns";
@@ -64,7 +65,12 @@ const AdoptionLog = props => {
       addrline,
       adoptcity,
       adoptstate,
-      dogid
+      dogid,
+      service,
+      therapy,
+      staffAdoption,
+      specialNeeds,
+      deceased,
     } = dog;
 
     if (shelter !== tableName) {
@@ -86,11 +92,30 @@ const AdoptionLog = props => {
         </Td>
         {/* <Td>{dogName}{nickname ? " aka " : null}{nickname}</Td> */}
         <Td>
-          <div className={styles.dogName}>{dogName}</div>
-          <div className={styles.dogNameSub}>Grad Age: {gradAge}</div>
-          <div className={styles.dogNameSub}>Breed: {breed}</div>
+          <div className={styles.avatarContainer}>
+            <Avatar
+              marginTop="10px"
+              marginRight="10px"
+              size="md"
+              src="https://i0.wp.com/fullertonobserver.com/wp-content/uploads/2020/12/OCJail.jpg?resize=829%2C436&ssl=1"
+            />
+            <div className={styles.dogInfoContainer}>
+              <div className={styles.dogName}>{dogName}</div>
+              <div className={styles.dogNameSub}>Grad Age: {gradAge}</div>
+              <div className={styles.dogNameSub}>Breed: {breed}</div>
+            </div>
+          </div>
         </Td>
-        {/* <Td>{tags}</Td> */}
+        <Td>
+          {/* <ShowTags
+              serviceTag={serviceTag}
+              therapyTag={therapyTag}
+              staffAdoptionTag={staffAdoptionTag}
+              specialTag={specialTag}
+              disabledTag={deceasedTag}
+          /> */}
+          "dog"
+        </Td>
         <Td>{facility}</Td>
         <Td>{adopter}</Td>
         <Td>
@@ -133,7 +158,7 @@ const AdoptionLog = props => {
                   <Checkbox />
                 </Th>
                 <Th>Dog Name</Th>
-                {/* <Th>Tags</Th> */}
+                <Th>Tags</Th>
                 <Th>Facility</Th>
                 <Th>Adopter</Th>
                 <Th>Contact Info</Th>

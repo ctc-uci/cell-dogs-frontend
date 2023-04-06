@@ -11,15 +11,18 @@ import {
   Breadcrumb,
   BreadcrumbItem,
   BreadcrumbLink,
-  Avatar,
   Flex,
   Textarea,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
 } from '@chakra-ui/react';
-import { ArrowBackIcon, ChevronRightIcon, AddIcon } from '@chakra-ui/icons';
+import { ArrowBackIcon, ChevronRightIcon, ChevronDownIcon, AddIcon } from '@chakra-ui/icons';
 import './AddDog.css';
 import UploadAvatar from '../../components/UploadAvatar/UploadAvatar';
+import ShowTags from './ShowTags';
 import { useBackend } from '../../contexts/BackendContext';
-import Location from '../../components/Location';
 import { useNavigate } from 'react-router-dom';
 
 const AddDog = () => {
@@ -35,7 +38,6 @@ const AddDog = () => {
   const [chiptype, setChipType] = useState('');
   const [chipnum, setChipNum] = useState(0);
   const [gender, setGender] = useState('');
-  const [profilepic, setProfilePic] = useState('');
   const [altname, setAltName] = useState('');
   const [notes, setNotes] = useState('');
   const [adoptername, setAdopterName] = useState('');
@@ -48,8 +50,8 @@ const AddDog = () => {
   const [fees, setFees] = useState(0);
   const [revenue, setRevenue] = useState(0);
   const [therapyTag, setTherapyTag] = useState(false);
-  const [stfAdptTag, setStfAdptTag] = useState(false);
-  const [descdTag, setDescdTag] = useState(false);
+  const [staffAdoptionTag, setStaffAdoptionTag] = useState(false);
+  const [deceasedTag, setDeceasedTag] = useState(false);
   const [specialTag, setSpecialTag] = useState(false);
   const [serviceTag, setServiceTag] = useState(false);
   const [facility, setFacilities] = useState([])
@@ -68,28 +70,44 @@ const AddDog = () => {
       <option value={element.id} key={element.id}>{element.name}</option>
     ));
   };
-  
 
-  // backend
-  //   .post('/dog')
-  //   .then(response => {
-  //     const jsonData = response.data;
-  //     console.log(jsonData); // or do something else with the data
-  //   })
-  //   .catch(error => {
-  //     console.error(error);
-  //   });
+  const TagSetup = ({ tagBoolean, tagName, setTag }) => {
+    return (
+      <div>
+        {tagBoolean ? (
+          <MenuItem onClick={() => setTag(false)}>{tagName} (Selected)</MenuItem>
+        ) : (
+          <MenuItem onClick={() => setTag(true)}>{tagName}</MenuItem>
+        )}
+      </div>
+      
+    )
+  }
+  
+  const TagMenu = () => {
+    return (
+      <Menu>
+        <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
+          Add tag
+        </MenuButton>
+        <MenuList>
+          <TagSetup tagBoolean={serviceTag} tagName="Service" setTag={setServiceTag} />
+          <TagSetup tagBoolean={therapyTag} tagName="Therapy" setTag={setTherapyTag} />
+          <TagSetup tagBoolean={staffAdoptionTag} tagName="Stf Adpt" setTag={setStaffAdoptionTag} />
+          <TagSetup tagBoolean={specialTag} tagName="Special" setTag={setSpecialTag} />
+          <TagSetup tagBoolean={deceasedTag} tagName="Decsd" setTag={setDeceasedTag} />
+        </MenuList>
+      </Menu>
+    )
+  }
 
   const saveAllChanges = async () => {
-    // const dogs = await backend.get('/dog');
-    // const dogNames = dogs.data.map(dog => dog.dogname);
-
-    // if (dogNames.indexOf(dogname) > -1) {
-    //   // dog already in table
-    //   // update row
-    //   return;
-    // }
-
+    console.log(serviceTag);
+    const service = serviceTag;
+    const therapy = therapyTag;
+    const staffAdoption = staffAdoptionTag;
+    const specialNeeds = specialTag;
+    const deceased = deceasedTag;
     backend
       .post('/dog', {
         dogid,
@@ -103,7 +121,6 @@ const AddDog = () => {
         chiptype,
         chipnum,
         gender,
-        profilepic,
         altname,
         notes,
         adoptername,
@@ -115,6 +132,12 @@ const AddDog = () => {
         adoptemail,
         fees,
         revenue,
+        service,
+        therapy,
+        staffAdoption,
+        specialNeeds,
+        deceased,
+        facilityUnit
       })
       .then(() => {
         console.log('Successfully updated dog');
@@ -173,18 +196,16 @@ const AddDog = () => {
           </div>
         </div>
         <div className="addTag">
-          <Select placeholder="Add Tag" isMulti>
-            <option value="Service" >Service</option>
-            <option value="Therapy" >Therapy</option>
-            <option value="Staff Adoption" >Staff Adoption</option>
-            <option value="Special Needs" >Special Needs</option>
-            <option value="Deceased" >Deceased</option>
-          </Select>
+          <TagMenu />
         </div>
         <div className="tagRow">
-          <div className="tag">
-            <h5>Temp</h5>
-          </div>
+          <ShowTags
+            serviceTag={serviceTag}
+            therapyTag={therapyTag}
+            staffAdoptionTag={staffAdoptionTag}
+            specialTag={specialTag}
+            disabledTag={deceasedTag}
+        />
         </div>
         <div className="buttons">
           <div className="cancelButton">
@@ -291,7 +312,7 @@ const AddDog = () => {
                 className="formInput"
                 placeholder='6'
                 onChange={e => {
-                  setGradDate(e.target.value);
+                  setAge(e.target.value);
                 }}
               />
             </FormControl>
@@ -475,10 +496,12 @@ const AddDog = () => {
       </div>
 
       <Flex direction="column" align="center" justify-content="center">
-        <Heading as="h2" fontSize="24px">
+        <Heading as="h2" fontSize="24px" >
           Additional Notes
         </Heading>
-        <Textarea borderWidth={1} name="additionalNotes" rows="7" width="70%" placeholder='The dog is beautiful.' />
+        <Textarea borderWidth={1} name="additionalNotes" rows="7" width="70%" placeholder='The dog is beautiful.'onChange={e => {
+                setNotes(e.target.value);
+              }} />
       </Flex>
     </div>
   );

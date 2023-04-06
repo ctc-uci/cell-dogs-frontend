@@ -2,14 +2,14 @@
   font-size: 14px;
   display: flex;
   flex-direction: row;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
   width: 69px;
   height: 25px;
   border-radius: 6px;
   background-color: #48bb78;
   color: white;
-  margin: 8px 0px 8px 0px;
+  margin-right: 8px;
 }
 
 .tagRow {
@@ -195,31 +195,13 @@
   flex-wrap: nowrap;
   padding-top: 40px;
 }
-<<<<<<<
-  HEAD
-  =======
-  <<<<<<<
-  HEAD
-  =======
-  <<<<<<<
-  HEAD>>>>>>>3336435
-  (finish most of the styling)>>>>>>>f91b19b
-  (finish most of the styling)
-  <<<<<<<
-  HEAD
-  <<<<<<<
-  HEAD>>>>>>>3336435
-  (finish most of the styling)
-  =======>>>>>>>5bf46d6
-  (idk anymore bruh)
-  =======>>>>>>>63e5352
-  (finish styling and start backend connection)
-  .profileSection {
+.profileSection {
   display: flex;
   flex-direction: column;
 }
 
 .addTag {
-  width: 250px;
+  justify-content: center;
   margin: auto;
+
 }

@@ -21,3 +21,12 @@
 .dogNameSub {
   color: #718096;
 }
+
+.avatarContainer {
+  display: inline-block;
+}
+
+.avatarContainer > * {
+  display: inline-block;
+  vertical-align: middle;
+}
