@@ -107,14 +107,13 @@ const AdoptionLog = props => {
           </div>
         </Td>
         <Td>
-          {/* <ShowTags
-              serviceTag={serviceTag}
-              therapyTag={therapyTag}
-              staffAdoptionTag={staffAdoptionTag}
-              specialTag={specialTag}
-              disabledTag={deceasedTag}
-          /> */}
-          "dog"
+          <ShowTags
+              serviceTag={service}
+              therapyTag={therapy}
+              staffAdoptionTag={staffAdoption}
+              specialTag={specialNeeds}
+              disabledTag={deceased}
+          />
         </Td>
         <Td>{facility}</Td>
         <Td>{adopter}</Td>
