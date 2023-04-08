@@ -10,11 +10,12 @@ import {
   Td,
   TableContainer,
   Checkbox,
-  Avatar
+  Avatar,
 } from '@chakra-ui/react';
 
+import { useNavigate } from 'react-router-dom';
 import { useBackend } from '../../contexts/BackendContext';
-import ShowTags from "../AddDog/ShowTags";
+import ShowTags from '../AddDog/ShowTags';
 import styles from './AdoptionLog.module.css';
 
 // import { DropDownList } from "@progress/kendo-react-dropdowns";
@@ -22,6 +23,7 @@ const AdoptionLog = props => {
   const [data, setData] = useState([]);
 
   const { backend } = useBackend();
+  const Navigate = useNavigate();
   const { tableName } = props;
 
   const getDogs = async () => {
@@ -85,6 +87,10 @@ const AdoptionLog = props => {
     const email = adoptemail;
     const address = `${addrline} ${adoptcity} ${adoptstate}`;
 
+    const handleViewMore = () => {
+      Navigate(`/dog/${dogid}`);
+    };
+
     return (
       <Tr key={dogid}>
         <Td>
@@ -108,11 +114,11 @@ const AdoptionLog = props => {
         </Td>
         <Td>
           <ShowTags
-              serviceTag={service}
-              therapyTag={therapy}
-              staffAdoptionTag={staffAdoption}
-              specialTag={specialNeeds}
-              disabledTag={deceased}
+            serviceTag={service}
+            therapyTag={therapy}
+            staffAdoptionTag={staffAdoption}
+            specialTag={specialNeeds}
+            disabledTag={deceased}
           />
         </Td>
         <Td>{facility}</Td>
@@ -123,7 +129,7 @@ const AdoptionLog = props => {
         </Td>
         <Td>{address}</Td>
         <Td>
-          <Button colorScheme="teal" size="sm">
+          <Button colorScheme="teal" size="sm" onClick={() => handleViewMore()}>
             View More
           </Button>
         </Td>
@@ -162,7 +168,7 @@ const AdoptionLog = props => {
                 <Th>Adopter</Th>
                 <Th>Contact Info</Th>
                 <Th>Address</Th>
-                <Th></Th>
+                <Th />
               </Tr>
             </Thead>
             <Tbody backgroundColor="#FDFDFD">
