@@ -10,11 +10,11 @@ import {
   Td,
   TableContainer,
   Checkbox,
-  Avatar
+  Avatar,
 } from '@chakra-ui/react';
 
 import { useBackend } from '../../contexts/BackendContext';
-import ShowTags from "../AddDog/ShowTags";
+import ShowTags from '../AddDog/ShowTags';
 import styles from './AdoptionLog.module.css';
 
 // import { DropDownList } from "@progress/kendo-react-dropdowns";
@@ -22,13 +22,12 @@ const AdoptionLog = props => {
   const [data, setData] = useState([]);
 
   const { backend } = useBackend();
-  const { tableName } = props;
+  const { tableName, searchDog } = props;
 
   const getDogs = async () => {
     try {
       const res = await backend.get('/dog');
       setData(res.data);
-      console.log(res);
     } catch (err) {
       console.log(err);
     }
@@ -108,11 +107,11 @@ const AdoptionLog = props => {
         </Td>
         <Td>
           <ShowTags
-              serviceTag={service}
-              therapyTag={therapy}
-              staffAdoptionTag={staffAdoption}
-              specialTag={specialNeeds}
-              disabledTag={deceased}
+            serviceTag={service}
+            therapyTag={therapy}
+            staffAdoptionTag={staffAdoption}
+            specialTag={specialNeeds}
+            disabledTag={deceased}
           />
         </Td>
         <Td>{facility}</Td>

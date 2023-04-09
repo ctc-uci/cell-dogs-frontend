@@ -54,11 +54,10 @@ const AddDog = () => {
   const [deceasedTag, setDeceasedTag] = useState(false);
   const [specialTag, setSpecialTag] = useState(false);
   const [serviceTag, setServiceTag] = useState(false);
-  const [facility, setFacilities] = useState([])
-  
+  const [facility, setFacilities] = useState([]);
+
   const { backend } = useBackend();
   const Navigate = useNavigate();
-
 
   const getFacilities = async () => {
     const { data } = await backend.get('/facility');
@@ -67,7 +66,9 @@ const AddDog = () => {
 
   const getFacilityList = () => {
     return facility.map(element => (
-      <option value={element.id} key={element.id}>{element.name}</option>
+      <option value={element.id} key={element.id}>
+        {element.name}
+      </option>
     ));
   };
 
@@ -80,10 +81,9 @@ const AddDog = () => {
           <MenuItem onClick={() => setTag(true)}>{tagName}</MenuItem>
         )}
       </div>
-      
-    )
-  }
-  
+    );
+  };
+
   const TagMenu = () => {
     return (
       <Menu>
@@ -98,8 +98,8 @@ const AddDog = () => {
           <TagSetup tagBoolean={deceasedTag} tagName="Decsd" setTag={setDeceasedTag} />
         </MenuList>
       </Menu>
-    )
-  }
+    );
+  };
 
   const saveAllChanges = async () => {
     console.log(serviceTag);
@@ -137,7 +137,7 @@ const AddDog = () => {
         staffAdoption,
         specialNeeds,
         deceased,
-        facilityUnit
+        facilityUnit,
       })
       .then(() => {
         console.log('Successfully updated dog');
@@ -177,7 +177,7 @@ const AddDog = () => {
 
       <div className="profileSection">
         <div className="dogPic">
-          <UploadAvatar width="100px" height="100px"/>
+          <UploadAvatar width="100px" height="100px" />
         </div>
         <div className="name">
           <div className="nameInput">
@@ -186,7 +186,7 @@ const AddDog = () => {
                 id="nameField"
                 type="name"
                 placeholder="Enter Name"
-                size="lg"   
+                size="lg"
                 variant="unstyled"
                 onChange={e => {
                   setDogName(e.target.value);
@@ -205,7 +205,7 @@ const AddDog = () => {
             staffAdoptionTag={staffAdoptionTag}
             specialTag={specialTag}
             disabledTag={deceasedTag}
-        />
+          />
         </div>
         <div className="buttons">
           <div className="cancelButton">
@@ -235,7 +235,7 @@ const AddDog = () => {
             <Input
               type="text"
               className="formInput"
-              placeholder='Jane Doe'
+              placeholder="Jane Doe"
               onChange={e => {
                 setAdopterName(e.target.value);
               }}
@@ -246,7 +246,7 @@ const AddDog = () => {
             <Input
               type="email"
               className="formInput"
-              placeholder='kl123@gmail.com'
+              placeholder="kl123@gmail.com"
               onChange={e => {
                 setAdoptEmail(e.target.value);
               }}
@@ -257,7 +257,7 @@ const AddDog = () => {
             <Input
               type="text"
               className="formInput"
-              placeholder='123-456-7891'
+              placeholder="123-456-7891"
               onChange={e => {
                 setAdopterPhone(e.target.value);
               }}
@@ -274,7 +274,7 @@ const AddDog = () => {
             <Input
               type="text"
               className="formInput"
-              placeholder='Sir Lucks-a-lot'
+              placeholder="Sir Lucks-a-lot"
               onChange={e => {
                 setAltName(e.target.value);
               }}
@@ -285,7 +285,7 @@ const AddDog = () => {
             <Input
               type="text"
               className="formInput"
-              placeholder='Chihuahua'
+              placeholder="Chihuahua"
               onChange={e => {
                 setBreed(e.target.value);
               }}
@@ -310,7 +310,7 @@ const AddDog = () => {
               <Input
                 type="text"
                 className="formInput"
-                placeholder='6'
+                placeholder="6"
                 onChange={e => {
                   setAge(e.target.value);
                 }}
@@ -323,7 +323,7 @@ const AddDog = () => {
               <Input
                 type="text"
                 className="formInput"
-                placeholder='AVID'
+                placeholder="AVID"
                 onChange={e => {
                   setChipType(e.target.value);
                 }}
@@ -334,7 +334,7 @@ const AddDog = () => {
               <Input
                 type="text"
                 className="formInput"
-                placeholder='172683272'
+                placeholder="172683272"
                 onChange={e => {
                   setChipNum(e.target.value);
                 }}
@@ -353,7 +353,7 @@ const AddDog = () => {
             <Input
               type="text"
               className="formInput"
-              placeholder='123 Irvine Way'
+              placeholder="123 Irvine Way"
               onChange={e => {
                 setAddrLine(e.target.value);
               }}
@@ -365,7 +365,7 @@ const AddDog = () => {
               <Input
                 type="text"
                 className="formInput"
-                placeholder='Irvine'
+                placeholder="Irvine"
                 onChange={e => {
                   setAdoptCity(e.target.value);
                 }}
@@ -376,7 +376,7 @@ const AddDog = () => {
               <Input
                 type="text"
                 className="formInput"
-                placeholder='CA'
+                placeholder="CA"
                 onChange={e => {
                   setAdoptState(e.target.value);
                 }}
@@ -388,7 +388,7 @@ const AddDog = () => {
             <Input
               type="text"
               className="formInput"
-              placeholder='92728'
+              placeholder="92728"
               onChange={e => {
                 setZip(e.target.value);
               }}
@@ -404,7 +404,7 @@ const AddDog = () => {
                 <Input
                   type="text"
                   className="formInput"
-                  placeholder='270'
+                  placeholder="270"
                   onChange={e => {
                     setFees(e.target.value);
                   }}
@@ -415,7 +415,7 @@ const AddDog = () => {
                 <Input
                   type="text"
                   className="formInput"
-                  placeholder='400'
+                  placeholder="400"
                   onChange={e => {
                     setRevenue(e.target.value);
                   }}
@@ -430,17 +430,21 @@ const AddDog = () => {
             Facility Info
           </Heading>
           <FormLabel>Facility</FormLabel>
-          <Select placeholder="Select Facility" className="formInput" onChange={e => {
+          <Select
+            placeholder="Select Facility"
+            className="formInput"
+            onChange={e => {
               setFacilityID(e.target.value);
-            }}>
-              {getFacilityList()}
-            </Select>
+            }}
+          >
+            {getFacilityList()}
+          </Select>
           <FormControl>
             <FormLabel>Facility Unit</FormLabel>
             <Input
               type="text"
               className="formInput"
-              placeholder='Tango'
+              placeholder="Tango"
               onChange={e => {
                 setFacilityUnit(e.target.value);
               }}
@@ -452,7 +456,7 @@ const AddDog = () => {
               <Input
                 type="text"
                 className="formInput"
-                placeholder='11/20/2023'
+                placeholder="11/20/2023"
                 onChange={e => {
                   setGradDate(e.target.value);
                 }}
@@ -463,7 +467,7 @@ const AddDog = () => {
               <Input
                 type="text"
                 className="formInput"
-                placeholder='27'
+                placeholder="27"
                 onChange={e => {
                   setGroupNum(e.target.value);
                 }}
@@ -475,7 +479,7 @@ const AddDog = () => {
             <Input
               type="text"
               className="formInput"
-              placeholder='Irvine Dog Rescue'
+              placeholder="Irvine Dog Rescue"
               onChange={e => {
                 setShelter(e.target.value);
               }}
@@ -486,7 +490,7 @@ const AddDog = () => {
             <Input
               type="text"
               className="formInput"
-              placeholder='123456'
+              placeholder="123456"
               onChange={e => {
                 setDogID(e.target.value);
               }}
@@ -496,12 +500,19 @@ const AddDog = () => {
       </div>
 
       <Flex direction="column" align="center" justify-content="center">
-        <Heading as="h2" fontSize="24px" >
+        <Heading as="h2" fontSize="24px">
           Additional Notes
         </Heading>
-        <Textarea borderWidth={1} name="additionalNotes" rows="7" width="70%" placeholder='The dog is beautiful.'onChange={e => {
-                setNotes(e.target.value);
-              }} />
+        <Textarea
+          borderWidth={1}
+          name="additionalNotes"
+          rows="7"
+          width="70%"
+          placeholder="The dog is beautiful."
+          onChange={e => {
+            setNotes(e.target.value);
+          }}
+        />
       </Flex>
     </div>
   );
