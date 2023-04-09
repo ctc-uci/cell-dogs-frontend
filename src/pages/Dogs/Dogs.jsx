@@ -23,25 +23,6 @@ const Dogs = () => {
   const [facilityFilter, setFacilityFilter] = useState('');
   const [searchDog, setSearchDog] = useState('');
 
-
-// dog.get('/', async (request, response) => {
-//   try {
-//     const allRows = await db.query('SELECT * FROM dog');
-//     response.status(200).json(allRows);
-//   } catch (err) {
-//     response.status(400).send(err.message);
-//   }
-// });
-
-// dog.get('/:dogId', async (request, response) => {
-//   try {
-//     const { dogId } = request.params;
-//     const dogIdRows = await db.query(`SELECT * FROM dog WHERE dogId = $(dogId)`, { dogId });
-//     response.status(200).json(dogIdRows);
-//   } catch (err) {
-//     response.status(500).send(err.message);
-//   }
-//});
   const getFacilities = async () => {
     try {
       const res = await backend.get('/facility');
@@ -72,18 +53,23 @@ const Dogs = () => {
           </div>
         </BreadcrumbBar>
       </div>
-      <AdoptionLogNavbar setFacilityFilter={setFacilityFilter} facilityFilter={facilityFilter} setSearchDog={setSearchDog} searchDog={searchDog}/>
+      <AdoptionLogNavbar
+        setFacilityFilter={setFacilityFilter}
+        facilityFilter={facilityFilter}
+        setSearchDog={setSearchDog}
+        searchDog={searchDog}
+      />
       {facilityFilter ? (
-          <div>
-            <AdoptionLog tableName={data[facilityFilter].name} />
-          </div>
-          ) : (
-            <div>
-              {data.map(facility => (
-                <AdoptionLog key={facility.name} tableName={facility.name} searchDog={searchDog}/>
-              ))}
-            </div>
-          )}
+        <div>
+          <AdoptionLog tableName={data[facilityFilter].name} searchDog={searchDog} />
+        </div>
+      ) : (
+        <div>
+          {data.map(facility => (
+            <AdoptionLog key={facility.name} tableName={facility.name} searchDog={searchDog} />
+          ))}
+        </div>
+      )}
     </div>
   );
 };

@@ -12,7 +12,7 @@ import { Search2Icon, DownloadIcon } from '@chakra-ui/icons';
 import styles from './AdoptionLogNavbar.module.css';
 import './AdoptionLogNavbar.module.css';
 
-const AdoptionLogNavbar = (props) => {
+const AdoptionLogNavbar = props => {
   const [view, setView] = useState('table');
   // const [search, setSearch] = useState('');
   const [filter, setFilter] = useState(false);

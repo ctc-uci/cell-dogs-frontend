@@ -28,6 +28,17 @@ const AdoptionLog = props => {
     try {
       const res = await backend.get('/dog');
       setData(res.data);
+      console.log(res);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const getDogsSearch = async () => {
+    try {
+      const res = await backend.get(`/dog/search/${searchDog}`);
+      setData(res.data);
+      console.log(res);
     } catch (err) {
       console.log(err);
     }
@@ -130,9 +141,15 @@ const AdoptionLog = props => {
     );
   };
 
+  console.log('search dog', searchDog);
+
   useEffect(() => {
-    getDogs();
-  }, []);
+    if (searchDog) {
+      getDogsSearch();
+    } else {
+      getDogs();
+    }
+  }, [searchDog]);
 
   return (
     <div className={styles.adoptionLog}>
