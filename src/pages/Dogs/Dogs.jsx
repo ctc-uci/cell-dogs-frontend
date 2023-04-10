@@ -54,7 +54,7 @@ const Dogs = () => {
       </div>
       <AdoptionLogNavbar />
       {data.map(facility => (
-        <AdoptionLog key={facility.name} tableName={facility.name} />
+        <AdoptionLog key={facility.name} tableName={facility.name} tableId={facility.id} />
       ))}
     </div>
   );
