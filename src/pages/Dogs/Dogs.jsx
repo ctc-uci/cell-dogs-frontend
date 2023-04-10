@@ -61,12 +61,12 @@ const Dogs = () => {
       />
       {facilityFilter ? (
         <div>
-          <AdoptionLog tableName={data[facilityFilter].name} searchDog={searchDog} />
+          <AdoptionLog tableName={data[facilityFilter].name} searchDog={searchDog} tableId={facility.id} />
         </div>
       ) : (
         <div>
           {data.map(facility => (
-            <AdoptionLog key={facility.name} tableName={facility.name} searchDog={searchDog} />
+            <AdoptionLog key={facility.name} tableName={facility.name} searchDog={searchDog} tableId={facility.id} />
           ))}
         </div>
       )}

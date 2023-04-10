@@ -22,13 +22,12 @@ const AdoptionLog = props => {
   const [data, setData] = useState([]);
 
   const { backend } = useBackend();
-  const { tableName, searchDog } = props;
+  const { tableName, tableId, searchDog } = props;
 
   const getDogs = async () => {
     try {
       const res = await backend.get('/dog');
       setData(res.data);
-      console.log(res);
     } catch (err) {
       console.log(err);
     }
@@ -81,9 +80,10 @@ const AdoptionLog = props => {
       staffAdoption,
       specialNeeds,
       deceased,
+      facilityid
     } = dog;
 
-    if (shelter !== tableName) {
+    if (facilityid !== tableId) {
       return null;
     }
 
@@ -96,7 +96,7 @@ const AdoptionLog = props => {
     const address = `${addrline} ${adoptcity} ${adoptstate}`;
 
     return (
-      <Tr key={dogid}>
+      <Tr key={props.key}>
         <Td>
           <Checkbox />
         </Td>
