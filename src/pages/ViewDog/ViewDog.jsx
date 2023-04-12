@@ -1,173 +1,3 @@
-/*
-import { React, useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import { Button, Input, Avatar, Textarea, Box, Flex } from '@chakra-ui/react';
-import { AddIcon, ArrowBackIcon } from '@chakra-ui/icons';
-import { useBackend } from '../../contexts/BackendContext';
-import BreadcrumbBar from '../../components/BreadcrumbBar/BreadcrumbBar';
-
-const ViewDog = () => {
-  const { id: dogId } = useParams();
-  const { backend } = useBackend();
-  const Navigate = useNavigate();
-
-  const [editable, setEditable] = useState(false);
-  const [dog, setDog] = useState({});
-  const [adopterName, setAdopterName] = useState('');
-  const [contactName, setContactName] = useState('');
-  const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState('');
-  const [altName, setAltName] = useState('');
-  const [breed, setBreed] = useState('');
-  const [gender, setGender] = useState('');
-  const [grad, setGrad] = useState(0);
-  const [title, setTitle] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
-  const [chip, setChip] = useState('');
-  const [chipNum, setChipNum] = useState(0);
-  const [addrline, setAddrLine] = useState('');
-  const [adoptcity, setAdoptCity] = useState('');
-  const [adoptstate, setAdoptState] = useState('');
-  const [zip, setZip] = useState('');
-  const [adoptemail, setAdoptEmail] = useState('');
-  const [fees, setFees] = useState(0);
-  const [revenue, setRevenue] = useState(0);
-  const [facility, setFacilities] = useState([]);
-  const [unit, setUnit] = useState('');
-  const [gradDate, setGradDate] = useState(new Date());
-  const [groupNum, setGroupNum] = useState(0);
-  const [shelter, setShelter] = useState('');
-  const [animalID, setAnimalID] = useState(0);
-  const [notes, setNotes] = useState('');
-
-  const onClose = () => {
-    Navigate('/');
-  };
-
-  const handleEditButton = () => {
-    setEditable(true);
-  };
-
-  const getDog = async () => {
-    try {
-      const res = await backend.get(`/dog/${dogId}`);
-      setDog(res.data[0]);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  useEffect(() => {
-    getDog();
-  }, []);
-
-  return (
-    <Box>
-      <BreadcrumbBar left={`Adoption Log > ${dog.dogname}`}>
-        <Button
-          leftIcon={<AddIcon />}
-          size="sm"
-          onClick={() => {
-            Navigate('/dogs/new');
-          }}
-        >
-          Add Dog
-        </Button>
-      </BreadcrumbBar>
-      <Flex width="100%" justifyContent="flex-start" pt={4} ml={10}>
-        <Button variant="link" leftIcon={<ArrowBackIcon />} onClick={onClose}>
-          Go Back
-        </Button>
-      </Flex>
-      <Box className="facilityModalContent" p={5}>
-        <div className="userInfoButtons">
-          <div className="placeholder">
-            <Avatar height="100px" width="100px" />
-          </div>
-          <div className="modalHeader">
-            <h1 className="enterName">{dog.dogname}</h1>
-          </div>
-          <div className="buttons">
-            <Button
-              className="editButton"
-              // width="62.5px"
-              size="sm"
-              color="gray"
-              variant="outline"
-              onClick={() => handleEditButton()}
-            >
-              Edit Dog
-            </Button>
-          </div>
-        </div>
-
-        <h2>Adopter Info</h2>
-        <h3>Name</h3>
-        <div className="nameInput">
-          <Input
-            value={adopterName}
-            disabled={!editable}
-            onChange={e => setAdopterName(e.target.value)}
-          />
-        </div>
-        <h3>Email</h3>
-        <div className="addressInput">
-          <Input disabled={!editable} value={email} onChange={e => setEmail(e.target.value)} />
-        </div>
-        <h3>Notes</h3>
-        <div className="notesInput">
-          <Textarea
-            disabled={!editable}
-            height="150px"
-            padding-top="0px"
-            value={notes}
-            onChange={e => setNotes(e.target.value)}
-          />
-        </div>
-        <div className="pocRow1">
-          <div className="pocName">
-            <h3>Name</h3>
-            <div className="pocNameInput">
-              <Input
-                disabled={!editable}
-                value={contactName}
-                onChange={e => setContactName(e.target.value)}
-              />
-            </div>
-          </div>
-          <div className="pocTitle">
-            <h3>Title</h3>
-            <div className="pocTitleInput">
-              <Input disabled={!editable} value={title} onChange={e => setTitle(e.target.value)} />
-            </div>
-          </div>
-        </div>
-        <div className="pocRow2">
-          <div className="pocPhoneNumber">
-            <h3>Phone Number</h3>
-            <div className="pocPhoneNumberInput">
-              <Input
-                disabled={!editable}
-                value={phoneNumber}
-                onChange={e => setPhoneNumber(e.target.value)}
-              />
-            </div>
-          </div>
-          <div className="pocEmail">
-            <h3>Email</h3>
-            <div className="pocEmailInput">
-              <Input disabled={!editable} value={email} onChange={e => setEmail(e.target.value)} />
-            </div>
-          </div>
-        </div>
-      </Box>
-    </Box>
-  );
-};
-
-export default ViewDog;
-*/
-
 /* eslint-disable */
 import React, { useEffect, useState } from 'react';
 import {
@@ -187,6 +17,7 @@ import {
   MenuButton,
   MenuList,
   MenuItem,
+  Text,
 } from '@chakra-ui/react';
 import { ArrowBackIcon, ChevronRightIcon, ChevronDownIcon, AddIcon } from '@chakra-ui/icons';
 import './ViewDog.css';
@@ -200,29 +31,6 @@ const AddDog = () => {
 
   const [editable, setEditable] = useState(false);
   const [dog, setDog] = useState({});
-  const [dogid, setDogID] = useState(0);
-  const [facilityid, setFacilityID] = useState(0);
-  const [facilityUnit, setFacilityUnit] = useState('');
-  const [groupnum, setGroupNum] = useState(0);
-  const [graddate, setGradDate] = useState('');
-  const [dogname, setDogName] = useState('');
-  const [age, setAge] = useState(0);
-  const [shelter, setShelter] = useState('');
-  const [breed, setBreed] = useState('');
-  const [chiptype, setChipType] = useState('');
-  const [chipnum, setChipNum] = useState(0);
-  const [gender, setGender] = useState('');
-  const [altname, setAltName] = useState('');
-  const [notes, setNotes] = useState('');
-  const [adoptername, setAdopterName] = useState('');
-  const [adopterphone, setAdopterPhone] = useState('');
-  const [addrline, setAddrLine] = useState('');
-  const [adoptcity, setAdoptCity] = useState('');
-  const [adoptstate, setAdoptState] = useState('');
-  const [zip, setZip] = useState('');
-  const [adoptemail, setAdoptEmail] = useState('');
-  const [fees, setFees] = useState(0);
-  const [revenue, setRevenue] = useState(0);
   const [therapyTag, setTherapyTag] = useState(false);
   const [staffAdoptionTag, setStaffAdoptionTag] = useState(false);
   const [deceasedTag, setDeceasedTag] = useState(false);
@@ -234,13 +42,14 @@ const AddDog = () => {
   const Navigate = useNavigate();
 
   const handleEditButton = () => {
-    setEditable(true);
+    setEditable(!editable);
   };
 
   const getDog = async () => {
     try {
       const res = await backend.get(`/dog/${dogId}`);
       setDog(res.data[0]);
+      console.log(res.data[0])
     } catch (err) {
       console.log(err);
     }
@@ -254,6 +63,16 @@ const AddDog = () => {
     const { data } = await backend.get('/facility');
     setFacilities(data);
   };
+
+  const getFacility = async() => {
+    try{
+      const res = await backend.get(`/facility/${dog.facilityid}`)
+      return res.data.name
+    }
+    catch (err) {
+      console.log(err);
+    }
+  }
 
   const getFacilityList = () => {
     return facility.map(element => (
@@ -300,40 +119,15 @@ const AddDog = () => {
     const specialNeeds = specialTag;
     const deceased = deceasedTag;
 
-    backend
-      .put(`dog/${dogId}`, {
-        dogid,
-        facilityid,
-        groupnum,
-        graddate,
-        dogname,
-        age,
-        shelter,
-        breed,
-        chiptype,
-        chipnum,
-        gender,
-        altname,
-        notes,
-        adoptername,
-        adopterphone,
-        addrline,
-        adoptcity,
-        adoptstate,
-        zip,
-        adoptemail,
-        fees,
-        revenue,
-        service,
-        therapy,
-        staffAdoption,
-        specialNeeds,
-        deceased,
-        facilityUnit,
-      })
+    await backend
+      .put(`dog/${dogId}`,
+        dog
+      )
       .then(() => {
         console.log('Successfully updated dog');
       });
+    Navigate(`/dog/${dog.dogid}`);
+    handleEditButton();
   };
 
   useEffect(() => {
@@ -375,13 +169,17 @@ const AddDog = () => {
           <div className="nameInput">
             <FormControl>
               <Input
+                disabled={!editable}
                 id="nameField"
                 type="name"
                 placeholder="Enter Name"
+                value = {dog.dogname}
                 size="lg"
                 variant="unstyled"
                 onChange={e => {
-                  setDogName(e.target.value);
+                  let copy = { ...dog }
+                copy['dogname'] = e.target.value
+                setDog(copy)
                 }}
               />
             </FormControl>
@@ -414,7 +212,7 @@ const AddDog = () => {
           )}
           <div className="cancelButton">
             {editable && (
-              <ButtonGroup variant="outline" spacing="6" onClick={() => Navigate('/')}>
+              <ButtonGroup variant="outline" spacing="6" onClick={() => handleEditButton()}>
                 <Button>Cancel</Button>
               </ButtonGroup>
             )}
@@ -446,9 +244,11 @@ const AddDog = () => {
               type="text"
               disabled={!editable}
               className="formInput"
-              placeholder="Jane Doe"
-              onChange={e => {
-                setAdopterName(e.target.value);
+              value={dog.adoptername}
+              onChange={(e) => {
+                let copy = { ...dog }
+                copy['adoptername'] = e.target.value
+                setDog(copy)
               }}
             />
           </FormControl>
@@ -458,9 +258,11 @@ const AddDog = () => {
               type="email"
               disabled={!editable}
               className="formInput"
-              placeholder="kl123@gmail.com"
+              value={dog.adoptemail}
               onChange={e => {
-                setAdoptEmail(e.target.value);
+                let copy = { ...dog }
+                copy['adoptemail'] = e.target.value
+                  setDog(copy)
               }}
             />
           </FormControl>
@@ -470,9 +272,11 @@ const AddDog = () => {
               type="text"
               disabled={!editable}
               className="formInput"
-              placeholder="123-456-7891"
+              value={dog.adopterphone}
               onChange={e => {
-                setAdopterPhone(e.target.value);
+                let copy = { ...dog }
+                copy['adopterphone'] = e.target.value
+                  setDog(copy)
               }}
             />
           </FormControl>
@@ -488,9 +292,11 @@ const AddDog = () => {
               type="text"
               disabled={!editable}
               className="formInput"
-              placeholder="Sir Lucks-a-lot"
+              value={dog.altname}
               onChange={e => {
-                setAltName(e.target.value);
+                let copy = { ...dog }
+                copy['altname'] = e.target.value
+                setDog(copy)
               }}
             />
           </FormControl>
@@ -498,10 +304,13 @@ const AddDog = () => {
             <FormLabel>Breed</FormLabel>
             <Input
               type="text"
+              disabled={!editable}
               className="formInput"
-              placeholder="Chihuahua"
+              value={dog.breed}
               onChange={e => {
-                setBreed(e.target.value);
+                let copy = { ...dog }
+                copy['breed'] = e.target.value
+                setDog(copy)
               }}
             />
           </FormControl>
@@ -511,9 +320,12 @@ const AddDog = () => {
               <Select
                 placeholder="Select Gender"
                 disabled={!editable}
+                value={dog.gender}
                 className="formInput"
                 onChange={e => {
-                  setGender(e.target.value);
+                  let copy = { ...dog }
+                  copy['gender'] = e.target.value
+                  setDog(copy)
                 }}
               >
                 <option value="Male">Male</option>
@@ -525,10 +337,12 @@ const AddDog = () => {
               <Input
                 type="text"
                 className="formInput"
-                placeholder="6"
+                value={dog.age}
                 disabled={!editable}
                 onChange={e => {
-                  setAge(e.target.value);
+                  let copy = { ...dog }
+                copy['age'] = e.target.value
+                setDog(copy)
                 }}
               />
             </FormControl>
@@ -540,9 +354,11 @@ const AddDog = () => {
                 type="text"
                 disabled={!editable}
                 className="formInput"
-                placeholder="AVID"
+                value={dog.chiptype}
                 onChange={e => {
-                  setChipType(e.target.value);
+                  let copy = { ...dog }
+                copy['chiptype'] = e.target.value
+                setDog(copy)
                 }}
               />
             </FormControl>
@@ -552,9 +368,11 @@ const AddDog = () => {
                 type="text"
                 disabled={!editable}
                 className="formInput"
-                placeholder="172683272"
+                value={dog.chipnum}
                 onChange={e => {
-                  setChipNum(e.target.value);
+                  let copy = { ...dog }
+                copy['chipnum'] = e.target.value
+                setDog(copy)
                 }}
               />
             </FormControl>
@@ -572,9 +390,11 @@ const AddDog = () => {
               type="text"
               disabled={!editable}
               className="formInput"
-              placeholder="123 Irvine Way"
+              value={dog.addrline}
               onChange={e => {
-                setAddrLine(e.target.value);
+                let copy = { ...dog }
+                copy['addrline'] = e.target.value
+                setDog(copy)
               }}
             />
           </FormControl>
@@ -585,9 +405,11 @@ const AddDog = () => {
                 type="text"
                 disabled={!editable}
                 className="formInput"
-                placeholder="Irvine"
+                value={dog.adoptcity}
                 onChange={e => {
-                  setAdoptCity(e.target.value);
+                  let copy = { ...dog }
+                copy['adoptcity'] = e.target.value
+                setDog(copy)
                 }}
               />
             </FormControl>
@@ -597,9 +419,11 @@ const AddDog = () => {
                 type="text"
                 disabled={!editable}
                 className="formInput"
-                placeholder="CA"
+                value={dog.adoptstate}
                 onChange={e => {
-                  setAdoptState(e.target.value);
+                  let copy = { ...dog }
+                copy['adoptstate'] = e.target.value
+                setDog(copy)
                 }}
               />
             </FormControl>
@@ -610,9 +434,11 @@ const AddDog = () => {
               type="text"
               disabled={!editable}
               className="formInput"
-              placeholder="92728"
+              value={dog.zip}
               onChange={e => {
-                setZip(e.target.value);
+                let copy = { ...dog }
+                copy['zip'] = e.target.value
+                setDog(copy)
               }}
             />
           </FormControl>
@@ -627,9 +453,11 @@ const AddDog = () => {
                   type="text"
                   disabled={!editable}
                   className="formInput"
-                  placeholder="270"
+                  value={dog.fees}
                   onChange={e => {
-                    setFees(e.target.value);
+                    let copy = { ...dog }
+                copy['fees'] = e.target.value
+                setDog(copy)
                   }}
                 />
               </FormControl>
@@ -639,9 +467,11 @@ const AddDog = () => {
                   type="text"
                   disabled={!editable}
                   className="formInput"
-                  placeholder="400"
+                  value={dog.revenue}
                   onChange={e => {
-                    setRevenue(e.target.value);
+                    let copy = { ...dog }
+                copy['revenue'] = e.target.value
+                setDog(copy)
                   }}
                 />
               </FormControl>
@@ -656,10 +486,12 @@ const AddDog = () => {
           <FormLabel>Facility</FormLabel>
           <Select
             disabled={!editable}
-            placeholder="Select Facility"
             className="formInput"
+            value={() => getFacility()}
             onChange={e => {
-              setFacilityID(e.target.value);
+              let copy = { ...dog }
+                copy['facilityid'] = e.target.value
+                setDog(copy)
             }}
           >
             {getFacilityList()}
@@ -670,9 +502,11 @@ const AddDog = () => {
               type="text"
               disabled={!editable}
               className="formInput"
-              placeholder="Tango"
+              value={dog.facilityUnit}
               onChange={e => {
-                setFacilityUnit(e.target.value);
+                let copy = { ...dog }
+                copy['facilityUnit'] = e.target.value
+                setDog(copy)
               }}
             />
           </FormControl>
@@ -683,9 +517,11 @@ const AddDog = () => {
                 type="text"
                 disabled={!editable}
                 className="formInput"
-                placeholder="11/20/2023"
+                value={dog.graddate}
                 onChange={e => {
-                  setGradDate(e.target.value);
+                  let copy = { ...dog }
+                copy['graddate'] = e.target.value
+                setDog(copy)
                 }}
               />
             </FormControl>
@@ -695,9 +531,11 @@ const AddDog = () => {
                 type="text"
                 disabled={!editable}
                 className="formInput"
-                placeholder="27"
+                value={dog.groupnum}
                 onChange={e => {
-                  setGroupNum(e.target.value);
+                  let copy = { ...dog }
+                copy['groupnum'] = e.target.value
+                setDog(copy)
                 }}
               />
             </FormControl>
@@ -708,9 +546,11 @@ const AddDog = () => {
               type="text"
               disabled={!editable}
               className="formInput"
-              placeholder="Irvine Dog Rescue"
+              value={dog.shelter}
               onChange={e => {
-                setShelter(e.target.value);
+                let copy = { ...dog }
+                copy['shelter'] = e.target.value
+                setDog(copy)
               }}
             />
           </FormControl>
@@ -720,9 +560,11 @@ const AddDog = () => {
               type="text"
               disabled={!editable}
               className="formInput"
-              placeholder="123456"
+              value={dog.dogid}
               onChange={e => {
-                setDogID(e.target.value);
+                let copy = { ...dog }
+                copy['dogid'] = e.target.value
+                setDog(copy)
               }}
             />
           </FormControl>
@@ -739,9 +581,11 @@ const AddDog = () => {
           name="additionalNotes"
           rows="7"
           width="70%"
-          placeholder="The dog is beautiful."
+          value={dog.notes}
           onChange={e => {
-            setNotes(e.target.value);
+            let copy = { ...dog }
+                copy['notes'] = e.target.value
+                setDog(copy)
           }}
         />
       </Flex>
