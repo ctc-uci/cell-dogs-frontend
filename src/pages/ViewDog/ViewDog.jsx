@@ -97,7 +97,7 @@ const AddDog = () => {
   const TagMenu = () => {
     return (
       <Menu>
-        <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
+        <MenuButton isDisabled = {!editable} as={Button} rightIcon={<ChevronDownIcon />}>
           Add tag
         </MenuButton>
         <MenuList>
