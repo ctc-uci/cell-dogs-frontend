@@ -72,7 +72,7 @@ const AdoptionLog = props => {
       staffAdoption,
       specialNeeds,
       deceased,
-      facilityid
+      facilityid,
     } = dog;
 
     if (facilityid !== tableId) {
@@ -89,6 +89,7 @@ const AdoptionLog = props => {
 
     const handleViewMore = () => {
       Navigate(`/dog/${dogid}`);
+      console.log('test');
     };
 
     return (
