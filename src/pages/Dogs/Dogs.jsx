@@ -7,6 +7,7 @@ import BreadcrumbBar from '../../components/BreadcrumbBar/BreadcrumbBar';
 import AdoptionLogNavbar from './AdoptionLogNavbar';
 import { useBackend } from '../../contexts/BackendContext';
 import AdoptionLog from './AdoptionLog';
+import AdoptionLogCard from './AdoptionLogCard';
 
 const Dogs = () => {
   // const { currentUser, logout } = useAuth();
@@ -17,7 +18,7 @@ const Dogs = () => {
   //   await logout();
   //   navigate('/login');
   // };
-
+  const [view, setView] = useState('table');
   const { backend } = useBackend();
   const [data, setData] = useState([]);
 
@@ -52,10 +53,23 @@ const Dogs = () => {
           </div>
         </BreadcrumbBar>
       </div>
-      <AdoptionLogNavbar />
-      {data.map(facility => (
-        <AdoptionLog key={facility.name} tableName={facility.name} tableId={facility.id} />
-      ))}
+      <AdoptionLogNavbar view={view} setView={setView} />
+      {/* {data.map(facility =>
+        view === 'table' ? (
+          <AdoptionLog key={facility.name} tableName={facility.name} tableId={facility.id} />
+        ) : (
+          <AdoptionLogCard key={facility.name} tableName={facility.name} tableId={facility.id} />
+        )
+      ))} */}
+
+      {view === 'table' &&
+        data.map(facility => (
+          <AdoptionLog key={facility.name} tableName={facility.name} tableId={facility.id} />
+        ))}
+      {view === 'card' &&
+        data.map(facility => (
+          <AdoptionLogCard key={facility.name} tableName={facility.name} tableId={facility.id} />
+        ))}
     </div>
   );
 };

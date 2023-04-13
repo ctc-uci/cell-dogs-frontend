@@ -1,3 +1,4 @@
+/* eslint-disable react/destructuring-assignment */
 import { React, useState, useEffect } from 'react';
 import {
   Heading,
@@ -72,7 +73,7 @@ const AdoptionLog = props => {
       staffAdoption,
       specialNeeds,
       deceased,
-      facilityid
+      facilityid,
     } = dog;
 
     if (facilityid !== tableId) {

@@ -1,6 +1,5 @@
-.uploadAvatarButton
- {
+.uploadAvatarButton {
   border-radius: 50px;
   border-color: darkgray;
   position: relative;
- }
+}

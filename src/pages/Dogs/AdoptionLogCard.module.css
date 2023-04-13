@@ -1,0 +1,9 @@
+.tableHeader {
+  display: flex;
+  gap: 2vw;
+  margin-bottom: 1vh;
+  align-items: center;
+}
+
+.table {
+}
