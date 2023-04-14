@@ -26,7 +26,7 @@ import ShowTags from '../AddDog/ShowTags.jsx';
 import { useBackend } from '../../contexts/BackendContext';
 import { useNavigate, useParams } from 'react-router-dom';
 
-const AddDog = () => {
+const ViewDog = () => {
   const { id: dogId } = useParams();
 
   const [editable, setEditable] = useState(false);
@@ -44,7 +44,7 @@ const AddDog = () => {
     try {
       const res = await backend.get(`/dog/${dogId}`);
       setDog(res.data[0]);
-      console.log(res.data[0])
+      console.log(res.data[0]);
     } catch (err) {
       console.log(err);
     }
@@ -59,15 +59,14 @@ const AddDog = () => {
     setFacilities(data);
   };
 
-  const getFacility = async() => {
-    try{
-      const res = await backend.get(`/facility/${dog.facilityid}`)
-      return res.data.name
-    }
-    catch (err) {
+  const getFacility = async () => {
+    try {
+      const res = await backend.get(`/facility/${dog.facilityid}`);
+      return res.data.name;
+    } catch (err) {
       console.log(err);
     }
-  }
+  };
 
   const getFacilityList = () => {
     return facility.map(element => (
@@ -96,7 +95,7 @@ const AddDog = () => {
   const TagMenu = () => {
     return (
       <Menu>
-        <MenuButton isDisabled = {!editable} as={Button} rightIcon={<ChevronDownIcon />}>
+        <MenuButton isDisabled={!editable} as={Button} rightIcon={<ChevronDownIcon />}>
           Add tag
         </MenuButton>
         <MenuList>
@@ -117,16 +116,12 @@ const AddDog = () => {
     // const staffAdoption = staffAdoptionTag;
     // const specialNeeds = specialTag;
     // const deceased = deceasedTag;
-
-    await backend
-      .put(`dog/${dogId}`,
-        dog
-      )
-      .then(() => {
-        console.log('Successfully updated dog');
-      });
-    Navigate(`/dog/${dog.dogid}`);
-    handleEditButton();
+    console.log(dog);
+    await backend.put(`dog/${dog.dogid}`, dog).catch(function (err) {
+      console.log(err);
+    });
+    setEditable(!editable);
+    console.log(editable);
   };
 
   useEffect(() => {
@@ -161,8 +156,8 @@ const AddDog = () => {
       </Flex>
 
       <div className="profileSection">
-        <div className="dogPic">
-          <UploadAvatar width="100px" height="100px" />
+        <div className="dogPic" disabled={!editable}>
+          <UploadAvatar width="100px" height="100px" disabled="true" />
         </div>
         <div className="name">
           <div className="nameInput">
@@ -172,13 +167,13 @@ const AddDog = () => {
                 id="nameField"
                 type="name"
                 placeholder="Enter Name"
-                value = {dog.dogname}
+                value={dog.dogname}
                 size="lg"
                 variant="unstyled"
                 onChange={e => {
-                  let copy = { ...dog }
-                copy['dogname'] = e.target.value
-                setDog(copy)
+                  let copy = { ...dog };
+                  copy['dogname'] = e.target.value;
+                  setDog(copy);
                 }}
               />
             </FormControl>
@@ -198,16 +193,9 @@ const AddDog = () => {
         </div>
         <div className="buttons">
           {!editable && (
-            <Button
-              className="editButton"
-              // width="62.5px"
-              size="sm"
-              color="gray"
-              variant="outline"
-              onClick={() => handleEditButton()}
-            >
-              Edit Dog
-            </Button>
+            <ButtonGroup variant="outline" spacing="6" onClick={() => handleEditButton()}>
+              <Button>Edit Dog</Button>
+            </ButtonGroup>
           )}
           <div className="cancelButton">
             {editable && (
@@ -244,10 +232,10 @@ const AddDog = () => {
               disabled={!editable}
               className="formInput"
               value={dog.adoptername}
-              onChange={(e) => {
-                let copy = { ...dog }
-                copy['adoptername'] = e.target.value
-                setDog(copy)
+              onChange={e => {
+                let copy = { ...dog };
+                copy['adoptername'] = e.target.value;
+                setDog(copy);
               }}
             />
           </FormControl>
@@ -259,9 +247,9 @@ const AddDog = () => {
               className="formInput"
               value={dog.adoptemail}
               onChange={e => {
-                let copy = { ...dog }
-                copy['adoptemail'] = e.target.value
-                  setDog(copy)
+                let copy = { ...dog };
+                copy['adoptemail'] = e.target.value;
+                setDog(copy);
               }}
             />
           </FormControl>
@@ -273,9 +261,9 @@ const AddDog = () => {
               className="formInput"
               value={dog.adopterphone}
               onChange={e => {
-                let copy = { ...dog }
-                copy['adopterphone'] = e.target.value
-                  setDog(copy)
+                let copy = { ...dog };
+                copy['adopterphone'] = e.target.value;
+                setDog(copy);
               }}
             />
           </FormControl>
@@ -293,9 +281,9 @@ const AddDog = () => {
               className="formInput"
               value={dog.altname}
               onChange={e => {
-                let copy = { ...dog }
-                copy['altname'] = e.target.value
-                setDog(copy)
+                let copy = { ...dog };
+                copy['altname'] = e.target.value;
+                setDog(copy);
               }}
             />
           </FormControl>
@@ -307,9 +295,9 @@ const AddDog = () => {
               className="formInput"
               value={dog.breed}
               onChange={e => {
-                let copy = { ...dog }
-                copy['breed'] = e.target.value
-                setDog(copy)
+                let copy = { ...dog };
+                copy['breed'] = e.target.value;
+                setDog(copy);
               }}
             />
           </FormControl>
@@ -322,9 +310,9 @@ const AddDog = () => {
                 value={dog.gender}
                 className="formInput"
                 onChange={e => {
-                  let copy = { ...dog }
-                  copy['gender'] = e.target.value
-                  setDog(copy)
+                  let copy = { ...dog };
+                  copy['gender'] = e.target.value;
+                  setDog(copy);
                 }}
               >
                 <option value="Male">Male</option>
@@ -339,9 +327,9 @@ const AddDog = () => {
                 value={dog.age}
                 disabled={!editable}
                 onChange={e => {
-                  let copy = { ...dog }
-                copy['age'] = e.target.value
-                setDog(copy)
+                  let copy = { ...dog };
+                  copy['age'] = e.target.value;
+                  setDog(copy);
                 }}
               />
             </FormControl>
@@ -355,9 +343,9 @@ const AddDog = () => {
                 className="formInput"
                 value={dog.chiptype}
                 onChange={e => {
-                  let copy = { ...dog }
-                copy['chiptype'] = e.target.value
-                setDog(copy)
+                  let copy = { ...dog };
+                  copy['chiptype'] = e.target.value;
+                  setDog(copy);
                 }}
               />
             </FormControl>
@@ -369,9 +357,9 @@ const AddDog = () => {
                 className="formInput"
                 value={dog.chipnum}
                 onChange={e => {
-                  let copy = { ...dog }
-                copy['chipnum'] = e.target.value
-                setDog(copy)
+                  let copy = { ...dog };
+                  copy['chipnum'] = e.target.value;
+                  setDog(copy);
                 }}
               />
             </FormControl>
@@ -391,9 +379,9 @@ const AddDog = () => {
               className="formInput"
               value={dog.addrline}
               onChange={e => {
-                let copy = { ...dog }
-                copy['addrline'] = e.target.value
-                setDog(copy)
+                let copy = { ...dog };
+                copy['addrline'] = e.target.value;
+                setDog(copy);
               }}
             />
           </FormControl>
@@ -406,9 +394,9 @@ const AddDog = () => {
                 className="formInput"
                 value={dog.adoptcity}
                 onChange={e => {
-                  let copy = { ...dog }
-                copy['adoptcity'] = e.target.value
-                setDog(copy)
+                  let copy = { ...dog };
+                  copy['adoptcity'] = e.target.value;
+                  setDog(copy);
                 }}
               />
             </FormControl>
@@ -420,9 +408,9 @@ const AddDog = () => {
                 className="formInput"
                 value={dog.adoptstate}
                 onChange={e => {
-                  let copy = { ...dog }
-                copy['adoptstate'] = e.target.value
-                setDog(copy)
+                  let copy = { ...dog };
+                  copy['adoptstate'] = e.target.value;
+                  setDog(copy);
                 }}
               />
             </FormControl>
@@ -435,9 +423,9 @@ const AddDog = () => {
               className="formInput"
               value={dog.zip}
               onChange={e => {
-                let copy = { ...dog }
-                copy['zip'] = e.target.value
-                setDog(copy)
+                let copy = { ...dog };
+                copy['zip'] = e.target.value;
+                setDog(copy);
               }}
             />
           </FormControl>
@@ -454,9 +442,9 @@ const AddDog = () => {
                   className="formInput"
                   value={dog.fees}
                   onChange={e => {
-                    let copy = { ...dog }
-                copy['fees'] = e.target.value
-                setDog(copy)
+                    let copy = { ...dog };
+                    copy['fees'] = e.target.value;
+                    setDog(copy);
                   }}
                 />
               </FormControl>
@@ -468,9 +456,9 @@ const AddDog = () => {
                   className="formInput"
                   value={dog.revenue}
                   onChange={e => {
-                    let copy = { ...dog }
-                copy['revenue'] = e.target.value
-                setDog(copy)
+                    let copy = { ...dog };
+                    copy['revenue'] = e.target.value;
+                    setDog(copy);
                   }}
                 />
               </FormControl>
@@ -488,9 +476,9 @@ const AddDog = () => {
             className="formInput"
             value={() => getFacility()}
             onChange={e => {
-              let copy = { ...dog }
-                copy['facilityid'] = e.target.value
-                setDog(copy)
+              let copy = { ...dog };
+              copy['facilityid'] = e.target.value;
+              setDog(copy);
             }}
           >
             {getFacilityList()}
@@ -503,9 +491,9 @@ const AddDog = () => {
               className="formInput"
               value={dog.facilityUnit}
               onChange={e => {
-                let copy = { ...dog }
-                copy['facilityUnit'] = e.target.value
-                setDog(copy)
+                let copy = { ...dog };
+                copy['facilityUnit'] = e.target.value;
+                setDog(copy);
               }}
             />
           </FormControl>
@@ -518,9 +506,9 @@ const AddDog = () => {
                 className="formInput"
                 value={dog.graddate}
                 onChange={e => {
-                  let copy = { ...dog }
-                copy['graddate'] = e.target.value
-                setDog(copy)
+                  let copy = { ...dog };
+                  copy['graddate'] = e.target.value;
+                  setDog(copy);
                 }}
               />
             </FormControl>
@@ -532,9 +520,9 @@ const AddDog = () => {
                 className="formInput"
                 value={dog.groupnum}
                 onChange={e => {
-                  let copy = { ...dog }
-                copy['groupnum'] = e.target.value
-                setDog(copy)
+                  let copy = { ...dog };
+                  copy['groupnum'] = e.target.value;
+                  setDog(copy);
                 }}
               />
             </FormControl>
@@ -547,9 +535,9 @@ const AddDog = () => {
               className="formInput"
               value={dog.shelter}
               onChange={e => {
-                let copy = { ...dog }
-                copy['shelter'] = e.target.value
-                setDog(copy)
+                let copy = { ...dog };
+                copy['shelter'] = e.target.value;
+                setDog(copy);
               }}
             />
           </FormControl>
@@ -561,9 +549,9 @@ const AddDog = () => {
               className="formInput"
               value={dog.dogid}
               onChange={e => {
-                let copy = { ...dog }
-                copy['dogid'] = e.target.value
-                setDog(copy)
+                let copy = { ...dog };
+                copy['dogid'] = e.target.value;
+                setDog(copy);
               }}
             />
           </FormControl>
@@ -582,9 +570,9 @@ const AddDog = () => {
           width="70%"
           value={dog.notes}
           onChange={e => {
-            let copy = { ...dog }
-                copy['notes'] = e.target.value
-                setDog(copy)
+            let copy = { ...dog };
+            copy['notes'] = e.target.value;
+            setDog(copy);
           }}
         />
       </Flex>
@@ -592,4 +580,4 @@ const AddDog = () => {
   );
 };
 
-export default AddDog;
+export default ViewDog;
