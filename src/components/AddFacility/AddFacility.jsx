@@ -1,5 +1,22 @@
 /* eslint-disable */
-import { Button, Input, Avatar, Textarea, Box, Flex } from '@chakra-ui/react';
+import {
+  Button,
+  Input,
+  Avatar,
+  Textarea,
+  Box,
+  Flex,
+  ButtonGroup,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalCloseButton,
+  ModalBody,
+  ModalFooter,
+  useDisclosure,
+  useToast,
+} from '@chakra-ui/react';
 // import { AddIcon } from '@chakra-ui/icons';
 import React, { useState } from 'react';
 import './AddFacility.css';
@@ -9,6 +26,7 @@ import BreadcrumbBar from '../../components/BreadcrumbBar/BreadcrumbBar';
 import { BsPlusLg } from 'react-icons/bs';
 import { ArrowBackIcon } from '@chakra-ui/icons';
 import UploadAvatar from '../UploadAvatar/UploadAvatar';
+import CreateToast from '../Toasts/CreateToast';
 
 // export const theme = extendTheme({
 //   colors: {
@@ -30,6 +48,8 @@ const AddFacility = () => {
   // const [title, setTitle] = useState('');
   // const [phoneNumber, setPhoneNumber] = useState('');
   const { backend } = useBackend();
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [loading, setLoading] = useState(false);
 
   const Navigate = useNavigate();
 
@@ -51,6 +71,32 @@ const AddFacility = () => {
       return 'Enter Name';
     }
     return facilityName;
+  };
+
+  const toast = useToast();
+
+  const handleConfirmDelete = async () => {
+    try {
+      const facilityData = {
+        id: id,
+      };
+
+      const response = await backend.delete(`/facility/${facilityData.id}`);
+      console.log(`Deleted facility with id ${facilityData.id}`);
+
+      onClose();
+
+      // attempting to add toast
+      if (response.status === 200) {
+        CreateToast({
+          description: `${facilityName} deleted successfully`,
+          status: 'success',
+          toast,
+        });
+      }
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -95,6 +141,49 @@ const AddFacility = () => {
             >
               Cancel
             </Button>
+            <ButtonGroup variant="outline" spacing="6">
+              <Button colorScheme="red" width="250px" size="sm" onClick={onOpen}>
+                Remove Facility
+              </Button>
+            </ButtonGroup>
+
+            <Modal isOpen={isOpen} onClose={onClose}>
+              <ModalOverlay />
+              <ModalContent>
+                <ModalHeader>Remove Facility</ModalHeader>
+                <ModalCloseButton />
+                <ModalBody>
+                  Are you sure you want to remove the facility from the adoption log? Once you
+                  delete them, there is no way of getting the information back
+                </ModalBody>
+
+                <ModalFooter>
+                  <Button
+                    className="cancelButton"
+                    width="250px"
+                    size="sm"
+                    color="--cds-blue-2"
+                    variant="outline"
+                    onClick={onClose}
+                  >
+                    Cancel
+                  </Button>
+                  <ButtonGroup variant="outline" spacing="6">
+                    <Button
+                      className="saveButton"
+                      width="250px"
+                      size="sm"
+                      bg="#21307a"
+                      color="white"
+                      onClick={() => handleConfirmDelete(id)}
+                    >
+                      Yes, remove the facility
+                    </Button>
+                  </ButtonGroup>
+                </ModalFooter>
+              </ModalContent>
+            </Modal>
+
             <Button
               className="saveButton"
               width="250px"
