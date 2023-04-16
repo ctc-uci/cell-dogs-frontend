@@ -115,13 +115,10 @@ const AdoptionLogCard = props => {
             boxShadow="dark-lg"
             m={6}
             size="md"
-            // p="4"
             rounded="md"
             bg="white"
             margin="30px 0px"
             width="280px"
-            // overflow="hidden"
-            // maxW="sm"
             justifyContent="flex-end"
             key={props.key}
           >
@@ -134,9 +131,9 @@ const AdoptionLogCard = props => {
                     src="https://ca-times.brightspotcdn.com/dims4/default/30a8879/2147483647/strip/false/crop/2048x1152+0+0/resize/1486x836!/quality/80/?url=https%3A%2F%2Fcalifornia-times-brightspot.s3.amazonaws.com%2F5a%2Fc5%2F10a8781f4130240d4b4d42d12794%2Fla-1489021677-ia7m9d0xvx-snap-photo"
                   />
                   <Box maxWidth="100%" maxHeight="100%">
-                    <Flex flexDirection="row">
+                    <Flex flexDirection="row" flexGrow="1">
                       <Heading fontSize="xl">{dogName}</Heading>
-                      <Checkbox></Checkbox>
+                      <Checkbox marginLeft="50px" />
                     </Flex>
                     <Text size="lg" marginRight="10px">
                       aka {setAltName()}
@@ -182,16 +179,16 @@ const AdoptionLogCard = props => {
               <Flex gap={2} flexDirection="column">
                 <Box>
                   <Flex gap="3px">
-                    <Text>Facility: </Text>
+                    <Text>
+                      <strong>Facility:</strong>
+                    </Text>
                     <Text>{facility}</Text>
                   </Flex>
                 </Box>
                 <Box>
                   <Text as="b">Adopter</Text>
                   <Text>Name: {adopter}</Text>
-                  <Text>
-                    Phone: <a>{phoneNumber}</a>
-                  </Text>
+                  <Text>Phone: {phoneNumber}</Text>
                   <Text>Email: {email}</Text>
                   <Text>Address: </Text>
                   <Text>{addressline1}</Text>
@@ -218,7 +215,8 @@ const AdoptionLogCard = props => {
   };
   return (
     <>
-      {isLargerThan768 && (
+      {/* for now, only displaying tables that have names (!!tableName) */}
+      {!!tableName && isLargerThan768 && (
         <div>
           <div className={styles.tableHeader}>
             <Box margin="auto 50px">
@@ -238,7 +236,8 @@ const AdoptionLogCard = props => {
           </SimpleGrid>
         </div>
       )}
-      {!isLargerThan768 && (
+      {/* for now, only displaying tables that have names (!!tableName) */}
+      {!!tableName && !isLargerThan768 && (
         <div>
           <div className={styles.tableHeader}>
             <Box width="100%" display="flex" justifyContents="center" alignItems="center">
