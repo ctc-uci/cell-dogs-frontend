@@ -14,9 +14,6 @@ import {
   Flex,
   Box,
   SimpleGrid,
-  Tbody,
-  Tr,
-  Td,
   Tag,
   Checkbox,
 } from '@chakra-ui/react';
@@ -25,25 +22,9 @@ import styles from './AdoptionLogCard.module.css';
 import { screenWidthExceeds } from '../../util/utils';
 
 const AdoptionLogCard = props => {
-  const [data, setData] = useState([]);
-
-  const { backend } = useBackend();
   const Navigate = useNavigate();
-  const { tableId, tableName } = props;
+  const { tableId, tableName, data } = props;
   const isLargerThan768 = screenWidthExceeds(768);
-
-  const getDogs = async () => {
-    try {
-      const res = await backend.get('/dog');
-      setData(res.data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  useEffect(() => {
-    getDogs();
-  }, []);
 
   const calculateDogAgeAtGraduation = (graduationDate, currentAge) => {
     // Step 1: Convert graduation date to JavaScript Date object
@@ -63,7 +44,7 @@ const AdoptionLogCard = props => {
     return Math.floor(ageAtGraduationInYears);
   };
 
-  const dogTableRow = dog => {
+  const dogTableRow = (dog, width) => {
     const {
       altName,
       shelter,
@@ -117,34 +98,35 @@ const AdoptionLogCard = props => {
             size="md"
             rounded="md"
             bg="white"
-            margin="30px 0px"
-            width="280px"
+            width={width}
             justifyContent="flex-end"
             key={props.key}
           >
             <CardHeader borderBottom="1px solid #CBD5E0">
-              <Flex direction="row">
-                <Flex alignItems="center" flexWrap="nowrap" direction="row">
-                  <Avatar
-                    marginRight="10px"
-                    size="lg"
-                    src="https://ca-times.brightspotcdn.com/dims4/default/30a8879/2147483647/strip/false/crop/2048x1152+0+0/resize/1486x836!/quality/80/?url=https%3A%2F%2Fcalifornia-times-brightspot.s3.amazonaws.com%2F5a%2Fc5%2F10a8781f4130240d4b4d42d12794%2Fla-1489021677-ia7m9d0xvx-snap-photo"
-                  />
-                  <Box maxWidth="100%" maxHeight="100%">
-                    <Flex flexDirection="row" flexGrow="1">
+              <Flex alignItems="center" flexWrap="nowrap" direction="row">
+                <Avatar
+                  marginRight="10px"
+                  size="xl"
+                  src="https://ca-times.brightspotcdn.com/dims4/default/30a8879/2147483647/strip/false/crop/2048x1152+0+0/resize/1486x836!/quality/80/?url=https%3A%2F%2Fcalifornia-times-brightspot.s3.amazonaws.com%2F5a%2Fc5%2F10a8781f4130240d4b4d42d12794%2Fla-1489021677-ia7m9d0xvx-snap-photo"
+                  marginBottom="15px"
+                />
+                <Flex flexDirection="column" flexGrow="1">
+                  <Flex flexDirection="row" alignItems="flex-start">
+                    <Flex>
                       <Heading fontSize="xl">{dogName}</Heading>
-                      <Checkbox marginLeft="50px" />
                     </Flex>
-                    <Text size="lg" marginRight="10px">
-                      aka {setAltName()}
-                    </Text>
-                    <Text size="lg" marginRight="10px">
-                      Grad Age: {gradAge}
-                    </Text>
-                    <Text size="lg" marginRight="10px">
-                      Breed: {breed}
-                    </Text>
-                  </Box>
+                    <Flex flexGrow="1" />
+                    <Checkbox />
+                  </Flex>
+                  <Text size="lg" marginRight="10px" width="100%">
+                    aka {setAltName()}
+                  </Text>
+                  <Text size="lg" marginRight="10px">
+                    Grad Age: {gradAge}
+                  </Text>
+                  <Text size="lg" marginRight="10px" width="100%">
+                    Breed: {breed}
+                  </Text>
                 </Flex>
               </Flex>
               <Flex gap="5px" flexWrap="wrap">
@@ -178,18 +160,28 @@ const AdoptionLogCard = props => {
             <CardBody>
               <Flex gap={2} flexDirection="column">
                 <Box>
-                  <Flex gap="3px">
-                    <Text>
-                      <strong>Facility:</strong>
-                    </Text>
+                  <Flex gap="3px" alignItems="baseline">
+                    <Heading fontSize="md">Facility:</Heading>
                     <Text>{facility}</Text>
                   </Flex>
                 </Box>
                 <Box>
-                  <Text as="b">Adopter</Text>
+                  <Heading fontSize="md" marginBottom="5px">
+                    Adopter
+                  </Heading>
                   <Text>Name: {adopter}</Text>
-                  <Text>Phone: {phoneNumber}</Text>
-                  <Text>Email: {email}</Text>
+                  <Flex gap="3px">
+                    <Text>Phone: </Text>
+                    <Text color="#3182ce" textDecoration="underline">
+                      <a href={`tel:${phoneNumber}`}>{phoneNumber}</a>
+                    </Text>
+                  </Flex>
+                  <Flex gap="3px">
+                    <Text>Email:</Text>
+                    <Text color="#3182ce" textDecoration="underline">
+                      <a href={`mailto:${email}`}>{email}</a>
+                    </Text>
+                  </Flex>
                   <Text>Address: </Text>
                   <Text>{addressline1}</Text>
                   <Text>{addressline2}</Text>
@@ -217,50 +209,42 @@ const AdoptionLogCard = props => {
     <>
       {/* for now, only displaying tables that have names (!!tableName) */}
       {!!tableName && isLargerThan768 && (
-        <div>
-          <div className={styles.tableHeader}>
-            <Box margin="auto 50px">
-              <Heading as="lg" size="24px">
-                {tableName}
-              </Heading>
-              <Button size="sm" variant="outline">
-                Select Facility
-              </Button>
-              <Button size="sm" variant="outline">
-                Copy Adopter&apos;s Email
-              </Button>
-            </Box>
-          </div>
-          <SimpleGrid columns={[1, 2, 3, 4]} margin="auto 50px" className="cards">
-            {data.map(dog => dogTableRow(dog))}
+        <Flex flexDirection="column">
+          <Flex
+            className={styles.tableHeader}
+            margin="auto 135px"
+            gap="10px"
+            wrap="nowrap"
+            width="100%"
+          >
+            <Heading as="lg" size="lg">
+              {tableName}
+            </Heading>
+            <Button size="sm" variant="outline">
+              Select Facility
+            </Button>
+            <Button size="sm" variant="outline">
+              Copy Adopter&apos;s Email
+            </Button>
+          </Flex>
+          <SimpleGrid columns={[1, 2, 3, 4]} margin="auto 110px">
+            {data.map(dog => dogTableRow(dog, 280))}
           </SimpleGrid>
-        </div>
+        </Flex>
       )}
       {/* for now, only displaying tables that have names (!!tableName) */}
       {!!tableName && !isLargerThan768 && (
-        <div>
-          <div className={styles.tableHeader}>
-            <Box width="100%" display="flex" justifyContents="center" alignItems="center">
-              <Flex flexDirection="column">
-                <Heading as="lg" size="lg">
-                  {tableName}
-                </Heading>
-                <Button size="sm" variant="outline">
-                  Copy Adopter&apos;s Email
-                </Button>
-              </Flex>
-            </Box>
-          </div>
-          <SimpleGrid
-            columns={1}
-            className="cards"
-            display="flex"
-            flexDirection="column"
-            alignItems="center"
-          >
-            {data.map(dog => dogTableRow(dog))}
-          </SimpleGrid>
-        </div>
+        <Flex flexDirection="column" alignItems="center">
+          <Flex flexDirection="column" justifyContents="center" gap="10px" marginRight="145px">
+            <Heading as="lg" size="lg" marginBottom="10px" marginTop="10px">
+              {tableName}
+            </Heading>
+            <Button size="sm" variant="outline" fontSize="12px">
+              Copy Adopter&apos;s Email
+            </Button>
+          </Flex>
+          <SimpleGrid columns={1}>{data.map(dog => dogTableRow(dog, 313))}</SimpleGrid>
+        </Flex>
       )}
     </>
   );
