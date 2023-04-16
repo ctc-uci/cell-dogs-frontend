@@ -8,15 +8,12 @@ import {
   Button,
   useDisclosure,
   Input,
-  useToast,
-  VStack,
   // Avatar,
 } from '@chakra-ui/react';
 // import { AddIcon } from '@chakra-ui/icons';
 import React from 'react';
 import './AddFacilityModal.css';
 import UploadAvatar from '../UploadAvatar/UploadAvatar';
-import CreateToast from '../Toasts/CreateToast';
 
 // export const theme = extendTheme({
 //   colors: {
@@ -33,41 +30,7 @@ import CreateToast from '../Toasts/CreateToast';
 const AddFacilityModal = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [scrollBehavior] = React.useState('inside');
-  const [modalIsOpen, setModalIsOpen] = useState(false);
   const [facilityToDelete, setFacilityToDelete] = useState(null);
-
-  // const handleDeleteClick = facility => {
-  //   setFacilityToDelete(facility);
-  //   setModalIsOpen(true);
-  // };
-
-  // const handleConfirmDelete = async () => {
-  //   try {
-  //     const user = {
-  //       facility,
-  //     };
-  //     setLoading(true);
-
-  //     const response = await backend.delete('/facilities', user);
-
-  //     onClose();
-
-  //     // attempting to add toast
-  //     if (response.status === 200) {
-  //       CreateToast({
-  //         description: `${facilityToDelete} was deleted successfully`,
-  //         status: 'success',
-  //         toast,
-  //       });
-  //     }
-  //   } finally {
-  //     setModalIsOpen(false);
-  //   }
-  // };
-
-  // const handleCancelDelete = () => {
-  //   setModalIsOpen(false);
-  // };
 
   return (
     <>
@@ -80,26 +43,6 @@ const AddFacilityModal = () => {
           scrollBehavior={scrollBehavior}
           isCentered
         >
-          <Button onClick={onOpen}>Open Modal</Button>
-
-          <Modal isOpen={isOpen} onClose={onClose}>
-            <ModalOverlay />
-            <ModalContent>
-              <ModalHeader>Modal Title</ModalHeader>
-              <ModalCloseButton />
-              <ModalBody>
-                <Lorem count={2} />
-              </ModalBody>
-
-              <ModalFooter>
-                <Button colorScheme="blue" mr={3} onClick={onClose}>
-                  Close
-                </Button>
-                <Button variant="ghost">Secondary Action</Button>
-              </ModalFooter>
-            </ModalContent>
-          </Modal>
-
           <ModalOverlay />
           <ModalContent className="facilityModalContent">
             <div className="placeholder">
@@ -124,43 +67,6 @@ const AddFacilityModal = () => {
                 >
                   Cancel
                 </Button>
-                <Button
-                  className="removeButton"
-                  width="250px"
-                  size="sm"
-                  color="--cds-blue-2"
-                  variant="outline"
-                  onClick={() => handleDeleteClick(facility)}
-                >
-                  Remove Facility
-                </Button>
-
-                {/* <Modal isOpen={onOpen} onClose={onClose}>
-                  <ModalOverlay />
-                  <ModalContent>
-                    <ModalHeader>Remove Facility</ModalHeader>
-                    <ModalCloseButton />
-                    <ModalBody>
-                      Are you sure you want to remove the facility from the adoption log? Once you
-                      delete them, there is no way of getting the information back
-                    </ModalBody>
-
-                    <ModalFooter>
-                      <Button w="100%" variant="outline" onClick={() => onClose()}>
-                        Cancel
-                      </Button>
-                      <Button
-                        w="50%"
-                        variant="outline"
-                        colorScheme="red"
-                        onClick={() => handleDeleteClick(facility)}
-                      >
-                        Yes, remove the facility
-                      </Button>
-                    </ModalFooter>
-                  </ModalContent>
-                </Modal> */}
-
                 <Button
                   className="saveButton"
                   width="250px"

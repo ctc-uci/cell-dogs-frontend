@@ -74,19 +74,13 @@ const AddFacility = () => {
   };
 
   const toast = useToast();
-
-  const handleConfirmDelete = async () => {
+  const handleConfirmDelete = async id => {
     try {
-      const facilityData = {
-        id: id,
-      };
-
-      const response = await backend.delete(`/facility/${facilityData.id}`);
-      console.log(`Deleted facility with id ${facilityData.id}`);
+      console.log(`Deleted facility with id ${id}`);
+      const response = await backend.delete(`/facility/${id}`);
 
       onClose();
 
-      // attempting to add toast
       if (response.status === 200) {
         CreateToast({
           description: `${facilityName} deleted successfully`,
@@ -170,7 +164,7 @@ const AddFacility = () => {
                   </Button>
                   <ButtonGroup variant="outline" spacing="6">
                     <Button
-                      className="saveButton"
+                      className="deleteButton"
                       width="250px"
                       size="sm"
                       bg="#21307a"
