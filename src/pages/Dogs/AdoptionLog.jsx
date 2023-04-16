@@ -89,7 +89,10 @@ const AdoptionLog = props => {
 
     const handleViewMore = () => {
       Navigate(`/dog/${dogid}`);
+<<<<<<< HEAD
       console.log('test');
+=======
+>>>>>>> dev
     };
 
     return (
