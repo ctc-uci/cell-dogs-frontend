@@ -135,11 +135,6 @@ const AddFacility = () => {
             >
               Cancel
             </Button>
-            <ButtonGroup variant="outline" spacing="6">
-              <Button colorScheme="red" width="250px" size="sm" onClick={onOpen}>
-                Remove Facility
-              </Button>
-            </ButtonGroup>
 
             <Modal isOpen={isOpen} onClose={onClose}>
               <ModalOverlay />
