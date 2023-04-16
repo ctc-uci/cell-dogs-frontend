@@ -45,17 +45,15 @@ const ViewDog = () => {
     setEditable(!editable);
   };
 
-  const getDog = async () => {
-    try {
-      const res = await backend.get(`/dog/${dogId}`);
-      setDog(res.data[0]);
-      console.log(res.data[0]);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
   useEffect(() => {
+    const getDog = async () => {
+      try {
+        const res = await backend.get(`/dog/${dogId}`);
+        setDog(res.data[0]);
+      } catch (err) {
+        console.log(err);
+      }
+    };
     getDog();
   }, []);
 
@@ -110,19 +108,24 @@ const ViewDog = () => {
     );
   };
 
+  const removeDogButton = async () => {
+    await backend.delete(`dog/${dog.dogid}`).catch(function (err) {
+      console.log(err);
+    });
+    Navigate('/');
+    console.log('Dog successfully removed.');
+  };
+
   const saveAllChanges = async () => {
-    // console.log(serviceTag);
     const service = serviceTag;
     const therapy = therapyTag;
     const staffAdoption = staffAdoptionTag;
     const specialNeeds = specialTag;
     const deceased = deceasedTag;
-    console.log(dog);
-    await backend.put(`dog/${dog.dogid}`, dog).catch(function (err) {
+    await backend.put(`dog/${dogId}`, dog).catch(function (err) {
       console.log(err);
     });
     setEditable(!editable);
-    console.log(editable);
   };
 
   useEffect(() => {
@@ -207,7 +210,7 @@ const ViewDog = () => {
           </div>
           <div className="removeDogButton">
             {editable && (
-              <ButtonGroup variant="outline" spacing="6">
+              <ButtonGroup variant="outline" spacing="6" onClick={() => removeDogButton()}>
                 <Button colorScheme="red">Remove Dog</Button>
               </ButtonGroup>
             )}
