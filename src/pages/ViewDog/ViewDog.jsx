@@ -31,11 +31,6 @@ const ViewDog = () => {
 
   const [editable, setEditable] = useState(false);
   const [dog, setDog] = useState({});
-  const [therapyTag, setTherapyTag] = useState(false);
-  const [staffAdoptionTag, setStaffAdoptionTag] = useState(false);
-  const [deceasedTag, setDeceasedTag] = useState(false);
-  const [specialTag, setSpecialTag] = useState(false);
-  const [serviceTag, setServiceTag] = useState(false);
   const [facility, setFacilities] = useState([]);
 
   const { backend } = useBackend();
@@ -83,9 +78,25 @@ const ViewDog = () => {
     return (
       <div>
         {tagBoolean ? (
-          <MenuItem onClick={() => setTag(false)}>{tagName} (Selected)</MenuItem>
+          <MenuItem
+            onClick={() => {
+              let copy = { ...dog };
+              copy[setTag] = false;
+              setDog(copy);
+            }}
+          >
+            {tagName} (Selected)
+          </MenuItem>
         ) : (
-          <MenuItem onClick={() => setTag(true)}>{tagName}</MenuItem>
+          <MenuItem
+            onClick={() => {
+              let copy = { ...dog };
+              copy[setTag] = true;
+              setDog(copy);
+            }}
+          >
+            {tagName}
+          </MenuItem>
         )}
       </div>
     );
@@ -98,11 +109,11 @@ const ViewDog = () => {
           Add tag
         </MenuButton>
         <MenuList>
-          <TagSetup tagBoolean={serviceTag} tagName="Service" setTag={setServiceTag} />
-          <TagSetup tagBoolean={therapyTag} tagName="Therapy" setTag={setTherapyTag} />
-          <TagSetup tagBoolean={staffAdoptionTag} tagName="Stf Adpt" setTag={setStaffAdoptionTag} />
-          <TagSetup tagBoolean={specialTag} tagName="Special" setTag={setSpecialTag} />
-          <TagSetup tagBoolean={deceasedTag} tagName="Decsd" setTag={setDeceasedTag} />
+          <TagSetup tagBoolean={dog.service} tagName="Service" setTag={'service'} />
+          <TagSetup tagBoolean={dog.therapy} tagName="Therapy" setTag={'therapy'} />
+          <TagSetup tagBoolean={dog.staffAdoption} tagName="Stf Adpt" setTag={'staffAdoption'} />
+          <TagSetup tagBoolean={dog.specialNeeds} tagName="Special" setTag={'specialNeeds'} />
+          <TagSetup tagBoolean={dog.deceased} tagName="Decsd" setTag={'deceased'} />
         </MenuList>
       </Menu>
     );
@@ -117,11 +128,6 @@ const ViewDog = () => {
   };
 
   const saveAllChanges = async () => {
-    const service = serviceTag;
-    const therapy = therapyTag;
-    const staffAdoption = staffAdoptionTag;
-    const specialNeeds = specialTag;
-    const deceased = deceasedTag;
     await backend.put(`dog/${dogId}`, dog).catch(function (err) {
       console.log(err);
     });
@@ -188,11 +194,11 @@ const ViewDog = () => {
         </div>
         <div className="tagRow">
           <ShowTags
-            serviceTag={serviceTag}
-            therapyTag={therapyTag}
-            staffAdoptionTag={staffAdoptionTag}
-            specialTag={specialTag}
-            disabledTag={deceasedTag}
+            serviceTag={dog.service}
+            therapyTag={dog.therapy}
+            staffAdoptionTag={dog.staffAdoption}
+            specialTag={dog.special}
+            disabledTag={dog.deceased}
           />
         </div>
         <div className="buttons">
