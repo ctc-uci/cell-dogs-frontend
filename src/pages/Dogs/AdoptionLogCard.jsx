@@ -1,25 +1,25 @@
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable no-unused-vars */
-import { React, useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import {
-  Heading,
-  Button,
   Avatar,
+  Box,
+  Button,
   Card,
-  CardHeader,
   CardBody,
   CardFooter,
-  Text,
+  CardHeader,
+  Checkbox,
   Flex,
-  Box,
+  Grid,
+  Heading,
   SimpleGrid,
   Tag,
-  Checkbox,
+  Text,
 } from '@chakra-ui/react';
-import { useBackend } from '../../contexts/BackendContext';
-import styles from './AdoptionLogCard.module.css';
+import { React } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { screenWidthExceeds } from '../../util/utils';
+import styles from './AdoptionLogCard.module.css';
 
 const AdoptionLogCard = props => {
   const Navigate = useNavigate();
@@ -215,15 +215,15 @@ const AdoptionLogCard = props => {
               Copy Adopter&apos;s Email
             </Button>
           </Flex>
-          <SimpleGrid
-            columns={[1, 1, 1, 1]}
+          <Grid
             maxWidth="100%"
-            width="auto"
-            minChildWidth={300}
-            gap={3}
+            width="100%"
+            templateColumns="repeat(auto-fill, minmax(280px, 1fr))"
+            gap={4}
+            autoFlow="row dense"
           >
-            {data.map(dog => dogTableRow(dog, 280))}
-          </SimpleGrid>
+            {data.filter(dog => dog.facilityid === tableId).map(dog => dogTableRow(dog, 313))}
+          </Grid>
         </Flex>
       )}
       {/* for now, only displaying tables that have names (!!tableName) */}
@@ -237,7 +237,9 @@ const AdoptionLogCard = props => {
               Copy Adopter&apos;s Email
             </Button>
           </Flex>
-          <SimpleGrid columns={1}>{data.map(dog => dogTableRow(dog, 313))}</SimpleGrid>
+          <SimpleGrid columns={1}>
+            {data.filter(dog => dog.facilityid === tableId).map(dog => dogTableRow(dog, 313))}
+          </SimpleGrid>
         </Flex>
       )}
     </>
