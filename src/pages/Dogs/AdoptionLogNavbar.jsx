@@ -13,29 +13,25 @@ import { useBackend } from '../../contexts/BackendContext';
 import styles from './AdoptionLogNavbar.module.css';
 import './AdoptionLogNavbar.module.css';
 
-const AdoptionLogNavbar = props => {
-  const [view, setView] = useState('table');
-  // const [search, setSearch] = useState('');
+const AdoptionLogNavbar = ({ view, setView, setFacilityFilter, facilityFilter, setSearchDog, searchDog }) => {
+  const [search, setSearch] = useState('');
   const [filter, setFilter] = useState(false);
   const [facilities, setFacilities] = useState('');
   const [selectAll, setSelectAll] = useState(false);
   const [exportData, setExportData] = useState(null);
 
-  const { setFacilityFilter, facilityFilter, setSearchDog, searchDog } = props;
-
   function handleViewToggle(viewType) {
     setView(viewType);
+    return viewType;
   }
 
   const { backend } = useBackend();
   const getFacilities = async () => {
     const { data } = await backend.get('/facility');
-
     setFacilities(data);
   };
 
   useEffect(() => {
-    console.log('here');
     getFacilities();
   }, []);
 

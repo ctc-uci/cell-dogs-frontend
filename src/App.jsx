@@ -14,6 +14,7 @@ import LoginPage from './pages/Login/LoginPage';
 import Navbar from './components/Navbar/Navbar';
 import AddFacility from './components/AddFacility/AddFacility';
 import ViewMore from './components/FacilitiesPageViewMore/ViewMore';
+import ViewDog from './pages/ViewDog/ViewDog';
 
 // Utils
 import { AuthProvider } from './contexts/AuthContext';
@@ -45,6 +46,10 @@ const App = () => {
             <Route
               path="/dogs/new"
               element={<ProtectedRoute Component={AddDog} redirectPath="/login" />}
+            />
+            <Route
+              path="/dog/:id"
+              element={<ProtectedRoute Component={ViewDog} redirectPath="/login" />}
             />
             <Route
               path="/facilities"

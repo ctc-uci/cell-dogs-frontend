@@ -12,7 +12,7 @@ import {
   Checkbox,
   Avatar,
 } from '@chakra-ui/react';
-
+import { useNavigate } from 'react-router-dom';
 import { useBackend } from '../../contexts/BackendContext';
 import ShowTags from '../AddDog/ShowTags';
 import styles from './AdoptionLog.module.css';
@@ -20,7 +20,7 @@ import styles from './AdoptionLog.module.css';
 // import { DropDownList } from "@progress/kendo-react-dropdowns";
 const AdoptionLog = props => {
   const [data, setData] = useState([]);
-
+  const Navigate = useNavigate();
   const { backend } = useBackend();
   const { tableName, tableId, searchDog } = props;
 
@@ -37,10 +37,13 @@ const AdoptionLog = props => {
     try {
       const res = await backend.get(`/dog/search/${searchDog}`);
       setData(res.data);
-      console.log(res);
     } catch (err) {
       console.log(err);
     }
+  };
+
+  const handleViewMore = (dogid) => {
+    Navigate(`/dog/${dogid}`);
   };
 
   const calculateDogAgeAtGraduation = (graduationDate, currentAge) => {
@@ -133,15 +136,17 @@ const AdoptionLog = props => {
         </Td>
         <Td>{address}</Td>
         <Td>
-          <Button colorScheme="teal" size="sm">
+          <Button
+            colorScheme="teal"
+            size="sm"
+            onClick={() => handleViewMore(dogid)}
+          >
             View More
           </Button>
         </Td>
       </Tr>
     );
   };
-
-  console.log('search dog', searchDog);
 
   useEffect(() => {
     if (searchDog) {
