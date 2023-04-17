@@ -23,7 +23,7 @@ import { screenWidthExceeds } from '../../util/utils';
 
 const AdoptionLogCard = props => {
   const Navigate = useNavigate();
-  const { tableId, tableName, data } = props;
+  const { tableId, tableName, data, searchDog } = props;
   const isLargerThan768 = screenWidthExceeds(768);
 
   const calculateDogAgeAtGraduation = (graduationDate, currentAge) => {

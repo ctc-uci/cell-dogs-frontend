@@ -45,9 +45,25 @@ const Dogs = () => {
     }
   };
 
+  const getDogsSearch = async () => {
+    try {
+      const res = await backend.get(`/dog/search/${searchDog}`);
+      setDogs(res.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    if (searchDog) {
+      getDogsSearch();
+    } else {
+      getDogs();
+    }
+  }, [searchDog]);
+
   useEffect(() => {
     getFacilities();
-    getDogs();
   }, []);
 
   const dogsLen = dogs.length;
@@ -84,7 +100,6 @@ const Dogs = () => {
             tableName={facility.name}
             tableId={facility.id}
             data={dogs}
-            searchDog={searchDog}
           />
         ))}
       {view === 'card' && !isLargerThan768 && (
@@ -104,7 +119,6 @@ const Dogs = () => {
             tableName={facility.name}
             tableId={facility.id}
             data={dogs}
-            searchDog={searchDog}
           />
         ))}
     </div>

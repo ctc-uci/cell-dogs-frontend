@@ -20,28 +20,9 @@ import styles from './AdoptionLog.module.css';
 
 // import { DropDownList } from "@progress/kendo-react-dropdowns";
 const AdoptionLog = props => {
-  const [data, setData] = useState([]);
   const Navigate = useNavigate();
   const { backend } = useBackend();
-  const { tableName, tableId, searchDog } = props;
-
-  const getDogs = async () => {
-    try {
-      const res = await backend.get('/dog');
-      setData(res.data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  const getDogsSearch = async () => {
-    try {
-      const res = await backend.get(`/dog/search/${searchDog}`);
-      setData(res.data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  const { tableName, tableId, searchDog, data } = props;
 
   const handleViewMore = dogid => {
     Navigate(`/dog/${dogid}`);
@@ -144,14 +125,6 @@ const AdoptionLog = props => {
       </Tr>
     );
   };
-
-  useEffect(() => {
-    if (searchDog) {
-      getDogsSearch();
-    } else {
-      getDogs();
-    }
-  }, [searchDog]);
 
   return (
     <div className={styles.adoptionLog}>
