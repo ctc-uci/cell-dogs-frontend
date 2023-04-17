@@ -135,44 +135,6 @@ const AddFacility = () => {
             >
               Cancel
             </Button>
-
-            <Modal isOpen={isOpen} onClose={onClose}>
-              <ModalOverlay />
-              <ModalContent>
-                <ModalHeader>Remove Facility</ModalHeader>
-                <ModalCloseButton />
-                <ModalBody>
-                  Are you sure you want to remove the facility from the adoption log? Once you
-                  delete them, there is no way of getting the information back
-                </ModalBody>
-
-                <ModalFooter>
-                  <Button
-                    className="cancelButton"
-                    width="250px"
-                    size="sm"
-                    color="--cds-blue-2"
-                    variant="outline"
-                    onClick={onClose}
-                  >
-                    Cancel
-                  </Button>
-                  <ButtonGroup variant="outline" spacing="6">
-                    <Button
-                      className="deleteButton"
-                      width="250px"
-                      size="sm"
-                      bg="#21307a"
-                      color="white"
-                      onClick={() => handleConfirmDelete(id)}
-                    >
-                      Yes, remove the facility
-                    </Button>
-                  </ButtonGroup>
-                </ModalFooter>
-              </ModalContent>
-            </Modal>
-
             <Button
               className="saveButton"
               width="250px"

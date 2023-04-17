@@ -56,7 +56,6 @@ const ViewMore = () => {
   const handleEditButton = () => {
     setEditable(true);
   };
-  
 
   const [facilityName, setFacilityName] = useState(state.name);
   const [address, setAddress] = useState(state.addressLine);
@@ -93,8 +92,8 @@ const ViewMore = () => {
           <ModalHeader>Remove Facility</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            Are you sure you want to remove the facility from the adoption log? Once you
-            delete them, there is no way of getting the information back
+            Are you sure you want to remove the facility from the adoption log? Once you delete
+            them, there is no way of getting the information back
           </ModalBody>
 
           <ModalFooter>
@@ -146,7 +145,6 @@ const ViewMore = () => {
       setLoading(false);
     }
   };
-
 
   return (
     <Box>
@@ -208,7 +206,6 @@ const ViewMore = () => {
                 </Button>
               </>
             )}
-            
           </div>
         </div>
 
