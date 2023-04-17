@@ -68,7 +68,7 @@ const EditUser = ({ setModalStep, onClose, info, setRender, render }) => {
     };
     await backend.put(`users/${info.email}`, usersData);
     setRender(!render);
-    onClose()
+    onClose();
   };
 
   return (

@@ -1,4 +1,5 @@
-import { React, useState, useEffect } from 'react';
+/* eslint-disable react/destructuring-assignment */
+import { React } from 'react';
 import {
   Heading,
   Button,
@@ -14,26 +15,26 @@ import {
 } from '@chakra-ui/react';
 
 import { useNavigate } from 'react-router-dom';
-import { useBackend } from '../../contexts/BackendContext';
+// import { useBackend } from '../../contexts/BackendContext';
 import ShowTags from '../AddDog/ShowTags';
 import styles from './AdoptionLog.module.css';
 
 // import { DropDownList } from "@progress/kendo-react-dropdowns";
 const AdoptionLog = props => {
-  const [data, setData] = useState([]);
+  // const [data, setData] = useState([]);
 
-  const { backend } = useBackend();
+  // const { backend } = useBackend();
   const Navigate = useNavigate();
-  const { tableId, tableName } = props;
+  const { tableId, tableName, data } = props;
 
-  const getDogs = async () => {
-    try {
-      const res = await backend.get('/dog');
-      setData(res.data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  // const getDogs = async () => {
+  //   try {
+  //     const res = await backend.get('/dog');
+  //     setData(res.data);
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 
   const calculateDogAgeAtGraduation = (graduationDate, currentAge) => {
     // Step 1: Convert graduation date to JavaScript Date object
@@ -141,9 +142,9 @@ const AdoptionLog = props => {
     );
   };
 
-  useEffect(() => {
-    getDogs();
-  }, []);
+  // useEffect(() => {
+  //   getDogs();
+  // }, []);
 
   return (
     <div className={styles.adoptionLog}>

@@ -263,7 +263,16 @@ const Facilities = () => {
       <Hide above="md">
         <VStack gap={3}>
           {facilities.map(
-            ({ name, address_line: addressLine, description, id, title, phoneNumber, email, contact_person: contactPerson }) => (
+            ({
+              name,
+              address_line: addressLine,
+              description,
+              id,
+              title,
+              phoneNumber,
+              email,
+              contact_person: contactPerson,
+            }) => (
               <Card
                 boxShadow="dark-lg"
                 m={6}
@@ -272,7 +281,7 @@ const Facilities = () => {
                 rounded="md"
                 bg="white"
                 minWidth="90%"
-                maxWidth="90%" 
+                maxWidth="90%"
                 justifyContent="flex-end"
                 key={name}
               >
