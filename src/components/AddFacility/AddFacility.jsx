@@ -1,5 +1,22 @@
 /* eslint-disable */
-import { Button, Input, Avatar, Textarea, Box, Flex } from '@chakra-ui/react';
+import {
+  Button,
+  Input,
+  Avatar,
+  Textarea,
+  Box,
+  Flex,
+  ButtonGroup,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalCloseButton,
+  ModalBody,
+  ModalFooter,
+  useDisclosure,
+  useToast,
+} from '@chakra-ui/react';
 // import { AddIcon } from '@chakra-ui/icons';
 import React, { useState } from 'react';
 import './AddFacility.css';
@@ -9,6 +26,7 @@ import BreadcrumbBar from '../../components/BreadcrumbBar/BreadcrumbBar';
 import { BsPlusLg } from 'react-icons/bs';
 import { ArrowBackIcon } from '@chakra-ui/icons';
 import UploadAvatar from '../UploadAvatar/UploadAvatar';
+import CreateToast from '../Toasts/CreateToast';
 
 // export const theme = extendTheme({
 //   colors: {
@@ -30,6 +48,8 @@ const AddFacility = () => {
   // const [title, setTitle] = useState('');
   // const [phoneNumber, setPhoneNumber] = useState('');
   const { backend } = useBackend();
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [loading, setLoading] = useState(false);
 
   const Navigate = useNavigate();
 
@@ -51,6 +71,26 @@ const AddFacility = () => {
       return 'Enter Name';
     }
     return facilityName;
+  };
+
+  const toast = useToast();
+  const handleConfirmDelete = async id => {
+    try {
+      console.log(`Deleted facility with id ${id}`);
+      const response = await backend.delete(`/facility/${id}`);
+
+      onClose();
+
+      if (response.status === 200) {
+        CreateToast({
+          description: `${facilityName} deleted successfully`,
+          status: 'success',
+          toast,
+        });
+      }
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (

@@ -40,6 +40,7 @@ const UserPageTable = () => {
     try {
       const res = await backend.get('/users');
       setData(res.data);
+      console.log(data);
       setPageCount(Math.ceil(res.data.length / settings.pageSize));
     } catch (err) {
       console.log(err);

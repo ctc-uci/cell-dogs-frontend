@@ -30,6 +30,7 @@ import UploadAvatar from '../UploadAvatar/UploadAvatar';
 const AddFacilityModal = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [scrollBehavior] = React.useState('inside');
+  const [facilityToDelete, setFacilityToDelete] = useState(null);
 
   return (
     <>

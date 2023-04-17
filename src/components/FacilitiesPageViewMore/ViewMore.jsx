@@ -1,5 +1,22 @@
 /* eslint-disable */
-import { Button, Input, Avatar, Textarea, Box, Flex } from '@chakra-ui/react';
+import {
+  Button,
+  ButtonGroup,
+  Input,
+  Avatar,
+  Textarea,
+  Box,
+  Flex,
+  useDisclosure,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalCloseButton,
+  ModalBody,
+  ModalFooter,
+  useToast,
+} from '@chakra-ui/react';
 // import { AddIcon } from '@chakra-ui/icons';
 import React, { useState } from 'react';
 import './ViewMore.css';
@@ -8,7 +25,8 @@ import { useBackend } from '../../contexts/BackendContext';
 import BreadcrumbBar from '../../components/BreadcrumbBar/BreadcrumbBar';
 import { BsPlusLg } from 'react-icons/bs';
 import { ArrowBackIcon } from '@chakra-ui/icons';
-import axios from 'axios';
+import DeleteFacility from './DeleteFacility';
+import CreateToast from '../Toasts/CreateToast';
 
 // export const theme = extendTheme({
 //   colors: {
@@ -25,14 +43,13 @@ import axios from 'axios';
 const ViewMore = () => {
   const [editable, setEditable] = useState(false);
   // const [inputValue, setInputValue] = useState('');
-
   const { backend } = useBackend();
-
   const { state } = useLocation();
-
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const toast = useToast();
   const Navigate = useNavigate();
 
-  const onClose = () => {
+  const onCloseFacility = () => {
     Navigate('/facilities');
   };
 
@@ -67,6 +84,68 @@ const ViewMore = () => {
     setEditable(false);
   };
 
+  function ShowModal({ isOpen, onClose }) {
+    return (
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Remove Facility</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            Are you sure you want to remove the facility from the adoption log? Once you delete
+            them, there is no way of getting the information back
+          </ModalBody>
+
+          <ModalFooter>
+            <Button
+              className="cancelButton"
+              width="250px"
+              size="sm"
+              color="--cds-blue-2"
+              variant="outline"
+              onClick={onClose}
+            >
+              Cancel
+            </Button>
+            <ButtonGroup variant="outline" spacing="6">
+              <Button
+                className="deleteButton"
+                width="250px"
+                size="sm"
+                bg="#21307a"
+                color="white"
+                onClick={() => handleConfirmDelete(state.id)}
+              >
+                Yes, remove the facility
+              </Button>
+            </ButtonGroup>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+    );
+  }
+
+  const handleConfirmDelete = async id => {
+    try {
+      console.log(`Deleted facility with id ${id}`);
+      const response = await backend.delete(`/facility/${id}`);
+
+      onClose();
+
+      if (response.status === 200) {
+        CreateToast({
+          description: `${facilityName} deleted successfully`,
+          status: 'success',
+          toast,
+        });
+      }
+
+      Navigate('/facilities');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <Box>
       <BreadcrumbBar left={'Facilities > ' + showFacilityName()}>
@@ -84,7 +163,7 @@ const ViewMore = () => {
         </Button>
       </BreadcrumbBar>
       <Flex width="100%" justifyContent="flex-start" pt={4} ml={10}>
-        <Button variant="link" leftIcon={<ArrowBackIcon />} onClick={onClose}>
+        <Button variant="link" leftIcon={<ArrowBackIcon />} onClick={onCloseFacility}>
           Go Back
         </Button>
       </Flex>
@@ -98,7 +177,6 @@ const ViewMore = () => {
           </div>
           <div className="buttons">
             <Button
-              className="editButton"
               //width="62.5px"
               size="sm"
               color="gray"
@@ -107,16 +185,27 @@ const ViewMore = () => {
             >
               Edit
             </Button>
-            <Button
-              className="saveButton"
-              //width="62.5px"
-              size="sm"
-              colorScheme="blue"
-              variant="solid"
-              onClick={() => saveFacility()}
-            >
-              Save
-            </Button>
+            {/* <DeleteFacility id={state.id} /> */}
+
+            {editable && (
+              <>
+                <Button colorScheme="red" variant="outline" size="sm" width="auto" onClick={onOpen}>
+                  Remove Facility
+                </Button>
+
+                <ShowModal isOpen={isOpen} onClose={onClose} />
+
+                <Button
+                  className="saveButton"
+                  size="sm"
+                  colorScheme="blue"
+                  variant="solid"
+                  onClick={() => saveFacility()}
+                >
+                  Save
+                </Button>
+              </>
+            )}
           </div>
         </div>
 

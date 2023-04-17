@@ -59,7 +59,7 @@ const Facilities = () => {
         name: username,
         addressLine: address,
         description: desc,
-        id,
+        id: id,
       },
     });
   };
