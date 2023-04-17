@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { React, useState, useEffect } from 'react';
 import {
   Heading,
@@ -42,7 +43,7 @@ const AdoptionLog = props => {
     }
   };
 
-  const handleViewMore = (dogid) => {
+  const handleViewMore = dogid => {
     Navigate(`/dog/${dogid}`);
   };
 
@@ -136,11 +137,7 @@ const AdoptionLog = props => {
         </Td>
         <Td>{address}</Td>
         <Td>
-          <Button
-            colorScheme="teal"
-            size="sm"
-            onClick={() => handleViewMore(dogid)}
-          >
+          <Button colorScheme="teal" size="sm" onClick={() => handleViewMore(dogid)}>
             View More
           </Button>
         </Td>

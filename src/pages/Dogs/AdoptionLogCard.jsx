@@ -90,119 +90,113 @@ const AdoptionLogCard = props => {
     }
 
     return (
-      <div>
-        <div>
-          <Card
-            boxShadow="dark-lg"
-            m={6}
-            size="md"
-            rounded="md"
-            bg="white"
-            width={width}
-            justifyContent="flex-end"
-            key={props.key}
-          >
-            <CardHeader borderBottom="1px solid #CBD5E0">
-              <Flex alignItems="center" flexWrap="nowrap" direction="row">
-                <Avatar
-                  marginRight="10px"
-                  size="xl"
-                  src="https://ca-times.brightspotcdn.com/dims4/default/30a8879/2147483647/strip/false/crop/2048x1152+0+0/resize/1486x836!/quality/80/?url=https%3A%2F%2Fcalifornia-times-brightspot.s3.amazonaws.com%2F5a%2Fc5%2F10a8781f4130240d4b4d42d12794%2Fla-1489021677-ia7m9d0xvx-snap-photo"
-                  marginBottom="15px"
-                />
-                <Flex flexDirection="column" flexGrow="1">
-                  <Flex flexDirection="row" alignItems="flex-start">
-                    <Flex>
-                      <Heading fontSize="xl">{dogName}</Heading>
-                    </Flex>
-                    <Flex flexGrow="1" />
-                    <Checkbox />
-                  </Flex>
-                  <Text size="lg" marginRight="10px" width="100%">
-                    aka {setAltName()}
-                  </Text>
-                  <Text size="lg" marginRight="10px">
-                    Grad Age: {gradAge}
-                  </Text>
-                  <Text size="lg" marginRight="10px" width="100%">
-                    Breed: {breed}
-                  </Text>
+      <Card
+        boxShadow="dark-lg"
+        m={6}
+        size="md"
+        rounded="md"
+        bg="white"
+        justifyContent="flex-end"
+        key={props.key}
+        maxWidth={350}
+      >
+        <CardHeader borderBottom="1px solid #CBD5E0">
+          <Flex alignItems="center" flexWrap="nowrap" direction="row">
+            <Avatar
+              marginRight="10px"
+              size="xl"
+              src="https://ca-times.brightspotcdn.com/dims4/default/30a8879/2147483647/strip/false/crop/2048x1152+0+0/resize/1486x836!/quality/80/?url=https%3A%2F%2Fcalifornia-times-brightspot.s3.amazonaws.com%2F5a%2Fc5%2F10a8781f4130240d4b4d42d12794%2Fla-1489021677-ia7m9d0xvx-snap-photo"
+              marginBottom="15px"
+            />
+            <Flex flexDirection="column" flexGrow="1">
+              <Flex flexDirection="row" alignItems="flex-start">
+                <Flex>
+                  <Heading fontSize="xl">{dogName}</Heading>
                 </Flex>
+                <Flex flexGrow="1" />
+                <Checkbox />
               </Flex>
-              <Flex gap="5px" flexWrap="wrap">
-                {service && (
-                  <Tag background="#48BB78" color="#FFFFFF">
-                    Service
-                  </Tag>
-                )}
-                {therapy && (
-                  <Tag background="#4299E1" color="#FFFFFF">
-                    Therapy
-                  </Tag>
-                )}
-                {staffAdoption && (
-                  <Tag background="#ECC94B" color="#FFFFFF">
-                    Stf Adpt
-                  </Tag>
-                )}
-                {specialNeeds && (
-                  <Tag background="#ED8936" color="#FFFFFF">
-                    Special
-                  </Tag>
-                )}
-                {deceased && (
-                  <Tag background="#C53030" color="#FFFFFF">
-                    Decsd
-                  </Tag>
-                )}
+              <Text size="lg" marginRight="10px" width="100%">
+                aka {setAltName()}
+              </Text>
+              <Text size="lg" marginRight="10px">
+                Grad Age: {gradAge}
+              </Text>
+              <Text size="lg" marginRight="10px" width="100%">
+                Breed: {breed}
+              </Text>
+            </Flex>
+          </Flex>
+          <Flex gap="5px" flexWrap="wrap">
+            {service && (
+              <Tag background="#48BB78" color="#FFFFFF">
+                Service
+              </Tag>
+            )}
+            {therapy && (
+              <Tag background="#4299E1" color="#FFFFFF">
+                Therapy
+              </Tag>
+            )}
+            {staffAdoption && (
+              <Tag background="#ECC94B" color="#FFFFFF">
+                Stf Adpt
+              </Tag>
+            )}
+            {specialNeeds && (
+              <Tag background="#ED8936" color="#FFFFFF">
+                Special
+              </Tag>
+            )}
+            {deceased && (
+              <Tag background="#C53030" color="#FFFFFF">
+                Decsd
+              </Tag>
+            )}
+          </Flex>
+        </CardHeader>
+        <CardBody>
+          <Flex gap={2} flexDirection="column">
+            <Box>
+              <Flex gap="3px" alignItems="baseline">
+                <Heading fontSize="md">Facility:</Heading>
+                <Text>{facility}</Text>
               </Flex>
-            </CardHeader>
-            <CardBody>
-              <Flex gap={2} flexDirection="column">
-                <Box>
-                  <Flex gap="3px" alignItems="baseline">
-                    <Heading fontSize="md">Facility:</Heading>
-                    <Text>{facility}</Text>
-                  </Flex>
-                </Box>
-                <Box>
-                  <Heading fontSize="md" marginBottom="5px">
-                    Adopter
-                  </Heading>
-                  <Text>Name: {adopter}</Text>
-                  <Flex gap="3px">
-                    <Text>Phone: </Text>
-                    <Text color="#3182ce" textDecoration="underline">
-                      <a href={`tel:${phoneNumber}`}>{phoneNumber}</a>
-                    </Text>
-                  </Flex>
-                  <Flex gap="3px">
-                    <Text>Email:</Text>
-                    <Text color="#3182ce" textDecoration="underline">
-                      <a href={`mailto:${email}`}>{email}</a>
-                    </Text>
-                  </Flex>
-                  <Text>Address: </Text>
-                  <Text>{addressline1}</Text>
-                  <Text>{addressline2}</Text>
-                </Box>
+            </Box>
+            <Box>
+              <Heading fontSize="md" marginBottom="5px">
+                Adopter
+              </Heading>
+              <Text>Name: {adopter}</Text>
+              <Flex gap="3px">
+                <Text>Phone: </Text>
+                <Text color="#3182ce" textDecoration="underline">
+                  <a href={`tel:${phoneNumber}`}>{phoneNumber}</a>
+                </Text>
               </Flex>
-            </CardBody>
-            <CardFooter justifyContent="flex-end" display="flex" width="100%">
-              <Button
-                size="sm"
-                colorScheme="teal"
-                p={3}
-                onClick={() =>
-                  handleViewMore(dogName, facility, adopter, phoneNumber, email, address)
-                }
-              >
-                View More
-              </Button>
-            </CardFooter>
-          </Card>
-        </div>
-      </div>
+              <Flex gap="3px">
+                <Text>Email:</Text>
+                <Text color="#3182ce" textDecoration="underline">
+                  <a href={`mailto:${email}`}>{email}</a>
+                </Text>
+              </Flex>
+              <Text>Address: </Text>
+              <Text>{addressline1}</Text>
+              <Text>{addressline2}</Text>
+            </Box>
+          </Flex>
+        </CardBody>
+        <CardFooter justifyContent="flex-end" display="flex" width="100%">
+          <Button
+            size="sm"
+            colorScheme="teal"
+            p={3}
+            onClick={() => handleViewMore(dogName, facility, adopter, phoneNumber, email, address)}
+          >
+            View More
+          </Button>
+        </CardFooter>
+      </Card>
     );
   };
   return (
@@ -210,13 +204,7 @@ const AdoptionLogCard = props => {
       {/* for now, only displaying tables that have names (!!tableName) */}
       {!!tableName && isLargerThan768 && (
         <Flex flexDirection="column">
-          <Flex
-            className={styles.tableHeader}
-            margin="auto 135px"
-            gap="10px"
-            wrap="nowrap"
-            width="100%"
-          >
+          <Flex className={styles.tableHeader} margin="auto 135px" gap="10px" wrap="nowrap">
             <Heading as="lg" size="lg">
               {tableName}
             </Heading>
@@ -227,7 +215,13 @@ const AdoptionLogCard = props => {
               Copy Adopter&apos;s Email
             </Button>
           </Flex>
-          <SimpleGrid columns={[1, 2, 3, 4]} margin="auto 110px">
+          <SimpleGrid
+            columns={[1, 1, 1, 1]}
+            maxWidth="100%"
+            width="auto"
+            minChildWidth={300}
+            gap={3}
+          >
             {data.map(dog => dogTableRow(dog, 280))}
           </SimpleGrid>
         </Flex>
