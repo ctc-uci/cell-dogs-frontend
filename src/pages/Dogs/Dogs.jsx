@@ -32,6 +32,8 @@ const Dogs = () => {
     }
   };
 
+  console.log(facilityFilter);
+
   useEffect(() => {
     getFacilities();
   }, []);
@@ -61,12 +63,21 @@ const Dogs = () => {
       />
       {facilityFilter ? (
         <div>
-          <AdoptionLog tableName={data[facilityFilter].name} searchDog={searchDog} tableId={facility.id} />
+          <AdoptionLog
+            tableName={facilityFilter.name}
+            searchDog={searchDog}
+            tableId={facilityFilter.id}
+          />
         </div>
       ) : (
         <div>
           {data.map(facility => (
-            <AdoptionLog key={facility.name} tableName={facility.name} searchDog={searchDog} tableId={facility.id} />
+            <AdoptionLog
+              key={facility.name}
+              tableName={facility.name}
+              searchDog={searchDog}
+              tableId={facility.id}
+            />
           ))}
         </div>
       )}

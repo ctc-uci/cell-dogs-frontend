@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Button,
   ButtonGroup,
@@ -9,6 +9,7 @@ import {
   Flex,
 } from '@chakra-ui/react';
 import { Search2Icon, DownloadIcon } from '@chakra-ui/icons';
+import { useBackend } from '../../contexts/BackendContext';
 import styles from './AdoptionLogNavbar.module.css';
 import './AdoptionLogNavbar.module.css';
 
@@ -16,7 +17,7 @@ const AdoptionLogNavbar = props => {
   const [view, setView] = useState('table');
   // const [search, setSearch] = useState('');
   const [filter, setFilter] = useState(false);
-  // const [facility, setFacility] = useState('');
+  const [facilities, setFacilities] = useState('');
   const [selectAll, setSelectAll] = useState(false);
   const [exportData, setExportData] = useState(null);
 
@@ -25,6 +26,18 @@ const AdoptionLogNavbar = props => {
   function handleViewToggle(viewType) {
     setView(viewType);
   }
+
+  const { backend } = useBackend();
+  const getFacilities = async () => {
+    const { data } = await backend.get('/facility');
+
+    setFacilities(data);
+  };
+
+  useEffect(() => {
+    console.log('here');
+    getFacilities();
+  }, []);
 
   return (
     <div className={styles.navbarContainer}>
@@ -87,10 +100,16 @@ const AdoptionLogNavbar = props => {
               onChange={e => setFacilityFilter(e.target.value)}
               className={styles.customSelectInput}
             >
-              <option value="">All</option>
-              <option value="0">OC Probation</option>
-              <option value="1">Theo Lacy Facility</option>
-              <option value="2">OC Sheriffs Department</option>
+              <option value={""}>All</option>
+              {facilities ? (
+                facilities.map(facility => (
+                  <option key={facility.name} value={facility}>
+                    {facility.name}
+                  </option>
+                ))
+              ) : (
+                <option disabled>All</option>
+              )}
             </select>
           </label>
           <Button size="md" onClick={() => setSelectAll(true)} style={{ marginRight: '10px' }}>
