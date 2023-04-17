@@ -1,11 +1,10 @@
+import { Box, HStack, Icon, Text } from '@chakra-ui/react';
 import React from 'react';
-import { Text, Icon, HStack, Box } from '@chakra-ui/react';
-import { BsPersonFill } from 'react-icons/bs';
 import { AiOutlineInfoCircle } from 'react-icons/ai';
+import { BsPersonFill } from 'react-icons/bs';
 import EditUserModal from './EditUserModal';
 
 const CellStructure = (setRender, render, isMobile) => {
-  console.log(isMobile);
   /* eslint-disable react/destructuring-assignment, react/prop-types */
   const cellStructure = [
     {
@@ -53,7 +52,7 @@ const CellStructure = (setRender, render, isMobile) => {
         </>
       ),
       accessor: 'role',
-      Cell: ({ value }) => <Text>{'Developer'}</Text>,
+      Cell: ({ value }) => <Text>{value}</Text>,
     },
     {
       id: 'edit',
@@ -62,6 +61,7 @@ const CellStructure = (setRender, render, isMobile) => {
         firstName: d.firstName,
         lastName: d.lastName,
         email: d.email,
+        role: d.role,
       }),
       Cell: ({ value }) => (
         <Box align="right" mr="30px">

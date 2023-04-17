@@ -1,30 +1,30 @@
-import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
 import {
-  Button,
-  Modal,
-  ModalOverlay,
-  ModalHeader,
-  ModalBody,
-  ModalContent,
-  Text,
-  ModalFooter,
-  useDisclosure,
-  Input,
-  FormControl,
-  FormLabel,
-  Select,
-  Center,
-  VStack,
-  HStack,
   Alert,
-  AlertTitle,
   AlertDescription,
   AlertIcon,
+  AlertTitle,
+  Button,
+  Center,
+  FormControl,
+  FormLabel,
+  HStack,
+  Input,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  Select,
+  Text,
+  VStack,
+  useDisclosure,
   useToast,
 } from '@chakra-ui/react';
-import CreateToast from '../Toasts/CreateToast';
+import PropTypes from 'prop-types';
+import React, { useEffect, useState } from 'react';
 import { useBackend } from '../../contexts/BackendContext';
+import CreateToast from '../Toasts/CreateToast';
 import './EditUserModal.css';
 
 // modal to edit user
@@ -32,7 +32,7 @@ const EditUser = ({ setModalStep, onClose, info, setRender, render }) => {
   const [user, setUser] = useState({
     fullName: `${info.firstName} ${info.lastName}`,
     email: `${info.email}`,
-    role: 'Developer',
+    role: `${info.role}`,
   });
 
   const changeFullName = e => {
@@ -84,7 +84,7 @@ const EditUser = ({ setModalStep, onClose, info, setRender, render }) => {
           <FormLabel mt={5}>Add Email</FormLabel>
           <Input value={user.email} onChange={changeEmail} />
           <FormLabel mt={5}>Add Role</FormLabel>
-          <Input value={'Developer'} onChange={changeRole} />
+          <Input value={user.role} onChange={changeRole} />
           <Select mt={5}>
             <option value="administrator">Administrator</option>
           </Select>

@@ -1,29 +1,29 @@
 /* eslint-disable */
-import React, { useEffect, useState } from 'react';
+import { AddIcon, ArrowBackIcon, ChevronDownIcon, ChevronRightIcon } from '@chakra-ui/icons';
 import {
-  FormControl,
-  FormLabel,
-  Input,
-  Button,
-  ButtonGroup,
-  Heading,
-  Select,
   Breadcrumb,
   BreadcrumbItem,
   BreadcrumbLink,
+  Button,
+  ButtonGroup,
   Flex,
-  Textarea,
+  FormControl,
+  FormLabel,
+  Heading,
+  Input,
   Menu,
   MenuButton,
-  MenuList,
   MenuItem,
+  MenuList,
+  Select,
+  Textarea,
 } from '@chakra-ui/react';
-import { ArrowBackIcon, ChevronRightIcon, ChevronDownIcon, AddIcon } from '@chakra-ui/icons';
-import './AddDog.css';
-import UploadAvatar from '../../components/UploadAvatar/UploadAvatar';
-import ShowTags from './ShowTags';
-import { useBackend } from '../../contexts/BackendContext';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import UploadAvatar from '../../components/UploadAvatar/UploadAvatar';
+import { useBackend } from '../../contexts/BackendContext';
+import './AddDog.css';
+import ShowTags from './ShowTags';
 
 const AddDog = () => {
   const [dogid, setDogID] = useState(0);
@@ -102,7 +102,6 @@ const AddDog = () => {
   };
 
   const saveAllChanges = async () => {
-    console.log(serviceTag);
     const service = serviceTag;
     const therapy = therapyTag;
     const staffAdoption = staffAdoptionTag;

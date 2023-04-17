@@ -1,32 +1,31 @@
 /* eslint-disable */
 import {
+  Avatar,
+  Box,
   Button,
   ButtonGroup,
-  Input,
-  Avatar,
-  Textarea,
-  Box,
   Flex,
-  useDisclosure,
+  Input,
   Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalCloseButton,
   ModalBody,
+  ModalCloseButton,
+  ModalContent,
   ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  Textarea,
+  useDisclosure,
   useToast,
 } from '@chakra-ui/react';
 // import { AddIcon } from '@chakra-ui/icons';
-import React, { useState } from 'react';
-import './ViewMore.css';
-import { useNavigate, useLocation } from 'react-router-dom';
-import { useBackend } from '../../contexts/BackendContext';
-import BreadcrumbBar from '../../components/BreadcrumbBar/BreadcrumbBar';
-import { BsPlusLg } from 'react-icons/bs';
 import { ArrowBackIcon } from '@chakra-ui/icons';
-import DeleteFacility from './DeleteFacility';
+import React, { useState } from 'react';
+import { BsPlusLg } from 'react-icons/bs';
+import { useLocation, useNavigate } from 'react-router-dom';
+import BreadcrumbBar from '../../components/BreadcrumbBar/BreadcrumbBar';
+import { useBackend } from '../../contexts/BackendContext';
 import CreateToast from '../Toasts/CreateToast';
+import './ViewMore.css';
 
 // export const theme = extendTheme({
 //   colors: {
@@ -127,7 +126,6 @@ const ViewMore = () => {
 
   const handleConfirmDelete = async id => {
     try {
-      console.log(`Deleted facility with id ${id}`);
       const response = await backend.delete(`/facility/${id}`);
 
       onClose();

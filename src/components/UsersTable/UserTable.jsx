@@ -1,23 +1,23 @@
 /* eslint-disable react/jsx-key */
 /* eslint-disable react/jsx-props-no-spreading */
-import React, { useEffect, useMemo, useState } from 'react';
-import { useTable, usePagination } from 'react-table';
 import {
-  Table,
-  Tr,
-  Td,
-  Tbody,
   Box,
   Card,
-  CardHeader,
   CardBody,
   CardFooter,
-  Heading,
-  Grid,
-  Text,
-  Stack,
+  CardHeader,
   Flex,
+  Grid,
+  Heading,
+  Stack,
+  Table,
+  Tbody,
+  Td,
+  Text,
+  Tr,
 } from '@chakra-ui/react';
+import React, { useEffect, useMemo, useState } from 'react';
+import { usePagination, useTable } from 'react-table';
 import UserPageHeader from './UserTableHeader';
 import CellStructure from './UserTableStructure';
 
@@ -40,7 +40,6 @@ const UserPageTable = () => {
     try {
       const res = await backend.get('/users');
       setData(res.data);
-      console.log(data);
       setPageCount(Math.ceil(res.data.length / settings.pageSize));
     } catch (err) {
       console.log(err);
@@ -141,7 +140,7 @@ const UserPageTable = () => {
                     <Heading size="xs">Email</Heading>
                     <Text>{user.email}</Text>
                     <Heading size="xs">Role</Heading>
-                    <Text>Developer</Text>
+                    <Text>{user.role}</Text>
                   </Stack>
                 </CardBody>
                 <Flex minWidth="max-content" w="100%" justifyContent="flex-end">

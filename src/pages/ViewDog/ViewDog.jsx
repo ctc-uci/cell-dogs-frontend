@@ -1,30 +1,29 @@
 /* eslint-disable */
-import React, { useEffect, useState } from 'react';
+import { AddIcon, ArrowBackIcon, ChevronDownIcon, ChevronRightIcon } from '@chakra-ui/icons';
 import {
-  FormControl,
-  FormLabel,
-  Input,
-  Button,
-  ButtonGroup,
-  Heading,
-  Select,
   Breadcrumb,
   BreadcrumbItem,
   BreadcrumbLink,
+  Button,
+  ButtonGroup,
   Flex,
-  Textarea,
+  FormControl,
+  FormLabel,
+  Heading,
+  Input,
   Menu,
   MenuButton,
-  MenuList,
   MenuItem,
-  Text,
+  MenuList,
+  Select,
+  Textarea
 } from '@chakra-ui/react';
-import { ArrowBackIcon, ChevronRightIcon, ChevronDownIcon, AddIcon } from '@chakra-ui/icons';
-import './ViewDog.css';
-import UploadAvatar from '../../components/UploadAvatar/UploadAvatar';
-import ShowTags from '../AddDog/ShowTags.jsx';
-import { useBackend } from '../../contexts/BackendContext';
+import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import UploadAvatar from '../../components/UploadAvatar/UploadAvatar';
+import { useBackend } from '../../contexts/BackendContext';
+import ShowTags from '../AddDog/ShowTags.jsx';
+import './ViewDog.css';
 
 const ViewDog = () => {
   const { id: dogId } = useParams();
@@ -124,7 +123,6 @@ const ViewDog = () => {
       console.log(err);
     });
     Navigate('/');
-    console.log('Dog successfully removed.');
   };
 
   const saveAllChanges = async () => {

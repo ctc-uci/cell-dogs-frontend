@@ -1,32 +1,23 @@
 /* eslint-disable */
 import {
-  Button,
-  Input,
-  Avatar,
-  Textarea,
   Box,
+  Button,
   Flex,
-  ButtonGroup,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalCloseButton,
-  ModalBody,
-  ModalFooter,
+  Input,
+  Textarea,
   useDisclosure,
-  useToast,
+  useToast
 } from '@chakra-ui/react';
 // import { AddIcon } from '@chakra-ui/icons';
-import React, { useState } from 'react';
-import './AddFacility.css';
-import { useNavigate } from 'react-router-dom';
-import { useBackend } from '../../contexts/BackendContext';
-import BreadcrumbBar from '../../components/BreadcrumbBar/BreadcrumbBar';
-import { BsPlusLg } from 'react-icons/bs';
 import { ArrowBackIcon } from '@chakra-ui/icons';
-import UploadAvatar from '../UploadAvatar/UploadAvatar';
+import React, { useState } from 'react';
+import { BsPlusLg } from 'react-icons/bs';
+import { useNavigate } from 'react-router-dom';
+import BreadcrumbBar from '../../components/BreadcrumbBar/BreadcrumbBar';
+import { useBackend } from '../../contexts/BackendContext';
 import CreateToast from '../Toasts/CreateToast';
+import UploadAvatar from '../UploadAvatar/UploadAvatar';
+import './AddFacility.css';
 
 // export const theme = extendTheme({
 //   colors: {
@@ -76,7 +67,6 @@ const AddFacility = () => {
   const toast = useToast();
   const handleConfirmDelete = async id => {
     try {
-      console.log(`Deleted facility with id ${id}`);
       const response = await backend.delete(`/facility/${id}`);
 
       onClose();

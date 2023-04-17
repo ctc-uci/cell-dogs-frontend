@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 // import { useForm } from 'react-hook-form';
 // import * as yup from 'yup';
+import { Button, Input, Stack, Text } from '@chakra-ui/react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
-import { Input, Stack, Button, Text } from '@chakra-ui/react';
 
 import { useAuth } from '../../contexts/AuthContext';
 
@@ -11,16 +11,6 @@ import cellDogsLogoHorizontal4 from '../../assets/CellDogs_logo_horizontal-4.png
 import cellDogsLogoHorizontal5 from '../../assets/CellDogs_logo_horizontal-5.png';
 import dogArmy from '../../assets/dog-army.png';
 import styles from './ResetPassword.module.css';
-
-// const loginUser = async event => {
-//   event.preventDefault();
-//   const formData = {
-//     username: event.target[0].value,
-//     password: event.target[1].value,
-//   };
-//   await schema.isValid(formData);
-//   // console.log(isValid);
-// };
 
 const schema = yup.object().shape({
   newPassword: yup.string().min(6).max(10).required(),
