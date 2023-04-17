@@ -23,13 +23,14 @@ const Dogs = () => {
   const [view, setView] = useState('table');
   const { backend } = useBackend();
   const [data, setData] = useState([]);
+  const [facilityFilter, setFacilityFilter] = useState('');
+  const [searchDog, setSearchDog] = useState('');
   const [dogs, setDogs] = useState([]);
 
   const getFacilities = async () => {
     try {
       const res = await backend.get('/facility');
       setData(res.data);
-      console.log(res);
     } catch (err) {
       console.log(err);
     }
@@ -68,7 +69,14 @@ const Dogs = () => {
           </div>
         </BreadcrumbBar>
       </div>
-      <AdoptionLogNavbar view={view} setView={setView} />
+      <AdoptionLogNavbar
+        view={view}
+        setView={setView}
+        setFacilityFilter={setFacilityFilter}
+        facilityFilter={facilityFilter}
+        setSearchDog={setSearchDog}
+        searchDog={searchDog}
+      />
       {view === 'table' &&
         data.map(facility => (
           <AdoptionLog
@@ -76,6 +84,7 @@ const Dogs = () => {
             tableName={facility.name}
             tableId={facility.id}
             data={dogs}
+            searchDog={searchDog}
           />
         ))}
       {view === 'card' && !isLargerThan768 && (
@@ -95,6 +104,7 @@ const Dogs = () => {
             tableName={facility.name}
             tableId={facility.id}
             data={dogs}
+            searchDog={searchDog}
           />
         ))}
     </div>

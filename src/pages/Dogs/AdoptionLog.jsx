@@ -1,5 +1,4 @@
-/* eslint-disable react/destructuring-assignment */
-import { React } from 'react';
+import { React, useState, useEffect } from 'react';
 import {
   Heading,
   Button,
@@ -13,28 +12,39 @@ import {
   Checkbox,
   Avatar,
 } from '@chakra-ui/react';
-
 import { useNavigate } from 'react-router-dom';
-// import { useBackend } from '../../contexts/BackendContext';
+import { useBackend } from '../../contexts/BackendContext';
 import ShowTags from '../AddDog/ShowTags';
 import styles from './AdoptionLog.module.css';
 
 // import { DropDownList } from "@progress/kendo-react-dropdowns";
 const AdoptionLog = props => {
-  // const [data, setData] = useState([]);
-
-  // const { backend } = useBackend();
+  const [data, setData] = useState([]);
   const Navigate = useNavigate();
-  const { tableId, tableName, data } = props;
+  const { backend } = useBackend();
+  const { tableName, tableId, searchDog } = props;
 
-  // const getDogs = async () => {
-  //   try {
-  //     const res = await backend.get('/dog');
-  //     setData(res.data);
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
+  const getDogs = async () => {
+    try {
+      const res = await backend.get('/dog');
+      setData(res.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const getDogsSearch = async () => {
+    try {
+      const res = await backend.get(`/dog/search/${searchDog}`);
+      setData(res.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const handleViewMore = (dogid) => {
+    Navigate(`/dog/${dogid}`);
+  };
 
   const calculateDogAgeAtGraduation = (graduationDate, currentAge) => {
     // Step 1: Convert graduation date to JavaScript Date object
@@ -88,14 +98,6 @@ const AdoptionLog = props => {
     const email = adoptemail;
     const address = `${addrline} ${adoptcity} ${adoptstate}`;
 
-    const handleViewMore = () => {
-      Navigate(`/dog/${dogid}`);
-<<<<<<< HEAD
-      console.log('test');
-=======
->>>>>>> dev
-    };
-
     return (
       <Tr key={props.key}>
         <Td>
@@ -134,7 +136,11 @@ const AdoptionLog = props => {
         </Td>
         <Td>{address}</Td>
         <Td>
-          <Button colorScheme="teal" size="sm" onClick={() => handleViewMore()}>
+          <Button
+            colorScheme="teal"
+            size="sm"
+            onClick={() => handleViewMore(dogid)}
+          >
             View More
           </Button>
         </Td>
@@ -142,9 +148,13 @@ const AdoptionLog = props => {
     );
   };
 
-  // useEffect(() => {
-  //   getDogs();
-  // }, []);
+  useEffect(() => {
+    if (searchDog) {
+      getDogsSearch();
+    } else {
+      getDogs();
+    }
+  }, [searchDog]);
 
   return (
     <div className={styles.adoptionLog}>
@@ -173,7 +183,7 @@ const AdoptionLog = props => {
                 <Th>Adopter</Th>
                 <Th>Contact Info</Th>
                 <Th>Address</Th>
-                <Th />
+                <Th></Th>
               </Tr>
             </Thead>
             <Tbody backgroundColor="#FDFDFD">

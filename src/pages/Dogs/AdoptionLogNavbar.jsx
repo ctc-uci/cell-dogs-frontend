@@ -1,7 +1,4 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
-/* eslint-disable react/no-children-prop */
-/* eslint-disable no-unused-vars */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Button,
   ButtonGroup,
@@ -12,12 +9,14 @@ import {
   Flex,
 } from '@chakra-ui/react';
 import { Search2Icon, DownloadIcon } from '@chakra-ui/icons';
+import { useBackend } from '../../contexts/BackendContext';
 import styles from './AdoptionLogNavbar.module.css';
+import './AdoptionLogNavbar.module.css';
 
-const AdoptionLogNavbar = ({ view, setView }) => {
+const AdoptionLogNavbar = ({ view, setView, setFacilityFilter, facilityFilter, setSearchDog, searchDog }) => {
   const [search, setSearch] = useState('');
   const [filter, setFilter] = useState(false);
-  const [facility, setFacility] = useState('');
+  const [facilities, setFacilities] = useState('');
   const [selectAll, setSelectAll] = useState(false);
   const [exportData, setExportData] = useState(null);
 
@@ -25,6 +24,16 @@ const AdoptionLogNavbar = ({ view, setView }) => {
     setView(viewType);
     return viewType;
   }
+
+  const { backend } = useBackend();
+  const getFacilities = async () => {
+    const { data } = await backend.get('/facility');
+    setFacilities(data);
+  };
+
+  useEffect(() => {
+    getFacilities();
+  }, []);
 
   return (
     <div className={styles.navbarContainer}>
@@ -57,8 +66,8 @@ const AdoptionLogNavbar = ({ view, setView }) => {
               type="text"
               placeholder="Search"
               size="sm"
-              value={search}
-              onChange={e => setSearch(e.target.value)}
+              value={searchDog}
+              onChange={e => setSearchDog(e.target.value)}
               className={styles.customSelectInput}
             />
           </InputGroup>
@@ -83,14 +92,20 @@ const AdoptionLogNavbar = ({ view, setView }) => {
           <label className={styles.label}>
             Facility:
             <select
-              value={facility}
-              onChange={e => setFacility(e.target.value)}
+              value={facilityFilter}
+              onChange={e => setFacilityFilter(e.target.value)}
               className={styles.customSelectInput}
             >
-              <option value="">All</option>
-              <option value="facility-1">OC Probation</option>
-              <option value="facility-2">Theo Lacy Facility</option>
-              <option value="facility-3">OC Sheriffs Department</option>
+              <option value={""}>All</option>
+              {facilities ? (
+                facilities.map(facility => (
+                  <option key={facility.name} value={facility}>
+                    {facility.name}
+                  </option>
+                ))
+              ) : (
+                <option disabled>All</option>
+              )}
             </select>
           </label>
           <Button size="md" onClick={() => setSelectAll(true)} style={{ marginRight: '10px' }}>
