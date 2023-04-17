@@ -91,14 +91,21 @@ const AdoptionLogCard = props => {
 
     return (
       <Card
-        boxShadow="dark-lg"
+        boxShadow="md"
         m={6}
         size="md"
-        rounded="md"
+        borderRadius="md"
+        borderWidth={1}
+        borderColor="gray.200"
+        _hover={{
+          borderColor: 'gray.300',
+          cursor: 'pointer',
+        }}
         bg="white"
         justifyContent="flex-end"
         key={props.key}
         maxWidth={350}
+        onClick={() => handleViewMore()}
       >
         <CardHeader borderBottom="1px solid #CBD5E0">
           <Flex alignItems="center" flexWrap="nowrap" direction="row">
@@ -109,7 +116,7 @@ const AdoptionLogCard = props => {
               marginBottom="15px"
             />
             <Flex flexDirection="column" flexGrow="1">
-              <Flex flexDirection="row" alignItems="flex-start">
+              <Flex flexDirection="row" alignItems="flex-start" onClick={e => e.stopPropagation()}>
                 <Flex>
                   <Heading fontSize="xl">{dogName}</Heading>
                 </Flex>
@@ -155,7 +162,7 @@ const AdoptionLogCard = props => {
             )}
           </Flex>
         </CardHeader>
-        <CardBody>
+        <CardBody onClick={() => handleViewMore()}>
           <Flex gap={2} flexDirection="column">
             <Box>
               <Flex gap="3px" alignItems="baseline">
