@@ -9,14 +9,14 @@ import {
   Flex,
   FormControl,
   FormLabel,
-  Heading,
   Input,
   Menu,
   MenuButton,
   MenuItem,
   MenuList,
   Select,
-  Textarea
+  Text,
+  Textarea,
 } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -187,9 +187,9 @@ const ViewDog = () => {
             </FormControl>
           </div>
         </div>
-        <div className="addTag">
+        {/* <div className="addTag">
           <TagMenu />
-        </div>
+        </div> */}
         <div className="tagRow">
           <ShowTags
             serviceTag={dog.service}
@@ -199,40 +199,17 @@ const ViewDog = () => {
             disabledTag={dog.deceased}
           />
         </div>
-        <div className="buttons">
+        <div className="editButton">
           {!editable && (
-            <ButtonGroup variant="outline" spacing="6" onClick={() => handleEditButton()}>
+            <ButtonGroup variant="solid" spacing="6" onClick={() => handleEditButton()}>
               <Button>Edit Dog</Button>
             </ButtonGroup>
           )}
-          <div className="cancelButton">
-            {editable && (
-              <ButtonGroup variant="outline" spacing="6" onClick={() => handleEditButton()}>
-                <Button>Cancel</Button>
-              </ButtonGroup>
-            )}
-          </div>
-          <div className="removeDogButton">
-            {editable && (
-              <ButtonGroup variant="outline" spacing="6" onClick={() => removeDogButton()}>
-                <Button colorScheme="red">Remove Dog</Button>
-              </ButtonGroup>
-            )}
-          </div>
-          <div className="saveButton">
-            {editable && (
-              <Button colorScheme="facebook" onClick={saveAllChanges}>
-                Save All Changes
-              </Button>
-            )}
-          </div>
         </div>
       </div>
       <div className="row1">
         <div className="adopterInfo">
-          <Heading as="h2" fontSize="24px">
-            Adopter Info
-          </Heading>
+          <Text fontSize="24px">Adopter Info</Text>
           <FormControl>
             <FormLabel>Name</FormLabel>
             <Input
@@ -278,9 +255,9 @@ const ViewDog = () => {
         </div>
 
         <div className="dogInfo">
-          <Heading as="h2" fontSize="24px">
+          <Text as="h2" fontSize="24px">
             Dog Info
-          </Heading>
+          </Text>
           <FormControl>
             <FormLabel>Alternate Name</FormLabel>
             <Input
@@ -376,9 +353,9 @@ const ViewDog = () => {
       </div>
       <div className="row2">
         <div className="addressFinancial">
-          <Heading as="h2" fontSize="24px">
+          <Text as="h2" fontSize="24px">
             Address
-          </Heading>
+          </Text>
           <FormControl>
             <FormLabel>Address</FormLabel>
             <Input
@@ -438,9 +415,7 @@ const ViewDog = () => {
             />
           </FormControl>
           <div className="financial">
-            <Heading as="h2" fontSize="24px">
-              Financial
-            </Heading>
+            <Text fontSize="24px">Financial</Text>
             <div className="financialFields">
               <FormControl className="fees">
                 <FormLabel>Fees ($)</FormLabel>
@@ -475,9 +450,7 @@ const ViewDog = () => {
         </div>
 
         <div className="facilityInfo">
-          <Heading as="h2" fontSize="24px">
-            Facility Info
-          </Heading>
+          <Text fontSize="24px">Facility Info</Text>
           <FormLabel>Facility</FormLabel>
           <Select
             disabled={!editable}
@@ -566,10 +539,10 @@ const ViewDog = () => {
         </div>
       </div>
 
+      <div className="additionalNotesTitle">
+        <Text fontSize="24px">Additional Notes</Text>
+      </div>
       <Flex direction="column" align="center" justify-content="center">
-        <Heading as="h2" fontSize="24px">
-          Additional Notes
-        </Heading>
         <Textarea
           borderWidth={1}
           disabled={!editable}

@@ -87,11 +87,12 @@
   padding-top: 8px;
 }
 
-.editDogButton {
+.editButton {
   display: flex;
   flex-direction: row;
+  flex-wrap: nowrap;
   justify-content: center;
-  padding: 8px 0px 30px 0px;
+  padding-top: 8px;
 }
 
 .formInput {
