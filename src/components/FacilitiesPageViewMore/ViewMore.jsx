@@ -25,6 +25,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import BreadcrumbBar from '../../components/BreadcrumbBar/BreadcrumbBar';
 import { useBackend } from '../../contexts/BackendContext';
 import CreateToast from '../Toasts/CreateToast';
+import PropTypes from 'prop-types';
 import './ViewMore.css';
 
 // export const theme = extendTheme({
@@ -53,7 +54,7 @@ const ViewMore = () => {
   };
 
   const handleEditButton = () => {
-    setEditable(true);
+    setEditable(!editable);
   };
 
   const [facilityName, setFacilityName] = useState(state.name);
@@ -161,7 +162,12 @@ const ViewMore = () => {
         </Button>
       </BreadcrumbBar>
       <Flex width="100%" justifyContent="flex-start" pt={4} ml={10}>
-        <Button variant="link" leftIcon={<ArrowBackIcon />} onClick={onCloseFacility}>
+        <Button
+          variant="link"
+          leftIcon={<ArrowBackIcon />}
+          onClick={onCloseFacility}
+          color="#4A5568"
+        >
           Go Back
         </Button>
       </Flex>
@@ -174,20 +180,42 @@ const ViewMore = () => {
             <h1 className="enterName">{showFacilityName()}</h1>
           </div>
           <div className="buttons">
-            <Button
-              //width="62.5px"
-              size="sm"
-              color="gray"
-              variant="outline"
-              onClick={() => handleEditButton()}
-            >
-              Edit
-            </Button>
+            {!editable && (
+              <>
+                <Button
+                  //width="62.5px"
+                  size="sm"
+                  color="#2D3748"
+                  backgroundColor="#EDF2F7"
+                  variant="outline"
+                  onClick={() => handleEditButton()}
+                >
+                  Edit
+                </Button>
+              </>
+            )}
+
             {/* <DeleteFacility id={state.id} /> */}
 
             {editable && (
               <>
-                <Button colorScheme="red" variant="outline" size="sm" width="auto" onClick={onOpen}>
+                <Button
+                  width="142.67px"
+                  size="sm"
+                  color="gray"
+                  variant="outline"
+                  onClick={() => handleEditButton()}
+                >
+                  Cancel
+                </Button>
+                <Button
+                  colorScheme="red"
+                  variant="outline"
+                  size="sm"
+                  width="142.67px"
+                  onClick={onOpen}
+                  marginLeft="7px"
+                >
                   Remove Facility
                 </Button>
 
@@ -198,9 +226,10 @@ const ViewMore = () => {
                   size="sm"
                   colorScheme="blue"
                   variant="solid"
+                  width="142.67px"
                   onClick={() => saveFacility()}
                 >
-                  Save
+                  Save All Changes
                 </Button>
               </>
             )}
@@ -270,3 +299,10 @@ const ViewMore = () => {
   );
 };
 export default ViewMore;
+
+// idk if this works lol
+ViewMore.propTypes = {
+  facilityName: PropTypes.string.isRequired,
+  address: PropTypes.string.isRequired,
+  notes: PropTypes.string.isRequired,
+};
