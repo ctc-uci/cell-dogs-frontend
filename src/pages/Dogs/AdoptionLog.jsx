@@ -71,7 +71,7 @@ const AdoptionLog = props => {
     if (facilityid !== tableId) {
       return null;
     }
-
+    // test
     const dogName = dogname;
     const gradAge = calculateDogAgeAtGraduation(graddate, age);
     const facility = shelter;
