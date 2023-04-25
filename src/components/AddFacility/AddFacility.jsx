@@ -32,6 +32,7 @@ const AddFacility = () => {
 
   const Navigate = useNavigate();
 
+  const toast = useToast();
   const addFacility = async () => {
     const facilityData = {
       name: facilityName,
@@ -42,6 +43,11 @@ const AddFacility = () => {
       description: notes,
     };
     await backend.post(`/facility`, facilityData);
+    CreateToast({
+      description: `${facilityName} added to the facilities log`,
+      status: 'success',
+      toast,
+    });
     Navigate('/facilities');
   };
 
@@ -51,8 +57,7 @@ const AddFacility = () => {
     }
     return facilityName;
   };
-
-  const toast = useToast();
+  
   const handleConfirmDelete = async id => {
     try {
       const response = await backend.delete(`/facility/${id}`);
