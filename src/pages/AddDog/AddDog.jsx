@@ -22,6 +22,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import UploadAvatar from '../../components/UploadAvatar/UploadAvatar';
 import { useBackend } from '../../contexts/BackendContext';
+import { isAlphaNumeric, isNumeric } from '../../util/utils';
 import './AddDog.css';
 import ShowTags from './ShowTags';
 
@@ -107,63 +108,63 @@ const AddDog = () => {
     const staffAdoption = staffAdoptionTag;
     const specialNeeds = specialTag;
     const deceased = deceasedTag;
-    // if (
-    //   isNumeric(dogid)
-    //   // isNumeric(facilityid) &&
-    //   // isNumeric(groupnum)
-    //   // isISODate(graddate) &&
-    //   // isAlphaNumeric(dogname) &&
-    //   // isNumeric(age) &&
-    //   // isAlphaNumeric(shelter) &&
-    //   // isAlphaNumeric(breed) &&
-    //   // isAlphaNumeric(chiptype) &&
-    //   // isNumeric(chipnum)
-    //   // isAlphaNumeric(altname) &&
-    //   // isAlphaNumeric(notes) &&
-    //   // isAlphaNumeric(adoptername) &&
-    //   // isNumeric(adopterphone) &&
-    //   // isAlphaNumeric(addrline) &&
-    //   // isAlphaNumeric(adoptcity) &&
-    //   // isAlphaNumeric(adoptstate) &&
-    //   // isZipCode(zip) &&
-    //   // isNumeric(fees) &&
-    //   // isNumeric(revenue)
-    // ) {
-    backend
-      .post('/dog', {
-        dogid,
-        facilityid,
-        groupnum,
-        graddate,
-        dogname,
-        age,
-        shelter,
-        breed,
-        chiptype,
-        chipnum,
-        gender,
-        altname,
-        notes,
-        adoptername,
-        adopterphone,
-        addrline,
-        adoptcity,
-        adoptstate,
-        zip,
-        adoptemail,
-        fees,
-        revenue,
-        service,
-        therapy,
-        staffAdoption,
-        specialNeeds,
-        deceased,
-        facilityUnit,
-      })
-      .then(() => {
-        console.log('Successfully updated dog');
-      });
-    // }
+    if (
+      isNumeric(dogid) &&
+      isNumeric(groupnum) &&
+      isAlphaNumeric(dogname)
+      // isISODate(graddate)
+
+      //   // isNumeric(age) &&
+      //   // isAlphaNumeric(shelter) &&
+      //   // isAlphaNumeric(breed) &&
+      //   // isAlphaNumeric(chiptype) &&
+      //   // isNumeric(chipnum)
+      //   // isAlphaNumeric(altname) &&
+      //   // isAlphaNumeric(notes) &&
+      //   // isAlphaNumeric(adoptername) &&
+      //   // isNumeric(adopterphone) &&
+      //   // isAlphaNumeric(addrline) &&
+      //   // isAlphaNumeric(adoptcity) &&
+      //   // isAlphaNumeric(adoptstate) &&
+      //   // isZipCode(zip) &&
+      //   // isNumeric(fees) &&
+      //   // isNumeric(revenue)
+    ) {
+      backend
+        .post('/dog', {
+          dogid,
+          facilityid,
+          groupnum,
+          graddate,
+          dogname,
+          age,
+          shelter,
+          breed,
+          chiptype,
+          chipnum,
+          gender,
+          altname,
+          notes,
+          adoptername,
+          adopterphone,
+          addrline,
+          adoptcity,
+          adoptstate,
+          zip,
+          adoptemail,
+          fees,
+          revenue,
+          service,
+          therapy,
+          staffAdoption,
+          specialNeeds,
+          deceased,
+          facilityUnit,
+        })
+        .then(() => {
+          console.log('Successfully updated dog');
+        });
+    }
   };
 
   useEffect(() => {

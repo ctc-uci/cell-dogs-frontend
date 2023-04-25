@@ -29,6 +29,7 @@ const ViewDog = () => {
   const { id: dogId } = useParams();
 
   const [editable, setEditable] = useState(false);
+  const [showButtons, setShowButtons] = useState(false);
   const [dog, setDog] = useState({});
   const [facility, setFacilities] = useState([]);
 
@@ -37,6 +38,7 @@ const ViewDog = () => {
 
   const handleEditButton = () => {
     setEditable(!editable);
+    setShowButtons(!showButtons);
   };
 
   useEffect(() => {
@@ -130,6 +132,7 @@ const ViewDog = () => {
       console.log(err);
     });
     setEditable(!editable);
+    setShowButtons(!showButtons);
   };
 
   useEffect(() => {
@@ -201,12 +204,31 @@ const ViewDog = () => {
         </div>
         <div className="editButton">
           {!editable && (
-            <ButtonGroup variant="solid" spacing="6" onClick={() => handleEditButton()}>
-              <Button>Edit Dog</Button>
-            </ButtonGroup>
+            <>
+              <ButtonGroup variant="solid" spacing="6" onClick={() => handleEditButton()}>
+                <Button>Edit Dog</Button>
+              </ButtonGroup>
+            </>
           )}
         </div>
+        {showButtons && (
+          <div className="changesButtons">
+            <ButtonGroup variant="outline" spacing="6">
+              <Button>Cancel</Button>
+            </ButtonGroup>
+
+            <ButtonGroup variant="outline" spacing="6">
+              <Button colorScheme="red">Remove Dog</Button>
+            </ButtonGroup>
+
+            <Button colorScheme="facebook" onClick={saveAllChanges}>
+              Save All Changes
+            </Button>
+          </div>
+        )}
+        ;
       </div>
+
       <div className="row1">
         <div className="adopterInfo">
           <Text fontSize="24px">Adopter Info</Text>

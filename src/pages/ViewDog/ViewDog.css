@@ -35,6 +35,14 @@
   margin-right: 30px;
 }
 
+.changesButtons {
+  display: flex;
+  justify-content: center;
+  padding: 20px 0px 0px 0px;
+  flex-direction: row;
+  gap: 15px;
+}
+
 .backButton {
   position: absolute;
   top: 208px;
