@@ -117,7 +117,10 @@ const AdoptionLog = props => {
               src="https://i0.wp.com/fullertonobserver.com/wp-content/uploads/2020/12/OCJail.jpg?resize=829%2C436&ssl=1"
             />
             <div className={styles.dogInfoContainer}>
-              <div className={styles.dogName}>{dogName}</div>
+              <div className={styles.dogName}>
+                {dogName}
+                <div className={styles.altName}>aka "{altname}"</div>
+              </div>
               <div className={styles.dogNameSub}>Grad Age: {gradAge}</div>
               <div className={styles.dogNameSub}>Breed: {breed}</div>
             </div>
