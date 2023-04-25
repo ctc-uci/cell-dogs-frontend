@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');
 
+
 .buttons {
   display: flex;
   justify-content: space-between;
@@ -8,4 +9,11 @@
 
 .buttons > button {
   margin-right: 15px;
+}
+
+.pointsOfContact {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  margin-top: 30px;
 }

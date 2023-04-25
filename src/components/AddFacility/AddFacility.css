@@ -30,7 +30,7 @@
   position: relative;
   display: flex;
   justify-content: center;
-  margin-bottom: 100px;
+  margin-bottom: 67px;
 }
 
 .cancelButton {
@@ -76,6 +76,7 @@ img {
   display: flex;
   justify-content: space-between;
   margin-bottom: 20px;
+  margin-top: 30px;
 }
 
 .pocTitle {

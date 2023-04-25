@@ -15,17 +15,17 @@ import {
   ModalOverlay,
   Textarea,
   useDisclosure,
-  useToast,
+  useToast
 } from '@chakra-ui/react';
 // import { AddIcon } from '@chakra-ui/icons';
 import { ArrowBackIcon } from '@chakra-ui/icons';
+import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { BsPlusLg } from 'react-icons/bs';
 import { useLocation, useNavigate } from 'react-router-dom';
 import BreadcrumbBar from '../../components/BreadcrumbBar/BreadcrumbBar';
 import { useBackend } from '../../contexts/BackendContext';
 import CreateToast from '../Toasts/CreateToast';
-import PropTypes from 'prop-types';
 import './ViewMore.css';
 
 // export const theme = extendTheme({
@@ -257,6 +257,17 @@ const ViewMore = () => {
             value={notes}
             onChange={e => setNotes(e.target.value)}
           />
+        </div>
+        <div className="pointsOfContact">
+          <h1 className="POCText">Points of Contact</h1>
+          <Button
+            size="sm"
+            colorScheme="gray"
+            color="--cds-grey-1"
+            onClick={() => Navigate('/facilities')}
+          >
+            Add Another Point of Contact
+          </Button>
         </div>
         <div className="pocRow1">
           <div className="pocName">

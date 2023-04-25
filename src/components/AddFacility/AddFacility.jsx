@@ -19,18 +19,6 @@ import CreateToast from '../Toasts/CreateToast';
 import UploadAvatar from '../UploadAvatar/UploadAvatar';
 import './AddFacility.css';
 
-// export const theme = extendTheme({
-//   colors: {
-//     brand: {
-//       50: '#21307a',
-//       60: '#c3cbdb',
-//       70: '#f6f7fa',
-//       80: '#96c93d',
-//       90: '#25222a'
-//     }
-//   }
-// })
-
 const AddFacility = () => {
   const [facilityName, setFacilityName] = useState('');
   const [address, setAddress] = useState('');
@@ -137,17 +125,6 @@ const AddFacility = () => {
             </Button>
           </div>
         </div>
-        <div className="pointsOfContact">
-          <h1 className="POCText">Points of Contact</h1>
-          <Button
-            size="sm"
-            colorScheme="gray"
-            color="--cds-grey-1"
-            onClick={() => Navigate('/facilities')}
-          >
-            Add Another Point of Contact
-          </Button>
-        </div>
         <h3>Facility Name</h3>
         <div className="nameInput">
           <Input
@@ -171,6 +148,17 @@ const AddFacility = () => {
             placeholder="Enter notes here"
             onChange={e => setNotes(e.target.value)}
           />
+        </div>
+        <div className="pointsOfContact">
+          <h1 className="POCText">Points of Contact</h1>
+          <Button
+            size="sm"
+            colorScheme="gray"
+            color="--cds-grey-1"
+            onClick={() => Navigate('/facilities')}
+          >
+            Add Another Point of Contact
+          </Button>
         </div>
         <div className="pocRow1">
           <div className="pocName">
