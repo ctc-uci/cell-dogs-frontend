@@ -99,7 +99,7 @@ const AdoptionLogNavbar = ({
               <option value="">All</option>
               {facilities ? (
                 facilities.map(facility => (
-                  <option key={facility.name} value={facility}>
+                  <option key={facility.name} value={facility.name}>
                     {facility.name}
                   </option>
                 ))

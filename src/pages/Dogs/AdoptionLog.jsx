@@ -91,8 +91,6 @@ const AdoptionLog = props => {
       }
     }
 
-    console.log(dogname, deceased, gender);
-
     // test
     const dogName = dogname;
     const gradAge = calculateDogAgeAtGraduation(graddate, age);

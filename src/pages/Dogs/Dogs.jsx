@@ -68,7 +68,6 @@ const Dogs = () => {
   }, []);
 
   const dogsLen = dogs.length;
-  console.log(dogs);
 
   return (
     <div>
@@ -98,15 +97,20 @@ const Dogs = () => {
         searchDog={searchDog}
       />
       {view === 'table' &&
-        data.map(facility => (
-          <AdoptionLog
-            key={facility.name}
-            tableName={facility.name}
-            tableId={facility.id}
-            data={dogs}
-            filter={filter}
-          />
-        ))}
+        data
+          .filter(
+            facility =>
+              !facilityFilter || facility.name.toLowerCase().includes(facilityFilter.toLowerCase()),
+          )
+          .map(facility => (
+            <AdoptionLog
+              key={facility.name}
+              tableName={facility.name}
+              tableId={facility.id}
+              data={dogs}
+              filter={filter}
+            />
+          ))}
       {view === 'card' && !isLargerThan768 && (
         <Text color="#6E6E6E" marginLeft="205px" marginTop="20px" marginBottom="10px">
           {dogsLen} results
