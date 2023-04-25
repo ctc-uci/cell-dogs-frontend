@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import PropTypes from 'prop-types';
 // import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { NavLink, useNavigate } from 'react-router-dom';
@@ -19,7 +20,7 @@ const LoginPage = () => {
   const passwordRef = useRef();
   const navigate = useNavigate();
   const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const { currentUser, login } = useAuth();
   const loginUser = async event => {
     event.preventDefault();
@@ -31,13 +32,19 @@ const LoginPage = () => {
 
     try {
       setError('');
-      setLoading(true);
       await login(emailRef.current.value, passwordRef.current.value);
       navigate('/');
     } catch (e) {
       setError('Failed to log in');
     }
-    setLoading(false);
+  };
+
+  const inputChange = () => {
+    if (emailRef.current.value !== '' && passwordRef.current.value !== '') {
+      setLoading(false);
+    } else {
+      setLoading(true);
+    }
   };
 
   useEffect(() => {
@@ -71,7 +78,14 @@ const LoginPage = () => {
           </div>
 
           <form className={styles['input-form']} onSubmit={loginUser}>
-            <Input htmlSize={50} width="auto" placeholder="Email" size="md" ref={emailRef} />
+            <Input
+              htmlSize={50}
+              width="auto"
+              placeholder="Email"
+              size="md"
+              ref={emailRef}
+              onChange={inputChange}
+            />
             <Input
               htmlSize={50}
               width="auto"
@@ -79,9 +93,10 @@ const LoginPage = () => {
               size="md"
               type="password"
               ref={passwordRef}
+              onChange={inputChange}
             />
             <Button
-              disabled={loading}
+              isDisabled={loading}
               className={styles['submit-button']}
               bg="CDSBlue1"
               color="white"
@@ -103,5 +118,31 @@ const LoginPage = () => {
     </div>
   );
 };
+
+LoginPage.propTypes = {
+  schema: PropTypes.shape({
+    email: PropTypes.string,
+    password: PropTypes.string,
+  }).isRequired,
+  // loginUser: PropTypes.func.isRequired,
+  // setRender: PropTypes.func.isRequired,
+  // render: PropTypes.bool.isRequired,
+};
+
+// EditUser.propTypes = {
+//   setModalStep: PropTypes.func.isRequired,
+//   onClose: PropTypes.func.isRequired,
+//   info: PropTypes.shape({
+//     firstName: PropTypes.string,
+//     lastName: PropTypes.string,
+//     email: PropTypes.string,
+//   }).isRequired,
+// };
+
+// LoginPage.propTypes = {
+//   setModalStep: PropTypes.func.isRequired,
+//   onClose: PropTypes.func.isRequired,
+//   onSubmit: PropTypes.func.isRequired,
+// };
 
 export default LoginPage;
