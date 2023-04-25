@@ -1,21 +1,21 @@
+import { DownloadIcon, Search2Icon } from '@chakra-ui/icons';
+import { Button, Input, InputGroup, InputLeftElement } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
-import {
-  Button,
-  ButtonGroup,
-  IconButton,
-  Input,
-  InputGroup,
-  InputLeftElement,
-  Flex,
-} from '@chakra-ui/react';
-import { Search2Icon, DownloadIcon } from '@chakra-ui/icons';
 import { useBackend } from '../../contexts/BackendContext';
 import styles from './AdoptionLogNavbar.module.css';
-import './AdoptionLogNavbar.module.css';
 
-const AdoptionLogNavbar = ({ view, setView, setFacilityFilter, facilityFilter, setSearchDog, searchDog }) => {
+const AdoptionLogNavbar = ({
+  view,
+  setView,
+  setFilter,
+  filter,
+  setFacilityFilter,
+  facilityFilter,
+  setSearchDog,
+  searchDog,
+}) => {
   const [search, setSearch] = useState('');
-  const [filter, setFilter] = useState(false);
+  // const [filter, setFilter] = useState(false);
   const [facilities, setFacilities] = useState('');
   const [selectAll, setSelectAll] = useState(false);
   const [exportData, setExportData] = useState(null);
@@ -82,11 +82,11 @@ const AdoptionLogNavbar = ({ view, setView, setFacilityFilter, facilityFilter, s
           <option value="all">All</option>
           <option value="service">Service</option>
           <option value="therapy">Therapy</option>
-          <option value="special-needs">Special Needs</option>
-          <option value="staff-adoption">Staff Adoption</option>
+          <option value="specialNeeds">Special Needs</option>
+          <option value="staffAdoption">Staff Adoption</option>
           <option value="deceased">Deceased</option>
-          <option value="all-males">All Males</option>
-          <option value="all-females">All Females</option>
+          <option value="allMales">All Males</option>
+          <option value="allFemales">All Females</option>
         </select>
         <div className={styles['mobile-container']}>
           <label className={styles.label}>
@@ -96,7 +96,7 @@ const AdoptionLogNavbar = ({ view, setView, setFacilityFilter, facilityFilter, s
               onChange={e => setFacilityFilter(e.target.value)}
               className={styles.customSelectInput}
             >
-              <option value={""}>All</option>
+              <option value="">All</option>
               {facilities ? (
                 facilities.map(facility => (
                   <option key={facility.name} value={facility}>

@@ -1,10 +1,9 @@
 .buttons {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 10px;
-  }
-  
-  .buttons > button {
-    margin-right: 10px;
-  }
-  
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.buttons > button {
+  margin-right: 10px;
+}

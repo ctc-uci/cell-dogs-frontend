@@ -1,18 +1,18 @@
 /* eslint-disable */
-import { React, useState, useEffect } from 'react';
 import {
-  Heading,
-  Button,
-  Table,
-  Thead,
-  Tbody,
-  Tr,
-  Th,
-  Td,
-  TableContainer,
-  Checkbox,
   Avatar,
+  Button,
+  Checkbox,
+  Heading,
+  Table,
+  TableContainer,
+  Tbody,
+  Td,
+  Th,
+  Thead,
+  Tr,
 } from '@chakra-ui/react';
+import { React } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useBackend } from '../../contexts/BackendContext';
 import ShowTags from '../AddDog/ShowTags';
@@ -22,7 +22,7 @@ import styles from './AdoptionLog.module.css';
 const AdoptionLog = props => {
   const Navigate = useNavigate();
   const { backend } = useBackend();
-  const { tableName, tableId, searchDog, data } = props;
+  const { filter, tableName, tableId, searchDog, data } = props;
 
   const handleViewMore = dogid => {
     Navigate(`/dog/${dogid}`);
@@ -66,11 +66,33 @@ const AdoptionLog = props => {
       specialNeeds,
       deceased,
       facilityid,
+      gender,
+      altname,
     } = dog;
 
     if (facilityid !== tableId) {
       return null;
     }
+
+    if (filter != 'all' && filter != 'allMales' && filter != 'allFemales') {
+      if (eval(filter) === false) {
+        // If there is a filter that is not gender
+        return null;
+      }
+    } else if (filter === 'allMales') {
+      // All male filter
+      if (!gender.startsWith('Male')) {
+        return null;
+      }
+    } else if (filter === 'allFemales') {
+      // All female filter
+      if (!gender.startsWith('Female')) {
+        return null;
+      }
+    }
+
+    console.log(dogname, deceased, gender);
+
     // test
     const dogName = dogname;
     const gradAge = calculateDogAgeAtGraduation(graddate, age);
