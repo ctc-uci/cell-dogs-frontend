@@ -120,7 +120,7 @@ img {
 .pocRow2 {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 150px;
+  margin-bottom: 20px;
 }
 
 .ModalFooter {

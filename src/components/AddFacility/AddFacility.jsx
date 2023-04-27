@@ -30,6 +30,39 @@ const AddFacility = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [loading, setLoading] = useState(false);
 
+  const pocElement = (<>
+        <div className="pocRow1">
+          <div className="pocName">
+            <h3>Name</h3>
+            <div className="pocNameInput">
+              <Input placeholder="Jane Smith" />
+            </div>
+          </div>
+          <div className="pocTitle">
+            <h3>Title</h3>
+            <div className="pocTitleInput">
+              <Input placeholder="Programs Officer" />
+            </div>
+          </div>
+        </div>
+        <div className="pocRow2">
+          <div className="pocPhoneNumber">
+            <h3>Phone Number</h3>
+            <div className="pocPhoneNumberInput">
+              <Input placeholder="(123)456-7890" />
+            </div>
+          </div>
+          <div className="pocEmail">
+            <h3>Email</h3>
+            <div className="pocEmailInput">
+              <Input placeholder="email@uci.edu" />
+            </div>
+          </div>
+        </div>
+      </>)
+  const [pocList, setPocList] = useState([
+      pocElement])
+
   const Navigate = useNavigate();
 
   const toast = useToast();
@@ -75,6 +108,11 @@ const AddFacility = () => {
       setLoading(false);
     }
   };
+
+  const onAddBtnClick = event => {
+    setPocList(pocList.concat(pocElement));
+    console.log(pocList);
+  }
 
   return (
     <Box>
@@ -160,39 +198,12 @@ const AddFacility = () => {
             size="sm"
             colorScheme="gray"
             color="--cds-grey-1"
-            onClick={() => Navigate('/facilities')}
+            onClick={(e) => onAddBtnClick(e)}
           >
             Add Another Point of Contact
           </Button>
         </div>
-        <div className="pocRow1">
-          <div className="pocName">
-            <h3>Name</h3>
-            <div className="pocNameInput">
-              <Input placeholder="Jane Smith" />
-            </div>
-          </div>
-          <div className="pocTitle">
-            <h3>Title</h3>
-            <div className="pocTitleInput">
-              <Input placeholder="Programs Officer" />
-            </div>
-          </div>
-        </div>
-        <div className="pocRow2">
-          <div className="pocPhoneNumber">
-            <h3>Phone Number</h3>
-            <div className="pocPhoneNumberInput">
-              <Input placeholder="(123)456-7890" />
-            </div>
-          </div>
-          <div className="pocEmail">
-            <h3>Email</h3>
-            <div className="pocEmailInput">
-              <Input placeholder="email@uci.edu" />
-            </div>
-          </div>
-        </div>
+        {pocList}
       </Box>
     </Box>
   );
