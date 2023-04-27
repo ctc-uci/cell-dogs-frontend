@@ -24,6 +24,11 @@ const AdoptionLog = props => {
   const { backend } = useBackend();
   const { tableName, tableId, searchDog, data } = props;
 
+  const [checked, setChecked] = useState(data.map(() => false));
+  const [checkedDogs, setCheckedDogs] = useState({});
+  const allChecked = checked.every(Boolean);
+  const isIndeterminate = checked.some(Boolean) && !allChecked;
+
   const handleViewMore = dogid => {
     Navigate(`/dog/${dogid}`);
   };
@@ -46,7 +51,7 @@ const AdoptionLog = props => {
     return Math.floor(ageAtGraduationInYears);
   };
 
-  const dogTableRow = dog => {
+  const dogTableRow = (dog, index) => {
     const {
       shelter,
       dogname,
@@ -71,7 +76,7 @@ const AdoptionLog = props => {
     if (facilityid !== tableId) {
       return null;
     }
-    // test
+
     const dogName = dogname;
     const gradAge = calculateDogAgeAtGraduation(graddate, age);
     const facility = shelter;
@@ -80,10 +85,28 @@ const AdoptionLog = props => {
     const email = adoptemail;
     const address = `${addrline} ${adoptcity} ${adoptstate}`;
 
+    const handleDogSelection = e => {
+      console.log(e.target.value);
+      setChecked([...checked.slice(0, index), e.target.checked, ...checked.slice(index + 1)]);
+
+      var updateDogsList = [...checkedDogs];
+      if (e.target.checked) {
+        updateDogsList = [...checkedDogs, e.target.value];
+      } else {
+        updateDogsList.splice(checkedDogs.indexOf(e.target.value), 1);
+      }
+      setCheckedDogs(updateDogsList);
+      console.log(updateDogsList);
+    };
+
     return (
       <Tr key={props.key}>
         <Td>
-          <Checkbox />
+          <Checkbox
+            isChecked={checked[index]}
+            onChange={e => handleDogSelection(e)}
+            value={JSON.stringify(dog)}
+          />
         </Td>
         {/* <Td>{dogName}{nickname ? " aka " : null}{nickname}</Td> */}
         <Td>
@@ -145,7 +168,11 @@ const AdoptionLog = props => {
             <Thead backgroundColor="#F7FAFC">
               <Tr>
                 <Th>
-                  <Checkbox />
+                  <Checkbox
+                    isChecked={allChecked}
+                    isIndeterminate={isIndeterminate}
+                    onChange={e => setChecked(data.map(() => e.target.checked))}
+                  />
                 </Th>
                 <Th>Dog Name</Th>
                 <Th>Tags</Th>
@@ -157,7 +184,7 @@ const AdoptionLog = props => {
               </Tr>
             </Thead>
             <Tbody backgroundColor="#FDFDFD">
-              {data.map(dog => dogTableRow(dog))}
+              {data.map((dog, index) => dogTableRow(dog, index))}
               <Tr />
             </Tbody>
           </Table>

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { CSVLink } from 'react-csv';
 import {
   Button,
   ButtonGroup,
@@ -13,12 +14,24 @@ import { useBackend } from '../../contexts/BackendContext';
 import styles from './AdoptionLogNavbar.module.css';
 import './AdoptionLogNavbar.module.css';
 
-const AdoptionLogNavbar = ({ view, setView, setFacilityFilter, facilityFilter, setSearchDog, searchDog }) => {
+const AdoptionLogNavbar = ({
+  view,
+  setView,
+  setFacilityFilter,
+  facilityFilter,
+  setSearchDog,
+  searchDog,
+}) => {
   const [search, setSearch] = useState('');
   const [filter, setFilter] = useState(false);
   const [facilities, setFacilities] = useState('');
   const [selectAll, setSelectAll] = useState(false);
-  const [exportData, setExportData] = useState(null);
+  const [exportData, setExportData] = useState([]);
+
+  const csv = [
+    { firstName: 'Test', lastName: 'test2' },
+    { firstName: 'T', lastName: 'A', email: 'oooo123.com' },
+  ];
 
   function handleViewToggle(viewType) {
     setView(viewType);
@@ -96,7 +109,7 @@ const AdoptionLogNavbar = ({ view, setView, setFacilityFilter, facilityFilter, s
               onChange={e => setFacilityFilter(e.target.value)}
               className={styles.customSelectInput}
             >
-              <option value={""}>All</option>
+              <option value={''}>All</option>
               {facilities ? (
                 facilities.map(facility => (
                   <option key={facility.name} value={facility}>
@@ -117,7 +130,9 @@ const AdoptionLogNavbar = ({ view, setView, setFacilityFilter, facilityFilter, s
             rightIcon={<DownloadIcon />}
             onClick={() => setExportData()}
           >
-            Export
+            <CSVLink data={csv} filename="Cell_Dogs_Adoption_Log.csv">
+              Export
+            </CSVLink>
           </Button>
         </div>
       </div>
