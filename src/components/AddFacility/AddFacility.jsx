@@ -30,38 +30,26 @@ const AddFacility = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [loading, setLoading] = useState(false);
 
-  const pocElement = (<>
-        <div className="pocRow1">
-          <div className="pocName">
-            <h3>Name</h3>
-            <div className="pocNameInput">
-              <Input placeholder="Jane Smith" />
-            </div>
-          </div>
-          <div className="pocTitle">
-            <h3>Title</h3>
-            <div className="pocTitleInput">
-              <Input placeholder="Programs Officer" />
-            </div>
-          </div>
-        </div>
-        <div className="pocRow2">
-          <div className="pocPhoneNumber">
-            <h3>Phone Number</h3>
-            <div className="pocPhoneNumberInput">
-              <Input placeholder="(123)456-7890" />
-            </div>
-          </div>
-          <div className="pocEmail">
-            <h3>Email</h3>
-            <div className="pocEmailInput">
-              <Input placeholder="email@uci.edu" />
-            </div>
-          </div>
-        </div>
-      </>)
+  // This is the the specific component we are updating inside of the list
+  const PocElement = ({index, name, holder}) => {
+    const handleChange = (event) => {
+      const value = event.target.value;
+      setPocList((prevValues) => {
+        const newValues = [...prevValues]
+        newValues[index] = {
+          ...newList[index],
+          [name]: value,
+        }
+        return newValues;
+      })
+    }
+
+    return(<Input placeholder={holder} value={pocList[index][name]} onChange={handleChange}/>)
+  }
+
+  // Create the initial POC list
   const [pocList, setPocList] = useState([
-      pocElement])
+      {'name': '', 'title': '', 'phone': '', 'email': ''}])
 
   const Navigate = useNavigate();
 
@@ -110,8 +98,7 @@ const AddFacility = () => {
   };
 
   const onAddBtnClick = event => {
-    setPocList(pocList.concat(pocElement));
-    console.log(pocList);
+    setPocList((prevList) => [...prevList, {'name': '', 'title': '', 'phone': '', 'email': ''}])
   }
 
   return (
@@ -203,7 +190,40 @@ const AddFacility = () => {
             Add Another Point of Contact
           </Button>
         </div>
-        {pocList}
+
+        {/* Map the Elements inside of the list*/}
+        {pocList.map((item,index) => (
+          <>
+          <div className="pocRow1" key={index}>
+          <div className="pocName">
+            <h3>Name</h3>
+            <div className="pocNameInput">
+              <PocElement index={index} name='name' holder='Jane Doe'/>
+            </div>
+          </div>
+          <div className="pocTitle">
+            <h3>Title</h3>
+            <div className="pocTitleInput">
+              <Input placeholder="Programs Officer" />
+            </div>
+          </div>
+        </div>
+        <div className="pocRow2">
+          <div className="pocPhoneNumber">
+            <h3>Phone Number</h3>
+            <div className="pocPhoneNumberInput">
+              <Input placeholder="(123)456-7890" />
+            </div>
+          </div>
+          <div className="pocEmail">
+            <h3>Email</h3>
+            <div className="pocEmailInput">
+              <Input placeholder="email@uci.edu" />
+            </div>
+          </div>
+        </div>
+        </>
+        ))}
       </Box>
     </Box>
   );
