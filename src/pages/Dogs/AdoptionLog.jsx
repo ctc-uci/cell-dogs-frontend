@@ -1,18 +1,18 @@
 /* eslint-disable */
-import { React, useState, useEffect } from 'react';
 import {
-  Heading,
-  Button,
-  Table,
-  Thead,
-  Tbody,
-  Tr,
-  Th,
-  Td,
-  TableContainer,
-  Checkbox,
   Avatar,
+  Button,
+  Checkbox,
+  Heading,
+  Table,
+  TableContainer,
+  Tbody,
+  Td,
+  Th,
+  Thead,
+  Tr,
 } from '@chakra-ui/react';
+import { React } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useBackend } from '../../contexts/BackendContext';
 import ShowTags from '../AddDog/ShowTags';
@@ -22,7 +22,7 @@ import styles from './AdoptionLog.module.css';
 const AdoptionLog = props => {
   const Navigate = useNavigate();
   const { backend } = useBackend();
-  const { tableName, tableId, searchDog, data } = props;
+  const { filter, tableName, tableId, searchDog, data } = props;
 
   const [checked, setChecked] = useState(data.map(() => false));
   const [checkedDogs, setCheckedDogs] = useState({});
@@ -71,12 +71,14 @@ const AdoptionLog = props => {
       specialNeeds,
       deceased,
       facilityid,
+      gender,
+      altname,
     } = dog;
 
     if (facilityid !== tableId) {
       return null;
     }
-
+    // test
     const dogName = dogname;
     const gradAge = calculateDogAgeAtGraduation(graddate, age);
     const facility = shelter;
@@ -118,7 +120,10 @@ const AdoptionLog = props => {
               src="https://i0.wp.com/fullertonobserver.com/wp-content/uploads/2020/12/OCJail.jpg?resize=829%2C436&ssl=1"
             />
             <div className={styles.dogInfoContainer}>
-              <div className={styles.dogName}>{dogName}</div>
+              <div className={styles.dogName}>
+                {dogName}
+                <div className={styles.altName}>aka "{altname}"</div>
+              </div>
               <div className={styles.dogNameSub}>Grad Age: {gradAge}</div>
               <div className={styles.dogNameSub}>Breed: {breed}</div>
             </div>

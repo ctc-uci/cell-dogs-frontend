@@ -1,14 +1,14 @@
-import { React, useState, useEffect } from 'react';
-import { Button, Text } from '@chakra-ui/react';
-import { useNavigate } from 'react-router-dom';
 import { AddIcon } from '@chakra-ui/icons';
+import { Button, Text } from '@chakra-ui/react';
+import { React, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import BreadcrumbBar from '../../components/BreadcrumbBar/BreadcrumbBar';
 // eslint-disable-next-line import/no-useless-path-segments
-import AdoptionLogNavbar from './AdoptionLogNavbar';
 import { useBackend } from '../../contexts/BackendContext';
+import { screenWidthExceeds } from '../../util/utils';
 import AdoptionLog from './AdoptionLog';
 import AdoptionLogCard from './AdoptionLogCard';
-import { screenWidthExceeds } from '../../util/utils';
+import AdoptionLogNavbar from './AdoptionLogNavbar';
 
 const Dogs = () => {
   // const { currentUser, logout } = useAuth();
@@ -24,6 +24,7 @@ const Dogs = () => {
   const { backend } = useBackend();
   const [data, setData] = useState([]);
   const [facilityFilter, setFacilityFilter] = useState('');
+  const [filter, setFilter] = useState('');
   const [searchDog, setSearchDog] = useState('');
   const [dogs, setDogs] = useState([]);
 
@@ -88,20 +89,28 @@ const Dogs = () => {
       <AdoptionLogNavbar
         view={view}
         setView={setView}
-        setFacilityFilter={setFacilityFilter}
+        setFilter={setFilter}
+        filter={filter}
         facilityFilter={facilityFilter}
+        setFacilityFilter={setFacilityFilter}
         setSearchDog={setSearchDog}
         searchDog={searchDog}
       />
       {view === 'table' &&
-        data.map(facility => (
-          <AdoptionLog
-            key={facility.name}
-            tableName={facility.name}
-            tableId={facility.id}
-            data={dogs}
-          />
-        ))}
+        data
+          .filter(
+            facility =>
+              !facilityFilter || facility.name.toLowerCase().includes(facilityFilter.toLowerCase()),
+          )
+          .map(facility => (
+            <AdoptionLog
+              key={facility.name}
+              tableName={facility.name}
+              tableId={facility.id}
+              data={dogs}
+              filter={filter}
+            />
+          ))}
       {view === 'card' && !isLargerThan768 && (
         <Text color="#6E6E6E" marginLeft="205px" marginTop="20px" marginBottom="10px">
           {dogsLen} results
