@@ -18,6 +18,7 @@ import {
   Text,
   Textarea,
 } from '@chakra-ui/react';
+import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import UploadAvatar from '../../components/UploadAvatar/UploadAvatar';
@@ -133,6 +134,7 @@ const ViewDog = () => {
     });
     setEditable(!editable);
     setShowButtons(!showButtons);
+    console.log(dog);
   };
 
   useEffect(() => {
@@ -581,6 +583,38 @@ const ViewDog = () => {
       </Flex>
     </div>
   );
+};
+
+ViewDog.propTypes = {
+  dog: PropTypes.shape({
+    addrline: PropTypes.string,
+    adoptcity: PropTypes.string,
+    adoptemail: PropTypes.string,
+    adoptername: PropTypes.string,
+    adopterphone: PropTypes.number,
+    adoptstate: PropTypes.string,
+    age: PropTypes.number,
+    altname: PropTypes.string,
+    breed: PropTypes.string,
+    chipnum: PropTypes.number,
+    chiptype: PropTypes.string,
+    deceased: PropTypes.boolean,
+    dogid: PropTypes.number,
+    dogname: PropTypes.string,
+    facilityUnit: PropTypes.string,
+    facilityid: PropTypes.string,
+    fees: PropTypes.number,
+    gender: PropTypes.string,
+    graddate: PropTypes.string,
+    groupnum: PropTypes.number,
+    revenue: PropTypes.number,
+    service: PropTypes.boolean,
+    shelter: PropTypes.string,
+    specialNeeds: PropTypes.boolean,
+    staffAdoption: PropTypes.boolean,
+    therapy: PropTypes.boolean,
+    zip: PropTypes.number,
+  }).isRequired,
 };
 
 export default ViewDog;
