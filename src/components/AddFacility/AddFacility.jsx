@@ -37,10 +37,9 @@ const AddFacility = () => {
       setPocList((prevValues) => {
         const newValues = [...prevValues]
         newValues[index] = {
-          ...newList[index],
+          ...newValues[index],
           [name]: value,
         }
-        return newValues;
       })
     }
 
@@ -63,7 +62,19 @@ const AddFacility = () => {
       zipcode: '92697',
       description: notes,
     };
-    await backend.post(`/facility`, facilityData);
+    const facility = await backend.post(`/facility`, facilityData);
+    console.log(facility)
+    console.log(facility.data.id)
+    for (const poc of pocList){
+      const pocData = {
+        facilityId: facility.data[0].id,
+        name: poc['name'],
+        title: poc['title'],
+        phoneNumber: poc['phone'],
+        emailAddress: poc['email']
+      }
+      await backend.post('/facilityContacts', pocData)
+    }
     CreateToast({
       description: `${facilityName} added to the facilities log`,
       status: 'success',
@@ -204,7 +215,7 @@ const AddFacility = () => {
           <div className="pocTitle">
             <h3>Title</h3>
             <div className="pocTitleInput">
-              <Input placeholder="Programs Officer" />
+              <PocElement index={index} name="title" holder='Programs Officer'/>
             </div>
           </div>
         </div>
@@ -212,13 +223,13 @@ const AddFacility = () => {
           <div className="pocPhoneNumber">
             <h3>Phone Number</h3>
             <div className="pocPhoneNumberInput">
-              <Input placeholder="(123)456-7890" />
+              <PocElement index={index} name="phone" holder="(123)456-7890" />
             </div>
           </div>
           <div className="pocEmail">
             <h3>Email</h3>
             <div className="pocEmailInput">
-              <Input placeholder="email@uci.edu" />
+              <PocElement index={index} name="email" holder="email@uci.edu" />
             </div>
           </div>
         </div>

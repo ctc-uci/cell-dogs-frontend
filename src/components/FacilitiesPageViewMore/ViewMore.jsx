@@ -15,7 +15,7 @@ import {
   ModalOverlay,
   Textarea,
   useDisclosure,
-  useToast,
+  useToast
 } from '@chakra-ui/react';
 // import { AddIcon } from '@chakra-ui/icons';
 import { ArrowBackIcon } from '@chakra-ui/icons';
@@ -25,8 +25,8 @@ import { BsPlusLg } from 'react-icons/bs';
 import { useLocation, useNavigate } from 'react-router-dom';
 import BreadcrumbBar from '../../components/BreadcrumbBar/BreadcrumbBar';
 import { useBackend } from '../../contexts/BackendContext';
-import CreateToast from '../Toasts/CreateToast';
 import { screenWidthExceeds } from '../../util/utils';
+import CreateToast from '../Toasts/CreateToast';
 import './ViewMore.css';
 
 // export const theme = extendTheme({
@@ -129,7 +129,7 @@ const ViewMore = () => {
 
   const handleConfirmDelete = async id => {
     try {
-      const response = await backend.delete(`/facility/${id}`);
+      let response = await backend.delete(`/facility/${id}`);
 
       onClose();
 
@@ -141,7 +141,10 @@ const ViewMore = () => {
         });
       }
 
-      Navigate('/facilities');
+      response = await backend.delete(`/facilityContacts/${id}`)
+      if (response.status === 200) {
+        Navigate('/facilities');
+      }
     } finally {
       setLoading(false);
     }
