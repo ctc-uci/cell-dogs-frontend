@@ -336,7 +336,7 @@ const ViewMore = () => {
         )}
         {editable && !isLargerThan768 && (
           <div className="bottomPostEditButton">
-            <Flex flexDirection="column" gap="1rem">
+            <Flex flexDirection="column" gap="1rem" marginBottom="10px">
               <Flex justifyContent="center">
                 <Button
                   colorScheme="red"
