@@ -28,6 +28,8 @@ const AdoptionLog = props => {
   const [allChecked, setAllChecked] = useState(checked.every(Boolean));
   const isIndeterminate = checked.some(Boolean) && !allChecked;
 
+  const [copyEmails, setCopyEmails] = useState(new Set());
+
   const filteredDogs = data.filter(
     dogs =>
       dogs[filter] == true ||
@@ -44,6 +46,10 @@ const AdoptionLog = props => {
   const handleSelectFacility = () => {
     setChecked(data.map(() => !allChecked));
     setAllChecked(!allChecked);
+  };
+
+  const handleCopyEmail = () => {
+    navigator.clipboard.writeText([...copyEmails].join(', '));
   };
 
   const calculateDogAgeAtGraduation = (graduationDate, currentAge) => {
@@ -99,6 +105,10 @@ const AdoptionLog = props => {
     const phoneNumber = adopterphone;
     const email = adoptemail;
     const address = `${addrline} ${adoptcity} ${adoptstate}`;
+
+    useEffect(() => {
+      setCopyEmails(copyEmails => new Set([...copyEmails, email]));
+    }, [email]);
 
     const handleDogSelection = e => {
       console.log(e.target.value);
@@ -176,13 +186,7 @@ const AdoptionLog = props => {
         <Button size="sm" variant="outline" onClick={() => handleSelectFacility()}>
           Select Facility
         </Button>
-        <Button
-          size="sm"
-          variant="outline"
-          onClick={() => {
-            navigator.clipboard.writeText('Email Addresses Here'); // get emails of adopters in facility, compile into a string
-          }}
-        >
+        <Button size="sm" variant="outline" onClick={() => handleCopyEmail()}>
           Copy Adopters&apos; Emails
         </Button>
       </div>

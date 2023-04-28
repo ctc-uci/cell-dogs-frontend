@@ -100,9 +100,7 @@ const Dogs = () => {
         data
           .filter(
             facility =>
-              !facilityFilter ||
-              facility.name.toLowerCase().includes(facilityFilter.toLowerCase()) ||
-              numDogs == 0,
+              !facilityFilter || facility.name.toLowerCase().includes(facilityFilter.toLowerCase()),
           )
           .map(facility => (
             <AdoptionLog
