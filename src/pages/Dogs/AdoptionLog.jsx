@@ -12,7 +12,7 @@ import {
   Thead,
   Tr,
 } from '@chakra-ui/react';
-import { React } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useBackend } from '../../contexts/BackendContext';
 import ShowTags from '../AddDog/ShowTags';
@@ -22,15 +22,28 @@ import styles from './AdoptionLog.module.css';
 const AdoptionLog = props => {
   const Navigate = useNavigate();
   const { backend } = useBackend();
-  const { filter, tableName, tableId, searchDog, data } = props;
-
+  const { filter, tableName, tableId, searchDog, data, changeNumDogs } = props;
   const [checked, setChecked] = useState(data.map(() => false));
   const [checkedDogs, setCheckedDogs] = useState({});
-  const allChecked = checked.every(Boolean);
+  const [allChecked, setAllChecked] = useState(checked.every(Boolean));
   const isIndeterminate = checked.some(Boolean) && !allChecked;
+
+  const filteredDogs = data.filter(
+    dogs =>
+      dogs[filter] == true ||
+      filter == '' ||
+      filter == 'all' ||
+      (filter == 'allMales' && dogs.gender == 'Male') ||
+      (filter == 'allFemales' && dogs.gender == 'Female'),
+  );
 
   const handleViewMore = dogid => {
     Navigate(`/dog/${dogid}`);
+  };
+
+  const handleSelectFacility = () => {
+    setChecked(data.map(() => !allChecked));
+    setAllChecked(!allChecked);
   };
 
   const calculateDogAgeAtGraduation = (graduationDate, currentAge) => {
@@ -78,7 +91,7 @@ const AdoptionLog = props => {
     if (facilityid !== tableId) {
       return null;
     }
-    // test
+
     const dogName = dogname;
     const gradAge = calculateDogAgeAtGraduation(graddate, age);
     const facility = shelter;
@@ -160,11 +173,17 @@ const AdoptionLog = props => {
         <Heading as="lg" size="l">
           {tableName}
         </Heading>
-        <Button size="sm" variant="outline">
+        <Button size="sm" variant="outline" onClick={() => handleSelectFacility()}>
           Select Facility
         </Button>
-        <Button size="sm" variant="outline">
-          Copy Adopter&apos;s Email
+        <Button
+          size="sm"
+          variant="outline"
+          onClick={() => {
+            navigator.clipboard.writeText('Email Addresses Here'); // get emails of adopters in facility, compile into a string
+          }}
+        >
+          Copy Adopters&apos; Emails
         </Button>
       </div>
       <div className="table">
@@ -189,7 +208,7 @@ const AdoptionLog = props => {
               </Tr>
             </Thead>
             <Tbody backgroundColor="#FDFDFD">
-              {data.map((dog, index) => dogTableRow(dog, index))}
+              {filteredDogs.map((dog, index) => dogTableRow(dog, index))}
               <Tr />
             </Tbody>
           </Table>

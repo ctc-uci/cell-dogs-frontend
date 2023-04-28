@@ -1,31 +1,15 @@
 import { DownloadIcon, Search2Icon } from '@chakra-ui/icons';
 import { Button, Input, InputGroup, InputLeftElement } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
-<<<<<<< HEAD
 import { CSVLink } from 'react-csv';
-import {
-  Button,
-  ButtonGroup,
-  IconButton,
-  Input,
-  InputGroup,
-  InputLeftElement,
-  Flex,
-} from '@chakra-ui/react';
-import { Search2Icon, DownloadIcon } from '@chakra-ui/icons';
-=======
->>>>>>> 7a228ae7214bf53b70b3a89f1eabe0a1130129a7
 import { useBackend } from '../../contexts/BackendContext';
 import styles from './AdoptionLogNavbar.module.css';
 
 const AdoptionLogNavbar = ({
   view,
   setView,
-<<<<<<< HEAD
-=======
   setFilter,
   filter,
->>>>>>> 7a228ae7214bf53b70b3a89f1eabe0a1130129a7
   setFacilityFilter,
   facilityFilter,
   setSearchDog,
@@ -118,11 +102,7 @@ const AdoptionLogNavbar = ({
               onChange={e => setFacilityFilter(e.target.value)}
               className={styles.customSelectInput}
             >
-<<<<<<< HEAD
-              <option value={''}>All</option>
-=======
               <option value="">All</option>
->>>>>>> 7a228ae7214bf53b70b3a89f1eabe0a1130129a7
               {facilities ? (
                 facilities.map(facility => (
                   <option key={facility.name} value={facility.name}>
