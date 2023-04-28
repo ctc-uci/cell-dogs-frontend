@@ -15,7 +15,7 @@ import {
   ModalOverlay,
   Textarea,
   useDisclosure,
-  useToast
+  useToast,
 } from '@chakra-ui/react';
 // import { AddIcon } from '@chakra-ui/icons';
 import { ArrowBackIcon } from '@chakra-ui/icons';
@@ -26,6 +26,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import BreadcrumbBar from '../../components/BreadcrumbBar/BreadcrumbBar';
 import { useBackend } from '../../contexts/BackendContext';
 import CreateToast from '../Toasts/CreateToast';
+import { screenWidthExceeds } from '../../util/utils';
 import './ViewMore.css';
 
 // export const theme = extendTheme({
@@ -66,6 +67,7 @@ const ViewMore = () => {
   const [title, setTitle] = useState(state.title);
   const [phoneNumber, setPhoneNumber] = useState(state.phoneNumber);
   const [email, setEmail] = useState(state.email);
+  const isLargerThan768 = screenWidthExceeds(768);
 
   const showFacilityName = () => {
     if (facilityName == '') {
@@ -177,10 +179,12 @@ const ViewMore = () => {
             <Avatar height="100px" width="100px" />
           </div>
           <div className="modalHeader">
-            <h1 className="enterName">{showFacilityName()}</h1>
+            <h1 className={`enterName ${!isLargerThan768 && 'mobileLower'}`}>
+              {showFacilityName()}
+            </h1>
           </div>
           <div className="buttons">
-            {!editable && (
+            {!editable && isLargerThan768 && (
               <>
                 <Button
                   //width="62.5px"
@@ -197,7 +201,7 @@ const ViewMore = () => {
 
             {/* <DeleteFacility id={state.id} /> */}
 
-            {editable && (
+            {editable && isLargerThan768 && (
               <>
                 <Button
                   width="142.67px"
@@ -258,54 +262,122 @@ const ViewMore = () => {
             onChange={e => setNotes(e.target.value)}
           />
         </div>
-        <div className="pointsOfContact">
-          <h1 className="POCText">Points of Contact</h1>
-          <Button
-            size="sm"
-            colorScheme="gray"
-            color="--cds-grey-1"
-            onClick={() => Navigate('/facilities')}
-          >
-            Add Another Point of Contact
-          </Button>
-        </div>
-        <div className="pocRow1">
-          <div className="pocName">
-            <h3>Name</h3>
-            <div className="pocNameInput">
-              <Input
-                disabled={!editable}
-                value={contactName}
-                onChange={e => setContactName(e.target.value)}
-              />
+        <div className="pointsOfContactContainer">
+          <div className="pointsOfContact">
+            <h1 className="POCText">Points of Contact</h1>
+            <Button
+              size="sm"
+              colorScheme="gray"
+              color="--cds-grey-1"
+              onClick={() => Navigate('/facilities')}
+            >
+              Add Another Point of Contact
+            </Button>
+          </div>
+          <div className="pocRow1">
+            <div className="pocName">
+              <h3>Name</h3>
+              <div className="pocNameInput">
+                <Input
+                  disabled={!editable}
+                  value={contactName}
+                  onChange={e => setContactName(e.target.value)}
+                />
+              </div>
+            </div>
+            <div className="pocTitle">
+              <h3>Title</h3>
+              <div className="pocTitleInput">
+                <Input
+                  disabled={!editable}
+                  value={title}
+                  onChange={e => setTitle(e.target.value)}
+                />
+              </div>
             </div>
           </div>
-          <div className="pocTitle">
-            <h3>Title</h3>
-            <div className="pocTitleInput">
-              <Input disabled={!editable} value={title} onChange={e => setTitle(e.target.value)} />
+          <div className="pocRow2">
+            <div className="pocPhoneNumber">
+              <h3>Phone Number</h3>
+              <div className="pocPhoneNumberInput">
+                <Input
+                  disabled={!editable}
+                  value={phoneNumber}
+                  onChange={e => setPhoneNumber(e.target.value)}
+                />
+              </div>
             </div>
-          </div>
-        </div>
-        <div className="pocRow2">
-          <div className="pocPhoneNumber">
-            <h3>Phone Number</h3>
-            <div className="pocPhoneNumberInput">
-              <Input
-                disabled={!editable}
-                value={phoneNumber}
-                onChange={e => setPhoneNumber(e.target.value)}
-              />
-            </div>
-          </div>
-          <div className="pocEmail">
-            <h3>Email</h3>
-            <div className="pocEmailInput">
-              <Input disabled={!editable} value={email} onChange={e => setEmail(e.target.value)} />
+            <div className="pocEmail">
+              <h3>Email</h3>
+              <div className="pocEmailInput">
+                <Input
+                  disabled={!editable}
+                  value={email}
+                  onChange={e => setEmail(e.target.value)}
+                />
+              </div>
             </div>
           </div>
         </div>
       </Box>
+      <Flex justifyContent="center">
+        {!editable && !isLargerThan768 && (
+          <div className="bottomEditButton">
+            <Button
+              width="80%"
+              color="white"
+              backgroundColor="#21307A"
+              onClick={() => handleEditButton()}
+              marginBottom="2rem"
+            >
+              Edit
+            </Button>
+          </div>
+        )}
+        {editable && !isLargerThan768 && (
+          <div className="bottomPostEditButton">
+            <Flex flexDirection="column" gap="1rem">
+              <Flex justifyContent="center">
+                <Button
+                  colorScheme="red"
+                  variant="outline"
+                  onClick={onOpen}
+                  marginLeft="7px"
+                  backgroundColor="white"
+                  width="80%"
+                >
+                  Remove Facility
+                </Button>
+              </Flex>
+              <Flex width="100%" justifyContent="center" gap="2rem">
+                <Button
+                  width="37%"
+                  size="sm"
+                  color="gray"
+                  variant="outline"
+                  onClick={() => handleEditButton()}
+                  backgroundColor="white"
+                >
+                  Cancel
+                </Button>
+
+                <ShowModal isOpen={isOpen} onClose={onClose} />
+
+                <Button
+                  width="37%"
+                  className="saveButton"
+                  size="sm"
+                  colorScheme="blue"
+                  variant="solid"
+                  onClick={() => saveFacility()}
+                >
+                  Save All Changes
+                </Button>
+              </Flex>
+            </Flex>
+          </div>
+        )}
+      </Flex>
     </Box>
   );
 };
