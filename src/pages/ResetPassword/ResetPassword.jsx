@@ -1,10 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 // import { useForm } from 'react-hook-form';
-// import * as yup from 'yup';
 import { NavLink, useNavigate } from 'react-router-dom';
-import * as yup from 'yup';
+// import * as yup from 'yup';
 import { Input, Stack, Button, Text } from '@chakra-ui/react';
-
+import PropTypes from 'prop-types';
 import { useAuth } from '../../contexts/AuthContext';
 
 import cellDogsLogoHorizontal4 from '../../assets/CellDogs_logo_horizontal-4.png';
@@ -22,33 +21,47 @@ import styles from './ResetPassword.module.css';
 //   // console.log(isValid);
 // };
 
-const schema = yup.object().shape({
+/* const schema = yup.object().shape({
   newPassword: yup.string().min(6).max(10).required(),
   validatePassword: yup
     .string()
     .oneOf([yup.ref('newPassword')])
     .required(),
 });
-
+ */
 const resetPassword = async event => {
   event.preventDefault();
   // TODO: Revamp form structure
-  const formData = {
+  /* const formData = {
     newPassword: event.target[0].value,
     validatePassword: event.target[1].value,
   };
-  await schema.isValid(formData);
+  await schema.isValid(formData); */
 };
 
-const ResetPassword = () => {
+const ResetPassword = ({ newPassword, validatePassword }) => {
   const { currentUser } = useAuth();
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (currentUser) {
       navigate('/');
     }
   });
+
+  const inputChange = () => {
+    // const formData = {
+    //   newPassword: event.target[0].value,
+    //   validatePassword: event.target[1].value,
+    // };
+    // console.log(schema.isValid(resetPassword.formData));
+    if (newPassword && validatePassword) {
+      setLoading(false);
+    } else {
+      setLoading(true);
+    }
+  };
 
   return (
     <div className={styles.login_page}>
@@ -83,6 +96,7 @@ const ResetPassword = () => {
                   placeholder="Password"
                   size="md"
                   type="password"
+                  onChange={inputChange}
                 />
               </div>
               <div className={styles.reset_password_container}>
@@ -93,11 +107,13 @@ const ResetPassword = () => {
                   placeholder="Password"
                   size="md"
                   type="password"
+                  onChange={inputChange}
                 />
               </div>
             </div>
 
             <Button
+              isDisabled={loading}
               className={styles.reset_submit_button}
               variant="outline"
               width="200px"
@@ -111,6 +127,13 @@ const ResetPassword = () => {
       </div>
     </div>
   );
+};
+
+ResetPassword.propTypes = {
+  formData: PropTypes.shape({
+    newPassword: PropTypes.string,
+    validatePassword: PropTypes.string,
+  }).isRequired,
 };
 
 export default ResetPassword;

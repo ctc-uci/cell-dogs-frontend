@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 // import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { NavLink, useNavigate } from 'react-router-dom';
@@ -14,13 +14,24 @@ const schema = yup.object().shape({
   username: yup.string().required(),
   password: yup.string().min(4).max(18).required(),
 });
+// const Login = ({ setModalStep, onClose, info, setRender, render }) => {
+//   const [email, password] = useState({
+//     fullName: `${info.firstName} ${info.lastName}`,
+//     email: `${info.email}`,
+//     role: '',
+//   });
+// };
+// const formDataShape = {
+//   username: PropTypes.string.isRequired,
+//   password: PropTypes.string.isRequired,
+// };
 
 const LoginPage = () => {
   const emailRef = useRef();
   const passwordRef = useRef();
   const navigate = useNavigate();
   const [error, setError] = useState('');
-  const [loading, setLoading] = useState(true);
+  // const [loading, setLoading] = useState(true);
   const { currentUser, login } = useAuth();
   const loginUser = async event => {
     event.preventDefault();
@@ -41,9 +52,9 @@ const LoginPage = () => {
 
   const inputChange = () => {
     if (emailRef.current.value !== '' && passwordRef.current.value !== '') {
-      setLoading(false);
+      // setLoading(false);
     } else {
-      setLoading(true);
+      // setLoading(true);
     }
   };
 
@@ -96,7 +107,7 @@ const LoginPage = () => {
               onChange={inputChange}
             />
             <Button
-              isDisabled={loading}
+              // isDisabled={loading}
               className={styles['submit-button']}
               bg="CDSBlue1"
               color="white"
@@ -119,15 +130,27 @@ const LoginPage = () => {
   );
 };
 
-LoginPage.propTypes = {
-  schema: PropTypes.shape({
-    email: PropTypes.string,
-    password: PropTypes.string,
-  }).isRequired,
-  // loginUser: PropTypes.func.isRequired,
-  // setRender: PropTypes.func.isRequired,
-  // render: PropTypes.bool.isRequired,
-};
+// LoginPage.propTypes = {
+//   formData: PropTypes.shape({
+//     username: PropTypes.string,
+//     password: PropTypes.string,
+//   }).isRequired,
+// }
+
+// LoginPage.propTypes = {
+//   formData: PropTypes.shape({
+//     username: PropTypes.string,
+//     password: PropTypes.string,
+//   }).isRequired,
+// currentUser: PropTypes.func.isRequired,
+// setRender: PropTypes.func.isRequired,
+// render: PropTypes.bool.isRequired,
+// };
+
+// LoginPage.propTypes = {
+//   formData: PropTypes.shape(formDataShape).isRequired,
+//   currentUser: PropTypes.func.isRequired,
+// };
 
 // EditUser.propTypes = {
 //   setModalStep: PropTypes.func.isRequired,
