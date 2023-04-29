@@ -298,7 +298,7 @@ const ViewMore = () => {
                       disabled={!editable}
                       value={title}
                       onChange={e => setTitle(e.target.value)}
-                      marginTop="-0.3rem"
+                      // marginTop="-0.3rem"
                     />
                   </div>
                 </div>

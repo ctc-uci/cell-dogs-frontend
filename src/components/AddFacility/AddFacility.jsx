@@ -188,57 +188,104 @@ const AddFacility = () => {
         <div className="pointsOfContactContainerInAdd">
           <div className="pointsOfContact">
             <h1 className="POCText">Points of Contact</h1>
-            <Button
-              size="sm"
-              colorScheme="gray"
-              color="--cds-grey-1"
-              onClick={e => onAddBtnClick(e)}
-            >
-              Add Another Point of Contact
-            </Button>
+            {isLargerThan768 && (
+              <Button
+                size="sm"
+                colorScheme="gray"
+                color="--cds-grey-1"
+                onClick={e => onAddBtnClick(e)}
+              >
+                Add Another Point of Contact
+              </Button>
+            )}
           </div>
 
           {/* Map the Elements inside of the list*/}
           {pocList.map((item, index) => (
             <>
-              <div className="pocRow1">
-                <div className="pocName">
-                  <h3>Name</h3>
-                  <div className="pocNameInput">
-                    {PocElement({ index: index, name: 'name', holder: 'Jane Doe' })}
+              {isLargerThan768 && (
+                <div>
+                  <div className="pocRow1">
+                    <div className="pocName">
+                      <h3>Name</h3>
+                      <div className="pocNameInput">
+                        {PocElement({ index: index, name: 'name', holder: 'Jane Doe' })}
+                      </div>
+                    </div>
+                    <div className="pocTitle">
+                      <h3>Title</h3>
+                      <div className="pocTitleInput">
+                        {PocElement({ index: index, name: 'title', holder: 'Programs Officer' })}
+                      </div>
+                    </div>
+                  </div>
+                  <div className="pocRow2">
+                    <div className="pocPhoneNumber">
+                      <h3>Phone Number</h3>
+                      <div className="pocPhoneNumberInput">
+                        {PocElement({ index: index, name: 'phone', holder: '123-456-7890' })}
+                      </div>
+                    </div>
+                    <div className="pocEmail">
+                      <h3>Email</h3>
+                      <div className="pocEmailInput">
+                        {PocElement({ index: index, name: 'email', holder: 'email@uci.edu' })}
+                      </div>
+                    </div>
                   </div>
                 </div>
-                <div className="pocTitle">
-                  <h3>Title</h3>
-                  <div className="pocTitleInput">
-                    {PocElement({ index: index, name: 'title', holder: 'Programs Officer' })}
+              )}
+              {!isLargerThan768 && (
+                <div>
+                  <div className="pocName">
+                    <h3>Name</h3>
+                    <div className="pocNameInput">
+                      {PocElement({ index: index, name: 'name', holder: 'Jane Doe' })}
+                    </div>
+                  </div>
+                  <div className="pocTitle">
+                    <h3>Title</h3>
+                    <div className="pocTitleInput">
+                      {PocElement({ index: index, name: 'title', holder: 'Programs Officer' })}
+                    </div>
+                  </div>
+                  <div className="pocPhoneNumber">
+                    <h3>Phone Number</h3>
+                    <div className="pocPhoneNumberInput">
+                      {PocElement({ index: index, name: 'phone', holder: '123-456-7890' })}
+                    </div>
+                  </div>
+                  <div className="pocEmail">
+                    <h3>Email</h3>
+                    <div className="pocEmailInput">
+                      {PocElement({ index: index, name: 'email', holder: 'email@uci.edu' })}
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div className="pocRow2">
-                <div className="pocPhoneNumber">
-                  <h3>Phone Number</h3>
-                  <div className="pocPhoneNumberInput">
-                    {PocElement({ index: index, name: 'phone', holder: '123-456-7890' })}
-                  </div>
-                </div>
-                <div className="pocEmail">
-                  <h3>Email</h3>
-                  <div className="pocEmailInput">
-                    {PocElement({ index: index, name: 'email', holder: 'email@uci.edu' })}
-                  </div>
-                </div>
-              </div>
+              )}
             </>
           ))}
         </div>
+        {!isLargerThan768 && (
+          <Flex justify="center">
+            <Button
+              width="85%"
+              colorScheme="gray"
+              color="--cds-grey-1"
+              onClick={e => onAddBtnClick(e)}
+              marginBottom="3rem"
+            >
+              + Add Contact
+            </Button>
+          </Flex>
+        )}
       </Box>
       <Flex>
         {!isLargerThan768 && (
           <div className="bottomEditButtonInAdd">
             <Flex width="100%" justifyContent="center" gap="2rem" marginBottom="10px">
               <Button
-                width="37%"
+                width="37.75%"
                 size="sm"
                 color="gray"
                 variant="outline"
@@ -248,7 +295,7 @@ const AddFacility = () => {
                 Cancel
               </Button>
               <Button
-                width="37%"
+                width="37.75%"
                 className="saveButton"
                 size="sm"
                 backgroundColor="#21307A"

@@ -17,6 +17,10 @@
   margin-top: 30px;
 }
 
+.pocTitle {
+  margin-top: -0.05rem;
+}
+
 .mobileLower {
   margin-bottom: -50px;
 }
@@ -38,6 +42,14 @@
 }
 
 @media (max-width: 767px) {
+  .facilityNameInput {
+    margin-bottom: 0.5rem;
+  }
+
+  .addressInput {
+    margin-bottom: 0.5rem;
+  }
+
   .pointsOfContactContainer {
     margin-bottom: 90px;
   }
@@ -56,5 +68,21 @@
 
   .pocEmail {
     width: 100%;
+  }
+
+  .pocNameInput {
+    margin-bottom: 0.5rem;
+  }
+
+  .pocTitleInput {
+    margin-bottom: 0.5rem;
+  }
+
+  .pocPhoneNumberInput {
+    margin-bottom: 0.5rem;
+  }
+
+  .pocEmailInput {
+    margin-bottom: 0.5rem;
   }
 }

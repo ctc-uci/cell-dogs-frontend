@@ -154,10 +154,15 @@ img {
   position: fixed;
   bottom: 0;
   background-color: white;
+  padding: 5px;
 }
 
 @media (max-width: 767px) {
   .pointsOfContactContainerInAdd {
-    margin-bottom: 50px;
+    margin-bottom: 25px;
+  }
+
+  .nameInputInAdd {
+    margin-bottom: 0.5rem;
   }
 }
