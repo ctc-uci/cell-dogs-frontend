@@ -4,6 +4,7 @@ import {
   Box,
   Button,
   ButtonGroup,
+  Editable,
   Flex,
   Input,
   Modal,
@@ -19,8 +20,8 @@ import {
 } from '@chakra-ui/react';
 // import { AddIcon } from '@chakra-ui/icons';
 import { ArrowBackIcon, WarningIcon } from '@chakra-ui/icons';
-import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+// import PropTypes from 'prop-types';
+import React, { useState, useEffect } from 'react';
 import { BsPlusLg } from 'react-icons/bs';
 import { useLocation, useNavigate } from 'react-router-dom';
 import BreadcrumbBar from '../../components/BreadcrumbBar/BreadcrumbBar';
@@ -67,7 +68,56 @@ const ViewMore = () => {
   const [title, setTitle] = useState(state.title);
   const [phoneNumber, setPhoneNumber] = useState(state.phoneNumber);
   const [email, setEmail] = useState(state.email);
+  // Create the initial POC list
+  const [pocList, setPocList] = useState([]);
   const isLargerThan768 = screenWidthExceeds(768);
+
+  const handleGetPOCs = async () => {
+    const res = await backend.get(`/facilityContacts/${state.id}`);
+    console.log(res.data);
+    setPocList(() => {
+      const newValues = [];
+      for (let poc in res.data) {
+        newValues.push({
+          id: res.data[poc].id,
+          name: res.data[poc].name,
+          title: res.data[poc].title,
+          phone: res.data[poc].phone_number,
+          email: res.data[poc].email_address,
+          new: false,
+        });
+      }
+      return newValues;
+    });
+  };
+
+  useEffect(() => {
+    handleGetPOCs();
+  }, []);
+
+  // This is the the specific component we are updating inside of the list
+  const PocElement = ({ index, name, holder }) => {
+    const handleChange = event => {
+      const value = event.target.value;
+      setPocList(prevValues => {
+        const newValues = [...prevValues];
+        newValues[index] = {
+          ...newValues[index],
+          [name]: value,
+        };
+        return newValues;
+      });
+    };
+
+    return (
+      <Input
+        disabled={!editable}
+        placeholder={holder}
+        value={pocList[index][name]}
+        onChange={handleChange}
+      />
+    );
+  };
 
   const showFacilityName = () => {
     if (facilityName == '') {
@@ -83,6 +133,26 @@ const ViewMore = () => {
       description: notes,
     };
     await backend.put(`facility/${state.id}`, facilityData);
+    for (const poc of pocList) {
+      if (poc['new']) {
+        const pocData = {
+          facilityId: state.id,
+          name: poc['name'],
+          title: poc['title'],
+          phoneNumber: poc['phone'],
+          emailAddress: poc['email'],
+        };
+        await backend.post('/facilityContacts', pocData);
+      } else {
+        const pocData = {
+          name: poc['name'],
+          title: poc['title'],
+          phoneNumber: poc['phone'],
+          emailAddress: poc['email'],
+        };
+        await backend.put(`/facilityContacts/${poc['id']}`, pocData);
+      }
+    }
     setEditable(false);
   };
 
@@ -100,31 +170,59 @@ const ViewMore = () => {
             Are you sure you want to remove the facility from the adoption log? Once you delete
             them, there is no way of getting the information back
           </ModalBody>
-
-          <ModalFooter>
-            <Button
-              className="cancelButton"
-              width="250px"
-              size="sm"
-              color="--cds-blue-2"
-              variant="outline"
-              onClick={onClose}
-            >
-              Cancel
-            </Button>
-            <ButtonGroup variant="outline" spacing="6">
+          {isLargerThan768 && (
+            <ModalFooter width="100%" display="flex" justifyContent="space-between">
               <Button
-                className="deleteButton"
-                width="250px"
+                className="cancelButton"
+                // width="250px"
+                width="16rem"
                 size="sm"
-                bg="#21307a"
-                color="white"
-                onClick={() => handleConfirmDelete(state.id)}
+                color="--cds-blue-2"
+                variant="outline"
+                onClick={onClose}
               >
-                Yes, remove the facility
+                Cancel
               </Button>
-            </ButtonGroup>
-          </ModalFooter>
+              <ButtonGroup variant="outline" spacing="6">
+                <Button
+                  className="deleteButton"
+                  width="12rem"
+                  size="sm"
+                  bg="#21307a"
+                  color="white"
+                  onClick={() => handleConfirmDelete(state.id)}
+                >
+                  Yes, remove the facility
+                </Button>
+              </ButtonGroup>
+            </ModalFooter>
+          )}
+          {!isLargerThan768 && (
+            <ModalFooter width="100%" display="flex" flexDirection="column" gap="10px">
+              <ButtonGroup variant="outline" spacing="6" width="100%">
+                <Button
+                  className="deleteButton"
+                  size="sm"
+                  width="100%"
+                  bg="#21307a"
+                  color="white"
+                  onClick={() => handleConfirmDelete(state.id)}
+                >
+                  Yes, remove the facility
+                </Button>
+              </ButtonGroup>
+              <Button
+                className="cancelButton"
+                width="100%"
+                size="sm"
+                color="--cds-blue-2"
+                variant="outline"
+                onClick={onClose}
+              >
+                Cancel
+              </Button>
+            </ModalFooter>
+          )}
         </ModalContent>
       </Modal>
     );
@@ -151,6 +249,10 @@ const ViewMore = () => {
     } finally {
       setLoading(false);
     }
+  };
+
+  const onAddBtnClick = event => {
+    setPocList(prevList => [...prevList, { name: '', title: '', phone: '', email: '', new: true }]);
   };
 
   return (
@@ -193,7 +295,6 @@ const ViewMore = () => {
             {!editable && isLargerThan768 && (
               <>
                 <Button
-                  //width="62.5px"
                   size="sm"
                   color="#2D3748"
                   backgroundColor="#EDF2F7"
@@ -272,109 +373,88 @@ const ViewMore = () => {
             <h1 className="POCText">Points of Contact</h1>
             {isLargerThan768 && (
               <Button
+                disabled={!editable}
                 size="sm"
                 colorScheme="gray"
                 color="--cds-grey-1"
-                onClick={() => Navigate('/facilities')}
+                onClick={e => onAddBtnClick(e)}
+                isDisabled={!editable}
               >
                 Add Another Point of Contact
               </Button>
             )}
           </div>
-          {isLargerThan768 && (
-            <div>
-              <div className="pocRow1">
-                <div className="pocName">
-                  <h3>Name</h3>
-                  <div className="pocNameInput">
-                    <Input
-                      disabled={!editable}
-                      value={contactName}
-                      onChange={e => setContactName(e.target.value)}
-                    />
+          {/* Map the Elements inside of the list*/}
+          <div className="pocEntireThing">
+            {pocList.map((item, index) => (
+              <>
+                {isLargerThan768 && (
+                  <div>
+                    <div className="pocRow1">
+                      <div className="pocName">
+                        <h3>Name</h3>
+                        <div className="pocNameInput">
+                          {PocElement({ index: index, name: 'name', holder: 'Jane Doe' })}
+                        </div>
+                      </div>
+                      <div className="pocTitle">
+                        <h3>Title</h3>
+                        <div className="pocTitleInput">
+                          {PocElement({ index: index, name: 'title', holder: 'Programs Officer' })}
+                        </div>
+                      </div>
+                    </div>
+                    <div className="pocRow2">
+                      <div className="pocPhoneNumber">
+                        <h3>Phone Number</h3>
+                        <div className="pocPhoneNumberInput">
+                          {PocElement({ index: index, name: 'phone', holder: '123-456-7890' })}
+                        </div>
+                      </div>
+                      <div className="pocEmail">
+                        <h3>Email</h3>
+                        <div className="pocEmailInput">
+                          {PocElement({ index: index, name: 'email', holder: 'email@uci.edu' })}
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                </div>
-                <div className="pocTitle">
-                  <h3>Title</h3>
-                  <div className="pocTitleInput">
-                    <Input
-                      disabled={!editable}
-                      value={title}
-                      onChange={e => setTitle(e.target.value)}
-                      // marginTop="-0.3rem"
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="pocRow2">
-                <div className="pocPhoneNumber">
-                  <h3>Phone Number</h3>
-                  <div className="pocPhoneNumberInput">
-                    <Input
-                      disabled={!editable}
-                      value={phoneNumber}
-                      onChange={e => setPhoneNumber(e.target.value)}
-                    />
-                  </div>
-                </div>
-                <div className="pocEmail">
-                  <h3>Email</h3>
-                  <div className="pocEmailInput">
-                    <Input
-                      disabled={!editable}
-                      value={email}
-                      onChange={e => setEmail(e.target.value)}
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
-
-          {!isLargerThan768 && (
-            <div>
-              <div className="pocName">
-                <h3>Name</h3>
-                <div className="pocNameInput">
-                  <Input
-                    disabled={!editable}
-                    value={contactName}
-                    onChange={e => setContactName(e.target.value)}
-                  />
-                </div>
-              </div>
-              <div className="pocTitle">
-                <h3>Title</h3>
-                <div className="pocTitleInput">
-                  <Input
-                    disabled={!editable}
-                    value={title}
-                    onChange={e => setTitle(e.target.value)}
-                  />
-                </div>
-              </div>
-              <div className="pocPhoneNumber">
-                <h3>Phone Number</h3>
-                <div className="pocPhoneNumberInput">
-                  <Input
-                    disabled={!editable}
-                    value={phoneNumber}
-                    onChange={e => setPhoneNumber(e.target.value)}
-                  />
-                </div>
-              </div>
-              <div className="pocEmail">
-                <h3>Email</h3>
-                <div className="pocEmailInput">
-                  <Input
-                    disabled={!editable}
-                    value={email}
-                    onChange={e => setEmail(e.target.value)}
-                  />
-                </div>
-              </div>
-            </div>
-          )}
+                )}
+                {!isLargerThan768 && (
+                  <Flex
+                    flexDirection="column"
+                    borderBottom={index === pocList.length - 1 ? '' : '1px solid #c3cbdb'}
+                    marginBottom={index === pocList.length - 1 ? '' : '2rem'}
+                  >
+                    <div className="pocName">
+                      <h3>Name</h3>
+                      <div className="pocNameInput">
+                        {PocElement({ index: index, name: 'name', holder: 'Jane Doe' })}
+                      </div>
+                    </div>
+                    <div className="pocTitle">
+                      <h3>Title</h3>
+                      <div className="pocTitleInput">
+                        {PocElement({ index: index, name: 'title', holder: 'Programs Officer' })}
+                      </div>
+                    </div>
+                    <div className="pocPhoneNumber">
+                      <h3>Phone Number</h3>
+                      <div className="pocPhoneNumberInput">
+                        {PocElement({ index: index, name: 'phone', holder: '123-456-7890' })}
+                      </div>
+                    </div>
+                    <div className="pocEmail">
+                      <h3>Email</h3>
+                      <div className="pocEmailInput">
+                        {PocElement({ index: index, name: 'email', holder: 'email@uci.edu' })}
+                      </div>
+                    </div>
+                  </Flex>
+                )}
+              </>
+            ))}
+          </div>
 
           {!isLargerThan768 && (
             <Flex justify="center">
@@ -382,8 +462,9 @@ const ViewMore = () => {
                 width="85%"
                 colorScheme="gray"
                 color="--cds-grey-1"
-                onClick={() => Navigate('/facilities')}
+                onClick={e => onAddBtnClick(e)}
                 marginTop="2rem"
+                isDisabled={!editable}
               >
                 + Add Contact
               </Button>
@@ -454,10 +535,3 @@ const ViewMore = () => {
   );
 };
 export default ViewMore;
-
-// idk if this works lol
-ViewMore.propTypes = {
-  facilityName: PropTypes.string.isRequired,
-  address: PropTypes.string.isRequired,
-  notes: PropTypes.string.isRequired,
-};
