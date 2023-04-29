@@ -15,7 +15,7 @@ import {
   ModalOverlay,
   Textarea,
   useDisclosure,
-  useToast
+  useToast,
 } from '@chakra-ui/react';
 // import { AddIcon } from '@chakra-ui/icons';
 import { ArrowBackIcon } from '@chakra-ui/icons';
@@ -141,7 +141,7 @@ const ViewMore = () => {
         });
       }
 
-      response = await backend.delete(`/facilityContacts/${id}`)
+      response = await backend.delete(`/facilityContacts/${id}`);
       if (response.status === 200) {
         Navigate('/facilities');
       }
@@ -242,12 +242,11 @@ const ViewMore = () => {
             )}
           </div>
         </div>
-
         <h3>Facility Name</h3>
-        <div className="nameInput">
+        <div className="facilityNameInput">
           <Input
-            value={facilityName}
             disabled={!editable}
+            value={facilityName}
             onChange={e => setFacilityName(e.target.value)}
           />
         </div>
@@ -268,59 +267,125 @@ const ViewMore = () => {
         <div className="pointsOfContactContainer">
           <div className="pointsOfContact">
             <h1 className="POCText">Points of Contact</h1>
-            <Button
-              size="sm"
-              colorScheme="gray"
-              color="--cds-grey-1"
-              onClick={() => Navigate('/facilities')}
-            >
-              Add Another Point of Contact
-            </Button>
+            {isLargerThan768 && (
+              <Button
+                size="sm"
+                colorScheme="gray"
+                color="--cds-grey-1"
+                onClick={() => Navigate('/facilities')}
+              >
+                Add Another Point of Contact
+              </Button>
+            )}
           </div>
-          <div className="pocRow1">
-            <div className="pocName">
-              <h3>Name</h3>
-              <div className="pocNameInput">
-                <Input
-                  disabled={!editable}
-                  value={contactName}
-                  onChange={e => setContactName(e.target.value)}
-                />
+          {isLargerThan768 && (
+            <div>
+              <div className="pocRow1">
+                <div className="pocName">
+                  <h3>Name</h3>
+                  <div className="pocNameInput">
+                    <Input
+                      disabled={!editable}
+                      value={contactName}
+                      onChange={e => setContactName(e.target.value)}
+                    />
+                  </div>
+                </div>
+                <div className="pocTitle">
+                  <h3>Title</h3>
+                  <div className="pocTitleInput">
+                    <Input
+                      disabled={!editable}
+                      value={title}
+                      onChange={e => setTitle(e.target.value)}
+                      marginTop="-0.3rem"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className="pocRow2">
+                <div className="pocPhoneNumber">
+                  <h3>Phone Number</h3>
+                  <div className="pocPhoneNumberInput">
+                    <Input
+                      disabled={!editable}
+                      value={phoneNumber}
+                      onChange={e => setPhoneNumber(e.target.value)}
+                    />
+                  </div>
+                </div>
+                <div className="pocEmail">
+                  <h3>Email</h3>
+                  <div className="pocEmailInput">
+                    <Input
+                      disabled={!editable}
+                      value={email}
+                      onChange={e => setEmail(e.target.value)}
+                    />
+                  </div>
+                </div>
               </div>
             </div>
-            <div className="pocTitle">
-              <h3>Title</h3>
-              <div className="pocTitleInput">
-                <Input
-                  disabled={!editable}
-                  value={title}
-                  onChange={e => setTitle(e.target.value)}
-                />
+          )}
+
+          {!isLargerThan768 && (
+            <div>
+              <div className="pocName">
+                <h3>Name</h3>
+                <div className="pocNameInput">
+                  <Input
+                    disabled={!editable}
+                    value={contactName}
+                    onChange={e => setContactName(e.target.value)}
+                  />
+                </div>
+              </div>
+              <div className="pocTitle">
+                <h3>Title</h3>
+                <div className="pocTitleInput">
+                  <Input
+                    disabled={!editable}
+                    value={title}
+                    onChange={e => setTitle(e.target.value)}
+                  />
+                </div>
+              </div>
+              <div className="pocPhoneNumber">
+                <h3>Phone Number</h3>
+                <div className="pocPhoneNumberInput">
+                  <Input
+                    disabled={!editable}
+                    value={phoneNumber}
+                    onChange={e => setPhoneNumber(e.target.value)}
+                  />
+                </div>
+              </div>
+              <div className="pocEmail">
+                <h3>Email</h3>
+                <div className="pocEmailInput">
+                  <Input
+                    disabled={!editable}
+                    value={email}
+                    onChange={e => setEmail(e.target.value)}
+                  />
+                </div>
               </div>
             </div>
-          </div>
-          <div className="pocRow2">
-            <div className="pocPhoneNumber">
-              <h3>Phone Number</h3>
-              <div className="pocPhoneNumberInput">
-                <Input
-                  disabled={!editable}
-                  value={phoneNumber}
-                  onChange={e => setPhoneNumber(e.target.value)}
-                />
-              </div>
-            </div>
-            <div className="pocEmail">
-              <h3>Email</h3>
-              <div className="pocEmailInput">
-                <Input
-                  disabled={!editable}
-                  value={email}
-                  onChange={e => setEmail(e.target.value)}
-                />
-              </div>
-            </div>
-          </div>
+          )}
+
+          {!isLargerThan768 && (
+            <Flex justify="center">
+              <Button
+                width="85%"
+                colorScheme="gray"
+                color="--cds-grey-1"
+                onClick={() => Navigate('/facilities')}
+                marginTop="2rem"
+              >
+                + Add Contact
+              </Button>
+            </Flex>
+          )}
         </div>
       </Box>
       <Flex justifyContent="center">

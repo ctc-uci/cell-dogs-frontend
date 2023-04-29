@@ -37,8 +37,24 @@
   background-color: white;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .pointsOfContactContainer {
     margin-bottom: 90px;
+  }
+
+  .pocName {
+    width: 100%;
+  }
+
+  .pocTitle {
+    width: 100%;
+  }
+
+  .pocPhoneNumber {
+    width: 100%;
+  }
+
+  .pocEmail {
+    width: 100%;
   }
 }
