@@ -40,6 +40,7 @@ const AddFacility = () => {
           ...newValues[index],
           [name]: value,
         }
+        return newValues
       })
     }
 
@@ -64,7 +65,6 @@ const AddFacility = () => {
     };
     const facility = await backend.post(`/facility`, facilityData);
     console.log(facility)
-    console.log(facility.data.id)
     for (const poc of pocList){
       const pocData = {
         facilityId: facility.data[0].id,
@@ -205,31 +205,31 @@ const AddFacility = () => {
         {/* Map the Elements inside of the list*/}
         {pocList.map((item,index) => (
           <>
-          <div className="pocRow1" key={index}>
+          <div className="pocRow1">
           <div className="pocName">
             <h3>Name</h3>
             <div className="pocNameInput">
-              <PocElement index={index} name='name' holder='Jane Doe'/>
+              {PocElement({index:index, name:'name', holder:'Jane Doe'})}
             </div>
           </div>
           <div className="pocTitle">
             <h3>Title</h3>
             <div className="pocTitleInput">
-              <PocElement index={index} name="title" holder='Programs Officer'/>
+            {PocElement({index:index, name:'title', holder:'Programs Officer'})}
             </div>
           </div>
         </div>
-        <div className="pocRow2">
+        <div className="pocRow2" >
           <div className="pocPhoneNumber">
             <h3>Phone Number</h3>
             <div className="pocPhoneNumberInput">
-              <PocElement index={index} name="phone" holder="(123)456-7890" />
+            {PocElement({index:index, name:'phone', holder:'123-456-7890'})}
             </div>
           </div>
-          <div className="pocEmail">
+          <div className="pocEmail" >
             <h3>Email</h3>
             <div className="pocEmailInput">
-              <PocElement index={index} name="email" holder="email@uci.edu" />
+            {PocElement({index:index, name:'email', holder:'email@uci.edu'})}
             </div>
           </div>
         </div>
