@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, Icon, HStack, Box } from '@chakra-ui/react';
+import { Avatar, Text, Icon, HStack, Box, Flex } from '@chakra-ui/react';
 import { BsPersonFill } from 'react-icons/bs';
 import { AiOutlineInfoCircle } from 'react-icons/ai';
 import EditUserModal from './EditUserModal';
@@ -24,9 +24,12 @@ const CellStructure = (setRender, render, isMobile) => {
       }),
 
       Cell: props => (
-        <Text>
-          {props.value.firstName} {props.value.lastName}
-        </Text>
+        <Flex>
+          <Avatar marginRight="24px" />
+          <Text>
+            {props.value.firstName} {props.value.lastName}
+          </Text>
+        </Flex>
       ),
     },
     {

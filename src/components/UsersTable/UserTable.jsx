@@ -3,6 +3,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { useTable, usePagination } from 'react-table';
 import {
+  Avatar,
   Table,
   Tr,
   Td,
@@ -129,10 +130,13 @@ const UserPageTable = () => {
             return (
               <Card boxShadow="dark-lg" m={6} size="md" p="4" rounded="md" bg="white">
                 <CardHeader>
-                  <Heading>
-                    {user.firstName} {user.lastName}
-                  </Heading>
-                  <Text>{user.admin}</Text>
+                  <Flex direction="row" spacing={4}>
+                    <Heading>
+                      <Avatar marginRight="24px" />
+                      {user.firstName} {user.lastName}
+                    </Heading>
+                    <Text>{user.admin}</Text>
+                  </Flex>
                 </CardHeader>
 
                 <CardBody>
