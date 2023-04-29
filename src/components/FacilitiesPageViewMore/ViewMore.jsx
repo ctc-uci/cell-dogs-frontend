@@ -18,7 +18,7 @@ import {
   useToast,
 } from '@chakra-ui/react';
 // import { AddIcon } from '@chakra-ui/icons';
-import { ArrowBackIcon } from '@chakra-ui/icons';
+import { ArrowBackIcon, WarningIcon } from '@chakra-ui/icons';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { BsPlusLg } from 'react-icons/bs';
@@ -91,7 +91,10 @@ const ViewMore = () => {
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Remove Facility</ModalHeader>
+          <Flex flexDirection="column" justifyContent="center" alignItems="center">
+            <WarningIcon w="2rem" h="2rem" color="red.500" marginTop="2rem" />
+            <ModalHeader>Remove Facility</ModalHeader>
+          </Flex>
           <ModalCloseButton />
           <ModalBody>
             Are you sure you want to remove the facility from the adoption log? Once you delete
