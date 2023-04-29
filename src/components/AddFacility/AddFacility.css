@@ -148,3 +148,16 @@ img {
 .backButton {
   align-self: flex-start;
 }
+
+.bottomEditButtonInAdd {
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  background-color: white;
+}
+
+@media (max-width: 767px) {
+  .pointsOfContactContainerInAdd {
+    margin-bottom: 50px;
+  }
+}

@@ -435,7 +435,8 @@ const ViewMore = () => {
                   width="37%"
                   className="saveButton"
                   size="sm"
-                  colorScheme="blue"
+                  backgroundColor="#21307A"
+                  color="white"
                   variant="solid"
                   onClick={() => saveFacility()}
                 >
