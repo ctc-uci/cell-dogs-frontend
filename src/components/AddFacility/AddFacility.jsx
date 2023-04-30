@@ -1,7 +1,23 @@
 /* eslint-disable */
-import { Box, Button, Flex, Input, Textarea, useDisclosure, useToast } from '@chakra-ui/react';
+import {
+  Box,
+  Button,
+  ButtonGroup,
+  Flex,
+  Input,
+  Textarea,
+  useDisclosure,
+  useToast,
+  Modal,
+  ModalCloseButton,
+  ModalBody,
+  ModalOverlay,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+} from '@chakra-ui/react';
 // import { AddIcon } from '@chakra-ui/icons';
-import { ArrowBackIcon } from '@chakra-ui/icons';
+import { ArrowBackIcon, WarningIcon } from '@chakra-ui/icons';
 import React, { useState } from 'react';
 import { BsPlusLg } from 'react-icons/bs';
 import { useNavigate } from 'react-router-dom';
@@ -23,6 +39,7 @@ const AddFacility = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [loading, setLoading] = useState(false);
   const isLargerThan768 = screenWidthExceeds(768);
+  const cancelDisclosure = useDisclosure({ id: 'cancel-modal' });
 
   // This is the the specific component we are updating inside of the list
   const PocElement = ({ index, name, holder }) => {
@@ -105,6 +122,78 @@ const AddFacility = () => {
     setPocList(prevList => [...prevList, { name: '', title: '', phone: '', email: '' }]);
   };
 
+  function ShowCancelModal({ isOpen, onClose }) {
+    return (
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <Flex flexDirection="column" justifyContent="center" alignItems="center">
+            <WarningIcon w="2rem" h="2rem" color="red.500" marginTop="2rem" />
+            <ModalHeader>Changes not saved!</ModalHeader>
+          </Flex>
+          <ModalCloseButton />
+          <ModalBody>
+            Are you sure you want to discard all changes made? By clicking 'Discard all changes' you
+            will be sent back to the facilities page.
+          </ModalBody>
+          {isLargerThan768 && (
+            <ModalFooter width="100%" display="flex" justifyContent="space-between">
+              <Button
+                className="cancelButton"
+                // width="250px"
+                width="16rem"
+                size="sm"
+                color="--cds-blue-2"
+                variant="outline"
+                onClick={onClose}
+              >
+                Cancel
+              </Button>
+              <ButtonGroup variant="outline" spacing="6">
+                <Button
+                  className="deleteButton"
+                  width="12rem"
+                  size="sm"
+                  bg="#21307a"
+                  color="white"
+                  onClick={() => Navigate('/facilities')}
+                >
+                  Discard all changes
+                </Button>
+              </ButtonGroup>
+            </ModalFooter>
+          )}
+          {!isLargerThan768 && (
+            <ModalFooter width="100%" display="flex" flexDirection="column" gap="10px">
+              <ButtonGroup variant="outline" spacing="6" width="100%">
+                <Button
+                  className="deleteButton"
+                  size="sm"
+                  width="100%"
+                  bg="#21307a"
+                  color="white"
+                  onClick={() => Navigate('/facilities')}
+                >
+                  Discard all changes
+                </Button>
+              </ButtonGroup>
+              <Button
+                className="cancelButton"
+                width="100%"
+                size="sm"
+                color="--cds-blue-2"
+                variant="outline"
+                onClick={onClose}
+              >
+                Cancel
+              </Button>
+            </ModalFooter>
+          )}
+        </ModalContent>
+      </Modal>
+    );
+  }
+
   return (
     <Box>
       <BreadcrumbBar left="Facilities > New Facility">
@@ -144,10 +233,16 @@ const AddFacility = () => {
                 size="sm"
                 color="--cds-blue-2"
                 variant="outline"
-                onClick={() => Navigate('/facilities')}
+                onClick={cancelDisclosure.onOpen}
               >
                 Cancel
               </Button>
+
+              <ShowCancelModal
+                isOpen={cancelDisclosure.isOpen}
+                onClose={cancelDisclosure.onClose}
+              />
+
               <Button
                 className="saveButton"
                 width="250px"
@@ -236,7 +331,11 @@ const AddFacility = () => {
                 </div>
               )}
               {!isLargerThan768 && (
-                <div>
+                <Flex
+                  flexDirection="column"
+                  borderBottom={index === pocList.length - 1 ? '' : '1px solid #c3cbdb'}
+                  marginBottom={index === pocList.length - 1 ? '' : '2rem'}
+                >
                   <div className="pocName">
                     <h3>Name</h3>
                     <div className="pocNameInput">
@@ -261,7 +360,7 @@ const AddFacility = () => {
                       {PocElement({ index: index, name: 'email', holder: 'email@uci.edu' })}
                     </div>
                   </div>
-                </div>
+                </Flex>
               )}
             </>
           ))}
@@ -289,11 +388,17 @@ const AddFacility = () => {
                 size="sm"
                 color="gray"
                 variant="outline"
-                onClick={() => Navigate('/facilities')}
+                onClick={cancelDisclosure.onOpen}
                 backgroundColor="white"
               >
                 Cancel
               </Button>
+
+              <ShowCancelModal
+                isOpen={cancelDisclosure.isOpen}
+                onClose={cancelDisclosure.onClose}
+              />
+
               <Button
                 width="37.75%"
                 className="saveButton"
