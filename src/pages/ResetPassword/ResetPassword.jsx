@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 // import * as yup from 'yup';
 import { Input, Stack, Button, Text } from '@chakra-ui/react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { useAuth } from '../../contexts/AuthContext';
 
 import cellDogsLogoHorizontal4 from '../../assets/CellDogs_logo_horizontal-4.png';
@@ -129,11 +129,11 @@ const ResetPassword = ({ newPassword, validatePassword }) => {
   );
 };
 
-ResetPassword.propTypes = {
+/* ResetPassword.propTypes = {
   formData: PropTypes.shape({
     newPassword: PropTypes.string,
     validatePassword: PropTypes.string,
   }).isRequired,
-};
+}; */
 
 export default ResetPassword;
