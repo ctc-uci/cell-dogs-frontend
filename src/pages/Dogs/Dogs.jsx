@@ -29,6 +29,15 @@ const Dogs = () => {
   const [dogs, setDogs] = useState([]);
   const [checkedDogs, setCheckedDogs] = useState([]);
 
+  const getCheckedDogs = checkedDog => {
+    if (checkedDogs.includes(checkedDog)) {
+      setCheckedDogs(checkedDogs.filter(i => i != checkedDog));
+    } else {
+      setCheckedDogs([...checkedDogs, checkedDog]);
+    }
+    console.log(checkedDogs);
+  };
+
   const getFacilities = async () => {
     try {
       const res = await backend.get('/facility');
@@ -69,7 +78,7 @@ const Dogs = () => {
   }, []);
 
   const dogsLen = dogs.length;
-  console.log('Dogs: ', checkedDogs);
+  // console.log('Dogs: ', checkedDogs);
 
   return (
     <div>
@@ -112,8 +121,7 @@ const Dogs = () => {
               tableId={facility.id}
               data={dogs}
               filter={filter}
-              setCheckedDogs={setCheckedDogs}
-              checkedDogs={checkedDogs}
+              getCheckedDogs={getCheckedDogs}
             />
           ))}
       {view === 'card' && !isLargerThan768 && (

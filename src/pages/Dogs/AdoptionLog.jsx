@@ -22,22 +22,23 @@ import styles from './AdoptionLog.module.css';
 const AdoptionLog = props => {
   const Navigate = useNavigate();
   const { backend } = useBackend();
-  const { filter, tableName, tableId, data, setCheckedDogs, checkedDogs } = props;
-  const [checked, setChecked] = useState(data.map(() => false));
-  // const [checkedDogs, setCheckedDogs] = useState([]);
-  const [allChecked, setAllChecked] = useState(checked.every(Boolean));
-  const isIndeterminate = checked.some(Boolean) && !allChecked;
+  const { filter, tableName, tableId, data, getCheckedDogs } = props;
 
   const [copyEmails, setCopyEmails] = useState(new Set());
 
   const filteredDogs = data.filter(
     dogs =>
-      dogs[filter] == true ||
-      filter == '' ||
-      filter == 'all' ||
-      (filter == 'allMales' && dogs.gender == 'Male') ||
-      (filter == 'allFemales' && dogs.gender == 'Female'),
+      (dogs[filter] == true ||
+        filter == '' ||
+        filter == 'all' ||
+        (filter == 'allMales' && dogs.gender == 'Male') ||
+        (filter == 'allFemales' && dogs.gender == 'Female')) &&
+      dogs.facilityid == tableId,
   );
+
+  const [checked, setChecked] = useState(filteredDogs.map(() => false));
+  const [allChecked, setAllChecked] = useState(checked.every(Boolean));
+  const isIndeterminate = checked.some(Boolean) && checked.includes(false);
 
   const handleViewMore = dogid => {
     Navigate(`/dog/${dogid}`);
@@ -50,6 +51,17 @@ const AdoptionLog = props => {
 
   const handleCopyEmail = () => {
     navigator.clipboard.writeText([...copyEmails].join(', '));
+  };
+
+  const handleAllDogSelection = e => {
+    setChecked(filteredDogs.map(() => e.target.checked));
+
+    const allDogs = JSON.parse(e.target.value);
+
+    allDogs.map(dog => {
+      getCheckedDogs(JSON.stringify(dog));
+      console.log(JSON.stringify(dog));
+    });
   };
 
   const calculateDogAgeAtGraduation = (graduationDate, currentAge) => {
@@ -94,10 +106,6 @@ const AdoptionLog = props => {
       altname,
     } = dog;
 
-    if (facilityid !== tableId) {
-      return null;
-    }
-
     const dogName = dogname;
     const gradAge = calculateDogAgeAtGraduation(graddate, age);
     const facility = shelter;
@@ -110,17 +118,9 @@ const AdoptionLog = props => {
       setCopyEmails(copyEmails => new Set([...copyEmails, email]));
     }, [email]);
 
-    const handleDogSelection = e => {
-      console.log(e.target.value);
+    const handleDogSelection = (e, index) => {
       setChecked([...checked.slice(0, index), e.target.checked, ...checked.slice(index + 1)]);
-      console.log('test');
-      let updateDogsList = [...checkedDogs];
-      if (e.target.checked) {
-        updateDogsList = [...checkedDogs, e.target.value];
-      } else {
-        updateDogsList.splice(checkedDogs.indexOf(e.target.value), 1);
-      }
-      setCheckedDogs(updateDogsList);
+      getCheckedDogs(e.target.value);
     };
 
     return (
@@ -128,7 +128,7 @@ const AdoptionLog = props => {
         <Td>
           <Checkbox
             isChecked={checked[index]}
-            onChange={e => handleDogSelection(e)}
+            onChange={e => handleDogSelection(e, index)}
             value={JSON.stringify(dog)}
           />
         </Td>
@@ -196,9 +196,10 @@ const AdoptionLog = props => {
               <Tr>
                 <Th>
                   <Checkbox
-                    isChecked={allChecked}
+                    isChecked={!checked.includes(false)}
                     isIndeterminate={isIndeterminate}
-                    onChange={e => setChecked(data.map(() => e.target.checked))}
+                    onChange={e => handleAllDogSelection(e)}
+                    value={JSON.stringify(filteredDogs)}
                   />
                 </Th>
                 <Th>Dog Name</Th>

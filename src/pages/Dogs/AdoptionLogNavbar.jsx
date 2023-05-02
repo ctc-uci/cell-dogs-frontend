@@ -20,8 +20,7 @@ const AdoptionLogNavbar = ({
   // const [filter, setFilter] = useState(false);
   const [facilities, setFacilities] = useState('');
   const [selectAll, setSelectAll] = useState(false);
-  const [exportData, setExportData] = useState([]);
-
+  // console.log(JSON.parse('[' + checkedDogs.join(', ') + ']'));
   function handleViewToggle(viewType) {
     setView(viewType);
     return viewType;
@@ -36,11 +35,6 @@ const AdoptionLogNavbar = ({
   useEffect(() => {
     getFacilities();
   }, []);
-
-  if (checkedDogs.length > 0) {
-    console.log(checkedDogs);
-    console.log('Navbar', JSON.parse(checkedDogs), typeof JSON.parse(checkedDogs));
-  }
 
   return (
     <div className={styles.navbarContainer}>
@@ -118,26 +112,16 @@ const AdoptionLogNavbar = ({
           <Button size="md" onClick={() => setSelectAll(true)} style={{ marginRight: '10px' }}>
             Select All
           </Button>
-          <Button
-            size="md"
-            aria-label="Export"
-            rightIcon={<DownloadIcon />}
-            onClick={() => setExportData()}
-          >
-            {checkedDogs.length > 0 ? (
-              <CSVLink data={JSON.parse(checkedDogs)} filename="Cell_Dogs_Adoption_Log.csv">
-                Export
-              </CSVLink>
-            ) : (
+          {
+            <Button size="md" aria-label="Export" rightIcon={<DownloadIcon />}>
               <CSVLink
-                data={['dog']}
+                data={JSON.parse('[' + checkedDogs.join(', ') + ']')}
                 filename="Cell_Dogs_Adoption_Log.csv"
-                disabled={checkedDogs.length === 0}
               >
                 Export
               </CSVLink>
-            )}
-          </Button>
+            </Button>
+          }
         </div>
       </div>
     </div>
