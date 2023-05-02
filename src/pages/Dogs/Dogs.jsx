@@ -27,6 +27,7 @@ const Dogs = () => {
   const [filter, setFilter] = useState('');
   const [searchDog, setSearchDog] = useState('');
   const [dogs, setDogs] = useState([]);
+  const [checkedDogs, setCheckedDogs] = useState([]);
 
   const getFacilities = async () => {
     try {
@@ -68,6 +69,7 @@ const Dogs = () => {
   }, []);
 
   const dogsLen = dogs.length;
+  console.log('Dogs: ', checkedDogs);
 
   return (
     <div>
@@ -95,6 +97,7 @@ const Dogs = () => {
         setFacilityFilter={setFacilityFilter}
         setSearchDog={setSearchDog}
         searchDog={searchDog}
+        checkedDogs={checkedDogs}
       />
       {view === 'table' &&
         data
@@ -109,6 +112,8 @@ const Dogs = () => {
               tableId={facility.id}
               data={dogs}
               filter={filter}
+              setCheckedDogs={setCheckedDogs}
+              checkedDogs={checkedDogs}
             />
           ))}
       {view === 'card' && !isLargerThan768 && (

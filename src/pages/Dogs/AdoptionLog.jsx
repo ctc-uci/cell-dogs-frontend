@@ -12,7 +12,7 @@ import {
   Thead,
   Tr,
 } from '@chakra-ui/react';
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useBackend } from '../../contexts/BackendContext';
 import ShowTags from '../AddDog/ShowTags';
@@ -22,9 +22,9 @@ import styles from './AdoptionLog.module.css';
 const AdoptionLog = props => {
   const Navigate = useNavigate();
   const { backend } = useBackend();
-  const { filter, tableName, tableId, searchDog, data, changeNumDogs } = props;
+  const { filter, tableName, tableId, data, setCheckedDogs, checkedDogs } = props;
   const [checked, setChecked] = useState(data.map(() => false));
-  const [checkedDogs, setCheckedDogs] = useState({});
+  // const [checkedDogs, setCheckedDogs] = useState([]);
   const [allChecked, setAllChecked] = useState(checked.every(Boolean));
   const isIndeterminate = checked.some(Boolean) && !allChecked;
 
@@ -113,15 +113,14 @@ const AdoptionLog = props => {
     const handleDogSelection = e => {
       console.log(e.target.value);
       setChecked([...checked.slice(0, index), e.target.checked, ...checked.slice(index + 1)]);
-
-      var updateDogsList = [...checkedDogs];
+      console.log('test');
+      let updateDogsList = [...checkedDogs];
       if (e.target.checked) {
         updateDogsList = [...checkedDogs, e.target.value];
       } else {
         updateDogsList.splice(checkedDogs.indexOf(e.target.value), 1);
       }
       setCheckedDogs(updateDogsList);
-      console.log(updateDogsList);
     };
 
     return (
