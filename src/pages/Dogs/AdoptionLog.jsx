@@ -23,7 +23,6 @@ const AdoptionLog = props => {
   const Navigate = useNavigate();
   const { backend } = useBackend();
   const { filter, tableName, tableId, data, getCheckedDogs } = props;
-
   const [copyEmails, setCopyEmails] = useState(new Set());
 
   const filteredDogs = data.filter(
@@ -35,6 +34,15 @@ const AdoptionLog = props => {
         (filter == 'allFemales' && dogs.gender == 'Female')) &&
       dogs.facilityid == tableId,
   );
+
+  useEffect(() => {
+    if (filteredDogs.length > 0) {
+      setCopyEmails(new Set());
+    }
+    filteredDogs.map(dog => {
+      setCopyEmails(copyEmails => new Set([...copyEmails, dog.adoptemail]));
+    });
+  }, [filteredDogs]);
 
   const [checked, setChecked] = useState(filteredDogs.map(() => false));
   const [allChecked, setAllChecked] = useState(checked.every(Boolean));
@@ -59,7 +67,7 @@ const AdoptionLog = props => {
     const allDogs = JSON.parse(e.target.value);
 
     allDogs.map(dog => {
-      getCheckedDogs(JSON.stringify(dog));
+      getCheckedDogs(JSON.stringify(dog)); // this needs to be fixed
       console.log(JSON.stringify(dog));
     });
   };
@@ -113,10 +121,6 @@ const AdoptionLog = props => {
     const phoneNumber = adopterphone;
     const email = adoptemail;
     const address = `${addrline} ${adoptcity} ${adoptstate}`;
-
-    useEffect(() => {
-      setCopyEmails(copyEmails => new Set([...copyEmails, email]));
-    }, [email]);
 
     const handleDogSelection = (e, index) => {
       setChecked([...checked.slice(0, index), e.target.checked, ...checked.slice(index + 1)]);
@@ -175,51 +179,52 @@ const AdoptionLog = props => {
       </Tr>
     );
   };
-
-  return (
-    <div className={styles.adoptionLog}>
-      <div className={styles.tableHeader}>
-        <Heading as="lg" size="l">
-          {tableName}
-        </Heading>
-        <Button size="sm" variant="outline" onClick={() => handleSelectFacility()}>
-          Select Facility
-        </Button>
-        <Button size="sm" variant="outline" onClick={() => handleCopyEmail()}>
-          Copy Adopters&apos; Emails
-        </Button>
+  if (filteredDogs.length > 0) {
+    return (
+      <div className={styles.adoptionLog}>
+        <div className={styles.tableHeader}>
+          <Heading as="lg" size="l">
+            {tableName}
+          </Heading>
+          <Button size="sm" variant="outline" onClick={() => handleSelectFacility()}>
+            Select Facility
+          </Button>
+          <Button size="sm" variant="outline" onClick={() => handleCopyEmail()}>
+            Copy Adopters&apos; Emails
+          </Button>
+        </div>
+        <div className="table">
+          <TableContainer>
+            <Table className={styles.table} variant="simple" borderRadius="10">
+              <Thead backgroundColor="#F7FAFC">
+                <Tr>
+                  <Th>
+                    <Checkbox
+                      isChecked={!checked.includes(false)}
+                      isIndeterminate={isIndeterminate}
+                      onChange={e => handleAllDogSelection(e)}
+                      value={JSON.stringify(filteredDogs)}
+                    />
+                  </Th>
+                  <Th>Dog Name</Th>
+                  <Th>Tags</Th>
+                  <Th>Facility</Th>
+                  <Th>Adopter</Th>
+                  <Th>Contact Info</Th>
+                  <Th>Address</Th>
+                  <Th></Th>
+                </Tr>
+              </Thead>
+              <Tbody backgroundColor="#FDFDFD">
+                {filteredDogs.map((dog, index) => dogTableRow(dog, index))}
+                <Tr />
+              </Tbody>
+            </Table>
+          </TableContainer>
+        </div>
       </div>
-      <div className="table">
-        <TableContainer>
-          <Table className={styles.table} variant="simple" borderRadius="10">
-            <Thead backgroundColor="#F7FAFC">
-              <Tr>
-                <Th>
-                  <Checkbox
-                    isChecked={!checked.includes(false)}
-                    isIndeterminate={isIndeterminate}
-                    onChange={e => handleAllDogSelection(e)}
-                    value={JSON.stringify(filteredDogs)}
-                  />
-                </Th>
-                <Th>Dog Name</Th>
-                <Th>Tags</Th>
-                <Th>Facility</Th>
-                <Th>Adopter</Th>
-                <Th>Contact Info</Th>
-                <Th>Address</Th>
-                <Th></Th>
-              </Tr>
-            </Thead>
-            <Tbody backgroundColor="#FDFDFD">
-              {filteredDogs.map((dog, index) => dogTableRow(dog, index))}
-              <Tr />
-            </Tbody>
-          </Table>
-        </TableContainer>
-      </div>
-    </div>
-  );
+    );
+  }
 };
 
 export default AdoptionLog;
