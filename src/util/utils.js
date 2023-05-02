@@ -60,7 +60,6 @@ const isDate = str => {
     //!/\d{4}-\d{2}-\d{2}/.test(ISOString)
     if (!/\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d{3}Z/.test(ISOString)) return false;
     const d = new Date(ISOString);
-    console.log(d.toISOString());
     return d.toISOString() === ISOString;
   } catch (err) {
     return false;
