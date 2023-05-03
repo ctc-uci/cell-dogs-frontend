@@ -8,6 +8,7 @@ import {
   ButtonGroup,
   Flex,
   FormControl,
+  FormErrorMessage,
   FormLabel,
   Heading,
   Input,
@@ -26,7 +27,7 @@ import { useNavigate } from 'react-router-dom';
 import UploadAvatar from '../../components/UploadAvatar/UploadAvatar';
 import { useBackend } from '../../contexts/BackendContext';
 import './AddDog.css';
-import { AddDogSchema } from './AddDog.schema';
+import AddDogSchema from './AddDog.schema';
 import ShowTags from './ShowTags';
 
 const AddDog = () => {
@@ -118,16 +119,24 @@ const AddDog = () => {
     return convertedDate;
   };
 
-  const AddDog = ({ setModalStep, onClose, info, setRender, render }) => {
-    const {
-      register,
-      handleSubmit,
-      formState: { errors },
-      reset,
-    } = useForm({
-      resolver: yupResolver(AddDogSchema),
-    });
-  };
+  // const AddDog = ({ setModalStep, onClose, info, setRender, render }) => {
+  //   const {
+  //     register,
+  //     handleSubmit,
+  //     formState: { errors },
+  //     reset,
+  //   } = useForm({
+  //     resolver: yupResolver(AddDogSchema),
+  //   });
+  // };
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm({
+    resolver: yupResolver(AddDogSchema),
+  });
 
   const saveAllChanges = async () => {
     const service = serviceTag;
@@ -205,7 +214,7 @@ const AddDog = () => {
   }, []);
   return (
     <div>
-      <form onSubmit={handleSubmit(onSubmitHandler)}>
+      <form onSubmit={handleSubmit(saveAllChanges)}>
         {/* <Location /> */}
         <div className="breadcrumbAndAdd">
           <div className="breadcrumb">
@@ -330,7 +339,7 @@ const AddDog = () => {
             <Heading as="h2" fontSize="24px">
               Dog Info
             </Heading>
-            <FormControl>
+            <FormControl isInvalid={errors?.altname}>
               <FormLabel>Alternate Name</FormLabel>
               <Input
                 type="text"
@@ -341,6 +350,7 @@ const AddDog = () => {
                   setAltName(e.target.value);
                 }}
               />
+              <FormErrorMessage>{errors?.altname && errors?.altname?.message}</FormErrorMessage>
             </FormControl>
             <FormControl>
               <FormLabel>Breed</FormLabel>

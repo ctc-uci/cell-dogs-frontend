@@ -9,6 +9,7 @@ import {
   Flex,
   FormControl,
   FormLabel,
+  Heading,
   Input,
   Menu,
   MenuButton,
@@ -27,7 +28,7 @@ import UploadAvatar from '../../components/UploadAvatar/UploadAvatar';
 import { useBackend } from '../../contexts/BackendContext';
 import ShowTags from '../AddDog/ShowTags.jsx';
 import './ViewDog.css';
-import { ViewDogSchema } from './ViewDog.schema';
+import ViewDogSchema from './ViewDog.schema';
 
 const ViewDog = () => {
   const { id: dogId } = useParams();
@@ -131,32 +132,30 @@ const ViewDog = () => {
     Navigate('/');
   };
 
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm({
+    resolver: yupResolver(ViewDogSchema),
+  });
+
   const saveAllChanges = async () => {
     await backend.put(`dog/${dogId}`, dog).catch(function (err) {
       console.log(err);
     });
     setEditable(!editable);
     setShowButtons(!showButtons);
-    console.log(dog);
-  };
-
-  const ViewDogYup = ({ setModalStep, onClose, info, setRender, render }) => {
-    const {
-      register,
-      handleSubmit,
-      formState: { errors },
-      reset,
-    } = useForm({
-      resolver: yupResolver(ViewDogSchema),
-    });
   };
 
   useEffect(() => {
     getFacilities();
   }, []);
+
   return (
     <div>
-      <form onSubmit={handleSubmit(onSubmitHandler)}>
+      <form onSubmit={handleSubmit(handleEditButton)}>
         {/* <Location /> */}
         <div className="breadcrumbAndAdd">
           <div className="breadcrumb">
@@ -198,7 +197,7 @@ const ViewDog = () => {
                   value={dog.dogname}
                   size="lg"
                   variant="unstyled"
-                  {...register('dogname')}
+                  {...register('dog.dogname')}
                   onChange={e => {
                     let copy = { ...dog };
                     copy['dogname'] = e.target.value;
@@ -208,9 +207,9 @@ const ViewDog = () => {
               </FormControl>
             </div>
           </div>
-          {/* <div className="addTag">
-          <TagMenu />
-        </div> */}
+          <div className="addTag">
+            <TagMenu />
+          </div>
           <div className="tagRow">
             <ShowTags
               serviceTag={dog.service}
@@ -220,36 +219,41 @@ const ViewDog = () => {
               disabledTag={dog.deceased}
             />
           </div>
-          <div className="editButton">
+          <div className="buttons">
             {!editable && (
-              <>
-                <ButtonGroup variant="solid" spacing="6" onClick={() => handleEditButton()}>
-                  <Button>Edit Dog</Button>
-                </ButtonGroup>
-              </>
+              <ButtonGroup variant="outline" spacing="6" onClick={() => handleEditButton()}>
+                <Button>Edit Dog</Button>
+              </ButtonGroup>
             )}
-          </div>
-          {showButtons && (
-            <div className="changesButtons">
-              <ButtonGroup variant="outline" spacing="6">
-                <Button>Cancel</Button>
-              </ButtonGroup>
-
-              <ButtonGroup variant="outline" spacing="6">
-                <Button colorScheme="red">Remove Dog</Button>
-              </ButtonGroup>
-
-              <Button colorScheme="facebook" onClick={saveAllChanges}>
-                Save All Changes
-              </Button>
+            <div className="cancelButton">
+              {editable && (
+                <ButtonGroup variant="outline" spacing="6" onClick={() => handleEditButton()}>
+                  <Button>Cancel</Button>
+                </ButtonGroup>
+              )}
             </div>
-          )}
-          ;
+            <div className="removeDogButton">
+              {editable && (
+                <ButtonGroup variant="outline" spacing="6" onClick={() => removeDogButton()}>
+                  <Button colorScheme="red">Remove Dog</Button>
+                </ButtonGroup>
+              )}
+            </div>
+            <div className="saveButton">
+              {editable && (
+                <Button colorScheme="facebook" onClick={saveAllChanges}>
+                  Save All Changes
+                </Button>
+              )}
+              ;
+            </div>
+          </div>
         </div>
-
         <div className="row1">
           <div className="adopterInfo">
-            <Text fontSize="24px">Adopter Info</Text>
+            <Heading as="h2" fontSize="24px">
+              Adopter Info
+            </Heading>
             <FormControl>
               <FormLabel>Name</FormLabel>
               <Input
@@ -257,7 +261,7 @@ const ViewDog = () => {
                 disabled={!editable}
                 className="formInput"
                 value={dog.adoptername}
-                {...register('adoptername')}
+                {...register('dog.adoptername')}
                 onChange={e => {
                   let copy = { ...dog };
                   copy['adoptername'] = e.target.value;
@@ -272,7 +276,7 @@ const ViewDog = () => {
                 disabled={!editable}
                 className="formInput"
                 value={dog.adoptemail}
-                {...register('adoptemail')}
+                {...register('dog.adoptemail')}
                 onChange={e => {
                   let copy = { ...dog };
                   copy['adoptemail'] = e.target.value;
@@ -287,7 +291,7 @@ const ViewDog = () => {
                 disabled={!editable}
                 className="formInput"
                 value={dog.adopterphone}
-                {...register('adopterphone')}
+                {...register('dog.adopterphone')}
                 onChange={e => {
                   let copy = { ...dog };
                   copy['adopterphone'] = e.target.value;
@@ -298,9 +302,9 @@ const ViewDog = () => {
           </div>
 
           <div className="dogInfo">
-            <Text as="h2" fontSize="24px">
+            <Heading as="h2" fontSize="24px">
               Dog Info
-            </Text>
+            </Heading>
             <FormControl>
               <FormLabel>Alternate Name</FormLabel>
               <Input
@@ -308,7 +312,7 @@ const ViewDog = () => {
                 disabled={!editable}
                 className="formInput"
                 value={dog.altname}
-                {...register('altname')}
+                {...register('dog.altname')}
                 onChange={e => {
                   let copy = { ...dog };
                   copy['altname'] = e.target.value;
@@ -323,7 +327,7 @@ const ViewDog = () => {
                 disabled={!editable}
                 className="formInput"
                 value={dog.breed}
-                {...register('breed')}
+                {...register('dog.breed')}
                 onChange={e => {
                   let copy = { ...dog };
                   copy['breed'] = e.target.value;
@@ -339,6 +343,7 @@ const ViewDog = () => {
                   disabled={!editable}
                   value={dog.gender}
                   className="formInput"
+                  {...register('dog.gender')}
                   onChange={e => {
                     let copy = { ...dog };
                     copy['gender'] = e.target.value;
@@ -356,7 +361,7 @@ const ViewDog = () => {
                   className="formInput"
                   value={dog.age}
                   disabled={!editable}
-                  {...register('age')}
+                  {...register('dog.age')}
                   onChange={e => {
                     let copy = { ...dog };
                     copy['age'] = e.target.value;
@@ -373,7 +378,7 @@ const ViewDog = () => {
                   disabled={!editable}
                   className="formInput"
                   value={dog.chiptype}
-                  {...register('chiptype')}
+                  {...register('dog.chiptype')}
                   onChange={e => {
                     let copy = { ...dog };
                     copy['chiptype'] = e.target.value;
@@ -388,7 +393,7 @@ const ViewDog = () => {
                   disabled={!editable}
                   className="formInput"
                   value={dog.chipnum}
-                  {...register('chipnum')}
+                  {...register('dog.chipnum')}
                   onChange={e => {
                     let copy = { ...dog };
                     copy['chipnum'] = e.target.value;
@@ -401,9 +406,9 @@ const ViewDog = () => {
         </div>
         <div className="row2">
           <div className="addressFinancial">
-            <Text as="h2" fontSize="24px">
+            <Heading as="h2" fontSize="24px">
               Address
-            </Text>
+            </Heading>
             <FormControl>
               <FormLabel>Address</FormLabel>
               <Input
@@ -411,7 +416,7 @@ const ViewDog = () => {
                 disabled={!editable}
                 className="formInput"
                 value={dog.addrline}
-                {...register('addrline')}
+                {...register('dog.addrline')}
                 onChange={e => {
                   let copy = { ...dog };
                   copy['addrline'] = e.target.value;
@@ -427,7 +432,7 @@ const ViewDog = () => {
                   disabled={!editable}
                   className="formInput"
                   value={dog.adoptcity}
-                  {...register('adoptcity')}
+                  {...register('dog.adoptcity')}
                   onChange={e => {
                     let copy = { ...dog };
                     copy['adoptcity'] = e.target.value;
@@ -442,7 +447,7 @@ const ViewDog = () => {
                   disabled={!editable}
                   className="formInput"
                   value={dog.adoptstate}
-                  {...register('adoptstate')}
+                  {...register('dog.adoptstate')}
                   onChange={e => {
                     let copy = { ...dog };
                     copy['adoptstate'] = e.target.value;
@@ -458,7 +463,7 @@ const ViewDog = () => {
                 disabled={!editable}
                 className="formInput"
                 value={dog.zip}
-                {...register('zip')}
+                {...register('dog.zip')}
                 onChange={e => {
                   let copy = { ...dog };
                   copy['zip'] = e.target.value;
@@ -467,7 +472,9 @@ const ViewDog = () => {
               />
             </FormControl>
             <div className="financial">
-              <Text fontSize="24px">Financial</Text>
+              <Heading as="h2" fontSize="24px">
+                Financial
+              </Heading>
               <div className="financialFields">
                 <FormControl className="fees">
                   <FormLabel>Fees ($)</FormLabel>
@@ -476,7 +483,7 @@ const ViewDog = () => {
                     disabled={!editable}
                     className="formInput"
                     value={dog.fees}
-                    {...register('fees')}
+                    {...register('dog.fees')}
                     onChange={e => {
                       let copy = { ...dog };
                       copy['fees'] = e.target.value;
@@ -491,7 +498,7 @@ const ViewDog = () => {
                     disabled={!editable}
                     className="formInput"
                     value={dog.revenue}
-                    {...register('revenue')}
+                    {...register('dog.revenue')}
                     onChange={e => {
                       let copy = { ...dog };
                       copy['revenue'] = e.target.value;
@@ -504,13 +511,15 @@ const ViewDog = () => {
           </div>
 
           <div className="facilityInfo">
-            <Text fontSize="24px">Facility Info</Text>
+            <Heading as="h2" fontSize="24px">
+              Facility Info
+            </Heading>
             <FormLabel>Facility</FormLabel>
             <Select
               disabled={!editable}
               className="formInput"
               value={() => getFacility()}
-              {...register('facilityid')}
+              {...register('dog.facilityid')}
               onChange={e => {
                 let copy = { ...dog };
                 copy['facilityid'] = e.target.value;
@@ -526,7 +535,7 @@ const ViewDog = () => {
                 disabled={!editable}
                 className="formInput"
                 value={dog.facilityUnit}
-                {...register('facilityUnit')}
+                {...register('dog.facilityUnit')}
                 onChange={e => {
                   let copy = { ...dog };
                   copy['facilityUnit'] = e.target.value;
@@ -542,7 +551,7 @@ const ViewDog = () => {
                   disabled={!editable}
                   className="formInput"
                   value={dog.graddate}
-                  {...register('graddate')}
+                  {...register('dog.graddate')}
                   onChange={e => {
                     let copy = { ...dog };
                     copy['graddate'] = e.target.value;
@@ -557,7 +566,7 @@ const ViewDog = () => {
                   disabled={!editable}
                   className="formInput"
                   value={dog.groupnum}
-                  {...register('groupnum')}
+                  {...register('dog.groupnum')}
                   onChange={e => {
                     let copy = { ...dog };
                     copy['groupnum'] = e.target.value;
@@ -573,7 +582,7 @@ const ViewDog = () => {
                 disabled={!editable}
                 className="formInput"
                 value={dog.shelter}
-                {...register('shelter')}
+                {...register('dog.shelter')}
                 onChange={e => {
                   let copy = { ...dog };
                   copy['shelter'] = e.target.value;
@@ -588,7 +597,7 @@ const ViewDog = () => {
                 disabled={!editable}
                 className="formInput"
                 value={dog.dogid}
-                {...register('dogid')}
+                {...register('dog.dogid')}
                 onChange={e => {
                   let copy = { ...dog };
                   copy['dogid'] = e.target.value;
@@ -603,6 +612,9 @@ const ViewDog = () => {
           <Text fontSize="24px">Additional Notes</Text>
         </div>
         <Flex direction="column" align="center" justify-content="center">
+          <Heading as="h2" fontSize="24px">
+            Additional Notes
+          </Heading>
           <Textarea
             borderWidth={1}
             disabled={!editable}

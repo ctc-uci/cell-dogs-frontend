@@ -7,7 +7,7 @@ export default yup.object().shape({
   adoptername: yup.string().required('Adopter name is required'),
   adopterphone: yup.string().required('Adopter phone is required'),
   adoptstate: yup.string().required('Adopter state is required'),
-  age: yup.yup.number().integer().required('Age is required'),
+  age: yup.number().integer().required('Age is required'),
   altname: yup.string().required('Alternate name is required'),
   breed: yup.string().required('Breed is required'),
   chipnum: yup.number().required('Chip number is required'),
