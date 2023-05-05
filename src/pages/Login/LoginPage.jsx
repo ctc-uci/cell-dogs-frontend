@@ -1,8 +1,4 @@
-import React, {
-  useState,
-  useEffect,
-  // useRef
-} from 'react';
+import React, { useState, useEffect } from 'react';
 import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -16,7 +12,6 @@ import {
   AlertIcon,
   AlertTitle,
   FormControl,
-  // FormLabel,
   FormErrorMessage,
 } from '@chakra-ui/react';
 import cellDogsLogoHorizontal4 from '../../assets/CellDogs_logo_horizontal-4.png';
@@ -34,18 +29,6 @@ const schema = yup.object().shape({
     .required('Please enter a password.'),
 });
 
-// const Login = ({ setModalStep, onClose, info, setRender, render }) => {
-//   const [email, password] = useState({
-//     fullName: `${info.firstName} ${info.lastName}`,
-//     email: `${info.email}`,
-//     role: '',
-//   });
-// };
-// const formDataShape = {
-//   username: PropTypes.string.isRequired,
-//   password: PropTypes.string.isRequired,
-// };
-
 const LoginPage = () => {
   const {
     register,
@@ -57,21 +40,10 @@ const LoginPage = () => {
   });
   const navigate = useNavigate();
   const [error, setError] = useState('');
-  // const [loading, setLoading] = useState(true);
-  // const { currentUser, login } = useAuth();
   const { currentUser, login } = useAuth();
 
   const onSubmitHandler = async data => {
-    // data.preventDefault();
     const { email, password } = data;
-    // const formData = {
-    //   username: event.target[0].value,
-    //   password: event.target[1].value,
-    // };
-    // const formData = {
-    //   username: email,
-    //   password: givenPassword,
-    // };
     try {
       await login(email, password);
       navigate('/');
@@ -79,17 +51,6 @@ const LoginPage = () => {
     } catch (e) {
       setError('Failed to log in');
     }
-
-    // await schema.isValid(formData);
-    // console.log(event.target[0].value);
-    // console.log(event.target[1].value);
-    // try {
-    //   setError('');
-    //   await login(email, givenPassword);
-    //   navigate('/');
-    // } catch (e) {
-    //   setError('Failed to log in');
-    // }
   };
 
   useEffect(() => {
@@ -100,7 +61,6 @@ const LoginPage = () => {
 
   return (
     <div className={styles['login-page']}>
-      {/* <Hide below="md"> */}
       <div className="information">
         <img className={styles['login-dog-image-1']} src={loginDogImage1} alt="loginDogImage1" />
         <Text>Welcome to the Adoption Log!</Text>
