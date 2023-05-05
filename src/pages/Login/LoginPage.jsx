@@ -3,8 +3,6 @@ import React, {
   useEffect,
   // useRef
 } from 'react';
-// import PropTypes from 'prop-types';
-// import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -28,9 +26,14 @@ import styles from './LoginPage.module.css';
 import { useAuth } from '../../contexts/AuthContext';
 
 const schema = yup.object().shape({
-  username: yup.string().required(),
-  password: yup.string().min(4).max(18).required(),
+  email: yup.string().email('Please enter a valid email.').required(),
+  password: yup
+    .string()
+    .min(4, 'Incorrect email or password.')
+    .max(18, 'Incorrect email or password.')
+    .required(),
 });
+
 // const Login = ({ setModalStep, onClose, info, setRender, render }) => {
 //   const [email, password] = useState({
 //     fullName: `${info.firstName} ${info.lastName}`,
@@ -44,14 +47,6 @@ const schema = yup.object().shape({
 // };
 
 const LoginPage = () => {
-  // const emailRef = useRef();
-  // const passwordRef = useRef();
-  // const {
-  //   register,
-  //   handleSubmit,
-  //   formState: { errors },
-  // } = useForm();
-
   const {
     register,
     handleSubmit,
@@ -65,26 +60,9 @@ const LoginPage = () => {
   // const [loading, setLoading] = useState(true);
   // const { currentUser, login } = useAuth();
   const { currentUser, login } = useAuth();
-  /* const loginUser = async event => {
-    event.preventDefault();
-    const formData = {
-      username: event.target[0].value,
-      password: event.target[1].value,
-    };
-    // await schema.isValid(formData);
 
-    try {
-      setError('');
-      await login(emailRef.current.value, passwordRef.current.value);
-      navigate('/');
-    } catch (e) {
-      setError('Failed to log in');
-    }
-  }; */
-  // const onSubmit = data => console.log(data);
   const onSubmitHandler = async data => {
-    // event.preventDefault();
-    console.log('hello');
+    // data.preventDefault();
     const { email, password } = data;
     // const formData = {
     //   username: event.target[0].value,
@@ -108,14 +86,6 @@ const LoginPage = () => {
     //   setError('Failed to log in');
     // }
   };
-
-  // const inputChange = () => {
-  //   if (email.current.value !== '' && passwordRef.current.value !== '') {
-  //     // setLoading(false);
-  //   } else {
-  //     // setLoading(true);
-  //   }
-  // };
 
   useEffect(() => {
     if (currentUser) {
@@ -149,24 +119,6 @@ const LoginPage = () => {
           {/* Form Control for every input */}
           <form className={styles['input-form']} onSubmit={handleSubmit(onSubmitHandler)}>
             <FormControl isInvalid={errors?.email} className={styles['input-form']}>
-              {/* <FormLabel>Email</FormLabel> */}
-              {/* Notice how we dont need to use states */}
-              {/* <Input {...register('email')} /> */}
-              {/* <Input
-                htmlSize={50}
-                width="auto"
-                placeholder="Email"
-                size="md"
-                // ref={emailRef}
-                // onChange={inputChange}
-                ref={
-                  register('email', {
-                    required: true,
-                    pattern: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                    ref: { emailRef },
-                  }).ref
-                }
-              /> */}
               <Input
                 htmlSize={50}
                 width="auto"
@@ -184,15 +136,7 @@ const LoginPage = () => {
                 size="md"
                 type="password"
                 {...register('password')}
-                // ref={passwordRef}
                 // onChange={inputChange}
-                // ref={
-                //   register('password', {
-                //     required: true,
-                //     pattern: /^.{6,}$/,
-                //     ref: { passwordRef },
-                //   }).ref
-                // }
               />
               <FormErrorMessage>{errors?.password && errors?.password?.message}</FormErrorMessage>
             </FormControl>
@@ -203,45 +147,13 @@ const LoginPage = () => {
               color="white"
               variant="solid"
               type="submit"
-              // onClick={() => {
-              //   // onSubmit();
-              //   onSubmit();
-              //   // onClose();
-              //   // const toast = useToast();
-              // }}
+              onClick={() => {
+                onSubmitHandler();
+              }}
             >
               Log in
             </Button>
           </form>
-          {/* <form className={styles['input-form']} onSubmit={loginUser}>
-            <Input
-              htmlSize={50}
-              width="auto"
-              placeholder="Email"
-              size="md"
-              ref={emailRef}
-              onChange={inputChange}
-            />
-            <Input
-              htmlSize={50}
-              width="auto"
-              placeholder="Password"
-              size="md"
-              type="password"
-              ref={passwordRef}
-              onChange={inputChange}
-            />
-            <Button
-              // isDisabled={loading}
-              className={styles['submit-button']}
-              bg="CDSBlue1"
-              color="white"
-              variant="solid"
-              type="submit"
-            >
-              Log in
-            </Button> */}
-          {/* </form> */}
           {/* {error && (
             <Alert status="error" width={200} justifyContent="center">
               <AlertIcon />

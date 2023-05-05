@@ -1,9 +1,11 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
-// import { useForm } from 'react-hook-form';
 import { NavLink, useNavigate } from 'react-router-dom';
-// import * as yup from 'yup';
-import { Input, Stack, Button, Text } from '@chakra-ui/react';
+import { Input, Stack, Button, Text, FormControl, FormErrorMessage } from '@chakra-ui/react';
 // import PropTypes from 'prop-types';
+import * as yup from 'yup';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
 import { useAuth } from '../../contexts/AuthContext';
 
 import cellDogsLogoHorizontal4 from '../../assets/CellDogs_logo_horizontal-4.png';
@@ -29,20 +31,34 @@ import styles from './ResetPassword.module.css';
     .required(),
 });
  */
-const resetPassword = async event => {
-  event.preventDefault();
-  // TODO: Revamp form structure
-  /* const formData = {
-    newPassword: event.target[0].value,
-    validatePassword: event.target[1].value,
-  };
-  await schema.isValid(formData); */
-};
+
+const schema = yup.object().shape({
+  newPassword: yup
+    .string()
+    .min(4, 'New password must be at least 4 characters.')
+    .max(18, 'New password must be less than 18 characters.')
+    .required(),
+  validatePassword: yup
+    .string()
+    .oneOf([yup.ref('newPassword')], "Passwords don't match")
+    .min(4)
+    .max(18)
+    .required(),
+});
 
 const ResetPassword = ({ newPassword, validatePassword }) => {
   const { currentUser } = useAuth();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
 
   useEffect(() => {
     if (currentUser) {
@@ -50,17 +66,13 @@ const ResetPassword = ({ newPassword, validatePassword }) => {
     }
   });
 
-  const inputChange = () => {
-    // const formData = {
-    //   newPassword: event.target[0].value,
-    //   validatePassword: event.target[1].value,
-    // };
-    // console.log(schema.isValid(resetPassword.formData));
-    if (newPassword && validatePassword) {
-      setLoading(false);
-    } else {
-      setLoading(true);
-    }
+  const resetPassword = async data => {
+    data.preventDefault();
+    // const { newPassword, validatePassword } = data;
+    // TODO: Revamp form structure
+    // Reset password function goes here
+    navigate('/');
+    reset();
   };
 
   return (
@@ -83,37 +95,47 @@ const ResetPassword = ({ newPassword, validatePassword }) => {
               alt="Cell Dogs Header"
             />
           </NavLink>
-          <form className={styles.reset_input_form} onSubmit={resetPassword}>
+          <form className={styles.reset_input_form} onSubmit={handleSubmit(resetPassword)}>
             <Text className={styles.reset_info_text}>
               Please create and confirm a new password for this account.
             </Text>
             <div className={styles.reset_passwords_container}>
               <div className={styles.reset_password_container}>
                 <Text className={styles.password}>New Password</Text>
-                <Input
-                  htmlSize={50}
-                  width="auto"
-                  placeholder="Password"
-                  size="md"
-                  type="password"
-                  onChange={inputChange}
-                />
+                <FormControl isInvalid={errors?.newPassword} className={styles['input-form']}>
+                  <Input
+                    htmlSize={50}
+                    width="auto"
+                    placeholder="Password"
+                    size="md"
+                    type="password"
+                    {...register('newPassword')}
+                  />
+                  <FormErrorMessage>
+                    {errors?.newPassword && errors?.newPassword?.message}
+                  </FormErrorMessage>
+                </FormControl>
               </div>
               <div className={styles.reset_password_container}>
                 <Text className={styles.password}>Confirm Password</Text>
-                <Input
-                  htmlSize={50}
-                  width="auto"
-                  placeholder="Password"
-                  size="md"
-                  type="password"
-                  onChange={inputChange}
-                />
+                <FormControl isInvalid={errors?.validatePassword} className={styles['input-form']}>
+                  <Input
+                    htmlSize={50}
+                    width="auto"
+                    placeholder="Confirm Password"
+                    size="md"
+                    type="password"
+                    {...register('validatePassword')}
+                  />
+                  <FormErrorMessage>
+                    {errors?.validatePassword && errors?.validatePassword?.message}
+                  </FormErrorMessage>
+                </FormControl>
               </div>
             </div>
 
             <Button
-              isDisabled={loading}
+              // isDisabled={loading}
               className={styles.reset_submit_button}
               variant="outline"
               width="200px"
@@ -128,12 +150,5 @@ const ResetPassword = ({ newPassword, validatePassword }) => {
     </div>
   );
 };
-
-/* ResetPassword.propTypes = {
-  formData: PropTypes.shape({
-    newPassword: PropTypes.string,
-    validatePassword: PropTypes.string,
-  }).isRequired,
-}; */
 
 export default ResetPassword;
