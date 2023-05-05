@@ -37,13 +37,13 @@ const schema = yup.object().shape({
     .string()
     .min(4, 'New password must be at least 4 characters.')
     .max(18, 'New password must be less than 18 characters.')
-    .required(),
+    .required('Please enter a new password.'),
   validatePassword: yup
     .string()
+    .required('Please confirm password.')
     .oneOf([yup.ref('newPassword')], "Passwords don't match")
-    .min(4)
-    .max(18)
-    .required(),
+    .min(4, "Passwords don't match")
+    .max(18, "Passwords don't match"),
 });
 
 const ResetPassword = ({ newPassword, validatePassword }) => {

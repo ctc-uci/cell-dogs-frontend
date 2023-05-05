@@ -1,5 +1,5 @@
 import React, {
-  // useState,
+  useState,
   useEffect,
   // useRef
 } from 'react';
@@ -12,9 +12,9 @@ import {
   Stack,
   Button,
   Text,
-  // Alert,
-  // AlertIcon,
-  // AlertTitle,
+  Alert,
+  AlertIcon,
+  AlertTitle,
   FormControl,
   // FormLabel,
   FormErrorMessage,
@@ -26,12 +26,12 @@ import styles from './LoginPage.module.css';
 import { useAuth } from '../../contexts/AuthContext';
 
 const schema = yup.object().shape({
-  email: yup.string().email('Please enter a valid email.').required(),
+  email: yup.string().email('Please enter a valid email.').required('Please enter an email.'),
   password: yup
     .string()
-    .min(4, 'Incorrect email or password.')
-    .max(18, 'Incorrect email or password.')
-    .required(),
+    .min(4, 'Invalid password.')
+    .max(18, 'Invalid password.')
+    .required('Please enter a password.'),
 });
 
 // const Login = ({ setModalStep, onClose, info, setRender, render }) => {
@@ -56,7 +56,7 @@ const LoginPage = () => {
     resolver: yupResolver(schema),
   });
   const navigate = useNavigate();
-  // const [error, setError] = useState('');
+  const [error, setError] = useState('');
   // const [loading, setLoading] = useState(true);
   // const { currentUser, login } = useAuth();
   const { currentUser, login } = useAuth();
@@ -72,9 +72,14 @@ const LoginPage = () => {
     //   username: email,
     //   password: givenPassword,
     // };
-    await login(email, password);
-    navigate('/');
-    reset();
+    try {
+      await login(email, password);
+      navigate('/');
+      reset();
+    } catch (e) {
+      setError('Failed to log in');
+    }
+
     // await schema.isValid(formData);
     // console.log(event.target[0].value);
     // console.log(event.target[1].value);
@@ -154,12 +159,12 @@ const LoginPage = () => {
               Log in
             </Button>
           </form>
-          {/* {error && (
+          {error && (
             <Alert status="error" width={200} justifyContent="center">
               <AlertIcon />
               <AlertTitle>{error}</AlertTitle>
             </Alert>
-          )} */}
+          )}
           <NavLink to="/forgot-password">Forgot Password?</NavLink>
         </Stack>
       </div>
