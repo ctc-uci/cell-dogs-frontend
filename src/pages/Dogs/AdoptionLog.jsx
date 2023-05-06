@@ -11,9 +11,11 @@ import {
   Th,
   Thead,
   Tr,
+  useToast,
 } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import CreateToast from '../../components/Toasts/CreateToast';
 import { useBackend } from '../../contexts/BackendContext';
 import ShowTags from '../AddDog/ShowTags';
 import styles from './AdoptionLog.module.css';
@@ -24,6 +26,7 @@ const AdoptionLog = props => {
   const { backend } = useBackend();
   const { filter, tableName, tableId, data, getCheckedDogs } = props;
   const [copyEmails, setCopyEmails] = useState(new Set());
+  const toast = useToast();
 
   const filteredDogs = data.filter(
     dogs =>
@@ -58,6 +61,11 @@ const AdoptionLog = props => {
   };
 
   const handleCopyEmail = () => {
+    CreateToast({
+      description: `Copied Adopters Emails!`,
+      status: 'success',
+      toast,
+    });
     navigator.clipboard.writeText([...copyEmails].join(', '));
   };
 
