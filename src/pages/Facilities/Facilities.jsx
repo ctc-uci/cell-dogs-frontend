@@ -107,7 +107,14 @@ const Facilities = () => {
       </BreadcrumbBar>
       {/* I dont like this but im tired  */}
       <Flex width="90%" justifyContent={['center', 'flex-start']} my={5}>
-        <Heading as="h4" color="black" mr="auto">
+        <Heading
+          as="h4"
+          color="black"
+          mr="auto"
+          fontFamily="Quicksand"
+          fontWeight="600"
+          fontSize="48px"
+        >
           Facilities
         </Heading>
       </Flex>

@@ -30,7 +30,7 @@
   position: relative;
   display: flex;
   justify-content: center;
-  margin-bottom: 100px;
+  margin-bottom: 67px;
 }
 
 .cancelButton {
@@ -76,6 +76,7 @@ img {
   display: flex;
   justify-content: space-between;
   margin-bottom: 20px;
+  margin-top: 30px;
 }
 
 .pocTitle {
@@ -119,7 +120,7 @@ img {
 .pocRow2 {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 150px;
+  margin-bottom: 20px;
 }
 
 .ModalFooter {
@@ -146,4 +147,22 @@ img {
 
 .backButton {
   align-self: flex-start;
+}
+
+.bottomEditButtonInAdd {
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  background-color: white;
+  padding: 5px;
+}
+
+@media (max-width: 767px) {
+  .pointsOfContactContainerInAdd {
+    margin-bottom: 25px;
+  }
+
+  .nameInputInAdd {
+    margin-bottom: 0.5rem;
+  }
 }
