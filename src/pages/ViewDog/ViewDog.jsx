@@ -16,7 +16,7 @@ import {
   MenuItem,
   MenuList,
   Select,
-  Textarea
+  Textarea,
 } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';

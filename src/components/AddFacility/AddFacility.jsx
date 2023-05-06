@@ -5,16 +5,16 @@ import {
   ButtonGroup,
   Flex,
   Input,
-  Textarea,
-  useDisclosure,
-  useToast,
   Modal,
-  ModalCloseButton,
   ModalBody,
-  ModalOverlay,
+  ModalCloseButton,
   ModalContent,
   ModalFooter,
   ModalHeader,
+  ModalOverlay,
+  Textarea,
+  useDisclosure,
+  useToast,
 } from '@chakra-ui/react';
 // import { AddIcon } from '@chakra-ui/icons';
 import { ArrowBackIcon, WarningIcon } from '@chakra-ui/icons';
@@ -23,9 +23,9 @@ import { BsPlusLg } from 'react-icons/bs';
 import { useNavigate } from 'react-router-dom';
 import BreadcrumbBar from '../../components/BreadcrumbBar/BreadcrumbBar';
 import { useBackend } from '../../contexts/BackendContext';
+import { screenWidthExceeds } from '../../util/utils';
 import CreateToast from '../Toasts/CreateToast';
 import UploadAvatar from '../UploadAvatar/UploadAvatar';
-import { screenWidthExceeds } from '../../util/utils';
 import './AddFacility.css';
 
 const AddFacility = () => {

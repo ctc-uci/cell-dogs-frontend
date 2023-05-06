@@ -16,6 +16,13 @@
 
 .dogName {
   font-weight: bold;
+  display: flex;
+  gap: 4px;
+}
+
+.altName {
+  font-weight: bold;
+  font-size: 12px;
 }
 
 .dogNameSub {
