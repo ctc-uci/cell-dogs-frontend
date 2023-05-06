@@ -1,74 +1,68 @@
-import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
 import {
-  Button,
-  Modal,
-  ModalOverlay,
-  ModalHeader,
-  ModalBody,
-  ModalContent,
-  Text,
-  ModalFooter,
-  useDisclosure,
-  Input,
-  FormControl,
-  FormLabel,
-  Select,
-  Center,
-  VStack,
-  HStack,
   Alert,
-  AlertTitle,
   AlertDescription,
   AlertIcon,
+  AlertTitle,
+  Button,
+  Center,
+  FormControl,
+  FormErrorMessage,
+  FormLabel,
+  HStack,
+  Input,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  Select,
+  Text,
+  VStack,
+  useDisclosure,
   useToast,
 } from '@chakra-ui/react';
-import CreateToast from '../Toasts/CreateToast';
+import { yupResolver } from '@hookform/resolvers/yup';
+import PropTypes from 'prop-types';
+import React, { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { useBackend } from '../../contexts/BackendContext';
+import CreateToast from '../Toasts/CreateToast';
+import EditUserSchema from './EditUser.schema';
+import './EditUserModal.css';
 
 // modal to edit user
 const EditUser = ({ setModalStep, onClose, info, setRender, render }) => {
-  const [user, setUser] = useState({
-    fullName: `${info.firstName} ${info.lastName}`,
-    email: `${info.email}`,
-    role: '',
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm({
+    resolver: yupResolver(EditUserSchema),
   });
-
-  const changeFullName = e => {
-    setUser({
-      ...user,
-      fullName: e.target.value,
-    });
-  };
-
-  const changeEmail = e => {
-    setUser({
-      ...user,
-      email: e.target.value,
-    });
-  };
-
-  const changeRole = e => {
-    setUser({
-      ...user,
-      role: e.target.value,
-    });
-  };
 
   // save user after changes
   const { backend } = useBackend();
-  const save = async () => {
-    const splitName = user.fullName.split(' ');
+  const onSubmitHandler = async data => {
+    const { fullName, email, role } = data;
+    const splitName = fullName.split(' ');
     const usersData = {
       firstName: splitName[0],
       lastName: splitName[1],
-      newEmail: user.email,
+      newEmail: email,
       facility: 10,
     };
     await backend.put(`users/${info.email}`, usersData);
     setRender(!render);
+    onClose();
+
+    reset();
   };
 
+  useEffect(() => {
+    console.log(errors);
+  }, [errors]);
   return (
     <>
       {/* TODO: include the profile picture */}
@@ -76,22 +70,32 @@ const EditUser = ({ setModalStep, onClose, info, setRender, render }) => {
         <Center>Edit User</Center>
       </ModalHeader>
       <ModalBody>
-        <FormControl>
-          <FormLabel>Full Name</FormLabel>
-          <Input value={user.fullName} onChange={changeFullName} />
-          <FormLabel mt={5}>Add Email</FormLabel>
-          <Input value={user.email} onChange={changeEmail} />
-          <FormLabel mt={5}>Add Role</FormLabel>
-          <Input value={user.role} onChange={changeRole} />
-          <Select mt={5}>
-            <option value="administrator">Administrator</option>
-          </Select>
-        </FormControl>
-      </ModalBody>
+        <form onSubmit={handleSubmit(onSubmitHandler)}>
+          {/* Form Control for every input */}
+          <FormControl isInvalid={errors?.fullName}>
+            <FormLabel>Full Name</FormLabel>
+            {/* Notice how we dont need to use states */}
+            <Input {...register('fullName')} />
+            <FormErrorMessage>{errors?.fullName && errors?.fullName?.message}</FormErrorMessage>
+          </FormControl>
+          {/* Notice how we dont need to use states */}
 
-      <ModalFooter>
-        <VStack w="100%">
-          <HStack w="100%">
+          <FormControl isInvalid={errors?.email}>
+            <FormLabel mt={5}>Add Email</FormLabel>
+            <Input {...register('email')} />
+            <FormErrorMessage>{errors?.email && errors?.email?.message}</FormErrorMessage>
+          </FormControl>
+
+          <FormControl isInvalid={errors?.role}>
+            <FormLabel mt={5}>Add Role</FormLabel>
+            {/* Notice how we dont need to use states */}
+
+            <Select mt={5} {...register('role')} defaultValue={info.role}>
+              <option value="administrator">Administrator</option>
+            </Select>
+            <FormErrorMessage>{errors?.role && errors?.role?.message}</FormErrorMessage>
+          </FormControl>
+          <HStack w="100%" mt={5}>
             <Button
               w="50%"
               variant="outline"
@@ -100,10 +104,16 @@ const EditUser = ({ setModalStep, onClose, info, setRender, render }) => {
             >
               Remove User
             </Button>
-            <Button variant="noHover" bg="#21307A" color="white" w="50%" onClick={() => save()}>
+            {/* Notice how this is type="submit" and there's not callback */}
+            <Button variant="noHover" bg="#21307A" color="white" w="50%" type="submit">
               Save
             </Button>
           </HStack>
+        </form>
+      </ModalBody>
+
+      <ModalFooter>
+        <VStack w="100%">
           <Button w="100%" variant="outline" onClick={() => onClose()}>
             Cancel
           </Button>
@@ -138,14 +148,14 @@ const RemoveUser = ({ setModalStep, onSubmit, onClose }) => {
           </AlertDescription>
         </Alert>
       </ModalBody>
-      <ModalFooter w="100%">
-        <HStack w="100%">
-          <Button w="50%" variant="outline" onClick={() => setModalStep('editUser')}>
+      <ModalFooter>
+        <div className="buttons-container">
+          <Button className="button" variant="outline" onClick={() => setModalStep('editUser')}>
             Cancel
           </Button>
           <Button
-            w="50%"
-            bg="cdsBlue1"
+            className="button"
+            bg="CDSBlue1"
             color="white"
             onClick={() => {
               onSubmit();
@@ -155,14 +165,14 @@ const RemoveUser = ({ setModalStep, onSubmit, onClose }) => {
           >
             Yes, remove the user
           </Button>
-        </HStack>
+        </div>
       </ModalFooter>
     </>
   );
 };
 
 // modal for the edit user button
-const EditUserModal = ({ info, setRender, render }) => {
+const EditUserModal = ({ info, setRender, render, isMobile }) => {
   const [modalStep, setModalStep] = useState('editUser');
   const { isOpen, onOpen, onClose } = useDisclosure();
   const toast = useToast();
@@ -197,6 +207,8 @@ const EditUserModal = ({ info, setRender, render }) => {
     ),
   };
 
+  const width1 = { true: '130px', false: '60px' };
+
   return (
     <>
       <Button
@@ -205,13 +217,14 @@ const EditUserModal = ({ info, setRender, render }) => {
         bg="
         #319795"
         color="white"
+        width={width1[isMobile]}
       >
         Edit
       </Button>
 
       <Modal closeOnOverlayClick={false} isOpen={isOpen} onClose={onClose} isCentered>
         <ModalOverlay />
-        <ModalContent maxW="60%">{modalContent[modalStep]}</ModalContent>
+        <ModalContent className="modal-content">{modalContent[modalStep]}</ModalContent>
       </Modal>
     </>
   );
@@ -225,6 +238,7 @@ EditUserModal.propTypes = {
   }).isRequired,
   setRender: PropTypes.func.isRequired,
   render: PropTypes.bool.isRequired,
+  isMobile: PropTypes.bool.isRequired,
 };
 
 EditUser.propTypes = {

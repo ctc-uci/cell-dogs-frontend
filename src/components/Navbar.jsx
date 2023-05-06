@@ -55,10 +55,11 @@ const Navbar = () => {
           <NavLink to="/">
             <Image
               // have a ml of 45 above md
-              ml={[0, 0, 0, 0, 45]}
+              // ml={[0, 0, 0, 0, 45]}
               src={cellDogsLogoHorizontal2}
               alt="Cell Dogs Logo Horizontal 2"
-              width={150}
+              // width={150}
+              // height="100%"
             />
           </NavLink>
           <Hide below="md">

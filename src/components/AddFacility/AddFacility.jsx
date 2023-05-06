@@ -1,39 +1,95 @@
 /* eslint-disable */
-import { Button, Input, Avatar, Textarea, Box, Flex } from '@chakra-ui/react';
+import {
+  Box,
+  Button,
+  ButtonGroup,
+  Flex,
+  Input,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  Textarea,
+  useDisclosure,
+  useToast,
+} from '@chakra-ui/react';
 // import { AddIcon } from '@chakra-ui/icons';
+import { ArrowBackIcon, WarningIcon } from '@chakra-ui/icons';
 import React, { useState } from 'react';
-import './AddFacility.css';
-import { useNavigate } from 'react-router-dom';
-import { useBackend } from '../../contexts/BackendContext';
-import BreadcrumbBar from '../../components/BreadcrumbBar/BreadcrumbBar';
 import { BsPlusLg } from 'react-icons/bs';
-import { ArrowBackIcon } from '@chakra-ui/icons';
+import { useNavigate } from 'react-router-dom';
+import BreadcrumbBar from '../../components/BreadcrumbBar/BreadcrumbBar';
+import { useBackend } from '../../contexts/BackendContext';
+import { screenWidthExceeds } from '../../util/utils';
+import CreateToast from '../Toasts/CreateToast';
 import UploadAvatar from '../UploadAvatar/UploadAvatar';
-
-// export const theme = extendTheme({
-//   colors: {
-//     brand: {
-//       50: '#21307a',
-//       60: '#c3cbdb',
-//       70: '#f6f7fa',
-//       80: '#96c93d',
-//       90: '#25222a'
-//     }
-//   }
-// })
+import './AddFacility.css';
 
 const AddFacility = () => {
   const [facilityName, setFacilityName] = useState('');
   const [address, setAddress] = useState('');
   const [notes, setNotes] = useState('');
-  const [name, setName] = useState('');
-  const [title, setTitle] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
+  // const [name, setName] = useState('');
+  // const [title, setTitle] = useState('');
+  // const [phoneNumber, setPhoneNumber] = useState('');
   const { backend } = useBackend();
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [loading, setLoading] = useState(false);
+  const isLargerThan768 = screenWidthExceeds(768);
+  const cancelDisclosure = useDisclosure({ id: 'cancel-modal' });
+
+  // This is the the specific component we are updating inside of the list
+  const PocElement = ({ index, name, holder }) => {
+    const handleChange = event => {
+      const value = event.target.value;
+      setPocList(prevValues => {
+        const newValues = [...prevValues];
+        newValues[index] = {
+          ...newValues[index],
+          [name]: value,
+        };
+        return newValues;
+      });
+    };
+
+    return <Input placeholder={holder} value={pocList[index][name]} onChange={handleChange} />;
+  };
+
+  // Create the initial POC list
+  const [pocList, setPocList] = useState([{ name: '', title: '', phone: '', email: '' }]);
 
   const Navigate = useNavigate();
 
-  const onClose = () => {
+  const toast = useToast();
+  const addFacility = async () => {
+    const facilityData = {
+      name: facilityName,
+      addressLine: address,
+      city: 'Irvine',
+      state: 'CA',
+      zipcode: '92697',
+      description: notes,
+    };
+    const facility = await backend.post(`/facility`, facilityData);
+    console.log(facility);
+    for (const poc of pocList) {
+      const pocData = {
+        facilityId: facility.data[0].id,
+        name: poc['name'],
+        title: poc['title'],
+        phoneNumber: poc['phone'],
+        emailAddress: poc['email'],
+      };
+      await backend.post('/facilityContacts', pocData);
+    }
+    CreateToast({
+      description: `${facilityName} added to the facilities log`,
+      status: 'success',
+      toast,
+    });
     Navigate('/facilities');
   };
 
@@ -43,6 +99,100 @@ const AddFacility = () => {
     }
     return facilityName;
   };
+
+  const handleConfirmDelete = async id => {
+    try {
+      const response = await backend.delete(`/facility/${id}`);
+
+      onClose();
+
+      if (response.status === 200) {
+        CreateToast({
+          description: `${facilityName} deleted successfully`,
+          status: 'success',
+          toast,
+        });
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const onAddBtnClick = event => {
+    setPocList(prevList => [...prevList, { name: '', title: '', phone: '', email: '' }]);
+  };
+
+  function ShowCancelModal({ isOpen, onClose }) {
+    return (
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <Flex flexDirection="column" justifyContent="center" alignItems="center">
+            <WarningIcon w="2rem" h="2rem" color="red.500" marginTop="2rem" />
+            <ModalHeader>Changes not saved!</ModalHeader>
+          </Flex>
+          <ModalCloseButton />
+          <ModalBody>
+            Are you sure you want to discard all changes made? By clicking 'Discard all changes' you
+            will be sent back to the facilities page.
+          </ModalBody>
+          {isLargerThan768 && (
+            <ModalFooter width="100%" display="flex" justifyContent="space-between">
+              <Button
+                className="cancelButton"
+                // width="250px"
+                width="16rem"
+                size="sm"
+                color="--cds-blue-2"
+                variant="outline"
+                onClick={onClose}
+              >
+                Cancel
+              </Button>
+              <ButtonGroup variant="outline" spacing="6">
+                <Button
+                  className="deleteButton"
+                  width="12rem"
+                  size="sm"
+                  bg="#21307a"
+                  color="white"
+                  onClick={() => Navigate('/facilities')}
+                >
+                  Discard all changes
+                </Button>
+              </ButtonGroup>
+            </ModalFooter>
+          )}
+          {!isLargerThan768 && (
+            <ModalFooter width="100%" display="flex" flexDirection="column" gap="10px">
+              <ButtonGroup variant="outline" spacing="6" width="100%">
+                <Button
+                  className="deleteButton"
+                  size="sm"
+                  width="100%"
+                  bg="#21307a"
+                  color="white"
+                  onClick={() => Navigate('/facilities')}
+                >
+                  Discard all changes
+                </Button>
+              </ButtonGroup>
+              <Button
+                className="cancelButton"
+                width="100%"
+                size="sm"
+                color="--cds-blue-2"
+                variant="outline"
+                onClick={onClose}
+              >
+                Cancel
+              </Button>
+            </ModalFooter>
+          )}
+        </ModalContent>
+      </Modal>
+    );
+  }
 
   return (
     <Box>
@@ -75,37 +225,39 @@ const AddFacility = () => {
           <div className="modalHeader">
             <h1 className="enterName">{showFacilityName()}</h1>
           </div>
-          <div className="buttons">
-            <Button
-              className="cancelButton"
-              width="250px"
-              size="sm"
-              color="--cds-blue-2"
-              variant="outline"
-              onClick={onClose}
-            >
-              Cancel
-            </Button>
-            <Button
-              className="saveButton"
-              width="250px"
-              size="sm"
-              bg="#21307a"
-              color="white"
-              onClick={onClose}
-            >
-              Save
-            </Button>
-          </div>
-        </div>
-        <div className="pointsOfContact">
-          <h1 className="POCText">Points of Contact</h1>
-          <Button size="sm" colorScheme="gray" color="--cds-grey-1" onClick={onClose}>
-            Add Another Point of Contact
-          </Button>
+          {isLargerThan768 && (
+            <div className="buttons">
+              <Button
+                className="cancelButton"
+                width="250px"
+                size="sm"
+                color="--cds-blue-2"
+                variant="outline"
+                onClick={cancelDisclosure.onOpen}
+              >
+                Cancel
+              </Button>
+
+              <ShowCancelModal
+                isOpen={cancelDisclosure.isOpen}
+                onClose={cancelDisclosure.onClose}
+              />
+
+              <Button
+                className="saveButton"
+                width="250px"
+                size="sm"
+                bg="#21307a"
+                color="white"
+                onClick={() => addFacility()}
+              >
+                Save
+              </Button>
+            </div>
+          )}
         </div>
         <h3>Facility Name</h3>
-        <div className="nameInput">
+        <div className="nameInputInAdd">
           <Input
             placeholder="OC Juvenile Hall"
             value={facilityName}
@@ -114,41 +266,154 @@ const AddFacility = () => {
         </div>
         <h3>Address</h3>
         <div className="addressInput">
-          <Input placeholder="123 Irvine Way Fountain Valley, CA 92728" />
+          <Input
+            placeholder="123 Irvine Way Fountain Valley, CA 92728"
+            onChange={e => setAddress(e.target.value)}
+          />
         </div>
         <h3>Notes</h3>
         <div className="notesInput">
-          <Textarea height="150px" padding-top="0px" placeholder="Enter notes here" />
+          <Textarea
+            height="150px"
+            padding-top="0px"
+            placeholder="Enter notes here"
+            onChange={e => setNotes(e.target.value)}
+          />
         </div>
-        <div className="pocRow1">
-          <div className="pocName">
-            <h3>Name</h3>
-            <div className="pocNameInput">
-              <Input placeholder="Jane Smith" />
-            </div>
+        <div className="pointsOfContactContainerInAdd">
+          <div className="pointsOfContact">
+            <h1 className="POCText">Points of Contact</h1>
+            {isLargerThan768 && (
+              <Button
+                size="sm"
+                colorScheme="gray"
+                color="--cds-grey-1"
+                onClick={e => onAddBtnClick(e)}
+              >
+                Add Another Point of Contact
+              </Button>
+            )}
           </div>
-          <div className="pocTitle">
-            <h3>Title</h3>
-            <div className="pocTitleInput">
-              <Input placeholder="Programs Officer" />
-            </div>
-          </div>
+
+          {/* Map the Elements inside of the list*/}
+          {pocList.map((item, index) => (
+            <>
+              {isLargerThan768 && (
+                <div>
+                  <div className="pocRow1">
+                    <div className="pocName">
+                      <h3>Name</h3>
+                      <div className="pocNameInput">
+                        {PocElement({ index: index, name: 'name', holder: 'Jane Doe' })}
+                      </div>
+                    </div>
+                    <div className="pocTitle">
+                      <h3>Title</h3>
+                      <div className="pocTitleInput">
+                        {PocElement({ index: index, name: 'title', holder: 'Programs Officer' })}
+                      </div>
+                    </div>
+                  </div>
+                  <div className="pocRow2">
+                    <div className="pocPhoneNumber">
+                      <h3>Phone Number</h3>
+                      <div className="pocPhoneNumberInput">
+                        {PocElement({ index: index, name: 'phone', holder: '123-456-7890' })}
+                      </div>
+                    </div>
+                    <div className="pocEmail">
+                      <h3>Email</h3>
+                      <div className="pocEmailInput">
+                        {PocElement({ index: index, name: 'email', holder: 'email@uci.edu' })}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+              {!isLargerThan768 && (
+                <Flex
+                  flexDirection="column"
+                  borderBottom={index === pocList.length - 1 ? '' : '1px solid #c3cbdb'}
+                  marginBottom={index === pocList.length - 1 ? '' : '2rem'}
+                >
+                  <div className="pocName">
+                    <h3>Name</h3>
+                    <div className="pocNameInput">
+                      {PocElement({ index: index, name: 'name', holder: 'Jane Doe' })}
+                    </div>
+                  </div>
+                  <div className="pocTitle">
+                    <h3>Title</h3>
+                    <div className="pocTitleInput">
+                      {PocElement({ index: index, name: 'title', holder: 'Programs Officer' })}
+                    </div>
+                  </div>
+                  <div className="pocPhoneNumber">
+                    <h3>Phone Number</h3>
+                    <div className="pocPhoneNumberInput">
+                      {PocElement({ index: index, name: 'phone', holder: '123-456-7890' })}
+                    </div>
+                  </div>
+                  <div className="pocEmail">
+                    <h3>Email</h3>
+                    <div className="pocEmailInput">
+                      {PocElement({ index: index, name: 'email', holder: 'email@uci.edu' })}
+                    </div>
+                  </div>
+                </Flex>
+              )}
+            </>
+          ))}
         </div>
-        <div className="pocRow2">
-          <div className="pocPhoneNumber">
-            <h3>Phone Number</h3>
-            <div className="pocPhoneNumberInput">
-              <Input placeholder="(123)456-7890" />
-            </div>
-          </div>
-          <div className="pocEmail">
-            <h3>Email</h3>
-            <div className="pocEmailInput">
-              <Input placeholder="email@uci.edu" />
-            </div>
-          </div>
-        </div>
+        {!isLargerThan768 && (
+          <Flex justify="center">
+            <Button
+              width="85%"
+              colorScheme="gray"
+              color="--cds-grey-1"
+              onClick={e => onAddBtnClick(e)}
+              marginBottom="3rem"
+            >
+              + Add Contact
+            </Button>
+          </Flex>
+        )}
       </Box>
+      <Flex>
+        {!isLargerThan768 && (
+          <div className="bottomEditButtonInAdd">
+            <Flex width="100%" justifyContent="center" gap="2rem" marginBottom="10px">
+              <Button
+                width="37.75%"
+                size="sm"
+                color="gray"
+                variant="outline"
+                onClick={cancelDisclosure.onOpen}
+                backgroundColor="white"
+              >
+                Cancel
+              </Button>
+
+              <ShowCancelModal
+                isOpen={cancelDisclosure.isOpen}
+                onClose={cancelDisclosure.onClose}
+              />
+
+              <Button
+                width="37.75%"
+                className="saveButton"
+                size="sm"
+                backgroundColor="#21307A"
+                color="white"
+                variant="solid"
+                onClick={() => addFacility()}
+              >
+                Save
+              </Button>
+            </Flex>
+          </div>
+        )}
+      </Flex>
     </Box>
   );
 };

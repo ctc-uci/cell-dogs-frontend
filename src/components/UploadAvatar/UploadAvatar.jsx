@@ -1,6 +1,5 @@
-import { useState, React } from 'react';
 import { Avatar, Input } from '@chakra-ui/react';
-import { AddIcon, Icon } from '@chakra-ui/icons';
+import { React, useState } from 'react';
 import './UploadAvatar.css';
 
 function UploadAvatar({ width = '40px', height = '40px' }) {
@@ -8,7 +7,6 @@ function UploadAvatar({ width = '40px', height = '40px' }) {
   const [showInput, setShowInput] = useState(false);
 
   const handleAvatarChange = event => {
-    console.log('it worked');
     setAvatar(URL.createObjectURL(event.target.files[0]));
     setShowInput(false);
   };

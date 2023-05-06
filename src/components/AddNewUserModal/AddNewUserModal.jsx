@@ -17,12 +17,10 @@ import {
 } from '@chakra-ui/react';
 import { useBackend } from '../../contexts/BackendContext';
 import UploadAvatar from '../UploadAvatar/UploadAvatar';
-import CreateToast  from '../Toasts/CreateToast';
-
+import CreateToast from '../Toasts/CreateToast';
 
 const AddNewUserModal = ({ isOpen, onClose }) => {
   const { backend } = useBackend();
-
 
   const initialRef = useRef(null);
   const finalRef = useRef(null);
@@ -34,7 +32,6 @@ const AddNewUserModal = ({ isOpen, onClose }) => {
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
   const facility = 1;
-
 
   const toast = useToast();
 

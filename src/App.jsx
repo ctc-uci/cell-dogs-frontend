@@ -13,6 +13,8 @@ import ErrorPage from './pages/ErrorPage/ErrorPage';
 import LoginPage from './pages/Login/LoginPage';
 import Navbar from './components/Navbar/Navbar';
 import AddFacility from './components/AddFacility/AddFacility';
+import ViewMore from './components/FacilitiesPageViewMore/ViewMore';
+import ViewDog from './pages/ViewDog/ViewDog';
 
 // Utils
 import { AuthProvider } from './contexts/AuthContext';
@@ -21,10 +23,11 @@ import ProtectedRoute from './util/ProtectedRoute/ProtectedRoute';
 
 // Styles/Theme
 import CDSTheme from './styles/theme';
+import Fonts from './styles/fonts';
 import './common/global.css';
 import Users from './pages/Users';
 
-const DISALLOWED_NAVBAR_PATHS = ['/login', '/forgot-password', '/reset-password', '/404'];
+const DISALLOWED_NAVBAR_PATHS = ['/login', '/forgot-password', '/reset-password'];
 
 const App = () => {
   const location = useLocation();
@@ -32,6 +35,7 @@ const App = () => {
   return (
     <AuthProvider>
       <BackendProvider>
+        <Fonts />
         <ChakraProvider theme={CDSTheme}>
           {!DISALLOWED_NAVBAR_PATHS.includes(location.pathname) && <Navbar />}
           <Routes>
@@ -42,6 +46,10 @@ const App = () => {
             <Route
               path="/dogs/new"
               element={<ProtectedRoute Component={AddDog} redirectPath="/login" />}
+            />
+            <Route
+              path="/dog/:id"
+              element={<ProtectedRoute Component={ViewDog} redirectPath="/login" />}
             />
             <Route
               path="/facilities"
@@ -55,6 +63,7 @@ const App = () => {
               path="/users"
               element={<ProtectedRoute Component={Users} redirectPath="/login" />}
             />
+            <Route path="view-more" element={<ViewMore />} />
             <Route path="/404" element={<ErrorPage />} />
             <Route path="*" element={<Navigate to="/404" replace />} />
           </Routes>

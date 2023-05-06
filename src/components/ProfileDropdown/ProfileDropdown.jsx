@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import { Button, Menu, MenuButton, MenuList } from '@chakra-ui/react';
 import PropTypes from 'prop-types';
-import { Menu, MenuButton, MenuList, Button } from '@chakra-ui/react';
+import React, { useEffect, useState } from 'react';
 
 import { useAuth } from '../../contexts/AuthContext';
 import { useBackend } from '../../contexts/BackendContext';
@@ -58,6 +58,7 @@ const ProfileDropdown = ({ mobile }) => {
               <p className={styles['profile-preview-name']}>
                 {userData?.firstName} {userData?.lastName}
               </p>
+              {/* <p className={styles['profile-role']}>{userData?.role}</p> */}
               <p className={styles['profile-role']}>{userData?.role}</p>
             </div>
           </div>

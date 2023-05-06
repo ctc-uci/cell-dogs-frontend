@@ -1,11 +1,11 @@
 /* eslint-disable no-unused-vars */
+import { Button, FormControl, FormErrorMessage, Input, Stack, Text } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { Input, Stack, Button, Text, FormControl, FormErrorMessage } from '@chakra-ui/react';
 // import PropTypes from 'prop-types';
-import * as yup from 'yup';
-import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useForm } from 'react-hook-form';
+import * as yup from 'yup';
 import { useAuth } from '../../contexts/AuthContext';
 
 import cellDogsLogoHorizontal4 from '../../assets/CellDogs_logo_horizontal-4.png';

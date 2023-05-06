@@ -23,8 +23,11 @@
 .profile-role {
   color: white;
   margin-top: 2px;
+  font-family: 'Noto Sans';
+  font-style: normal;
+  font-weight: 400;
   font-size: 14px;
-  font-weight: 300;
+  line-height: 16px;
 }
 
 .user-profile-dropdown {
@@ -38,6 +41,7 @@
   text-decoration: bold;
   color: #ffffff;
   padding-bottom: 2px;
+  margin-bottom: 0px;
 }
 
 .dropdown-pic {
