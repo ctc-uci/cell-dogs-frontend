@@ -1,10 +1,11 @@
-import React, { useEffect } from 'react';
-// import { useForm } from 'react-hook-form';
-// import * as yup from 'yup';
-import { Button, Input, Stack, Text } from '@chakra-ui/react';
+/* eslint-disable no-unused-vars */
+import { Button, FormControl, FormErrorMessage, Input, Stack, Text } from '@chakra-ui/react';
+import React, { useEffect, useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
+// import PropTypes from 'prop-types';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
-
 import { useAuth } from '../../contexts/AuthContext';
 
 import cellDogsLogoHorizontal4 from '../../assets/CellDogs_logo_horizontal-4.png';
@@ -12,33 +13,67 @@ import cellDogsLogoHorizontal5 from '../../assets/CellDogs_logo_horizontal-5.png
 import dogArmy from '../../assets/dog-army.png';
 import styles from './ResetPassword.module.css';
 
-const schema = yup.object().shape({
+// const loginUser = async event => {
+//   event.preventDefault();
+//   const formData = {
+//     username: event.target[0].value,
+//     password: event.target[1].value,
+//   };
+//   await schema.isValid(formData);
+//   // console.log(isValid);
+// };
+
+/* const schema = yup.object().shape({
   newPassword: yup.string().min(6).max(10).required(),
   validatePassword: yup
     .string()
     .oneOf([yup.ref('newPassword')])
     .required(),
 });
+ */
 
-const resetPassword = async event => {
-  event.preventDefault();
-  // TODO: Revamp form structure
-  const formData = {
-    newPassword: event.target[0].value,
-    validatePassword: event.target[1].value,
-  };
-  await schema.isValid(formData);
-};
+const schema = yup.object().shape({
+  newPassword: yup
+    .string()
+    .min(4, 'New password must be at least 4 characters.')
+    .max(18, 'New password must be less than 18 characters.')
+    .required('Please enter a new password.'),
+  validatePassword: yup
+    .string()
+    .required('Please confirm password.')
+    .oneOf([yup.ref('newPassword')], "Passwords don't match")
+    .min(4, "Passwords don't match")
+    .max(18, "Passwords don't match"),
+});
 
-const ResetPassword = () => {
+const ResetPassword = ({ newPassword, validatePassword }) => {
   const { currentUser } = useAuth();
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
 
   useEffect(() => {
     if (currentUser) {
       navigate('/');
     }
   });
+
+  const resetPassword = async data => {
+    data.preventDefault();
+    // const { newPassword, validatePassword } = data;
+    // TODO: Revamp form structure
+    // Reset password function goes here
+    navigate('/');
+    reset();
+  };
 
   return (
     <div className={styles.login_page}>
@@ -60,34 +95,47 @@ const ResetPassword = () => {
               alt="Cell Dogs Header"
             />
           </NavLink>
-          <form className={styles.reset_input_form} onSubmit={resetPassword}>
+          <form className={styles.reset_input_form} onSubmit={handleSubmit(resetPassword)}>
             <Text className={styles.reset_info_text}>
               Please create and confirm a new password for this account.
             </Text>
             <div className={styles.reset_passwords_container}>
               <div className={styles.reset_password_container}>
                 <Text className={styles.password}>New Password</Text>
-                <Input
-                  htmlSize={50}
-                  width="auto"
-                  placeholder="Password"
-                  size="md"
-                  type="password"
-                />
+                <FormControl isInvalid={errors?.newPassword} className={styles['input-form']}>
+                  <Input
+                    htmlSize={50}
+                    width="auto"
+                    placeholder="Password"
+                    size="md"
+                    type="password"
+                    {...register('newPassword')}
+                  />
+                  <FormErrorMessage>
+                    {errors?.newPassword && errors?.newPassword?.message}
+                  </FormErrorMessage>
+                </FormControl>
               </div>
               <div className={styles.reset_password_container}>
                 <Text className={styles.password}>Confirm Password</Text>
-                <Input
-                  htmlSize={50}
-                  width="auto"
-                  placeholder="Password"
-                  size="md"
-                  type="password"
-                />
+                <FormControl isInvalid={errors?.validatePassword} className={styles['input-form']}>
+                  <Input
+                    htmlSize={50}
+                    width="auto"
+                    placeholder="Confirm Password"
+                    size="md"
+                    type="password"
+                    {...register('validatePassword')}
+                  />
+                  <FormErrorMessage>
+                    {errors?.validatePassword && errors?.validatePassword?.message}
+                  </FormErrorMessage>
+                </FormControl>
               </div>
             </div>
 
             <Button
+              // isDisabled={loading}
               className={styles.reset_submit_button}
               variant="outline"
               width="200px"

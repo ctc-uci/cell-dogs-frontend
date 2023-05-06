@@ -1,8 +1,19 @@
-import React, { useState, useEffect, useRef } from 'react';
-// import { useForm } from 'react-hook-form';
+import React, { useState, useEffect } from 'react';
 import * as yup from 'yup';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { Input, Stack, Button, Text, Alert, AlertIcon, AlertTitle } from '@chakra-ui/react';
+import {
+  Input,
+  Stack,
+  Button,
+  Text,
+  Alert,
+  AlertIcon,
+  AlertTitle,
+  FormControl,
+  FormErrorMessage,
+} from '@chakra-ui/react';
 import cellDogsLogoHorizontal4 from '../../assets/CellDogs_logo_horizontal-4.png';
 import cellDogsLogoHorizontal5 from '../../assets/CellDogs_logo_horizontal-5.png';
 import loginDogImage1 from '../../assets/P_Puppy_Maekawa_Genuine-removebg-preview 1.png';
@@ -10,34 +21,36 @@ import styles from './LoginPage.module.css';
 import { useAuth } from '../../contexts/AuthContext';
 
 const schema = yup.object().shape({
-  username: yup.string().required(),
-  password: yup.string().min(4).max(18).required(),
+  email: yup.string().email('Please enter a valid email.').required('Please enter an email.'),
+  password: yup
+    .string()
+    .min(4, 'Invalid password.')
+    .max(18, 'Invalid password.')
+    .required('Please enter a password.'),
 });
 
 const LoginPage = () => {
-  const emailRef = useRef();
-  const passwordRef = useRef();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
   const navigate = useNavigate();
   const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false);
   const { currentUser, login } = useAuth();
-  const loginUser = async event => {
-    event.preventDefault();
-    const formData = {
-      username: event.target[0].value,
-      password: event.target[1].value,
-    };
-    await schema.isValid(formData);
 
+  const onSubmitHandler = async data => {
+    const { email, password } = data;
     try {
-      setError('');
-      setLoading(true);
-      await login(emailRef.current.value, passwordRef.current.value);
+      await login(email, password);
       navigate('/');
+      reset();
     } catch (e) {
       setError('Failed to log in');
     }
-    setLoading(false);
   };
 
   useEffect(() => {
@@ -48,7 +61,6 @@ const LoginPage = () => {
 
   return (
     <div className={styles['login-page']}>
-      {/* <Hide below="md"> */}
       <div className="information">
         <img className={styles['login-dog-image-1']} src={loginDogImage1} alt="loginDogImage1" />
         <Text>Welcome to the Adoption Log!</Text>
@@ -69,24 +81,40 @@ const LoginPage = () => {
               />
             </NavLink>
           </div>
-
-          <form className={styles['input-form']} onSubmit={loginUser}>
-            <Input htmlSize={50} width="auto" placeholder="Email" size="md" ref={emailRef} />
-            <Input
-              htmlSize={50}
-              width="auto"
-              placeholder="Password"
-              size="md"
-              type="password"
-              ref={passwordRef}
-            />
+          {/* Form Control for every input */}
+          <form className={styles['input-form']} onSubmit={handleSubmit(onSubmitHandler)}>
+            <FormControl isInvalid={errors?.email} className={styles['input-form']}>
+              <Input
+                htmlSize={50}
+                width="auto"
+                placeholder="Email"
+                size="md"
+                {...register('email')}
+              />
+              <FormErrorMessage>{errors?.email && errors?.email?.message}</FormErrorMessage>
+            </FormControl>
+            <FormControl isInvalid={errors?.password} className={styles['input-form']}>
+              <Input
+                htmlSize={50}
+                width="auto"
+                placeholder="Password"
+                size="md"
+                type="password"
+                {...register('password')}
+                // onChange={inputChange}
+              />
+              <FormErrorMessage>{errors?.password && errors?.password?.message}</FormErrorMessage>
+            </FormControl>
             <Button
-              disabled={loading}
+              // isDisabled={loading}
               className={styles['submit-button']}
               bg="CDSBlue1"
               color="white"
               variant="solid"
               type="submit"
+              onClick={() => {
+                onSubmitHandler();
+              }}
             >
               Log in
             </Button>
