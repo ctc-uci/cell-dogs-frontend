@@ -1,12 +1,12 @@
+import { CloseIcon, HamburgerIcon } from '@chakra-ui/icons';
+import { Button, Collapse, IconButton, Stack, useDisclosure } from '@chakra-ui/react';
 import React from 'react';
-import { NavLink, Link } from 'react-router-dom';
-import { Collapse, Stack, IconButton, Button, useDisclosure } from '@chakra-ui/react';
-import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 import { BsPersonPlus } from 'react-icons/bs';
+import { Link, NavLink } from 'react-router-dom';
 
+import { screenWidthExceeds } from '../../util/utils';
 import AddNewUserModal from '../AddNewUserModal/AddNewUserModal';
 import ProfileDropdown from '../ProfileDropdown/ProfileDropdown';
-import { screenWidthExceeds } from '../../util/utils';
 
 import cellDogsLogo from '../../assets/CellDogs_logo_horizontal 2.png';
 

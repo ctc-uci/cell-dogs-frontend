@@ -1,6 +1,6 @@
+import { InfoOutlineIcon } from '@chakra-ui/icons';
 import { Box, HStack, Icon, Text } from '@chakra-ui/react';
 import React from 'react';
-import { AiOutlineInfoCircle } from 'react-icons/ai';
 import { BsPersonFill } from 'react-icons/bs';
 import EditUserModal from './EditUserModal';
 
@@ -12,7 +12,7 @@ const CellStructure = (setRender, render, isMobile) => {
       Header: (
         <>
           <HStack>
-            <Icon color="#2D3748" as={BsPersonFill} boxSize={3} />
+            <Icon color="#2D3748" as={BsPersonFill} boxSize={4} />
             <Text color="#2D3748">Name</Text>
           </HStack>
         </>
@@ -33,7 +33,7 @@ const CellStructure = (setRender, render, isMobile) => {
       Header: (
         <>
           <HStack>
-            <Icon color="#2D3748" as={AiOutlineInfoCircle} boxSize={3} />
+            <Icon color="#2D3748" as={InfoOutlineIcon} boxSize={4} />
             <Text color="#2D3748">Email</Text>
           </HStack>
         </>
@@ -46,7 +46,7 @@ const CellStructure = (setRender, render, isMobile) => {
       Header: (
         <>
           <HStack>
-            <Icon color="#2D3748" as={AiOutlineInfoCircle} boxSize={3} />
+            <Icon color="#2D3748" as={InfoOutlineIcon} boxSize={4} />
             <Text color="#2D3748">Role</Text>
           </HStack>
         </>
