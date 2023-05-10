@@ -1,10 +1,11 @@
 import { AddIcon } from '@chakra-ui/icons';
-import { Box, Button } from '@chakra-ui/react';
+import { Box, Button, Flex, VStack } from '@chakra-ui/react';
 import { React, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import BreadcrumbBar from '../../components/BreadcrumbBar/BreadcrumbBar';
 // eslint-disable-next-line import/no-useless-path-segments
 import { useBackend } from '../../contexts/BackendContext';
+import AdoptionLogFacilityView from './AdoptionLogFacilityView';
 import AdoptionLogNavbar from './AdoptionLogNavbar';
 
 const Dogs = () => {
@@ -26,6 +27,19 @@ const Dogs = () => {
   // eslint-disable-next-line
   const [dogs, setDogs] = useState([]);
   const [checkedDogs, setCheckedDogs] = useState([]);
+  // eslint-disable-next-line
+  const [sortedDogs, setSortedDogs] = useState({});
+
+  const [selected, setSelected] = useState([]);
+
+  const selectAll = () => {
+    if (selected.length === dogs.length) {
+      setSelected([]);
+      return false;
+    }
+    setSelected(dogs.map(dog => dog.dogid));
+    return true;
+  };
 
   // eslint-disable-next-line
   const getCheckedDogs = checkedDog => {
@@ -46,31 +60,45 @@ const Dogs = () => {
     }
   };
 
-  const getDogs = async () => {
+  const getDogs = async signal => {
     try {
-      const res = await backend.get('/dog');
+      const params = {
+        filterBy: filter,
+        facility: facilityFilter,
+      };
+      console.log(params);
+      const res = await backend.get(searchDog.length > 0 ? `/dog/search/${searchDog}` : '/dog', {
+        signal,
+        params,
+      });
       setDogs(res.data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  const getDogsSearch = async () => {
-    try {
-      const res = await backend.get(`/dog/search/${searchDog}`);
-      setDogs(res.data);
+      console.log(data);
+      const tempSortedDogs = {};
+      res.data.forEach(dog => {
+        if (tempSortedDogs[dog.facilityid]) {
+          tempSortedDogs[dog.facilityid].dogs.push(dog);
+        } else {
+          tempSortedDogs[dog.facilityid] = {
+            dogs: [dog],
+            info: {
+              shelter: dog.shelter,
+              facilityid: dog.facilityid,
+            },
+          };
+        }
+      });
+      console.log(tempSortedDogs);
+      setSortedDogs(tempSortedDogs);
     } catch (err) {
       console.log(err);
     }
   };
 
   useEffect(() => {
-    if (searchDog) {
-      getDogsSearch();
-    } else {
-      getDogs();
-    }
-  }, [searchDog]);
+    const controller = new AbortController();
+    getDogs(controller.signal);
+    return () => controller.abort();
+  }, [searchDog, filter, facilityFilter]);
 
   useEffect(() => {
     getFacilities();
@@ -93,17 +121,43 @@ const Dogs = () => {
           </div>
         </BreadcrumbBar>
       </div>
-      <AdoptionLogNavbar
-        view={view}
-        setView={setView}
-        setFilter={setFilter}
-        filter={filter}
-        facilityFilter={facilityFilter}
-        setFacilityFilter={setFacilityFilter}
-        setSearchDog={setSearchDog}
-        searchDog={searchDog}
-        checkedDogs={checkedDogs}
-      />
+      <Flex align="center" justify="center" px={5}>
+        <Flex
+          width={{
+            base: '100%',
+            md: '100%',
+            lg: '100%',
+            xl: '80%',
+          }}
+          direction="column"
+        >
+          <AdoptionLogNavbar
+            view={view}
+            setView={setView}
+            setFilter={setFilter}
+            filter={filter}
+            facilityFilter={facilityFilter}
+            setFacilityFilter={setFacilityFilter}
+            setSearchDog={setSearchDog}
+            searchDog={searchDog}
+            selectAll={selectAll}
+            dogs={dogs}
+            selected={selected}
+          />
+          <VStack spacing={4} align="stretch" mt={10}>
+            {Object.keys(sortedDogs)?.map(id => (
+              <AdoptionLogFacilityView
+                key={id}
+                info={sortedDogs[id].info}
+                dogs={sortedDogs[id].dogs}
+                selected={selected}
+                setSelected={setSelected}
+                view={view}
+              />
+            ))}
+          </VStack>
+        </Flex>
+      </Flex>
     </Box>
   );
 };

@@ -24,7 +24,9 @@ const AdoptionLogNavbar = ({
   facilityFilter,
   setSearchDog,
   searchDog,
-  checkedDogs,
+  selectAll,
+  dogs,
+  selected,
 }) => {
   // const [filter, setFilter] = useState(false);
   const [facilities, setFacilities] = useState('');
@@ -43,6 +45,7 @@ const AdoptionLogNavbar = ({
   const getFacilities = async () => {
     const { data } = await backend.get('/facility');
     setFacilities(data);
+    console.log(data);
   };
 
   useEffect(() => {
@@ -61,9 +64,12 @@ const AdoptionLogNavbar = ({
   };
 
   return (
-    <Flex direction="row" justifyContent="center" alignItems="center">
+    <Flex direction="row" justifyContent="center" alignItems="center" width="100%">
       <Flex
-        direction="row"
+        direction={{
+          base: 'column',
+          md: 'row',
+        }}
         justifyContent={{
           base: 'space-between',
           md: 'space-between',
@@ -74,13 +80,12 @@ const AdoptionLogNavbar = ({
           base: '100%',
           md: '100%',
           lg: '100%',
-          xl: '80%',
+          xl: '100%',
         }}
         gap={2}
-        px={10}
       >
         <Box height="100%" marginTop="auto" flex={1}>
-          <Flex direction="row" gap={-10}>
+          <Flex direction="row" gap={-10} flex={1}>
             <Button
               size="md"
               fontWeight="bold"
@@ -125,8 +130,9 @@ const AdoptionLogNavbar = ({
             />
           </InputGroup>
         </Box>
-        <Box marginTop="auto" flex={1}>
-          <VStack>
+
+        <Flex marginTop="auto" flex={2} direction="row" gap={2}>
+          <VStack display="flex" flex={1}>
             <Text marginRight="auto" fontSize="sm">
               Filter by:
             </Text>
@@ -142,9 +148,7 @@ const AdoptionLogNavbar = ({
               <option value="allFemales">All Females</option>
             </Select>
           </VStack>
-        </Box>
-        <Box marginTop="auto" flex={1}>
-          <VStack>
+          <VStack display="flex" flex={1}>
             <Text marginRight="auto" fontSize="sm">
               Facility:
             </Text>
@@ -157,7 +161,7 @@ const AdoptionLogNavbar = ({
               <option value="">All</option>
               {facilities ? (
                 facilities.map(facility => (
-                  <option key={facility.name} value={facility.name}>
+                  <option key={facility.name} value={facility.id}>
                     {facility.name}
                   </option>
                 ))
@@ -166,14 +170,15 @@ const AdoptionLogNavbar = ({
               )}
             </Select>
           </VStack>
-        </Box>
-        <Box display="flex" direction="row" gap={2} marginTop="auto" flex={1}>
-          <Button size="md" onClick={() => setSelectAll(true)} style={{ marginRight: '10px' }}>
+        </Flex>
+
+        <Box display="flex" direction="row" gap={2} marginTop="auto" marginLeft="auto" flex={1}>
+          <Button size="md" onClick={selectAll}>
             Select All
           </Button>
           <Button size="md" aria-label="Export" rightIcon={<DownloadIcon />}>
             <CSVLink
-              data={JSON.parse(`[${checkedDogs.join(', ')}]`)}
+              data={dogs.filter(dog => selected.includes(dog.dogid))}
               filename="Cell_Dogs_Adoption_Log.csv"
             >
               Export
