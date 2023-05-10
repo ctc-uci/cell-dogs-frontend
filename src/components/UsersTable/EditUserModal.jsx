@@ -16,7 +16,6 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
-  Select,
   Text,
   VStack,
   useDisclosure,
@@ -45,6 +44,7 @@ const EditUser = ({ setModalStep, onClose, info, setRender, render }) => {
   // save user after changes
   const { backend } = useBackend();
   const onSubmitHandler = async data => {
+    console.log('data');
     const { fullName, email } = data;
     const splitName = fullName.split(' ');
     const usersData = {
@@ -60,9 +60,6 @@ const EditUser = ({ setModalStep, onClose, info, setRender, render }) => {
     reset();
   };
 
-  useEffect(() => {
-    console.log(errors);
-  }, [errors]);
   return (
     <>
       {/* TODO: include the profile picture */}
@@ -75,24 +72,21 @@ const EditUser = ({ setModalStep, onClose, info, setRender, render }) => {
           <FormControl isInvalid={errors?.fullName}>
             <FormLabel>Full Name</FormLabel>
             {/* Notice how we dont need to use states */}
-            <Input {...register('fullName')} />
+            <Input {...register('fullName')} defaultValue={`${info.firstName} ${info.lastName}`} />
             <FormErrorMessage>{errors?.fullName && errors?.fullName?.message}</FormErrorMessage>
           </FormControl>
           {/* Notice how we dont need to use states */}
 
           <FormControl isInvalid={errors?.email}>
             <FormLabel mt={5}>Add Email</FormLabel>
-            <Input {...register('email')} />
+            <Input {...register('email')} defaultValue={info.email} />
             <FormErrorMessage>{errors?.email && errors?.email?.message}</FormErrorMessage>
           </FormControl>
 
+          {/* Notice how we dont need to use states */}
           <FormControl isInvalid={errors?.role}>
             <FormLabel mt={5}>Add Role</FormLabel>
-            {/* Notice how we dont need to use states */}
-
-            <Select mt={5} {...register('role')} defaultValue={info.role}>
-              <option value="administrator">Administrator</option>
-            </Select>
+            <Input {...register('role')} defaultValue={info.role} />
             <FormErrorMessage>{errors?.role && errors?.role?.message}</FormErrorMessage>
           </FormControl>
           <HStack w="100%" mt={5}>

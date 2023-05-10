@@ -85,6 +85,7 @@ const UserPageTable = () => {
     <>
       {isLargerThan1075 && (
         <Box p={10}>
+          <h2 style={{ marginBottom: '0.5em' }}>Users</h2>
           <Table {...getTableProps()} borderWidth={1}>
             <UserPageHeader headerGroups={headerGroups} />
             <Tbody {...getTableBodyProps()}>

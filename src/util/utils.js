@@ -1,5 +1,5 @@
-import axios from 'axios';
 import { useMediaQuery } from '@chakra-ui/react';
+import axios from 'axios';
 
 // See auth_utils for AuthInterceptor
 const CDSBackend = axios.create({
