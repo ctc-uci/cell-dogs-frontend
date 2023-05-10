@@ -1,19 +1,17 @@
 import {
+  Button,
+  Input,
   Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
   ModalBody,
   ModalCloseButton,
-  Button,
+  ModalContent,
+  ModalHeader,
+  ModalOverlay,
   useDisclosure,
-  Input,
-  // Avatar,
 } from '@chakra-ui/react';
 // import { AddIcon } from '@chakra-ui/icons';
 import React from 'react';
 import './AddFacilityModal.css';
-import UploadAvatar from '../UploadAvatar/UploadAvatar';
 
 // export const theme = extendTheme({
 //   colors: {
@@ -30,7 +28,6 @@ import UploadAvatar from '../UploadAvatar/UploadAvatar';
 const AddFacilityModal = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [scrollBehavior] = React.useState('inside');
-  const [facilityToDelete, setFacilityToDelete] = useState(null);
 
   return (
     <>

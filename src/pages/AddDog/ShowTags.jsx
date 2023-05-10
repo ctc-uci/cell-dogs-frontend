@@ -2,7 +2,7 @@ import React from 'react';
 
 const ShowTags = ({ serviceTag, therapyTag, staffAdoptionTag, specialTag, disabledTag }) => {
   return (
-    <React.Fragment>
+    <>
       {therapyTag && (
         <div className="tag" style={{ backgroundColor: '#4299E1' }}>
           <h5>Therapy</h5>
@@ -28,7 +28,7 @@ const ShowTags = ({ serviceTag, therapyTag, staffAdoptionTag, specialTag, disabl
           <h5>Service</h5>
         </div>
       )}
-    </React.Fragment>
+    </>
   );
 };
 

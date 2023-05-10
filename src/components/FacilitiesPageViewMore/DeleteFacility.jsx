@@ -1,24 +1,39 @@
-import React from 'react';
 import {
-  useDisclosure,
   Button,
   ButtonGroup,
   Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalCloseButton,
   ModalBody,
+  ModalCloseButton,
+  ModalContent,
   ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  useDisclosure,
 } from '@chakra-ui/react';
-import { useBackend } from '../../contexts/BackendContext';
+import React from 'react';
 
-function DeleteFacility(props) {
+function DeleteFacility({ id }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { backend } = useBackend();
-  function ShowModal({ isOpen, onClose }) {
+  // const { backend } = useBackend();
+  const handleConfirmDelete = async () => {
+    // try {
+    //   console.log(`Deleted facility with id ${id}`);
+    //   const response = await backend.delete(`/facility/${id}`);
+    //   onClose();
+    //   if (response.status === 200) {
+    //     CreateToast({
+    //       description: `${facilityName} deleted successfully`,
+    //       status: 'success',
+    //       toast,
+    //     });
+    //   }
+    // } finally {
+    //   setLoading(false);
+    // }
+  };
+  function ShowModal({ isOpen: isOpenPassed, onClose: onClosePassed }) {
     return (
-      <Modal isOpen={isOpen} onClose={onClose}>
+      <Modal isOpen={isOpenPassed} onClose={onClosePassed}>
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>Remove Facility</ModalHeader>
@@ -35,7 +50,7 @@ function DeleteFacility(props) {
               size="sm"
               color="--cds-blue-2"
               variant="outline"
-              onClick={onClose}
+              onClick={onClosePassed}
             >
               Cancel
             </Button>
@@ -46,7 +61,7 @@ function DeleteFacility(props) {
                 size="sm"
                 bg="#21307a"
                 color="white"
-                onClick={() => handleConfirmDelete(props.id)}
+                onClick={() => handleConfirmDelete(id)}
               >
                 Yes, remove the facility
               </Button>
@@ -56,25 +71,6 @@ function DeleteFacility(props) {
       </Modal>
     );
   }
-
-  const handleConfirmDelete = async id => {
-    try {
-      console.log(`Deleted facility with id ${id}`);
-      const response = await backend.delete(`/facility/${id}`);
-
-      onClose();
-
-      if (response.status === 200) {
-        CreateToast({
-          description: `${facilityName} deleted successfully`,
-          status: 'success',
-          toast,
-        });
-      }
-    } finally {
-      setLoading(false);
-    }
-  };
 
   return (
     <React.Component>

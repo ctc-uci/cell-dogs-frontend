@@ -45,7 +45,7 @@ const EditUser = ({ setModalStep, onClose, info, setRender, render }) => {
   // save user after changes
   const { backend } = useBackend();
   const onSubmitHandler = async data => {
-    const { fullName, email, role } = data;
+    const { fullName, email } = data;
     const splitName = fullName.split(' ');
     const usersData = {
       firstName: splitName[0],

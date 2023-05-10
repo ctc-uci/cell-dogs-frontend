@@ -1,20 +1,16 @@
 import { AddIcon } from '@chakra-ui/icons';
-import { Button, Text } from '@chakra-ui/react';
+import { Box, Button } from '@chakra-ui/react';
 import { React, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import BreadcrumbBar from '../../components/BreadcrumbBar/BreadcrumbBar';
 // eslint-disable-next-line import/no-useless-path-segments
 import { useBackend } from '../../contexts/BackendContext';
-import { screenWidthExceeds } from '../../util/utils';
-import AdoptionLog from './AdoptionLog';
-import AdoptionLogCard from './AdoptionLogCard';
 import AdoptionLogNavbar from './AdoptionLogNavbar';
 
 const Dogs = () => {
   // const { currentUser, logout } = useAuth();
   // const { logout } = useAuth();
   const navigate = useNavigate();
-  const isLargerThan768 = screenWidthExceeds(768);
 
   // const handleLogout = async () => {
   //   await logout();
@@ -22,16 +18,19 @@ const Dogs = () => {
   // };
   const [view, setView] = useState('table');
   const { backend } = useBackend();
+  // eslint-disable-next-line
   const [data, setData] = useState([]);
   const [facilityFilter, setFacilityFilter] = useState('');
   const [filter, setFilter] = useState('');
   const [searchDog, setSearchDog] = useState('');
+  // eslint-disable-next-line
   const [dogs, setDogs] = useState([]);
   const [checkedDogs, setCheckedDogs] = useState([]);
 
+  // eslint-disable-next-line
   const getCheckedDogs = checkedDog => {
     if (checkedDogs.includes(checkedDog)) {
-      setCheckedDogs(checkedDogs.filter(i => i != checkedDog));
+      setCheckedDogs(checkedDogs.filter(i => i !== checkedDog));
     } else {
       setCheckedDogs([...checkedDogs, checkedDog]);
     }
@@ -77,11 +76,8 @@ const Dogs = () => {
     getFacilities();
   }, []);
 
-  const dogsLen = dogs.length;
-  // console.log('Dogs: ', checkedDogs);
-
   return (
-    <div>
+    <Box>
       <div className="breadcrumbAndAdd">
         <BreadcrumbBar left="Adoption Log">
           <div className="addDogButton">
@@ -108,42 +104,7 @@ const Dogs = () => {
         searchDog={searchDog}
         checkedDogs={checkedDogs}
       />
-      {view === 'table' &&
-        data
-          .filter(
-            facility =>
-              !facilityFilter || facility.name.toLowerCase().includes(facilityFilter.toLowerCase()),
-          )
-          .map(facility => (
-            <AdoptionLog
-              key={facility.name}
-              tableName={facility.name}
-              tableId={facility.id}
-              data={dogs}
-              filter={filter}
-              getCheckedDogs={getCheckedDogs}
-            />
-          ))}
-      {view === 'card' && !isLargerThan768 && (
-        <Text color="#6E6E6E" marginLeft="205px" marginTop="20px" marginBottom="10px">
-          {dogsLen} results
-        </Text>
-      )}
-      {view === 'card' && isLargerThan768 && (
-        <Text color="#6E6E6E" marginLeft="135px" marginTop="30px" marginBottom="20px">
-          {dogsLen} results
-        </Text>
-      )}
-      {view === 'card' &&
-        data.map(facility => (
-          <AdoptionLogCard
-            key={facility.name}
-            tableName={facility.name}
-            tableId={facility.id}
-            data={dogs}
-          />
-        ))}
-    </div>
+    </Box>
   );
 };
 export default Dogs;

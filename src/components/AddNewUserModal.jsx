@@ -1,18 +1,18 @@
 import React from 'react';
 
 import {
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
-  useDisclosure,
   Button,
   FormControl,
   FormLabel,
   Input,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  useDisclosure,
 } from '@chakra-ui/react';
 // import styles from './AddNe// wUserModal.module.css';
 //
@@ -30,7 +30,7 @@ const AddNewUserModal = () => {
     <>
       <Button onClick={onOpen}>Open Modal</Button>
       <Button ml={4} ref={finalRef}>
-        I'll receive focus on close
+        I&apos;ll receive focus on close
       </Button>
 
       <Modal

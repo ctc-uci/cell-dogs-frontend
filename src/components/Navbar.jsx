@@ -1,24 +1,23 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { CloseIcon, HamburgerIcon } from '@chakra-ui/icons';
 import {
-  Collapse,
-  Stack,
-  IconButton,
   Button,
-  Link,
-  useDisclosure,
+  Collapse,
   Flex,
+  Hide,
+  IconButton,
   Image,
+  Link,
   LinkBox,
   LinkOverlay,
-  Hide,
+  Stack,
   Text,
+  useDisclosure,
 } from '@chakra-ui/react';
-import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
+import React from 'react';
 import { BsFillPersonPlusFill } from 'react-icons/bs';
-import AddNewUserModal from './AddNewUserModal';
-import './Navbar.css';
+import { NavLink } from 'react-router-dom';
 import cellDogsLogoHorizontal2 from '../assets/CellDogs_logo_horizontal 2.png';
+import AddNewUserModal from './AddNewUserModal';
 import ProfileMenuModal from './ProfileMenuModal';
 
 const Navbar = () => {
