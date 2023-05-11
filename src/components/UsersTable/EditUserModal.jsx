@@ -29,6 +29,8 @@ import './EditUserModal.css';
 
 // modal to edit user
 const EditUser = ({ setModalStep, onClose, info, setRender, render }) => {
+  console.log('info!!');
+  console.log(info);
   const [user, setUser] = useState({
     fullName: `${info.firstName} ${info.lastName}`,
     email: `${info.email}`,
@@ -60,18 +62,21 @@ const EditUser = ({ setModalStep, onClose, info, setRender, render }) => {
   const changeAccountType = e => {
     setUser({
       ...user,
-      role: e.target.value,
+      accountType: e.target.value,
     });
   };
 
   // save user after changes
   const { backend } = useBackend();
   const save = async () => {
+    console.log('before saving new user data');
+    console.log(user);
     const splitName = user.fullName.split(' ');
     const usersData = {
       firstName: splitName[0],
       lastName: splitName[1],
       newEmail: user.email,
+      accountType: user.accountType,
     };
     await backend.put(`users/${info.email}`, usersData);
     setRender(!render);
@@ -92,9 +97,10 @@ const EditUser = ({ setModalStep, onClose, info, setRender, render }) => {
           <Input value={user.email} onChange={changeEmail} />
           <FormLabel mt={5}>Add Role</FormLabel>
           <Input value={user.role} onChange={changeRole} />
+          <FormLabel mt={5}>Account Type</FormLabel>
           <Select value={user.accountType} onChange={changeAccountType} mt={5}>
-            <option value="administrator">Administrator</option>
-            <option value="guest">Guest</option>
+            <option value="Administrator">Administrator</option>
+            <option value="Guest">Guest</option>
           </Select>
         </FormControl>
       </ModalBody>

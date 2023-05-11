@@ -75,6 +75,7 @@ const CellStructure = (setRender, render, isMobile) => {
         lastName: d.lastName,
         email: d.email,
         role: d.role,
+        accountType: d.accountType,
       }),
       Cell: ({ value }) => (
         <Box align="right" mr="30px">
