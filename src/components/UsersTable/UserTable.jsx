@@ -39,6 +39,7 @@ const UserPageTable = () => {
   const getUsers = async () => {
     try {
       const res = await backend.get('/users');
+      console.log(res.data);
       setData(res.data);
       setPageCount(Math.ceil(res.data.length / settings.pageSize));
     } catch (err) {
@@ -97,6 +98,7 @@ const UserPageTable = () => {
                 </Tr>
               )}
               {page.map(row => {
+                console.log(row);
                 prepareRow(row);
                 return (
                   <Tr {...row.getRowProps()}>
@@ -128,7 +130,7 @@ const UserPageTable = () => {
         <Grid>
           {data.map(user => {
             return (
-              <Card boxShadow="dark-lg" m={6} size="md" p="4" rounded="md" bg="white">
+              <Card boxShadow="dark-lg" m={6} size="md" p="4" rounded="md" bg="white" key={user.id}>
                 <CardHeader>
                   <Heading>
                     {user.firstName} {user.lastName}

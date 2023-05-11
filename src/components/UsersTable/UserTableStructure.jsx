@@ -13,7 +13,7 @@ const CellStructure = (setRender, render, isMobile) => {
         <>
           <HStack>
             <Icon color="#2D3748" as={BsPersonFill} boxSize={4} />
-            <Text color="#2D3748">Name</Text>
+            <Text color="#2D3748">Names</Text>
           </HStack>
         </>
       ),
@@ -34,7 +34,7 @@ const CellStructure = (setRender, render, isMobile) => {
         <>
           <HStack>
             <Icon color="#2D3748" as={InfoOutlineIcon} boxSize={4} />
-            <Text color="#2D3748">Email</Text>
+            <Text color="#2D3748">Email Addresses</Text>
           </HStack>
         </>
       ),
@@ -52,7 +52,20 @@ const CellStructure = (setRender, render, isMobile) => {
         </>
       ),
       accessor: 'role',
-      Cell: ({ value }) => <Text>{value}</Text>,
+      Cell: ({ value }) => <Text>{value || 'N/A'}</Text>,
+    },
+    {
+      id: 'type',
+      Header: (
+        <>
+          <HStack>
+            <Icon color="#2D3748" as={InfoOutlineIcon} boxSize={4} />
+            <Text color="#2D3748">Account Type</Text>
+          </HStack>
+        </>
+      ),
+      accessor: 'accountType',
+      Cell: ({ value }) => <Text>{value || 'N/A'}</Text>,
     },
     {
       id: 'edit',

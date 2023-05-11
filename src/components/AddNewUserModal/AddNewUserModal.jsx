@@ -1,23 +1,23 @@
-import React, { useRef, useState } from 'react';
 import {
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalBody,
   Button,
+  Flex,
   FormControl,
   FormLabel,
+  Heading,
   Input,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalOverlay,
   Select,
   VStack,
-  Heading,
-  ModalCloseButton,
-  Flex,
   useToast,
 } from '@chakra-ui/react';
+import React, { useRef, useState } from 'react';
 import { useBackend } from '../../contexts/BackendContext';
-import UploadAvatar from '../UploadAvatar/UploadAvatar';
 import CreateToast from '../Toasts/CreateToast';
+import UploadAvatar from '../UploadAvatar/UploadAvatar';
 
 const AddNewUserModal = ({ isOpen, onClose }) => {
   const { backend } = useBackend();
@@ -115,7 +115,7 @@ const AddNewUserModal = ({ isOpen, onClose }) => {
                 </Select>
               </FormControl>
               <Flex direction="row" width="100%" gap={2} pt={3}>
-                <Button flex={1} color="black" variant="outline">
+                <Button flex={1} color="black" variant="outline" onClick={() => onClose()}>
                   Cancel
                 </Button>
                 <Button

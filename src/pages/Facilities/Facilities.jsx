@@ -1,39 +1,39 @@
-import React, { useEffect, useState } from 'react';
+import { AddIcon } from '@chakra-ui/icons';
 import {
-  Table,
-  Thead,
-  Tbody,
-  Tr,
-  Th,
-  Td,
-  TableContainer,
-  Select,
-  Button,
   Avatar,
-  IconButton,
-  Flex,
-  Icon,
-  Text,
-  Heading,
-  Hide,
+  Box,
+  Button,
   Card,
-  CardHeader,
   CardBody,
   CardFooter,
+  CardHeader,
+  Flex,
+  Heading,
+  Hide,
+  Icon,
+  IconButton,
+  Select,
+  Table,
+  TableContainer,
+  Tbody,
+  Td,
+  Text,
+  Th,
+  Thead,
+  Tr,
   VStack,
-  Box,
 } from '@chakra-ui/react';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
 import {
-  BsFillClockFill,
-  BsPlusLg,
-  BsFillTagFill,
-  BsPersonFill,
   BsChevronLeft,
   BsChevronRight,
+  BsFillClockFill,
+  BsFillTagFill,
+  BsPersonFill,
 } from 'react-icons/bs';
-import { useBackend } from '../../contexts/BackendContext';
+import { useNavigate } from 'react-router-dom';
 import BreadcrumbBar from '../../components/BreadcrumbBar/BreadcrumbBar';
+import { useBackend } from '../../contexts/BackendContext';
 
 const Facilities = () => {
   // This is ALL OF THE FACILITIES
@@ -93,15 +93,12 @@ const Facilities = () => {
     <Flex direction="column" width="100%" height="100%" align="center">
       <BreadcrumbBar left="Facilities">
         <Button
+          leftIcon={<AddIcon />}
           size="sm"
-          colorScheme="gray"
-          m={0.1}
-          justify="right"
           onClick={() => {
             Navigate('/add-facility');
           }}
         >
-          <BsPlusLg />
           Add Facility
         </Button>
       </BreadcrumbBar>
