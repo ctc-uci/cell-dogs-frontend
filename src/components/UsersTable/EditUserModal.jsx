@@ -33,7 +33,7 @@ const EditUser = ({ setModalStep, onClose, info, setRender, render }) => {
     fullName: `${info.firstName} ${info.lastName}`,
     email: `${info.email}`,
     role: `${info.role}`,
-    accountType: `{info.accounType}`,
+    accountType: `${info.accountType}`,
   });
 
   const changeFullName = e => {
@@ -57,12 +57,12 @@ const EditUser = ({ setModalStep, onClose, info, setRender, render }) => {
     });
   };
 
-  const changeAccountType = e = {
-    setAccountType({
+  const changeAccountType = e => {
+    setUser({
       ...user,
-      accountType: e.target.value,
+      role: e.target.value,
     });
-  }
+  };
 
   // save user after changes
   const { backend } = useBackend();
