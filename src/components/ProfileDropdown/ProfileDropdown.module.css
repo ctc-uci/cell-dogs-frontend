@@ -56,8 +56,8 @@
   text-decoration: bold;
   color: #171923;
   font-size: 20px;
-  padding-bottom: 8px;
   font-weight: 600;
+  margin-bottom: 5px;
 }
 
 .dropdown-email {
@@ -88,4 +88,8 @@
     margin-left: 0;
     border-radius: 50%;
   }
+}
+
+p {
+  margin: none;
 }
