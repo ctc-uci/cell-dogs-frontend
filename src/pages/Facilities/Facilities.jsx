@@ -159,13 +159,17 @@ const Facilities = () => {
                       title,
                       phoneNumber,
                       email,
+                      image,
                     }) => (
                       <Tr key={name} py={2}>
                         <Td style={{ display: 'flex', alignItems: 'center' }}>
                           <Avatar
                             marginRight="10px"
                             size="md"
-                            src="https://i0.wp.com/fullertonobserver.com/wp-content/uploads/2020/12/OCJail.jpg?resize=829%2C436&ssl=1"
+                            src={
+                              image ||
+                              'https://i0.wp.com/fullertonobserver.com/wp-content/uploads/2020/12/OCJail.jpg?resize=829%2C436&ssl=1'
+                            }
                           />
                           {name}
                         </Td>
