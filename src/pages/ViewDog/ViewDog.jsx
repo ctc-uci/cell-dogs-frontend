@@ -30,7 +30,9 @@ const ViewDog = () => {
 
   const [editable, setEditable] = useState(false);
   const [dog, setDog] = useState({});
+  const [image, setImage] = useState(null); // [image, setImage
   const [facility, setFacilities] = useState([]);
+  const [defaultFacility, setDefaultFacility] = useState('');
 
   const { backend } = useBackend();
   const Navigate = useNavigate();
@@ -167,7 +169,17 @@ const ViewDog = () => {
 
       <div className="profileSection">
         <div className="dogPic" disabled={!editable}>
-          <UploadAvatar url={dog?.image} width="100px" height="100px" disabled="true" />
+          <UploadAvatar
+            url={dog?.image}
+            setUrl={url => {
+              let copy = { ...dog };
+              copy['image'] = url;
+              setDog(copy);
+            }}
+            width="100px"
+            height="100px"
+            disabled="true"
+          />
         </div>
         <div className="name">
           <div className="nameInput">
@@ -484,7 +496,11 @@ const ViewDog = () => {
           <Select
             disabled={!editable}
             className="formInput"
-            defaultValue={getFacility()}
+            value={
+              facility.find(f => {
+                return f.id === dog.facilityid;
+              })?.id
+            }
             onChange={e => {
               let copy = { ...dog };
               copy['facilityid'] = e.target.value;

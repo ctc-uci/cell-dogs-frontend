@@ -1,13 +1,11 @@
 import { Avatar, Input, Flex, Button } from '@chakra-ui/react';
-import { React, useState, useEffect } from 'react';
+import { React, useState } from 'react';
 import { storage } from '../../firebase'; // Import the Firebase storage module
 import './UploadAvatar.css';
 
 function UploadAvatar({ width = '40px', height = '40px', setUrl, url }) {
   const [avatar, setAvatar] = useState(url);
-  useEffect(() => {
-    setAvatar(url);
-  }, [url]);
+
   const [showInput, setShowInput] = useState(false);
   const [loading, setLoading] = useState(false);
 
