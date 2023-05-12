@@ -142,6 +142,13 @@ const Facilities = () => {
                   </Tr>
                 </Thead>
                 <Tbody>
+                  {pagedFacilities.length === 0 && (
+                    <Tr>
+                      <Td colSpan="6" textAlign="center" py="10">
+                        No results
+                      </Td>
+                    </Tr>
+                  )}
                   {/* This is where we map over the facilities we want to display */}
                   {pagedFacilities[page]?.map(
                     ({
