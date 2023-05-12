@@ -120,6 +120,7 @@ const AdoptionLog = props => {
       facilityid,
       gender,
       altname,
+      image,
     } = dog;
 
     const dogName = dogname;

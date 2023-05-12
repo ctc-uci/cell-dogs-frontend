@@ -14,6 +14,7 @@ import {
   MenuItem,
   MenuList,
   useDisclosure,
+  useToast,
 } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import FormSection from './Form/FormSection';
@@ -43,12 +44,14 @@ const AddDog = () => {
   const [deceasedTag, setDeceasedTag] = useState(false);
   const [serviceTag, setServiceTag] = useState(false);
   const [facility, setFacilities] = useState([]);
+  const [avatar, setAvatar] = useState(null);
   const cancelDisclosure = useDisclosure({ id: 'cancel-modal' });
 
+  const toast = useToast();
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, values },
     reset,
   } = useForm({
     resolver: yupResolver(AddDogSchema),
@@ -75,10 +78,20 @@ const AddDog = () => {
       staffAdoptionTag,
       deceasedTag,
       serviceTag,
+      image: avatar,
     };
     console.log(toSend);
     await backend.post('/dog', {
       ...toSend,
+    });
+
+    Navigate('/dogs');
+    toast({
+      position: 'bottom-right',
+      description: 'Dog added successfully',
+      status: 'success',
+      duration: 3000,
+      isClosable: true,
     });
   };
 
@@ -145,7 +158,7 @@ const AddDog = () => {
 
         <div className="profileSection">
           <div className="dogPic">
-            <UploadAvatar width="100px" height="100px" />
+            <UploadAvatar width="100px" height="100px" setUrl={setAvatar} />
           </div>
           <div className="name">
             <div className="nameInput">
@@ -156,6 +169,7 @@ const AddDog = () => {
                   placeholder="Enter Name"
                   size="lg"
                   variant="unstyled"
+                  value={values?.dogname}
                   {...register('dogname')}
                 />
               </FormControl>

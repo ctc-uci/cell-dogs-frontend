@@ -75,6 +75,7 @@ const AdoptionLogFacilityTable = ({
               adopterphone,
               addrline,
               adoptcity,
+              image,
               adoptstate,
               zip,
               ...rest
@@ -100,7 +101,8 @@ const AdoptionLogFacilityTable = ({
                       <Image
                         boxSize={10}
                         borderRadius="500px"
-                        src="http://via.placeholder.com/250x250"
+                        src={image || 'http://via.placeholder.com/250x250'}
+                        fallbackSrc="http://via.placeholder.com/250x250"
                         alt="Segun Adebayo"
                       />
                       <Flex direction="column">

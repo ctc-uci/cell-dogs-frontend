@@ -29,7 +29,10 @@ export default yup.object().shape({
 
   // Adopter Info Section
   adoptername: yup.string().required('Adopter name is required'),
-  adopterphone: yup.string().required('Adopter phone number is required'),
+  adopterphone: yup
+    .string()
+    .required('Adopter phone number is required')
+    .length(10, 'Phone number must be 10 digits'),
   adopteremail: yup.string().email('Invalid email address').required('Adopter email is required'),
 
   // Adopter Address Section
