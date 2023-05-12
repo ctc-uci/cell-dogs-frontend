@@ -166,3 +166,10 @@ img {
     margin-bottom: 0.5rem;
   }
 }
+
+h3 {
+  font-family: 'Quicksand';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 20px;
+}

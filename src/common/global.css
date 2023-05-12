@@ -44,6 +44,20 @@ h4 {
   font-family: 'Quicksand Semibold';
 }
 
+/* Header 5 */
+h5 {
+  font-size: 20px;
+  font-family: 'Quicksand Semibold';
+}
+
+/* Header 6 */
+h6 {
+  font-family: 'Quicksand Semibold';
+  font-weight: 500;
+  font-size: 16px;
+}
+
+
 /* Buttons */
 button {
   font-size: 1em;

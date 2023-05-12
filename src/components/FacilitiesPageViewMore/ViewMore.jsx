@@ -424,7 +424,7 @@ const ViewMore = () => {
             )}
           </div>
         </div>
-        <h3>Facility Name</h3>
+        <h5>Facility Name</h5>
         <div className="facilityNameInput">
           <Input
             disabled={!editable}
@@ -432,11 +432,11 @@ const ViewMore = () => {
             onChange={e => setFacilityName(e.target.value)}
           />
         </div>
-        <h3>Address</h3>
+        <h5>Address</h5>
         <div className="addressInput">
           <Input disabled={!editable} value={address} onChange={e => setAddress(e.target.value)} />
         </div>
-        <h3>Notes</h3>
+        <h5>Notes</h5>
         <div className="notesInput">
           <Textarea
             disabled={!editable}
@@ -448,7 +448,7 @@ const ViewMore = () => {
         </div>
         <div className="pointsOfContactContainer">
           <div className="pointsOfContact">
-            <h1 className="POCText">Points of Contact</h1>
+            <h4>Points of Contact</h4>
             {isLargerThan768 && (
               <Button
                 disabled={!editable}
@@ -470,13 +470,13 @@ const ViewMore = () => {
                   <div>
                     <div className="pocRow1">
                       <div className="pocName">
-                        <h3>Name</h3>
+                        <h6>Name</h6>
                         <div className="pocNameInput">
                           {PocElement({ index: index, name: 'name', holder: 'Jane Doe' })}
                         </div>
                       </div>
                       <div className="pocTitle">
-                        <h3>Title</h3>
+                        <h6>Title</h6>
                         <div className="pocTitleInput">
                           {PocElement({ index: index, name: 'title', holder: 'Programs Officer' })}
                         </div>
@@ -484,13 +484,13 @@ const ViewMore = () => {
                     </div>
                     <div className="pocRow2">
                       <div className="pocPhoneNumber">
-                        <h3>Phone Number</h3>
+                        <h6>Phone Number</h6>
                         <div className="pocPhoneNumberInput">
                           {PocElement({ index: index, name: 'phone', holder: '123-456-7890' })}
                         </div>
                       </div>
                       <div className="pocEmail">
-                        <h3>Email</h3>
+                        <h6>Email</h6>
                         <div className="pocEmailInput">
                           {PocElement({ index: index, name: 'email', holder: 'email@uci.edu' })}
                         </div>
@@ -505,25 +505,25 @@ const ViewMore = () => {
                     marginBottom={index === pocList.length - 1 ? '' : '2rem'}
                   >
                     <div className="pocName">
-                      <h3>Name</h3>
+                      <h6>Name</h6>
                       <div className="pocNameInput">
                         {PocElement({ index: index, name: 'name', holder: 'Jane Doe' })}
                       </div>
                     </div>
                     <div className="pocTitle">
-                      <h3>Title</h3>
+                      <h6>Title</h6>
                       <div className="pocTitleInput">
                         {PocElement({ index: index, name: 'title', holder: 'Programs Officer' })}
                       </div>
                     </div>
                     <div className="pocPhoneNumber">
-                      <h3>Phone Number</h3>
+                      <h6>Phone Number</h6>
                       <div className="pocPhoneNumberInput">
                         {PocElement({ index: index, name: 'phone', holder: '123-456-7890' })}
                       </div>
                     </div>
                     <div className="pocEmail">
-                      <h3>Email</h3>
+                      <h6>Email</h6>
                       <div className="pocEmailInput">
                         {PocElement({ index: index, name: 'email', holder: 'email@uci.edu' })}
                       </div>

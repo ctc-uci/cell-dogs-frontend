@@ -36,7 +36,6 @@ import BreadcrumbBar from '../../components/BreadcrumbBar/BreadcrumbBar';
 import { useBackend } from '../../contexts/BackendContext';
 
 const Facilities = () => {
-  // This is ALL OF THE FACILITIES
   const Navigate = useNavigate();
   /* eslint-disable  no-unused-vars */
   const [facilities, setFacilities] = useState([]);
