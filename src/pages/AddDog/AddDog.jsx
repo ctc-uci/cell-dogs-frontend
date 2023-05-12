@@ -17,14 +17,15 @@ import {
   MenuList,
   Select,
   Textarea,
+  useDisclosure,
 } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import ShowCancelModal from '../../common/ShowCancelModal';
 import UploadAvatar from '../../components/UploadAvatar/UploadAvatar';
 import { useBackend } from '../../contexts/BackendContext';
 import './AddDog.css';
 import ShowTags from './ShowTags';
-
 const AddDog = () => {
   const [dogid, setDogID] = useState(0);
   const [facilityid, setFacilityID] = useState(0);
@@ -55,6 +56,7 @@ const AddDog = () => {
   const [specialTag, setSpecialTag] = useState(false);
   const [serviceTag, setServiceTag] = useState(false);
   const [facility, setFacilities] = useState([]);
+  const cancelDisclosure = useDisclosure({ id: 'cancel-modal' });
 
   const { backend } = useBackend();
   const Navigate = useNavigate();
@@ -153,7 +155,7 @@ const AddDog = () => {
         <div className="breadcrumb">
           <Breadcrumb spacing="8px" separator={<ChevronRightIcon color="gray.500" />}>
             <BreadcrumbItem>
-              <BreadcrumbLink href="#">Adoption Log</BreadcrumbLink>
+              <BreadcrumbLink onClick={() => Navigate('/')}>Adoption Log</BreadcrumbLink>
             </BreadcrumbItem>
 
             <BreadcrumbItem>
@@ -208,13 +210,8 @@ const AddDog = () => {
         </div>
         <div className="buttons">
           <div className="cancelButton">
-            <ButtonGroup variant="outline" spacing="6">
+            <ButtonGroup variant="outline" spacing="6" onClick={cancelDisclosure.onOpen}>
               <Button>Cancel</Button>
-            </ButtonGroup>
-          </div>
-          <div className="removeDogButton">
-            <ButtonGroup variant="outline" spacing="6">
-              <Button colorScheme="red">Remove Dog</Button>
             </ButtonGroup>
           </div>
           <div className="saveButton">
@@ -224,6 +221,12 @@ const AddDog = () => {
           </div>
         </div>
       </div>
+      <ShowCancelModal
+        isOpen={cancelDisclosure.isOpen}
+        onClose={cancelDisclosure.onClose}
+        pageName={'adoption log'}
+        discardNavigationLocation={''}
+      />
       <div className="row1">
         <div className="adopterInfo">
           <Heading as="h2" fontSize="24px">

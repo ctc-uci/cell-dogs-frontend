@@ -142,7 +142,7 @@ const ViewDog = () => {
         <div className="breadcrumb">
           <Breadcrumb spacing="8px" separator={<ChevronRightIcon color="gray.500" />}>
             <BreadcrumbItem>
-              <BreadcrumbLink href="#">Adoption Log</BreadcrumbLink>
+              <BreadcrumbLink onClick={() => Navigate('/')}>Adoption Log</BreadcrumbLink>
             </BreadcrumbItem>
 
             <BreadcrumbItem>

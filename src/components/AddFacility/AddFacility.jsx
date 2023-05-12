@@ -1,26 +1,11 @@
 /* eslint-disable */
-import {
-  Box,
-  Button,
-  ButtonGroup,
-  Flex,
-  Input,
-  Modal,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  ModalOverlay,
-  Textarea,
-  useDisclosure,
-  useToast,
-} from '@chakra-ui/react';
+import { Box, Button, Flex, Input, Textarea, useDisclosure, useToast } from '@chakra-ui/react';
 // import { AddIcon } from '@chakra-ui/icons';
-import { ArrowBackIcon, WarningIcon } from '@chakra-ui/icons';
+import { ArrowBackIcon } from '@chakra-ui/icons';
 import React, { useState } from 'react';
 import { BsPlusLg } from 'react-icons/bs';
 import { useNavigate } from 'react-router-dom';
+import ShowCancelModal from '../../common/ShowCancelModal';
 import BreadcrumbBar from '../../components/BreadcrumbBar/BreadcrumbBar';
 import { useBackend } from '../../contexts/BackendContext';
 import { screenWidthExceeds } from '../../util/utils';
@@ -122,78 +107,6 @@ const AddFacility = () => {
     setPocList(prevList => [...prevList, { name: '', title: '', phone: '', email: '' }]);
   };
 
-  function ShowCancelModal({ isOpen, onClose }) {
-    return (
-      <Modal isOpen={isOpen} onClose={onClose}>
-        <ModalOverlay />
-        <ModalContent>
-          <Flex flexDirection="column" justifyContent="center" alignItems="center">
-            <WarningIcon w="2rem" h="2rem" color="red.500" marginTop="2rem" />
-            <ModalHeader>Changes not saved!</ModalHeader>
-          </Flex>
-          <ModalCloseButton />
-          <ModalBody>
-            Are you sure you want to discard all changes made? By clicking 'Discard all changes' you
-            will be sent back to the facilities page.
-          </ModalBody>
-          {isLargerThan768 && (
-            <ModalFooter width="100%" display="flex" justifyContent="space-between">
-              <Button
-                className="cancelButton"
-                // width="250px"
-                width="16rem"
-                size="sm"
-                color="--cds-blue-2"
-                variant="outline"
-                onClick={onClose}
-              >
-                Cancel
-              </Button>
-              <ButtonGroup variant="outline" spacing="6">
-                <Button
-                  className="deleteButton"
-                  width="12rem"
-                  size="sm"
-                  bg="#21307a"
-                  color="white"
-                  onClick={() => Navigate('/facilities')}
-                >
-                  Discard all changes
-                </Button>
-              </ButtonGroup>
-            </ModalFooter>
-          )}
-          {!isLargerThan768 && (
-            <ModalFooter width="100%" display="flex" flexDirection="column" gap="10px">
-              <ButtonGroup variant="outline" spacing="6" width="100%">
-                <Button
-                  className="deleteButton"
-                  size="sm"
-                  width="100%"
-                  bg="#21307a"
-                  color="white"
-                  onClick={() => Navigate('/facilities')}
-                >
-                  Discard all changes
-                </Button>
-              </ButtonGroup>
-              <Button
-                className="cancelButton"
-                width="100%"
-                size="sm"
-                color="--cds-blue-2"
-                variant="outline"
-                onClick={onClose}
-              >
-                Cancel
-              </Button>
-            </ModalFooter>
-          )}
-        </ModalContent>
-      </Modal>
-    );
-  }
-
   return (
     <Box>
       <BreadcrumbBar left="Facilities > New Facility">
@@ -241,6 +154,8 @@ const AddFacility = () => {
               <ShowCancelModal
                 isOpen={cancelDisclosure.isOpen}
                 onClose={cancelDisclosure.onClose}
+                pageName={'facilities'}
+                discardNavigationLocation={'facilities'}
               />
 
               <Button
@@ -397,6 +312,7 @@ const AddFacility = () => {
               <ShowCancelModal
                 isOpen={cancelDisclosure.isOpen}
                 onClose={cancelDisclosure.onClose}
+                pageName={'Facilities'}
               />
 
               <Button

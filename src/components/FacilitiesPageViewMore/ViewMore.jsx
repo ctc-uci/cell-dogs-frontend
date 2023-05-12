@@ -4,7 +4,6 @@ import {
   Box,
   Button,
   ButtonGroup,
-  Editable,
   Flex,
   Input,
   Modal,
@@ -21,7 +20,7 @@ import {
 // import { AddIcon } from '@chakra-ui/icons';
 import { ArrowBackIcon, WarningIcon } from '@chakra-ui/icons';
 // import PropTypes from 'prop-types';
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BsPlusLg } from 'react-icons/bs';
 import { useLocation, useNavigate } from 'react-router-dom';
 import BreadcrumbBar from '../../components/BreadcrumbBar/BreadcrumbBar';
@@ -406,6 +405,7 @@ const ViewMore = () => {
                 <ShowCancelModal
                   isOpen={cancelDisclosure.isOpen}
                   onClose={cancelDisclosure.onClose}
+                  discardNavigationLocation={''}
                 />
 
                 <ShowModal isOpen={isOpen} onClose={onClose} />
