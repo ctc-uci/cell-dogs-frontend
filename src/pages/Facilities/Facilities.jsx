@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import { AddIcon } from '@chakra-ui/icons';
 import {
   Avatar,
@@ -43,16 +44,7 @@ const Facilities = () => {
   const [resultsPerPage, setResultsPerPage] = useState(10);
   const [page, setPage] = useState(0);
 
-  const navigateViewMore = (
-    username,
-    address,
-    desc,
-    id,
-    contactPerson,
-    title,
-    phoneNumber,
-    email,
-  ) => {
+  const navigateViewMore = (username, address, desc, id) => {
     Navigate('/view-more', {
       state: {
         name: username,
@@ -64,6 +56,7 @@ const Facilities = () => {
   };
 
   useEffect(() => {
+    console.log(pagedFacilities);
     // have it so that each page has resultsPerPage facilities
     setPage(0);
     const temp = facilities.reduce((acc, cur, i) => {
@@ -165,7 +158,7 @@ const Facilities = () => {
                     address_line: addressLine,
                     description,
                     id,
-                    contact_person: contactPerson,
+                    facility_contacts,
                     title,
                     phoneNumber,
                     email,
@@ -181,7 +174,7 @@ const Facilities = () => {
                       <Td>{name}</Td>
                       <Td>{addressLine}</Td>
                       <Td>{description}</Td>
-                      <Td>Some Random Contact</Td>
+                      <Td>{facility_contacts !== null ? facility_contacts : 'N/A'}</Td>
                       <Td>
                         <Button
                           size="sm"
@@ -193,7 +186,7 @@ const Facilities = () => {
                               addressLine,
                               description,
                               id,
-                              contactPerson,
+                              facility_contacts,
                               title,
                               phoneNumber,
                               email,
@@ -274,7 +267,7 @@ const Facilities = () => {
               title,
               phoneNumber,
               email,
-              contact_person: contactPerson,
+              facility_contacts,
             }) => (
               <Card
                 boxShadow="dark-lg"
@@ -327,7 +320,7 @@ const Facilities = () => {
                         addressLine,
                         description,
                         id,
-                        contactPerson,
+                        facility_contacts,
                         title,
                         phoneNumber,
                         email,
