@@ -54,11 +54,13 @@ const AdoptionLogFacilityView = ({ info, dogs, selected, setSelected, view }) =>
   return (
     <Box>
       <Flex
+        width="100%"
         direction={{
           base: 'column',
           md: 'row',
         }}
         gap={2}
+        justifyContent="space-between"
       >
         <Text fontSize="3xl">{shelter}</Text>
         <Flex direction="row" gap={2}>

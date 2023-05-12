@@ -22,14 +22,13 @@ import { possibleDogTags } from '../../util/utils';
 const AdoptionLogFacilityTable = ({
   dogs,
   selected,
-  info,
+
   calculateDogAgeAtGraduation,
   toggleCheck,
   facilitySelected,
   toggleFacilitySelected,
 }) => {
   const Navigate = useNavigate();
-  const { shelter } = info;
   return (
     <TableContainer mt={5} overflowX="scroll" borderWidth={1} borderRadius="lg">
       <Table
@@ -56,7 +55,7 @@ const AdoptionLogFacilityTable = ({
             <Th>Dog Name</Th>
             <Th>Tags</Th>
             {/* Facility, Adoptor, Contact Info, Address */}
-            <Th>Facility</Th>
+
             <Th>Adoptor</Th>
             <Th>Contact Info</Th>
             <Th>Address</Th>
@@ -132,7 +131,7 @@ const AdoptionLogFacilityTable = ({
                       ))}
                     </VStack>
                   </Td>
-                  <Td>{shelter}</Td>
+
                   <Td>{adoptername}</Td>
                   <Td>
                     <Flex direction="column">
