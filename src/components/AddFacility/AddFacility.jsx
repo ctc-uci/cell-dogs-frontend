@@ -1,12 +1,20 @@
 /* eslint-disable */
-import { Box, Button, Flex, Input, Textarea, useDisclosure, useToast } from '@chakra-ui/react';
-// import { AddIcon } from '@chakra-ui/icons';
-import { ArrowBackIcon } from '@chakra-ui/icons';
+import { AddIcon, ArrowBackIcon, ChevronRightIcon } from '@chakra-ui/icons';
+import {
+  Box,
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  Button,
+  Flex,
+  Input,
+  Textarea,
+  useDisclosure,
+  useToast,
+} from '@chakra-ui/react';
 import React, { useState } from 'react';
-import { BsPlusLg } from 'react-icons/bs';
 import { useNavigate } from 'react-router-dom';
 import ShowCancelModal from '../../common/ShowCancelModal';
-import BreadcrumbBar from '../../components/BreadcrumbBar/BreadcrumbBar';
 import { useBackend } from '../../contexts/BackendContext';
 import { screenWidthExceeds } from '../../util/utils';
 import CreateToast from '../Toasts/CreateToast';
@@ -117,20 +125,25 @@ const AddFacility = () => {
 
   return (
     <Box>
-      <BreadcrumbBar left="Facilities > New Facility">
-        <Button
-          size="sm"
-          colorScheme="gray"
-          m={0.1}
-          justify="right"
-          onClick={() => {
-            Navigate('/add-facility');
-          }}
-        >
-          <BsPlusLg />
-          Add Facility
-        </Button>
-      </BreadcrumbBar>
+      <div className="breadcrumbAndAdd">
+        <div className="breadcrumb">
+          <Breadcrumb spacing="8px" separator={<ChevronRightIcon color="gray.500" />}>
+            <BreadcrumbItem>
+              <BreadcrumbLink onClick={() => Navigate('/facilities')}>Facilities</BreadcrumbLink>
+            </BreadcrumbItem>
+
+            <BreadcrumbItem>
+              <BreadcrumbLink href="#">New Facility</BreadcrumbLink>
+            </BreadcrumbItem>
+          </Breadcrumb>
+        </div>
+        <div className="addDogButton">
+          <Button leftIcon={<AddIcon />} size="sm">
+            Add Dog
+          </Button>
+        </div>
+      </div>
+
       <Flex width="100%" justifyContent="flex-start" pt={4} ml={10}>
         <Button variant="link" leftIcon={<ArrowBackIcon />} onClick={() => Navigate('/facilities')}>
           Go Back

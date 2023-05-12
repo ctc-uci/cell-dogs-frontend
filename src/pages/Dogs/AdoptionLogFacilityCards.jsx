@@ -100,7 +100,7 @@ const AdoptionLogFacilityCards = ({
                 <VStack spacing={1} align="stretch">
                   <Stack direction="row">
                     <Text fontWeight="bold" fontSize="md" textDecoration="underline">
-                      Facility:
+                      Shelter:
                     </Text>
                     <Text fontSize="md" margin="auto">
                       {shelter}

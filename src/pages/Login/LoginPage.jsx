@@ -1,24 +1,24 @@
-import React, { useState, useEffect } from 'react';
-import * as yup from 'yup';
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { NavLink, useNavigate } from 'react-router-dom';
 import {
-  Input,
-  Stack,
-  Button,
-  Text,
   Alert,
   AlertIcon,
   AlertTitle,
+  Button,
   FormControl,
   FormErrorMessage,
+  Input,
+  Stack,
+  Text,
 } from '@chakra-ui/react';
+import { yupResolver } from '@hookform/resolvers/yup';
+import React, { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { NavLink, useNavigate } from 'react-router-dom';
+import * as yup from 'yup';
 import cellDogsLogoHorizontal4 from '../../assets/CellDogs_logo_horizontal-4.png';
 import cellDogsLogoHorizontal5 from '../../assets/CellDogs_logo_horizontal-5.png';
 import loginDogImage1 from '../../assets/P_Puppy_Maekawa_Genuine-removebg-preview 1.png';
-import styles from './LoginPage.module.css';
 import { useAuth } from '../../contexts/AuthContext';
+import styles from './LoginPage.module.css';
 
 const schema = yup.object().shape({
   email: yup.string().email('Please enter a valid email.').required('Please enter an email.'),
@@ -84,18 +84,11 @@ const LoginPage = () => {
           {/* Form Control for every input */}
           <form className={styles['input-form']} onSubmit={handleSubmit(onSubmitHandler)}>
             <FormControl isInvalid={errors?.email} className={styles['input-form']}>
-              <Input
-                htmlSize={50}
-                width="auto"
-                placeholder="Email"
-                size="md"
-                {...register('email')}
-              />
+              <Input width="auto" placeholder="Email" size="md" {...register('email')} />
               <FormErrorMessage>{errors?.email && errors?.email?.message}</FormErrorMessage>
             </FormControl>
             <FormControl isInvalid={errors?.password} className={styles['input-form']}>
               <Input
-                htmlSize={50}
                 width="auto"
                 placeholder="Password"
                 size="md"

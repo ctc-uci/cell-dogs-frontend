@@ -108,19 +108,18 @@ const Dogs = () => {
     <Box>
       <div className="breadcrumbAndAdd">
         <BreadcrumbBar left="Adoption Log">
-          <div className="addDogButton">
-            <Button
-              leftIcon={<AddIcon />}
-              size="sm"
-              onClick={() => {
-                navigate('/dogs/new');
-              }}
-            >
-              Add Dog
-            </Button>
-          </div>
+          <Button
+            leftIcon={<AddIcon />}
+            size="sm"
+            onClick={() => {
+              navigate('/dogs/new');
+            }}
+          >
+            Add Dog
+          </Button>
         </BreadcrumbBar>
       </div>
+
       <Flex align="center" justify="center" px={5}>
         <Flex
           width={{

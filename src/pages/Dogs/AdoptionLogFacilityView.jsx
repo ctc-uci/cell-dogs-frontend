@@ -2,10 +2,12 @@ import { Box, Button, Flex, Text } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import AdoptionLogFacilityCards from './AdoptionLogFacilityCards';
 import AdoptionLogFacilityTable from './AdoptionLogFacilityTable';
+import { useBackend } from '../../contexts/BackendContext';
 
 const AdoptionLogFacilityView = ({ info, dogs, selected, setSelected, view }) => {
   // eslint-disable-next-line
   const { shelter, facilityid } = info;
+
   const calculateDogAgeAtGraduation = (graduationDate, currentAge) => {
     // Step 1: Convert graduation date to JavaScript Date object
     const gradDate = new Date(graduationDate);
@@ -51,6 +53,21 @@ const AdoptionLogFacilityView = ({ info, dogs, selected, setSelected, view }) =>
     console.log(selected);
   };
 
+  const [facilityName, setFacilityName] = useState('');
+  const { backend } = useBackend();
+  const getFacilityName = async id => {
+    try {
+      const res = await backend.get(`/facility/${id}`);
+      setFacilityName(res.data[0].name);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getFacilityName(facilityid);
+  }, []);
+
   return (
     <Box>
       <Flex
@@ -62,7 +79,7 @@ const AdoptionLogFacilityView = ({ info, dogs, selected, setSelected, view }) =>
         gap={2}
         justifyContent="space-between"
       >
-        <Text fontSize="3xl">{shelter}</Text>
+        <Text fontSize="3xl">{facilityName}</Text>
         <Flex direction="row" gap={2}>
           <Button variant="outline" onClick={toggleFacilitySelected}>
             {facilitySelected ? 'Deselect All' : 'Select All'}

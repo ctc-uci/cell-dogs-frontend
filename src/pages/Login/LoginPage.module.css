@@ -30,9 +30,11 @@ html {
     flex-direction: column;
   }
 
-  /* .cell-dogs-logo {
-    display: none;
-  } */
+  .input-form {
+    width: 40%;
+    margin-top: 0.25rem;
+    margin-bottom: 0.25rem;
+  }
 }
 
 .information {
@@ -84,6 +86,7 @@ html {
 }
 
 .input-form Input {
+  width: 200%;
   margin-top: 0.25rem;
   margin-bottom: 0.25rem;
 }

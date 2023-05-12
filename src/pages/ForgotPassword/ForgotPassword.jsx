@@ -73,12 +73,6 @@ const ForgotPassword = () => {
         md: 'row',
       }}
     >
-      <Show below="md">
-        <Flex direction="row" py={3} justifyContent={'center'}>
-          <Image src={cellDogsLogoHorizontal4} width={75} />
-          <Image src={cellDogsLogoHorizontal5} width={75} objectFit="contain" />
-        </Flex>
-      </Show>
       <Flex
         flex={1}
         justifyContent={'center'}
@@ -94,8 +88,19 @@ const ForgotPassword = () => {
 
       <Flex flex={1} justifyContent={'center'} alignItems={'center'} direction="column">
         <Flex direction="column" justifyContent={'center'}>
-          <Image src={cellDogsLogoHorizontal4} width={100} />
-          <Image src={cellDogsLogoHorizontal5} width={100} />
+          <NavLink to="/">
+            <img
+              className={'cds-logo-horizontal-4'}
+              src={cellDogsLogoHorizontal4}
+              alt="cellDogsLogoHorizontal4"
+            />
+            <img
+              className={'cds-logo-horizontal-5'}
+              src={cellDogsLogoHorizontal5}
+              alt="cellDogsLogoHorizontal4"
+            />
+            <br />
+          </NavLink>
         </Flex>
         {successfullySubmitted ? (
           <Flex

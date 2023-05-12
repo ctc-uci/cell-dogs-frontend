@@ -96,11 +96,10 @@ const Facilities = () => {
       </BreadcrumbBar>
 
       <Box p={10}>
-        <Flex width="90%" justifyContent={['center', 'flex-start']} my={5}>
-          <h2>Facilities</h2>
-        </Flex>
-
         <Hide below="md">
+          <Flex width="90%" justifyContent={['center', 'flex-start']} my={5}>
+            <h2>Facilities</h2>
+          </Flex>
           <Flex width="100%" direction="column">
             <TableContainer variant="simple" justify="left" width="100%">
               <Table w="full" borderWidth="1px">
@@ -274,11 +273,21 @@ const Facilities = () => {
                   p="4"
                   rounded="md"
                   bg="white"
-                  minWidth="90%"
-                  maxWidth="90%"
-                  justifyContent="flex-end"
+                  minWidth="110%"
                   key={name}
                 >
+                  {/* <Card
+                  boxShadow="dark-lg"
+                  m={6}
+                  size="md"
+                  p="4"
+                  rounded="md"
+                  bg="white"
+                  minWidth="100%"
+                  maxWidth="100%"
+                  justifyContent="flex-end"
+                  key={name}
+                > */}
                   <CardHeader>
                     <Flex spacing="4">
                       <Flex flex="1" gap="4" alignItems="center" flexWrap="wrap">
