@@ -80,6 +80,7 @@ const AddDog = () => {
     await backend.post('/dog', {
       ...toSend,
     });
+    Navigate('/');
   };
 
   const TagSetup = ({ tagBoolean, tagName, setTag }) => {

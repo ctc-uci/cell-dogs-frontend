@@ -5,27 +5,27 @@ const ShowTags = ({ serviceTag, therapyTag, staffAdoptionTag, specialTag, disabl
     <>
       {therapyTag && (
         <div className="tag" style={{ backgroundColor: '#4299E1' }}>
-          <h5>Therapy</h5>
+          <h6>Therapy</h6>
         </div>
       )}
       {staffAdoptionTag && (
         <div className="tag" style={{ backgroundColor: '#ECC94B' }}>
-          <h5>Stf Adpt</h5>
+          <h6>Stf Adpt</h6>
         </div>
       )}
       {disabledTag && (
         <div className="tag" style={{ backgroundColor: '#C53030' }}>
-          <h5>Decsd</h5>
+          <h6>Decsd</h6>
         </div>
       )}
       {specialTag && (
         <div className="tag" style={{ backgroundColor: '#ED8936' }}>
-          <h5>Special</h5>
+          <h6>Special</h6>
         </div>
       )}
       {serviceTag && (
         <div className="tag" style={{ backgroundColor: '#48BB78' }}>
-          <h5>Service</h5>
+          <h6>Service</h6>
         </div>
       )}
     </>

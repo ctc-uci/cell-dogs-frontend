@@ -18,7 +18,7 @@ import {
 import React from 'react';
 import { useNavigate } from 'react-router';
 import { possibleDogTags } from '../../util/utils';
-
+// import ShowTags from '../AddDog/ShowTags';
 const AdoptionLogFacilityTable = ({
   dogs,
   selected,
@@ -80,6 +80,8 @@ const AdoptionLogFacilityTable = ({
               ...rest
             }) => {
               const tags = Object.keys(possibleDogTags).filter(tag => rest[tag]);
+              console.log('tags!');
+              console.log(tags);
               return (
                 <Tr
                   key={dogid}
