@@ -43,6 +43,7 @@ const AdoptionLogFacilityCards = ({
           adoptcity,
           adoptstate,
           zip,
+          image,
           ...rest
         }) => {
           const tags = Object.keys(possibleDogTags).filter(tag => rest[tag]);
@@ -55,7 +56,7 @@ const AdoptionLogFacilityCards = ({
                       <Image
                         boxSize={10}
                         borderRadius="500px"
-                        src="http://via.placeholder.com/250x250"
+                        src={image || 'http://via.placeholder.com/250x250'}
                         alt="Segun Adebayo"
                       />
                       <Flex direction="column">

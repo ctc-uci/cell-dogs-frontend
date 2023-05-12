@@ -1,10 +1,13 @@
 import { Avatar, Input, Flex, Button } from '@chakra-ui/react';
-import { React, useState } from 'react';
+import { React, useState, useEffect } from 'react';
 import { storage } from '../../firebase'; // Import the Firebase storage module
 import './UploadAvatar.css';
 
-function UploadAvatar({ width = '40px', height = '40px', setUrl }) {
-  const [avatar, setAvatar] = useState(null);
+function UploadAvatar({ width = '40px', height = '40px', setUrl, url }) {
+  const [avatar, setAvatar] = useState(url);
+  useEffect(() => {
+    setAvatar(url);
+  }, [url]);
   const [showInput, setShowInput] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -14,7 +17,7 @@ function UploadAvatar({ width = '40px', height = '40px', setUrl }) {
     if (file && file.type.includes('image')) {
       try {
         const storageRef = storage.ref();
-        const name = new Date().getTime();
+        const name = new Date().getTime().toString();
         const fileRef = storageRef.child(name);
         await fileRef.put(file);
         const fileUrl = await fileRef.getDownloadURL();

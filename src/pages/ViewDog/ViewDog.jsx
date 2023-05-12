@@ -157,7 +157,7 @@ const ViewDog = () => {
         </div>
       </div>
 
-      <Flex width="100%" justifyContent="flex-start" pt={4} ml={10}>
+      <Flex justifyContent="flex-start" pt={4} ml={10}>
         <Button variant="link" leftIcon={<ArrowBackIcon />} onClick={() => Navigate('/')}>
           Go Back
         </Button>
@@ -165,7 +165,7 @@ const ViewDog = () => {
 
       <div className="profileSection">
         <div className="dogPic" disabled={!editable}>
-          <UploadAvatar width="100px" height="100px" disabled="true" />
+          <UploadAvatar url={dog?.image} width="100px" height="100px" disabled="true" />
         </div>
         <div className="name">
           <div className="nameInput">

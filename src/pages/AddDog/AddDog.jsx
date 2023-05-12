@@ -85,7 +85,7 @@ const AddDog = () => {
       ...toSend,
     });
 
-    Navigate('/dogs');
+    Navigate('/');
     toast({
       position: 'bottom-right',
       description: 'Dog added successfully',
