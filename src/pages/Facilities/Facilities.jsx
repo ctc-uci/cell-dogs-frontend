@@ -96,7 +96,6 @@ const Facilities = () => {
       </BreadcrumbBar>
 
       <Box p={10}>
-        {/* I dont like this but im tired  */}
         <Flex width="90%" justifyContent={['center', 'flex-start']} my={5}>
           <h2>Facilities</h2>
         </Flex>
@@ -107,7 +106,6 @@ const Facilities = () => {
               <Table w="full" borderWidth="1px">
                 <Thead height="40px" borderTopRadius="lg">
                   <Tr bgColor="#F7FAFC">
-                    <Th />
                     {[
                       {
                         header: 'Facilities',
@@ -157,14 +155,14 @@ const Facilities = () => {
                       email,
                     }) => (
                       <Tr key={name} py={2}>
-                        <Td>
+                        <Td style={{ display: 'flex', alignItems: 'center' }}>
                           <Avatar
                             marginRight="10px"
-                            size="sm"
+                            size="md"
                             src="https://i0.wp.com/fullertonobserver.com/wp-content/uploads/2020/12/OCJail.jpg?resize=829%2C436&ssl=1"
                           />
+                          {name}
                         </Td>
-                        <Td>{name}</Td>
                         <Td>{addressLine}</Td>
                         <Td>{description}</Td>
                         <Td>{facility_contacts !== null ? facility_contacts : 'N/A'}</Td>

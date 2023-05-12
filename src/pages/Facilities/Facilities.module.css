@@ -30,3 +30,8 @@
   font-family: 'Quicksand', sans-serif;
   font-size: 60px;
 }
+
+.facilityNameAndPhoto {
+  display: flex;
+  align-items: center;
+}

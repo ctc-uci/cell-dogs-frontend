@@ -127,33 +127,50 @@ const ViewMore = () => {
   };
 
   const saveFacility = async () => {
-    const facilityData = {
-      name: facilityName,
-      addressLine: address,
-      description: notes,
-    };
-    await backend.put(`facility/${state.id}`, facilityData);
-    for (const poc of pocList) {
-      if (poc['new']) {
-        const pocData = {
-          facilityId: state.id,
-          name: poc['name'],
-          title: poc['title'],
-          phoneNumber: poc['phone'],
-          emailAddress: poc['email'],
-        };
-        await backend.post('/facilityContacts', pocData);
-      } else {
-        const pocData = {
-          name: poc['name'],
-          title: poc['title'],
-          phoneNumber: poc['phone'],
-          emailAddress: poc['email'],
-        };
-        await backend.put(`/facilityContacts/${poc['id']}`, pocData);
+    try {
+      const facilityData = {
+        name: facilityName,
+        addressLine: address,
+        description: notes,
+      };
+      const resposne = await backend.put(`facility/${state.id}`, facilityData);
+      console.log(facilityData);
+      for (const poc of pocList) {
+        if (poc['new']) {
+          const pocData = {
+            facilityId: state.id,
+            name: poc['name'],
+            title: poc['title'],
+            phoneNumber: poc['phone'],
+            emailAddress: poc['email'],
+          };
+          await backend.post('/facilityContacts', pocData);
+        } else {
+          const pocData = {
+            name: poc['name'],
+            title: poc['title'],
+            phoneNumber: poc['phone'],
+            emailAddress: poc['email'],
+          };
+          await backend.put(`/facilityContacts/${poc['id']}`, pocData);
+        }
       }
+
+      CreateToast({
+        description: `Edited facility!`,
+        status: 'info',
+        toast,
+      });
+
+      setEditable(false);
+    } catch (error) {
+      console.log(error);
+      CreateToast({
+        description: `Error: ${error.data}`,
+        status: 'error',
+        toast,
+      });
     }
-    setEditable(false);
   };
 
   function ShowModal({ isOpen, onClose }) {

@@ -50,32 +50,40 @@ const AddFacility = () => {
 
   const toast = useToast();
   const addFacility = async () => {
-    const facilityData = {
-      name: facilityName,
-      addressLine: address,
-      city: 'Irvine',
-      state: 'CA',
-      zipcode: '92697',
-      description: notes,
-    };
-    const facility = await backend.post(`/facility`, facilityData);
-    console.log(facility);
-    for (const poc of pocList) {
-      const pocData = {
-        facilityId: facility.data[0].id,
-        name: poc['name'],
-        title: poc['title'],
-        phoneNumber: poc['phone'],
-        emailAddress: poc['email'],
+    try {
+      const facilityData = {
+        name: facilityName,
+        addressLine: address,
+        description: notes,
       };
-      await backend.post('/facilityContacts', pocData);
+      const facility = await backend.post(`/facility`, facilityData);
+      console.log(facility);
+
+      for (const poc of pocList) {
+        const pocData = {
+          facilityId: facility.data[0].id,
+          name: poc['name'],
+          title: poc['title'],
+          phoneNumber: poc['phone'],
+          emailAddress: poc['email'],
+        };
+        await backend.post('/facilityContacts', pocData);
+      }
+
+      CreateToast({
+        description: `${facilityName} added to the facilities log`,
+        status: 'success',
+        toast,
+      });
+
+      Navigate('/facilities');
+    } catch (error) {
+      CreateToast({
+        description: `Error: ${error.data}`,
+        status: 'error',
+        toast,
+      });
     }
-    CreateToast({
-      description: `${facilityName} added to the facilities log`,
-      status: 'success',
-      toast,
-    });
-    Navigate('/facilities');
   };
 
   const showFacilityName = () => {
