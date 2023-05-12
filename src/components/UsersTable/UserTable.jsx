@@ -39,7 +39,6 @@ const UserPageTable = () => {
   const getUsers = async () => {
     try {
       const res = await backend.get('/users');
-      console.log(res.data);
       setData(res.data);
       setPageCount(Math.ceil(res.data.length / settings.pageSize));
     } catch (err) {
@@ -98,7 +97,7 @@ const UserPageTable = () => {
                 </Tr>
               )}
               {page.map(row => {
-                console.log(row);
+                console.log(page);
                 prepareRow(row);
                 return (
                   <Tr {...row.getRowProps()}>

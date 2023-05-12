@@ -30,6 +30,8 @@ const AddNewUserModal = ({ isOpen, onClose }) => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
+  const [role, setRole] = useState('');
+  const [accountType, setAccountType] = useState(null);
   const [loading, setLoading] = useState(false);
   const facility = 1;
 
@@ -42,6 +44,8 @@ const AddNewUserModal = ({ isOpen, onClose }) => {
         firstName,
         lastName,
         facility,
+        role,
+        accountType,
       };
       setLoading(true);
 
@@ -57,6 +61,12 @@ const AddNewUserModal = ({ isOpen, onClose }) => {
           toast,
         });
       }
+    } catch (error) {
+      CreateToast({
+        description: `Invitation failed: ${error.data}`,
+        status: 'error',
+        toast,
+      });
     } finally {
       setLoading(false);
     }
@@ -69,6 +79,14 @@ const AddNewUserModal = ({ isOpen, onClose }) => {
 
   const handleEmailChange = event => {
     setEmail(event.target.value);
+  };
+
+  const handleRoleChange = event => {
+    setRole(event.target.value);
+  };
+
+  const handleAccountTypeChange = event => {
+    setAccountType(event.target.value);
   };
 
   return (
@@ -105,11 +123,11 @@ const AddNewUserModal = ({ isOpen, onClose }) => {
               <FormControl mt={5}>
                 <FormLabel>Add Role</FormLabel>
                 {/* <Input placeholder="Add Role" onChange={handleRoleChange} /> */}
-                <Input placeholder="Add Role" />
+                <Input placeholder="Add Role" onChange={handleRoleChange} />
               </FormControl>
 
               <FormControl mt={6}>
-                <Select placeholder="Select Account Type">
+                <Select placeholder="Select Account Type" onChange={handleAccountTypeChange}>
                   <option>Guest</option>
                   <option>Administrator</option>
                 </Select>

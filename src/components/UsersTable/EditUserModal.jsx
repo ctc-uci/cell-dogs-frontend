@@ -29,8 +29,6 @@ import './EditUserModal.css';
 
 // modal to edit user
 const EditUser = ({ setModalStep, onClose, info, setRender, render }) => {
-  console.log('info!!');
-  console.log(info);
   const [user, setUser] = useState({
     fullName: `${info.firstName} ${info.lastName}`,
     email: `${info.email}`,
@@ -68,19 +66,34 @@ const EditUser = ({ setModalStep, onClose, info, setRender, render }) => {
 
   // save user after changes
   const { backend } = useBackend();
+  const toast = useToast();
   const save = async () => {
-    console.log('before saving new user data');
-    console.log(user);
-    const splitName = user.fullName.split(' ');
-    const usersData = {
-      firstName: splitName[0],
-      lastName: splitName[1],
-      newEmail: user.email,
-      accountType: user.accountType,
-    };
-    await backend.put(`users/${info.email}`, usersData);
-    setRender(!render);
-    onClose();
+    try {
+      const splitName = user.fullName.split(' ');
+      const usersData = {
+        firstName: splitName[0],
+        lastName: splitName[1],
+        newEmail: user.email,
+        role: user.role,
+        accountType: user.accountType,
+      };
+
+      await backend.put(`users/${info.email}`, usersData);
+      setRender(!render);
+      onClose();
+      CreateToast({
+        description: `Edited user!`,
+        status: 'info',
+        toast,
+      });
+    } catch (error) {
+      console.error('An error occurred:', error);
+      CreateToast({
+        description: `An error occured: ${error.data}`,
+        status: 'error',
+        toast,
+      });
+    }
   };
 
   return (
@@ -166,7 +179,6 @@ const RemoveUser = ({ setModalStep, onSubmit, onClose }) => {
             onClick={() => {
               onSubmit();
               onClose();
-              // const toast = useToast();
             }}
           >
             Yes, remove the user
