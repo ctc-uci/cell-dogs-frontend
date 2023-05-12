@@ -1,25 +1,39 @@
-import { Avatar, Input } from '@chakra-ui/react';
+import { Avatar, Input, Flex, Button } from '@chakra-ui/react';
 import { React, useState } from 'react';
+import { storage } from '../../firebase'; // Import the Firebase storage module
 import './UploadAvatar.css';
 
-function UploadAvatar({ width = '40px', height = '40px' }) {
+function UploadAvatar({ width = '40px', height = '40px', setUrl }) {
   const [avatar, setAvatar] = useState(null);
   const [showInput, setShowInput] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  const handleAvatarChange = event => {
-    setAvatar(URL.createObjectURL(event.target.files[0]));
-    setShowInput(false);
+  const handleAvatarChange = async event => {
+    const file = event.target.files[0];
+    setLoading(true);
+    if (file && file.type.includes('image')) {
+      try {
+        const storageRef = storage.ref();
+        const name = new Date().getTime();
+        const fileRef = storageRef.child(name);
+        await fileRef.put(file);
+        const fileUrl = await fileRef.getDownloadURL();
+        setAvatar(fileUrl);
+        if (setUrl) setUrl(fileUrl);
+        setShowInput(false);
+      } catch (error) {
+        console.error('Error uploading file:', error);
+      }
+    } else {
+      console.error('Invalid file type. Only images are allowed.');
+    }
+    setLoading(false);
   };
 
-  // const hiddenFileInput = React.useRef(null);
-  // const displayFileUpload = event => {
-  //   if (showInput) {
-
-  //   }
-  //  };
   return (
-    <div>
+    <Flex width="100%" direction="column" alignItems="center" gap={5}>
       <Avatar
+        _hover={{ cursor: 'pointer' }}
         src={avatar}
         width={width}
         height={height}
@@ -31,31 +45,11 @@ function UploadAvatar({ width = '40px', height = '40px' }) {
           }
         }}
       />
-      {/* <div className="uploadAvatarButton">
-        <Icon
-          as={AddIcon}
-          // onClick={() => {
-          //   hiddenFileInput.current.click();
-          // }}
-          onClick={() => {
-            if (showInput) {
-              setShowInput(false);
-            } else {
-              setShowInput(true);
-            }
-          }}
-        />
-      </div> */}
-      {showInput ? (
-        <Input
-          type="file"
-          onChange={handleAvatarChange}
-          // ref={hiddenFileInput}
-          // style={{ display: 'none' }}
-        />
-      ) : null}
-      {/* {avatar && <Image src={avatar} boxSize="150px" objectFit="cover" />} */}
-    </div>
+      <Flex maxWidth="150px" justifyContent="center">
+        <Input type="file" accept="image/*" onChange={handleAvatarChange} />
+      </Flex>
+      {loading && <Button colorScheme="blue" isLoading loadingText="Uploading" />}
+    </Flex>
   );
 }
 

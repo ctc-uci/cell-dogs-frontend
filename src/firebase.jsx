@@ -1,5 +1,6 @@
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
+import 'firebase/compat/storage'; // Add this import for storage functionality
 
 const firebaseConfig = {
   apiKey: process.env.VITE_FIREBASE_APIKEY,
@@ -13,4 +14,5 @@ const firebaseConfig = {
 const app = firebase.initializeApp(firebaseConfig);
 
 export const auth = app.auth();
+export const storage = app.storage(); // Add this export for storage functionality
 export default app;

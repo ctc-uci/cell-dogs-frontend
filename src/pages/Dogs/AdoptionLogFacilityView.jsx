@@ -109,6 +109,7 @@ const AdoptionLogFacilityView = ({ info, dogs, selected, setSelected, view }) =>
             toggleCheck,
             facilitySelected,
             toggleFacilitySelected,
+            facilityName,
           }}
         />
       )}

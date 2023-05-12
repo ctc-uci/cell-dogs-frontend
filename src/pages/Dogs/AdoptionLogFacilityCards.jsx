@@ -20,13 +20,14 @@ import { possibleDogTags } from '../../util/utils';
 const AdoptionLogFacilityCards = ({
   dogs,
   selected,
-  info,
+  // info,
   calculateDogAgeAtGraduation,
   toggleCheck,
+  facilityName,
 }) => {
   const Navigate = useNavigate();
 
-  const { shelter } = info;
+  // const { shelter } = info;
   return (
     <SimpleGrid columns={[1, 2, null, 3]} spacing={10} mt={10} mb={10}>
       {dogs.map(
@@ -100,10 +101,10 @@ const AdoptionLogFacilityCards = ({
                 <VStack spacing={1} align="stretch">
                   <Stack direction="row">
                     <Text fontWeight="bold" fontSize="md" textDecoration="underline">
-                      Shelter:
+                      Facility:
                     </Text>
                     <Text fontSize="md" margin="auto">
-                      {shelter}
+                      {facilityName}
                     </Text>
                   </Stack>
                   <Text fontSize="md" textDecoration="underline">
