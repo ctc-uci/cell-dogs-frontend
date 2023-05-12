@@ -24,6 +24,7 @@ import './AddFacility.css';
 const AddFacility = () => {
   const [facilityName, setFacilityName] = useState('');
   const [address, setAddress] = useState('');
+  const [image, setImage] = useState(null); // This is the image that is uploaded
   const [notes, setNotes] = useState('');
   // const [name, setName] = useState('');
   // const [title, setTitle] = useState('');
@@ -62,6 +63,7 @@ const AddFacility = () => {
       const facilityData = {
         name: facilityName,
         addressLine: address,
+        image: image,
         description: notes,
       };
       const facility = await backend.post(`/facility`, facilityData);
@@ -73,6 +75,7 @@ const AddFacility = () => {
           name: poc['name'],
           title: poc['title'],
           phoneNumber: poc['phone'],
+
           emailAddress: poc['email'],
         };
         await backend.post('/facilityContacts', pocData);
@@ -154,7 +157,7 @@ const AddFacility = () => {
         <div className="userInfoButtons">
           <div className="placeholder">
             {/* <Avatar height="100px" width="100px" /> */}
-            <UploadAvatar width="100px" height="100px" />
+            <UploadAvatar width="100px" height="100px" setUrl={setImage} />
           </div>
           <div className="modalHeader">
             <h1 className="enterName">{showFacilityName()}</h1>
