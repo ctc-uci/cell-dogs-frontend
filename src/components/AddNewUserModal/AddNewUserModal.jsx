@@ -33,6 +33,7 @@ const AddNewUserModal = ({ isOpen, onClose }) => {
   const [role, setRole] = useState('');
   const [accountType, setAccountType] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [image, setImage] = useState(null);
   const facility = 1;
 
   const toast = useToast();
@@ -46,6 +47,7 @@ const AddNewUserModal = ({ isOpen, onClose }) => {
         facility,
         role,
         accountType,
+        image,
       };
       setLoading(true);
 
@@ -105,7 +107,7 @@ const AddNewUserModal = ({ isOpen, onClose }) => {
           <ModalBody>
             <VStack gap={2} width="100%" mt={4}>
               {/* <Avatar /> */}
-              <UploadAvatar />
+              <UploadAvatar setUrl={setImage} />
               <Heading fontWeight={500} size="md">
                 Add New User
               </Heading>

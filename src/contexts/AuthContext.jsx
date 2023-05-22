@@ -17,6 +17,13 @@ const AuthProvider = ({ children }) => {
     await auth.signOut();
     navigate('/login');
   };
+  const setPasswordWithOobCode = async (oobCode, newPassword) => {
+    try {
+      await auth.confirmPasswordReset(oobCode, newPassword);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const sendPwdResetEmail = email => sendPasswordResetEmail(auth, email);
   useEffect(() => {
@@ -36,6 +43,7 @@ const AuthProvider = ({ children }) => {
         login,
         logout,
         sendPwdResetEmail,
+        setPasswordWithOobCode,
       }}
     >
       {!loading && children}

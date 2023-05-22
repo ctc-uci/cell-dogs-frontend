@@ -33,7 +33,7 @@ const ProfileDropdown = ({ mobile }) => {
         <MenuButton>
           <img
             className={styles['profile-pic']}
-            src={cellDogsSampleProfilePicture}
+            src={userData?.image || cellDogsSampleProfilePicture}
             alt="Cell Dogs Sample Profile"
           />
         </MenuButton>
@@ -51,7 +51,7 @@ const ProfileDropdown = ({ mobile }) => {
           <div className={styles['navbar-user-profile']}>
             <img
               className={styles['profile-pic']}
-              src={cellDogsSampleProfilePicture}
+              src={userData?.image || cellDogsSampleProfilePicture}
               alt="Cell Dogs Sample Profile"
             />
             <div className={styles['profile-text']}>
@@ -73,7 +73,7 @@ const ProfileDropdown = ({ mobile }) => {
         <div className={styles['user-profile-dropdown']}>
           <img
             className={styles['dropdown-pic']}
-            src={cellDogsSampleProfilePicture}
+            src={userData?.image || cellDogsSampleProfilePicture}
             alt="Cell Dogs Sample Profile"
           />
           <p className={styles['dropdown-name']}>

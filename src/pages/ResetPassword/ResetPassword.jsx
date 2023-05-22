@@ -1,7 +1,16 @@
 /* eslint-disable no-unused-vars */
-import { Button, FormControl, FormErrorMessage, Input, Stack, Text } from '@chakra-ui/react';
+import {
+  Button,
+  FormControl,
+  FormErrorMessage,
+  Input,
+  Stack,
+  Text,
+  Image,
+  useToast,
+} from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate, useParams, useSearchParams } from 'react-router-dom';
 // import PropTypes from 'prop-types';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
@@ -50,6 +59,17 @@ const ResetPassword = ({ newPassword, validatePassword }) => {
   const { currentUser } = useAuth();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
+  const toast = useToast();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [oobCode, setOobCode] = useState(null);
+  const [newAccount, setNewAccount] = useState(false);
+  const { setPasswordWithOobCode } = useAuth();
+  useEffect(() => {
+    if (searchParams.get('oobCode')) {
+      setOobCode(searchParams.get('oobCode'));
+      setNewAccount(Boolean(searchParams.get('newAccount')));
+    }
+  }, [searchParams]);
 
   const {
     register,
@@ -67,11 +87,18 @@ const ResetPassword = ({ newPassword, validatePassword }) => {
   });
 
   const resetPassword = async data => {
-    data.preventDefault();
-    // const { newPassword, validatePassword } = data;
-    // TODO: Revamp form structure
-    // Reset password function goes here
-    navigate('/');
+    // data.preventDefault();
+    console.log(data);
+    await setPasswordWithOobCode(oobCode, data.newPassword);
+    toast({
+      title: 'Password reset successful.',
+      description: 'You can now log in with your new password.',
+      status: 'success',
+      duration: 5000,
+      isClosable: true,
+    });
+
+    await navigate('/');
     reset();
   };
 
@@ -84,16 +111,8 @@ const ResetPassword = ({ newPassword, validatePassword }) => {
       <div className={styles.login}>
         <Stack spacing={3} align="center">
           <NavLink to="/">
-            <img
-              className={styles.cds_logo_horizontal_4}
-              src={cellDogsLogoHorizontal4}
-              alt="Cell Dogs Logo"
-            />
-            <img
-              className={styles.cds_logo_horizontal_5}
-              src={cellDogsLogoHorizontal5}
-              alt="Cell Dogs Header"
-            />
+            <Image width={150} src={cellDogsLogoHorizontal4} alt="Cell Dogs Logo" />
+            <Image width={150} src={cellDogsLogoHorizontal5} alt="Cell Dogs Header" />
           </NavLink>
           <form className={styles.reset_input_form} onSubmit={handleSubmit(resetPassword)}>
             <Text className={styles.reset_info_text}>

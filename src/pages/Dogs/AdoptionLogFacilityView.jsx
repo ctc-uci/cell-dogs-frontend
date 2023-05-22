@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Text } from '@chakra-ui/react';
+import { Box, Button, Flex, Text, useToast } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import AdoptionLogFacilityCards from './AdoptionLogFacilityCards';
 import AdoptionLogFacilityTable from './AdoptionLogFacilityTable';
@@ -7,6 +7,8 @@ import { useBackend } from '../../contexts/BackendContext';
 const AdoptionLogFacilityView = ({ info, dogs, selected, setSelected, view }) => {
   // eslint-disable-next-line
   const { shelter, facilityid } = info;
+
+  const toast = useToast();
 
   const calculateDogAgeAtGraduation = (graduationDate, currentAge) => {
     // Step 1: Convert graduation date to JavaScript Date object
@@ -64,6 +66,17 @@ const AdoptionLogFacilityView = ({ info, dogs, selected, setSelected, view }) =>
     }
   };
 
+  const copyEmails = () => {
+    const emails = dogs.map(dog => dog.adoptemail);
+    navigator.clipboard.writeText(emails.join(', '));
+    toast({
+      title: 'Emails copied to clipboard',
+      status: 'success',
+      duration: 3000,
+      isClosable: true,
+    });
+  };
+
   useEffect(() => {
     getFacilityName(facilityid);
   }, []);
@@ -84,7 +97,9 @@ const AdoptionLogFacilityView = ({ info, dogs, selected, setSelected, view }) =>
           <Button variant="outline" onClick={toggleFacilitySelected}>
             {facilitySelected ? 'Deselect All' : 'Select All'}
           </Button>
-          <Button variant="outline">Copy Email List</Button>
+          <Button variant="outline" onClick={copyEmails}>
+            Copy Email List
+          </Button>
         </Flex>
       </Flex>
       {view === 'table' ? (
