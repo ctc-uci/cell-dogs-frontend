@@ -222,16 +222,6 @@ const AddFacility = () => {
         <div className="pointsOfContactContainerInAdd">
           <div className="pointsOfContact">
             <h4>Points of Contact</h4>
-            {isLargerThan768 && (
-              <Button
-                size="sm"
-                colorScheme="gray"
-                color="--cds-grey-1"
-                onClick={e => onAddBtnClick(e)}
-              >
-                Add Another Point of Contact
-              </Button>
-            )}
           </div>
 
           {/* Map the Elements inside of the list*/}
@@ -301,8 +291,34 @@ const AddFacility = () => {
                   </div>
                 </Flex>
               )}
+              {index !== 0 && (
+                <Flex justifyContent="flex-end" mb={5}>
+                  <Button
+                    size="sm"
+                    colorScheme="red"
+                    onClick={e => {
+                      e.preventDefault();
+                      setPocList(pocList.filter((item, i) => index !== i));
+                    }}
+                  >
+                    Remove
+                  </Button>
+                </Flex>
+              )}
             </>
           ))}
+          {isLargerThan768 && (
+            <Flex direction="row" justifyContent="flex-end">
+              <Button
+                size="sm"
+                colorScheme="gray"
+                color="--cds-grey-1"
+                onClick={e => onAddBtnClick(e)}
+              >
+                Add Another Point of Contact
+              </Button>
+            </Flex>
+          )}
         </div>
         {!isLargerThan768 && (
           <Flex justify="center">

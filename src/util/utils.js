@@ -25,7 +25,7 @@ const possibleDogTags = {
     display: 'Special Needs',
     color: '#ED8936',
   },
-  staffAdoptions: {
+  staffAdoption: {
     display: 'Staff Adoptions',
     color: '#21307A',
   },

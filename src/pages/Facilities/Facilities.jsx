@@ -269,9 +269,10 @@ const Facilities = () => {
                 phoneNumber,
                 email,
                 facility_contacts,
+                image,
               }) => (
                 <Card
-                  boxShadow="dark-lg"
+                  boxShadow="md"
                   m={6}
                   size="md"
                   p="4"
@@ -298,7 +299,10 @@ const Facilities = () => {
                         <Avatar
                           marginRight="10px"
                           size="xl"
-                          src="https://ca-times.brightspotcdn.com/dims4/default/30a8879/2147483647/strip/false/crop/2048x1152+0+0/resize/1486x836!/quality/80/?url=https%3A%2F%2Fcalifornia-times-brightspot.s3.amazonaws.com%2F5a%2Fc5%2F10a8781f4130240d4b4d42d12794%2Fla-1489021677-ia7m9d0xvx-snap-photo"
+                          src={
+                            image ||
+                            'https://ca-times.brightspotcdn.com/dims4/default/30a8879/2147483647/strip/false/crop/2048x1152+0+0/resize/1486x836!/quality/80/?url=https%3A%2F%2Fcalifornia-times-brightspot.s3.amazonaws.com%2F5a%2Fc5%2F10a8781f4130240d4b4d42d12794%2Fla-1489021677-ia7m9d0xvx-snap-photo'
+                          }
                         />
                         <Box>
                           <Heading size="lg" marginRight="10px">
