@@ -80,7 +80,6 @@ const AddDog = () => {
       serviceTag,
       image: avatar,
     };
-    console.log(toSend);
     await backend.post('/dog', {
       ...toSend,
     });

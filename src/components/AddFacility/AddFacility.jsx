@@ -67,7 +67,6 @@ const AddFacility = () => {
         description: notes,
       };
       const facility = await backend.post(`/facility`, facilityData);
-      console.log(facility);
 
       for (const poc of pocList) {
         const pocData = {

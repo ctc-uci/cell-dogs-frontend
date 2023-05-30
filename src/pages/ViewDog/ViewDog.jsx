@@ -61,8 +61,6 @@ const ViewDog = () => {
   const getFacility = async () => {
     try {
       const res = await backend.get(`/facility/${dog.facilityid}`);
-      console.log('here!');
-      console.log(res);
       return res.data.name;
     } catch (err) {
       console.log(err);

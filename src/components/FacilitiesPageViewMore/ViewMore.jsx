@@ -74,7 +74,6 @@ const ViewMore = () => {
 
   const handleGetPOCs = async () => {
     const res = await backend.get(`/facilityContacts/${state.id}`);
-    console.log(res.data);
     setPocList(() => {
       const newValues = [];
       for (let poc in res.data) {
@@ -134,7 +133,6 @@ const ViewMore = () => {
         description: notes,
       };
       const resposne = await backend.put(`facility/${state.id}`, facilityData);
-      console.log(facilityData);
       for (const poc of pocList) {
         if (poc['new']) {
           const pocData = {

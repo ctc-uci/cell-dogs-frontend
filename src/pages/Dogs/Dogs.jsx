@@ -48,7 +48,6 @@ const Dogs = () => {
     } else {
       setCheckedDogs([...checkedDogs, checkedDog]);
     }
-    console.log(checkedDogs);
   };
 
   const getFacilities = async () => {
@@ -66,13 +65,11 @@ const Dogs = () => {
         filterBy: filter,
         facility: facilityFilter,
       };
-      console.log(params);
       const res = await backend.get(searchDog.length > 0 ? `/dog/search/${searchDog}` : '/dog', {
         signal,
         params,
       });
       setDogs(res.data);
-      console.log(data);
       const tempSortedDogs = {};
       res.data.forEach(dog => {
         if (tempSortedDogs[dog.facilityid]) {
@@ -87,7 +84,6 @@ const Dogs = () => {
           };
         }
       });
-      console.log(tempSortedDogs);
       setSortedDogs(tempSortedDogs);
     } catch (err) {
       console.log(err);

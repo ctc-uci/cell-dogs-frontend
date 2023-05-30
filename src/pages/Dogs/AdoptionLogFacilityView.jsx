@@ -52,7 +52,6 @@ const AdoptionLogFacilityView = ({ info, dogs, selected, setSelected, view }) =>
     } else {
       setSelected([...selected, dogid]);
     }
-    console.log(selected);
   };
 
   const [facilityName, setFacilityName] = useState('');

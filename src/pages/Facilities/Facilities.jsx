@@ -56,7 +56,6 @@ const Facilities = () => {
   };
 
   useEffect(() => {
-    console.log(pagedFacilities);
     // have it so that each page has resultsPerPage facilities
     setPage(0);
     const temp = facilities.reduce((acc, cur, i) => {

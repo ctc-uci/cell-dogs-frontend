@@ -76,7 +76,6 @@ const AdoptionLog = props => {
 
     allDogs.map(dog => {
       getCheckedDogs(JSON.stringify(dog)); // this needs to be fixed
-      console.log(JSON.stringify(dog));
     });
   };
 

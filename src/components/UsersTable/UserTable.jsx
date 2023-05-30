@@ -97,7 +97,6 @@ const UserPageTable = () => {
                 </Tr>
               )}
               {page.map(row => {
-                console.log(page);
                 prepareRow(row);
                 return (
                   <Tr {...row.getRowProps()}>

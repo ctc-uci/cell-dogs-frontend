@@ -81,8 +81,6 @@ const AdoptionLogFacilityTable = ({
               ...rest
             }) => {
               const tags = Object.keys(possibleDogTags).filter(tag => rest[tag]);
-              console.log('tags!');
-              console.log(tags);
               return (
                 <Tr
                   key={dogid}

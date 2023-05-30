@@ -88,7 +88,6 @@ const ResetPassword = ({ newPassword, validatePassword }) => {
 
   const resetPassword = async data => {
     // data.preventDefault();
-    console.log(data);
     await setPasswordWithOobCode(oobCode, data.newPassword);
     toast({
       title: 'Password reset successful.',
