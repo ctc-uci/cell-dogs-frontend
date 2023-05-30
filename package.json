@@ -44,6 +44,7 @@
     "react-scripts": "5.0.1",
     "react-table": "^7.8.0",
     "vite": "^4.1.4",
+    "vite-plugin-eslint": "^1.8.1",
     "vite-plugin-html": "^3.2.0",
     "webpack": "^5.75.0",
     "yup": "^1.1.1"
@@ -97,7 +98,6 @@
     "@testing-library/dom": "^7.21.4",
     "husky": "^7.0.0",
     "prettier": "^2.4.1",
-    "typescript": "^3.2.1",
-    "vite-plugin-eslint": "^1.8.1"
+    "typescript": "^3.2.1"
   }
 }
