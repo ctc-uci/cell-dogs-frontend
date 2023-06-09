@@ -113,7 +113,7 @@ const ViewDog = () => {
           <TagSetup tagBoolean={dog.service} tagName="Service" setTag={'service'} />
           <TagSetup tagBoolean={dog.therapy} tagName="Therapy" setTag={'therapy'} />
           <TagSetup tagBoolean={dog.staffAdoption} tagName="Stf Adpt" setTag={'staffAdoption'} />
-          <TagSetup tagBoolean={dog.specialNeeds} tagName="Special" setTag={'specialNeeds'} />
+          <TagSetup tagBoolean={dog.specialNeeds} tagName="Special" setTag={'special'} />
           <TagSetup tagBoolean={dog.deceased} tagName="Decsd" setTag={'deceased'} />
         </MenuList>
       </Menu>
