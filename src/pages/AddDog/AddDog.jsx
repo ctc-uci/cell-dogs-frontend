@@ -206,6 +206,7 @@ const AddDog = () => {
                 <Button>Cancel</Button>
               </ButtonGroup>
             </div>
+
             <div className="saveButton">
               <Button colorScheme="facebook" type="submit">
                 Save All Changes
