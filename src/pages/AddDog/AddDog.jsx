@@ -66,7 +66,7 @@ const AddDog = () => {
   const watchName = watch('name');
   useEffect(() => {
     const subscription = watch((value, { name, type }) => {
-      console.log(value?.dogname);
+      console.log(value);
       setName(value?.dogname);
     });
     return () => subscription.unsubscribe();

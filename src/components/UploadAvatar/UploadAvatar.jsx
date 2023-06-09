@@ -35,7 +35,7 @@ function UploadAvatar({ width = '40px', height = '40px', setUrl, url }) {
     <Flex width="100%" direction="column" alignItems="center" gap={5}>
       <Avatar
         _hover={{ cursor: 'pointer' }}
-        src={avatar}
+        src={avatar || url}
         width={width}
         height={height}
         onClick={() => {

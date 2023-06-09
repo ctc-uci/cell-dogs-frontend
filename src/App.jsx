@@ -25,6 +25,7 @@ import ProtectedRoute from './util/ProtectedRoute/ProtectedRoute';
 import CDSTheme from './styles/theme';
 import Fonts from './styles/fonts';
 import './common/global.css';
+import './index.css';
 import Users from './pages/Users';
 
 const DISALLOWED_NAVBAR_PATHS = ['/login', '/forgot-password', '/reset-password'];

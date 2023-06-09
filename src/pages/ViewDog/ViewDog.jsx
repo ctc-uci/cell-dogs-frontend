@@ -8,63 +8,104 @@ import {
   ButtonGroup,
   Flex,
   FormControl,
-  FormLabel,
-  Heading,
   Input,
   Menu,
   MenuButton,
   MenuItem,
   MenuList,
-  Select,
-  Textarea,
+  useDisclosure,
+  useToast,
 } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useForm } from 'react-hook-form';
+import FormSection from '../AddDog/Form/FormSection';
+import ShowCancelModal from '../../common/ShowCancelModal';
+import AddDogSchema from '../AddDog/AddDog.yup';
 import UploadAvatar from '../../components/UploadAvatar/UploadAvatar';
 import { useBackend } from '../../contexts/BackendContext';
-import ShowTags from '../AddDog/ShowTags.jsx';
-import './ViewDog.css';
+import '../AddDog/AddDog.css';
+import AdopterInfoSchema from '../AddDog/Form/FormSchemas/AdopterInfoSchema';
+import AdopterAddressSchema from '../AddDog/Form/FormSchemas/AdopterAddressSchema';
+import DogInfoSchema from '../AddDog/Form/FormSchemas/DogInfoSchema';
+import NotesSchema from '../AddDog/Form/FormSchemas/NotesSchema';
+import FacilityInfoSchema from '../AddDog/Form/FormSchemas/FacilityInfoSchema';
 
-const ViewDog = () => {
-  const { id: dogId } = useParams();
+import FinancialInfoSchema from '../AddDog/Form/FormSchemas/FinancialInfoSchema';
+import ShowTags from '../AddDog/ShowTags';
 
-  const [editable, setEditable] = useState(false);
-  const [dog, setDog] = useState({});
-  const [image, setImage] = useState(null); // [image, setImage
-  const [facility, setFacilities] = useState([]);
-  const [defaultFacility, setDefaultFacility] = useState('');
-
+const AddDog = () => {
   const { backend } = useBackend();
+  const { id: dogId } = useParams();
   const Navigate = useNavigate();
 
-  const handleEditButton = () => {
-    setEditable(!editable);
-  };
+  const [name, setName] = useState('');
+
+  const [dogdata, setDogData] = useState({});
+
+  const [specialTag, setSpecialTag] = useState(false);
+  const [therapyTag, setTherapyTag] = useState(false);
+  const [staffAdoptionTag, setStaffAdoptionTag] = useState(false);
+  const [deceasedTag, setDeceasedTag] = useState(false);
+  const [serviceTag, setServiceTag] = useState(false);
+  const [facility, setFacilities] = useState([]);
+  const [avatar, setAvatar] = useState(null);
+  const cancelDisclosure = useDisclosure({ id: 'cancel-modal' });
+
+  const toast = useToast();
+  const {
+    register,
+    handleSubmit,
+    watch,
+    setValue,
+    formState: { errors, values },
+    reset,
+  } = useForm({
+    resolver: yupResolver(AddDogSchema),
+  });
 
   useEffect(() => {
-    const getDog = async () => {
-      try {
-        const res = await backend.get(`/dog/${dogId}`);
-        setDog(res.data[0]);
-      } catch (err) {
-        console.log(err);
-      }
+    console.log(name);
+  }, [name]);
+  useEffect(() => {
+    const getDogData = async () => {
+      const { data } = await backend.get(`/dog/${dogId}`);
+      setDogData(data);
+      const transformed = {};
+      Object.keys(data[0]).forEach(element => {
+        transformed[element] = data[0][element];
+        switch (element) {
+          case 'graddate':
+            setValue(element, new Date(data[0][element]).toISOString().slice(0, 10));
+            break;
+          case 'adopteraddrline':
+            setValue(element, data[0][element]);
+          default:
+            setValue(element, data[0][element]);
+        }
+      });
+      if (data[0].specialNeeds) setSpecialTag(true);
+      if (data[0].therapy) setTherapyTag(true);
+      if (data[0].staffAdoption) setStaffAdoptionTag(true);
+      if (data[0].deceased) setDeceasedTag(true);
+      if (data[0].service) setServiceTag(true);
+      setAvatar(data[0].image);
     };
-    getDog();
+    getDogData();
   }, []);
 
+  const watchName = watch('name');
+  useEffect(() => {
+    const subscription = watch((value, { name, type }) => {
+      console.log(value);
+      setName(value?.dogname);
+    });
+    return () => subscription.unsubscribe();
+  }, [watch]);
   const getFacilities = async () => {
     const { data } = await backend.get('/facility');
     setFacilities(data);
-  };
-
-  const getFacility = async () => {
-    try {
-      const res = await backend.get(`/facility/${dog.facilityid}`);
-      return res.data.name;
-    } catch (err) {
-      console.log(err);
-    }
   };
 
   const getFacilityList = () => {
@@ -75,29 +116,38 @@ const ViewDog = () => {
     ));
   };
 
+  const onSubmit = async values => {
+    const toSend = {
+      dogId: dogId,
+      ...values,
+      specialTag,
+      therapyTag,
+      staffAdoptionTag,
+      deceasedTag,
+      serviceTag,
+      image: avatar,
+    };
+    await backend.put(`/dog/${dogId}`, {
+      ...toSend,
+    });
+
+    Navigate('/');
+    toast({
+      position: 'bottom-right',
+      description: 'Dog updated successfully',
+      status: 'success',
+      duration: 3000,
+      isClosable: true,
+    });
+  };
+
   const TagSetup = ({ tagBoolean, tagName, setTag }) => {
     return (
       <div>
         {tagBoolean ? (
-          <MenuItem
-            onClick={() => {
-              let copy = { ...dog };
-              copy[setTag] = false;
-              setDog(copy);
-            }}
-          >
-            {tagName} (Selected)
-          </MenuItem>
+          <MenuItem onClick={() => setTag(false)}>{tagName} (Selected)</MenuItem>
         ) : (
-          <MenuItem
-            onClick={() => {
-              let copy = { ...dog };
-              copy[setTag] = true;
-              setDog(copy);
-            }}
-          >
-            {tagName}
-          </MenuItem>
+          <MenuItem onClick={() => setTag(true)}>{tagName}</MenuItem>
         )}
       </div>
     );
@@ -106,502 +156,187 @@ const ViewDog = () => {
   const TagMenu = () => {
     return (
       <Menu>
-        <MenuButton isDisabled={!editable} as={Button} rightIcon={<ChevronDownIcon />}>
+        <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
           Add tag
         </MenuButton>
         <MenuList>
-          <TagSetup tagBoolean={dog.service} tagName="Service" setTag={'service'} />
-          <TagSetup tagBoolean={dog.therapy} tagName="Therapy" setTag={'therapy'} />
-          <TagSetup tagBoolean={dog.staffAdoption} tagName="Stf Adpt" setTag={'staffAdoption'} />
-          <TagSetup tagBoolean={dog.specialNeeds} tagName="Special" setTag={'special'} />
-          <TagSetup tagBoolean={dog.deceased} tagName="Decsd" setTag={'deceased'} />
+          <TagSetup tagBoolean={serviceTag} tagName="Service" setTag={setServiceTag} />
+          <TagSetup tagBoolean={therapyTag} tagName="Therapy" setTag={setTherapyTag} />
+          <TagSetup tagBoolean={staffAdoptionTag} tagName="Stf Adpt" setTag={setStaffAdoptionTag} />
+          <TagSetup tagBoolean={specialTag} tagName="Special" setTag={setSpecialTag} />
+          <TagSetup tagBoolean={deceasedTag} tagName="Decsd" setTag={setDeceasedTag} />
         </MenuList>
       </Menu>
     );
-  };
-
-  const removeDogButton = async () => {
-    await backend.delete(`dog/${dog.dogid}`).catch(function (err) {
-      console.log(err);
-    });
-    Navigate('/');
-  };
-
-  const saveAllChanges = async () => {
-    await backend.put(`dog/${dogId}`, dog).catch(function (err) {
-      console.log(err);
-    });
-    setEditable(!editable);
   };
 
   useEffect(() => {
     getFacilities();
   }, []);
   return (
-    <div>
-      {/* <Location /> */}
-      <div className="breadcrumbAndAdd">
-        <div className="breadcrumb">
-          <Breadcrumb spacing="8px" separator={<ChevronRightIcon color="gray.500" />}>
-            <BreadcrumbItem>
-              <BreadcrumbLink onClick={() => Navigate('/')}>Adoption Log</BreadcrumbLink>
-            </BreadcrumbItem>
+    <Flex direction="column">
+      <form onSubmit={handleSubmit(onSubmit)}>
+        {/* <Location /> */}
+        <div className="breadcrumbAndAdd">
+          <div className="breadcrumb">
+            <Breadcrumb spacing="8px" separator={<ChevronRightIcon color="gray.500" />}>
+              <BreadcrumbItem>
+                <BreadcrumbLink onClick={() => Navigate('/')}>Adoption Log</BreadcrumbLink>
+              </BreadcrumbItem>
 
-            <BreadcrumbItem>
-              <BreadcrumbLink href="#">{dog.dogname}</BreadcrumbLink>
-            </BreadcrumbItem>
-          </Breadcrumb>
-        </div>
-        <div className="addDogButton">
-          <Button leftIcon={<AddIcon />} size="sm">
-            Add Dog
-          </Button>
-        </div>
-      </div>
-
-      <Flex justifyContent="flex-start" pt={4} ml={10}>
-        <Button variant="link" leftIcon={<ArrowBackIcon />} onClick={() => Navigate('/')}>
-          Go Back
-        </Button>
-      </Flex>
-
-      <div className="profileSection">
-        <div className="dogPic" disabled={!editable}>
-          <UploadAvatar
-            url={dog?.image}
-            setUrl={url => {
-              let copy = { ...dog };
-              copy['image'] = url;
-              setDog(copy);
-            }}
-            width="100px"
-            height="100px"
-            disabled="true"
-          />
-        </div>
-        <div className="name">
-          <div className="nameInput">
-            <FormControl>
-              <Input
-                disabled={!editable}
-                id="nameField"
-                type="name"
-                placeholder="Enter Name"
-                value={dog.dogname}
-                size="lg"
-                variant="unstyled"
-                onChange={e => {
-                  let copy = { ...dog };
-                  copy['dogname'] = e.target.value;
-                  setDog(copy);
-                }}
-              />
-            </FormControl>
+              <BreadcrumbItem>
+                <BreadcrumbLink href="#">New Dog</BreadcrumbLink>
+              </BreadcrumbItem>
+            </Breadcrumb>
+          </div>
+          <div className="addDogButton">
+            <Button leftIcon={<AddIcon />} size="sm">
+              Add Dog
+            </Button>
           </div>
         </div>
-        <div className="addTag">
-          <TagMenu />
-        </div>
-        <div className="tagRow">
-          <ShowTags
-            serviceTag={dog.service}
-            therapyTag={dog.therapy}
-            staffAdoptionTag={dog.staffAdoption}
-            specialTag={dog.special}
-            disabledTag={dog.deceased}
-          />
-        </div>
-        <div className="buttons">
-          {!editable && (
-            <ButtonGroup variant="outline" spacing="6" onClick={() => handleEditButton()}>
-              <Button>Edit Dog</Button>
-            </ButtonGroup>
-          )}
-          <div className="cancelButton">
-            {editable && (
-              <ButtonGroup variant="outline" spacing="6" onClick={() => handleEditButton()}>
+
+        <Flex width="100%" justifyContent="flex-start" pt={4} ml={10}>
+          <Button variant="link" leftIcon={<ArrowBackIcon />} onClick={() => Navigate('/')}>
+            Go Back
+          </Button>
+        </Flex>
+
+        <div className="profileSection">
+          <div className="dogPic">
+            <UploadAvatar width="100px" height="100px" url={avatar} setUrl={setAvatar} />
+          </div>
+          <div className="name">
+            <div className="nameInput">
+              <FormControl>
+                <Input
+                  id="nameField"
+                  type="name"
+                  placeholder="Enter Name Below"
+                  size="lg"
+                  variant="unstyled"
+                  value={name}
+                  disabled={!name}
+                />
+              </FormControl>
+            </div>
+          </div>
+          <div className="addTag">
+            <TagMenu />
+          </div>
+          <div className="tagRow">
+            <ShowTags
+              serviceTag={serviceTag}
+              therapyTag={therapyTag}
+              staffAdoptionTag={staffAdoptionTag}
+              specialTag={specialTag}
+              disabledTag={deceasedTag}
+            />
+          </div>
+          <div className="buttons">
+            <div className="cancelButton">
+              <ButtonGroup variant="outline" spacing="6" onClick={cancelDisclosure.onOpen}>
                 <Button>Cancel</Button>
               </ButtonGroup>
-            )}
-          </div>
-          <div className="removeDogButton">
-            {editable && (
-              <ButtonGroup variant="outline" spacing="6" onClick={() => removeDogButton()}>
-                <Button colorScheme="red">Remove Dog</Button>
-              </ButtonGroup>
-            )}
-          </div>
-          <div className="saveButton">
-            {editable && (
-              <Button colorScheme="facebook" onClick={saveAllChanges}>
+            </div>
+            <div className="saveButton">
+              <Button colorScheme="facebook" type="submit">
                 Save All Changes
               </Button>
-            )}
-          </div>
-        </div>
-      </div>
-      <div className="row1">
-        <div className="adopterInfo">
-          <Heading as="h2" fontSize="24px">
-            Adopter Info
-          </Heading>
-          <FormControl>
-            <FormLabel>Name</FormLabel>
-            <Input
-              type="text"
-              disabled={!editable}
-              className="formInput"
-              value={dog.adoptername}
-              onChange={e => {
-                let copy = { ...dog };
-                copy['adoptername'] = e.target.value;
-                setDog(copy);
-              }}
-            />
-          </FormControl>
-          <FormControl>
-            <FormLabel>Email</FormLabel>
-            <Input
-              type="email"
-              disabled={!editable}
-              className="formInput"
-              value={dog.adoptemail}
-              onChange={e => {
-                let copy = { ...dog };
-                copy['adoptemail'] = e.target.value;
-                setDog(copy);
-              }}
-            />
-          </FormControl>
-          <FormControl>
-            <FormLabel>Phone</FormLabel>
-            <Input
-              type="text"
-              disabled={!editable}
-              className="formInput"
-              value={dog.adopterphone}
-              onChange={e => {
-                let copy = { ...dog };
-                copy['adopterphone'] = e.target.value;
-                setDog(copy);
-              }}
-            />
-          </FormControl>
-        </div>
-
-        <div className="dogInfo">
-          <Heading as="h2" fontSize="24px">
-            Dog Info
-          </Heading>
-          <FormControl>
-            <FormLabel>Alternate Name</FormLabel>
-            <Input
-              type="text"
-              disabled={!editable}
-              className="formInput"
-              value={dog.altname}
-              onChange={e => {
-                let copy = { ...dog };
-                copy['altname'] = e.target.value;
-                setDog(copy);
-              }}
-            />
-          </FormControl>
-          <FormControl>
-            <FormLabel>Breed</FormLabel>
-            <Input
-              type="text"
-              disabled={!editable}
-              className="formInput"
-              value={dog.breed}
-              onChange={e => {
-                let copy = { ...dog };
-                copy['breed'] = e.target.value;
-                setDog(copy);
-              }}
-            />
-          </FormControl>
-          <div className="genderAndGrad">
-            <div className="gender">
-              <FormLabel>Gender</FormLabel>
-              <Select
-                placeholder="Select Gender"
-                disabled={!editable}
-                value={dog.gender}
-                className="formInput"
-                onChange={e => {
-                  let copy = { ...dog };
-                  copy['gender'] = e.target.value;
-                  setDog(copy);
-                }}
-              >
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
-              </Select>
-            </div>
-            <FormControl className="grad">
-              <FormLabel>Graduation Age</FormLabel>
-              <Input
-                type="text"
-                className="formInput"
-                value={dog.age}
-                disabled={!editable}
-                onChange={e => {
-                  let copy = { ...dog };
-                  copy['age'] = e.target.value;
-                  setDog(copy);
-                }}
-              />
-            </FormControl>
-          </div>
-          <div className="chipInputFields">
-            <FormControl className="chipType">
-              <FormLabel>Chip Type</FormLabel>
-              <Input
-                type="text"
-                disabled={!editable}
-                className="formInput"
-                value={dog.chiptype}
-                onChange={e => {
-                  let copy = { ...dog };
-                  copy['chiptype'] = e.target.value;
-                  setDog(copy);
-                }}
-              />
-            </FormControl>
-            <FormControl>
-              <FormLabel>Chip Number</FormLabel>
-              <Input
-                type="text"
-                disabled={!editable}
-                className="formInput"
-                value={dog.chipnum}
-                onChange={e => {
-                  let copy = { ...dog };
-                  copy['chipnum'] = e.target.value;
-                  setDog(copy);
-                }}
-              />
-            </FormControl>
-          </div>
-        </div>
-      </div>
-      <div className="row2">
-        <div className="addressFinancial">
-          <Heading as="h2" fontSize="24px">
-            Address
-          </Heading>
-          <FormControl>
-            <FormLabel>Address</FormLabel>
-            <Input
-              type="text"
-              disabled={!editable}
-              className="formInput"
-              value={dog.addrline}
-              onChange={e => {
-                let copy = { ...dog };
-                copy['addrline'] = e.target.value;
-                setDog(copy);
-              }}
-            />
-          </FormControl>
-          <div className="cityAndState">
-            <FormControl className="city">
-              <FormLabel>City</FormLabel>
-              <Input
-                type="text"
-                disabled={!editable}
-                className="formInput"
-                value={dog.adoptcity}
-                onChange={e => {
-                  let copy = { ...dog };
-                  copy['adoptcity'] = e.target.value;
-                  setDog(copy);
-                }}
-              />
-            </FormControl>
-            <FormControl>
-              <FormLabel>State</FormLabel>
-              <Input
-                type="text"
-                disabled={!editable}
-                className="formInput"
-                value={dog.adoptstate}
-                onChange={e => {
-                  let copy = { ...dog };
-                  copy['adoptstate'] = e.target.value;
-                  setDog(copy);
-                }}
-              />
-            </FormControl>
-          </div>
-          <FormControl>
-            <FormLabel>Zip Code</FormLabel>
-            <Input
-              type="text"
-              disabled={!editable}
-              className="formInput"
-              value={dog.zip}
-              onChange={e => {
-                let copy = { ...dog };
-                copy['zip'] = e.target.value;
-                setDog(copy);
-              }}
-            />
-          </FormControl>
-          <div className="financial">
-            <Heading as="h2" fontSize="24px">
-              Financial
-            </Heading>
-            <div className="financialFields">
-              <FormControl className="fees">
-                <FormLabel>Fees ($)</FormLabel>
-                <Input
-                  type="text"
-                  disabled={!editable}
-                  className="formInput"
-                  value={dog.fees}
-                  onChange={e => {
-                    let copy = { ...dog };
-                    copy['fees'] = e.target.value;
-                    setDog(copy);
-                  }}
-                />
-              </FormControl>
-              <FormControl>
-                <FormLabel>Revenue ($)</FormLabel>
-                <Input
-                  type="text"
-                  disabled={!editable}
-                  className="formInput"
-                  value={dog.revenue}
-                  onChange={e => {
-                    let copy = { ...dog };
-                    copy['revenue'] = e.target.value;
-                    setDog(copy);
-                  }}
-                />
-              </FormControl>
             </div>
           </div>
         </div>
-
-        <div className="facilityInfo">
-          <Heading as="h2" fontSize="24px">
-            Facility Info
-          </Heading>
-          <FormLabel>Facility</FormLabel>
-          <Select
-            disabled={!editable}
-            className="formInput"
-            value={
-              facility.find(f => {
-                return f.id === dog.facilityid;
-              })?.id
-            }
-            onChange={e => {
-              let copy = { ...dog };
-              copy['facilityid'] = e.target.value;
-              setDog(copy);
-            }}
-          >
-            {getFacilityList()}
-          </Select>
-          <FormControl>
-            <FormLabel>Facility Unit</FormLabel>
-            <Input
-              type="text"
-              disabled={!editable}
-              className="formInput"
-              value={dog.facilityUnit}
-              onChange={e => {
-                let copy = { ...dog };
-                copy['facilityUnit'] = e.target.value;
-                setDog(copy);
-              }}
-            />
-          </FormControl>
-          <div className="GradAndGroup">
-            <FormControl className="gradDate">
-              <FormLabel>Graduation Date</FormLabel>
-              <Input
-                type="text"
-                disabled={!editable}
-                className="formInput"
-                value={dog.graddate}
-                onChange={e => {
-                  let copy = { ...dog };
-                  copy['graddate'] = e.target.value;
-                  setDog(copy);
-                }}
-              />
-            </FormControl>
-            <FormControl>
-              <FormLabel>Group Number</FormLabel>
-              <Input
-                type="text"
-                disabled={!editable}
-                className="formInput"
-                value={dog.groupnum}
-                onChange={e => {
-                  let copy = { ...dog };
-                  copy['groupnum'] = e.target.value;
-                  setDog(copy);
-                }}
-              />
-            </FormControl>
-          </div>
-          <FormControl>
-            <FormLabel>Shelter</FormLabel>
-            <Input
-              type="text"
-              disabled={!editable}
-              className="formInput"
-              value={dog.shelter}
-              onChange={e => {
-                let copy = { ...dog };
-                copy['shelter'] = e.target.value;
-                setDog(copy);
-              }}
-            />
-          </FormControl>
-          <FormControl>
-            <FormLabel>Animal ID</FormLabel>
-            <Input
-              type="text"
-              disabled={!editable}
-              className="formInput"
-              value={dog.dogid}
-              onChange={e => {
-                let copy = { ...dog };
-                copy['dogid'] = e.target.value;
-                setDog(copy);
-              }}
-            />
-          </FormControl>
-        </div>
-      </div>
-
-      <Flex direction="column" align="center" justify-content="center">
-        <Heading as="h2" fontSize="24px">
-          Additional Notes
-        </Heading>
-        <Textarea
-          borderWidth={1}
-          disabled={!editable}
-          name="additionalNotes"
-          rows="7"
-          width="70%"
-          value={dog.notes}
-          onChange={e => {
-            let copy = { ...dog };
-            copy['notes'] = e.target.value;
-            setDog(copy);
-          }}
+        <ShowCancelModal
+          isOpen={cancelDisclosure.isOpen}
+          onClose={cancelDisclosure.onClose}
+          pageName="adoption log"
+          discardNavigationLocation=""
         />
-      </Flex>
-    </div>
+
+        <Flex width="100%" alignItems="center" gap={10} id="FormWrapper" direction="column" mb={10}>
+          <Flex
+            width="min(100%, 1200px)"
+            direction={{
+              base: 'column',
+              md: 'row',
+            }}
+            px={{
+              base: 10,
+              md: 0,
+            }}
+            justifyContent="space-between"
+            gap={10}
+          >
+            <FormSection
+              title="Adopter Information"
+              schema={AdopterInfoSchema}
+              register={register}
+              errors={errors}
+            />
+            <FormSection
+              title="Dog Information"
+              schema={DogInfoSchema}
+              register={register}
+              errors={errors}
+            />
+          </Flex>
+          <Flex
+            width="min(100%, 1200px)"
+            direction={{
+              base: 'column',
+              md: 'row',
+            }}
+            px={{
+              base: 10,
+              md: 0,
+            }}
+            justifyContent="space-between"
+            gap={10}
+          >
+            <FormSection
+              title="Address Information"
+              schema={AdopterAddressSchema}
+              register={register}
+              errors={errors}
+            />
+            <FormSection
+              title="Facility Information"
+              schema={FacilityInfoSchema}
+              register={register}
+              errors={errors}
+            />
+          </Flex>
+
+          <Flex
+            width="min(100%, 1200px)"
+            direction={{
+              base: 'column',
+              md: 'row',
+            }}
+            px={{
+              base: 10,
+              md: 0,
+            }}
+            justifyContent="space-between"
+            gap={10}
+          >
+            <FormSection
+              title="Finacial Information"
+              schema={FinancialInfoSchema}
+              register={register}
+              errors={errors}
+            />
+            <FormSection
+              title="Additional Information"
+              schema={NotesSchema}
+              register={register}
+              errors={errors}
+            />
+          </Flex>
+        </Flex>
+      </form>
+    </Flex>
   );
 };
 
-export default ViewDog;
+export default AddDog;
