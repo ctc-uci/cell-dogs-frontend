@@ -63,11 +63,6 @@ const ViewMore = () => {
   const [address, setAddress] = useState(state.addressLine);
   const [notes, setNotes] = useState(state.description);
 
-  // the four below are currently empty in the database
-  const [contactName, setContactName] = useState(state.contactPerson);
-  const [title, setTitle] = useState(state.title);
-  const [phoneNumber, setPhoneNumber] = useState(state.phoneNumber);
-  const [email, setEmail] = useState(state.email);
   // Create the initial POC list
   const [pocList, setPocList] = useState([]);
   const isLargerThan768 = screenWidthExceeds(768);
@@ -83,6 +78,7 @@ const ViewMore = () => {
           title: res.data[poc].title,
           phone: res.data[poc].phone_number,
           email: res.data[poc].email_address,
+          notes: res.data[poc].notes,
           new: false,
         });
       }
@@ -141,6 +137,7 @@ const ViewMore = () => {
             title: poc['title'],
             phoneNumber: poc['phone'],
             emailAddress: poc['email'],
+            notes: poc['notes'],
           };
           await backend.post('/facilityContacts', pocData);
         } else {
@@ -149,6 +146,7 @@ const ViewMore = () => {
             title: poc['title'],
             phoneNumber: poc['phone'],
             emailAddress: poc['email'],
+            notes: poc['notes'],
           };
           await backend.put(`/facilityContacts/${poc['id']}`, pocData);
         }
@@ -339,7 +337,10 @@ const ViewMore = () => {
   };
 
   const onAddBtnClick = event => {
-    setPocList(prevList => [...prevList, { name: '', title: '', phone: '', email: '', new: true }]);
+    setPocList(prevList => [
+      ...prevList,
+      { name: '', title: '', phone: '', email: '', notes: '', new: true },
+    ]);
   };
 
   return (
@@ -511,6 +512,18 @@ const ViewMore = () => {
                         </div>
                       </div>
                     </div>
+                    <div className="pocRow3">
+                      <div className="pocNotes">
+                        <h6>Notes</h6>
+                        <div className="pocNotesInput">
+                          {PocElement({
+                            index: index,
+                            name: 'notes',
+                            holder: 'This person is awesome.',
+                          })}
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 )}
                 {!isLargerThan768 && (
@@ -537,10 +550,14 @@ const ViewMore = () => {
                         {PocElement({ index: index, name: 'phone', holder: '123-456-7890' })}
                       </div>
                     </div>
-                    <div className="pocEmail">
-                      <h6>Email</h6>
-                      <div className="pocEmailInput">
-                        {PocElement({ index: index, name: 'email', holder: 'email@uci.edu' })}
+                    <div className="pocNotes">
+                      <h6>Notes</h6>
+                      <div className="pocNotesInput">
+                        {PocElement({
+                          index: index,
+                          name: 'notes',
+                          holder: 'This person is awesome',
+                        })}
                       </div>
                     </div>
                   </Flex>

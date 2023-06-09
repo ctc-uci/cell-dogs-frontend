@@ -53,7 +53,9 @@ const AddFacility = () => {
   };
 
   // Create the initial POC list
-  const [pocList, setPocList] = useState([{ name: '', title: '', phone: '', email: '' }]);
+  const [pocList, setPocList] = useState([
+    { name: '', title: '', phone: '', email: '', notes: '' },
+  ]);
 
   const Navigate = useNavigate();
 
@@ -74,8 +76,8 @@ const AddFacility = () => {
           name: poc['name'],
           title: poc['title'],
           phoneNumber: poc['phone'],
-
           emailAddress: poc['email'],
+          notes: poc['notes'],
         };
         await backend.post('/facilityContacts', pocData);
       }
@@ -122,7 +124,7 @@ const AddFacility = () => {
   };
 
   const onAddBtnClick = event => {
-    setPocList(prevList => [...prevList, { name: '', title: '', phone: '', email: '' }]);
+    setPocList(prevList => [...prevList, { name: '', title: '', phone: '', email: '', notes: '' }]);
   };
 
   return (
@@ -256,6 +258,19 @@ const AddFacility = () => {
                       </div>
                     </div>
                   </div>
+                  <div className="pocRow3">
+                    <div className="pocNotes">
+                      <h6>Notes</h6>
+                      <div className="pocNotesInput">
+                        {PocElement({
+                          index: index,
+                          name: 'notes',
+                          holder: 'This person is awesome.',
+                        })}
+                      </div>
+                    </div>
+                  </div>
+                  <Box height="20px" />
                 </div>
               )}
               {!isLargerThan768 && (
@@ -284,8 +299,18 @@ const AddFacility = () => {
                   </div>
                   <div className="pocEmail">
                     <h6>Email</h6>
-                    <div className="pocEmailInput">
+                    <div className="pocEmailMobileInput">
                       {PocElement({ index: index, name: 'email', holder: 'email@uci.edu' })}
+                    </div>
+                  </div>
+                  <div className="pocNotes">
+                    <h6>Notes</h6>
+                    <div className="pocNotesInput">
+                      {PocElement({
+                        index: index,
+                        name: 'notes',
+                        holder: 'This facility is awesome.',
+                      })}
                     </div>
                   </div>
                 </Flex>

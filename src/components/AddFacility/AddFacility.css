@@ -112,6 +112,18 @@ img {
   margin-top: 6px;
 }
 
+.pocEmailMobileInput {
+  margin-top: 6px;
+}
+
+.pocNotes {
+  margin-top: 6px;
+}
+
+.pocNotesInput {
+  margin-top: 6px;
+}
+
 .pocRow1 {
   display: flex;
   justify-content: space-between;
