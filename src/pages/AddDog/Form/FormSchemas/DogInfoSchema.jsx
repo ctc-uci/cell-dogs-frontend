@@ -42,9 +42,17 @@ export default [
     childrenInputs: [
       {
         key: 'chiptype',
-        type: 'text',
+        type: 'select',
         placeholder: 'Enter Chip Type',
         title: 'Chip Type',
+        options: [
+          'AVID',
+          'AKC Reunite',
+          '24 PetWatch',
+          'Home Again',
+          'Micro Chip',
+          'Found Animals',
+        ],
       },
       {
         key: 'chipnum',

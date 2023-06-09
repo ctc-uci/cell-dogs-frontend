@@ -21,6 +21,7 @@ const InputElement = ({
           return (
             <InputElement
               {...props}
+              {...childProps}
               key={childProps.key}
               title={childProps.title}
               placeholder={childProps.placeholder}
