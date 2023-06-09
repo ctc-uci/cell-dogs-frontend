@@ -52,7 +52,16 @@ const AddDog = () => {
   const [facility, setFacilities] = useState([]);
   const [avatar, setAvatar] = useState(null);
   const cancelDisclosure = useDisclosure({ id: 'cancel-modal' });
+  const removeDogButton = async () => {
+    const confirm = window.confirm('Are you sure you want to delete this dog?');
+    console.log(confirm);
 
+    if (!confirm) return;
+    await backend.delete(`dog/${dogId}`).catch(function (err) {
+      console.log(err);
+    });
+    Navigate('/');
+  };
   const toast = useToast();
   const {
     register,
@@ -79,8 +88,26 @@ const AddDog = () => {
           case 'graddate':
             setValue(element, new Date(data[0][element]).toISOString().slice(0, 10));
             break;
-          case 'adopteraddrline':
-            setValue(element, data[0][element]);
+          case 'adoptemail':
+            console.log(data[0]['adoptemail']);
+            setValue('adopteremail', data[0][element]);
+            break;
+          case 'adoptcity':
+            console.log(data[0]['adoptcity']);
+            setValue('adoptercity', data[0][element]);
+            break;
+          case 'adoptstate':
+            console.log(data[0]['adoptstate']);
+            setValue('adopterstate', data[0][element]);
+            break;
+          case 'zip':
+            console.log(data[0]['zip']);
+            setValue('adopterzip', data[0][element]);
+            break;
+          case 'addrline':
+            console.log(data[0]['addrline']);
+            setValue('adopteraddrline', data[0][element]);
+            break;
           default:
             setValue(element, data[0][element]);
         }
@@ -238,6 +265,11 @@ const AddDog = () => {
               <ButtonGroup variant="outline" spacing="6" onClick={cancelDisclosure.onOpen}>
                 <Button>Cancel</Button>
               </ButtonGroup>
+            </div>
+            <div className="saveButton">
+              <Button colorScheme="red" onClick={removeDogButton}>
+                Delete Dog
+              </Button>
             </div>
             <div className="saveButton">
               <Button colorScheme="facebook" type="submit">
