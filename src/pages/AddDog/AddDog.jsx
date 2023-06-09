@@ -38,6 +38,8 @@ const AddDog = () => {
   const { backend } = useBackend();
   const Navigate = useNavigate();
 
+  const [name, setName] = useState('');
+
   const [specialTag, setSpecialTag] = useState(false);
   const [therapyTag, setTherapyTag] = useState(false);
   const [staffAdoptionTag, setStaffAdoptionTag] = useState(false);
@@ -51,12 +53,24 @@ const AddDog = () => {
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors, values },
     reset,
   } = useForm({
     resolver: yupResolver(AddDogSchema),
   });
 
+  useEffect(() => {
+    console.log(name);
+  }, [name]);
+  const watchName = watch('name');
+  useEffect(() => {
+    const subscription = watch((value, { name, type }) => {
+      console.log(value?.dogname);
+      setName(value?.dogname);
+    });
+    return () => subscription.unsubscribe();
+  }, [watch]);
   const getFacilities = async () => {
     const { data } = await backend.get('/facility');
     setFacilities(data);
@@ -165,11 +179,11 @@ const AddDog = () => {
                 <Input
                   id="nameField"
                   type="name"
-                  placeholder="Enter Name"
+                  placeholder="Enter Name Below"
                   size="lg"
                   variant="unstyled"
-                  value={values?.dogname}
-                  {...register('dogname')}
+                  value={name}
+                  disabled={!name}
                 />
               </FormControl>
             </div>
