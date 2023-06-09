@@ -130,7 +130,7 @@ const AddDog = () => {
           <TagSetup tagBoolean={serviceTag} tagName="Service" setTag={setServiceTag} />
           <TagSetup tagBoolean={therapyTag} tagName="Therapy" setTag={setTherapyTag} />
           <TagSetup tagBoolean={staffAdoptionTag} tagName="Stf Adpt" setTag={setStaffAdoptionTag} />
-          <TagSetup tagBoolean={specialTag} tagName="Special" setTag={setSpecialTag} />
+          <TagSetup tagBoolean={specialTag} tagName="Other" setTag={setSpecialTag} />
           <TagSetup tagBoolean={deceasedTag} tagName="Decsd" setTag={setDeceasedTag} />
         </MenuList>
       </Menu>

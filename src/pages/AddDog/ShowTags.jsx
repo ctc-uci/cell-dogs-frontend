@@ -20,7 +20,7 @@ const ShowTags = ({ serviceTag, therapyTag, staffAdoptionTag, specialTag, disabl
       )}
       {specialTag && (
         <div className="tag" style={{ backgroundColor: '#ED8936' }}>
-          <h6>Special</h6>
+          <h6>Other</h6>
         </div>
       )}
       {serviceTag && (
