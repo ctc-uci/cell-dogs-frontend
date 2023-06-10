@@ -44,13 +44,10 @@ const Facilities = () => {
   const [resultsPerPage, setResultsPerPage] = useState(10);
   const [page, setPage] = useState(0);
 
-  const navigateViewMore = (username, address, desc, id) => {
+  const navigateViewMore = props => {
     Navigate('/view-more', {
       state: {
-        name: username,
-        addressLine: address,
-        description: desc,
-        id,
+        ...props,
       },
     });
   };
@@ -159,6 +156,7 @@ const Facilities = () => {
                       phoneNumber,
                       email,
                       image,
+                      ...props
                     }) => (
                       <Tr key={name} py={2}>
                         <Td style={{ display: 'flex', alignItems: 'center' }}>
@@ -181,16 +179,18 @@ const Facilities = () => {
                             colorScheme="teal"
                             p={3}
                             onClick={() =>
-                              navigateViewMore(
+                              navigateViewMore({
                                 name,
-                                addressLine,
+                                address: addressLine,
                                 description,
                                 id,
                                 facility_contacts,
                                 title,
                                 phoneNumber,
                                 email,
-                              )
+                                image,
+                                ...props,
+                              })
                             }
                           >
                             View More
@@ -329,16 +329,17 @@ const Facilities = () => {
                       colorScheme="teal"
                       p={3}
                       onClick={() =>
-                        navigateViewMore(
+                        navigateViewMore({
                           name,
-                          addressLine,
+                          address_line: addressLine,
                           description,
                           id,
-                          facility_contacts,
                           title,
                           phoneNumber,
                           email,
-                        )
+                          facility_contacts,
+                          image,
+                        })
                       }
                     >
                       View More

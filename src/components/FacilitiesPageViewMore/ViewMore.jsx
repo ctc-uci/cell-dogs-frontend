@@ -28,6 +28,7 @@ import { useBackend } from '../../contexts/BackendContext';
 import { screenWidthExceeds } from '../../util/utils';
 import CreateToast from '../Toasts/CreateToast';
 import './ViewMore.css';
+import UploadAvatar from '../UploadAvatar/UploadAvatar';
 
 // export const theme = extendTheme({
 //   colors: {
@@ -46,6 +47,7 @@ const ViewMore = () => {
   // const [inputValue, setInputValue] = useState('');
   const { backend } = useBackend();
   const { state } = useLocation();
+  console.log(state);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelDisclosure = useDisclosure({ id: 'cancel-modal' });
   const toast = useToast();
@@ -372,7 +374,7 @@ const ViewMore = () => {
       <Box className="facilityModalContent" p={5}>
         <div className="userInfoButtons">
           <div className="placeholder">
-            <Avatar height="100px" width="100px" />
+            <Avatar name={state.name} src={state.image} height="100px" width="100px" />
           </div>
           <div className="modalHeader">
             <h1 className={`enterName ${!isLargerThan768 && 'mobileLower'}`}>
