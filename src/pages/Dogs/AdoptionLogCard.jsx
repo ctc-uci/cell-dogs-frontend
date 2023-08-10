@@ -128,7 +128,7 @@ const AdoptionLogCard = props => {
             )}
             {therapy && (
               <Tag background="#4299E1" color="#FFFFFF">
-                Therapy
+                Pets
               </Tag>
             )}
             {staffAdoption && (

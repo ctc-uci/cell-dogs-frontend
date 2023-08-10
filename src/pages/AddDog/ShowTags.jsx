@@ -5,7 +5,7 @@ const ShowTags = ({ serviceTag, therapyTag, staffAdoptionTag, specialTag, disabl
     <>
       {therapyTag && (
         <div className="tag" style={{ backgroundColor: '#4299E1' }}>
-          <h6>Therapy</h6>
+          <h6>Pets</h6>
         </div>
       )}
       {staffAdoptionTag && (
