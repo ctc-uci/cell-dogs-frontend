@@ -20,30 +20,13 @@ import {
 import { React } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { screenWidthExceeds } from '../../util/utils';
+import calculateDogAgeAtGraduation from './CalculateDogAtGraduationAge';
 import styles from './AdoptionLogCard.module.css';
 
 const AdoptionLogCard = props => {
   const Navigate = useNavigate();
   const { tableId, tableName, data, searchDog } = props;
   const isLargerThan768 = screenWidthExceeds(768);
-
-  const calculateDogAgeAtGraduation = (graduationDate, currentAge) => {
-    // Step 1: Convert graduation date to JavaScript Date object
-    const gradDate = new Date(graduationDate);
-
-    // Step 2: Calculate birth year of dog based on current age
-    const currentYear = new Date().getFullYear();
-    const birthYear = currentYear - currentAge;
-
-    // Step 3: Calculate age of dog at graduation in milliseconds
-    const birthDate = new Date(birthYear, 0, 1); // January 1st of the birth year
-    const ageAtGraduationInMs = gradDate - birthDate;
-
-    // Step 4: Convert age of dog at graduation from milliseconds to years
-    const ageAtGraduationInYears = ageAtGraduationInMs / (1000 * 60 * 60 * 24 * 365);
-
-    return Math.floor(ageAtGraduationInYears);
-  };
 
   const dogTableRow = (dog, width) => {
     const {

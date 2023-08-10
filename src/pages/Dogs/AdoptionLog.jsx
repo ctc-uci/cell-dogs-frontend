@@ -19,7 +19,7 @@ import CreateToast from '../../components/Toasts/CreateToast';
 import { useBackend } from '../../contexts/BackendContext';
 import ShowTags from '../AddDog/ShowTags';
 import styles from './AdoptionLog.module.css';
-
+import calculateDogAgeAtGraduation from './calculateDogAgeAtGraduation';
 // import { DropDownList } from "@progress/kendo-react-dropdowns";
 const AdoptionLog = props => {
   const Navigate = useNavigate();
@@ -77,24 +77,6 @@ const AdoptionLog = props => {
     allDogs.map(dog => {
       getCheckedDogs(JSON.stringify(dog)); // this needs to be fixed
     });
-  };
-
-  const calculateDogAgeAtGraduation = (graduationDate, currentAge) => {
-    // Step 1: Convert graduation date to JavaScript Date object
-    const gradDate = new Date(graduationDate);
-
-    // Step 2: Calculate birth year of dog based on current age
-    const currentYear = new Date().getFullYear();
-    const birthYear = currentYear - currentAge;
-
-    // Step 3: Calculate age of dog at graduation in milliseconds
-    const birthDate = new Date(birthYear, 0, 1); // January 1st of the birth year
-    const ageAtGraduationInMs = gradDate - birthDate;
-
-    // Step 4: Convert age of dog at graduation from milliseconds to years
-    const ageAtGraduationInYears = ageAtGraduationInMs / (1000 * 60 * 60 * 24 * 365);
-
-    return Math.floor(ageAtGraduationInYears);
   };
 
   const dogTableRow = (dog, index) => {

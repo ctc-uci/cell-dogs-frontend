@@ -3,30 +3,13 @@ import React, { useEffect, useState } from 'react';
 import AdoptionLogFacilityCards from './AdoptionLogFacilityCards';
 import AdoptionLogFacilityTable from './AdoptionLogFacilityTable';
 import { useBackend } from '../../contexts/BackendContext';
+import calculateDogAgeAtGraduation from './CalculateDogAtGraduationAge';
 
 const AdoptionLogFacilityView = ({ info, dogs, selected, setSelected, view }) => {
   // eslint-disable-next-line
   const { shelter, facilityid } = info;
 
   const toast = useToast();
-
-  const calculateDogAgeAtGraduation = (graduationDate, currentAge) => {
-    // Step 1: Convert graduation date to JavaScript Date object
-    const gradDate = new Date(graduationDate);
-
-    // Step 2: Calculate birth year of dog based on current age
-    const currentYear = new Date().getFullYear();
-    const birthYear = currentYear - currentAge;
-
-    // Step 3: Calculate age of dog at graduation in milliseconds
-    const birthDate = new Date(birthYear, 0, 1); // January 1st of the birth year
-    const ageAtGraduationInMs = gradDate - birthDate;
-
-    // Step 4: Convert age of dog at graduation from milliseconds to years
-    const ageAtGraduationInYears = ageAtGraduationInMs / (1000 * 60 * 60 * 24 * 365);
-
-    return Math.floor(ageAtGraduationInYears);
-  };
 
   const [facilitySelected, setFacilitySelected] = useState(false);
   useEffect(() => {
