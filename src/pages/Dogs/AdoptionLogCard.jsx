@@ -113,7 +113,7 @@ const AdoptionLogCard = props => {
                 aka {setAltName()}
               </Text>
               <Text size="lg" marginRight="10px">
-                Grad Age: {gradAge}
+                Grad Date: {new Date(graddate).getMonth() + 1}/{new Date(graddate).getFullYear()}
               </Text>
               <Text size="lg" marginRight="10px" width="100%">
                 Breed: {breed}

@@ -8,8 +8,8 @@ export default [
   {
     key: 'groupnum',
     type: 'text',
-    placeholder: 'Enter Group Number',
-    title: 'Group Number',
+    placeholder: 'Enter Animal ID',
+    title: 'Animal ID',
   },
   {
     key: 'graddate',

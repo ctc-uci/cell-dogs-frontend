@@ -21,7 +21,7 @@ const AdoptionLogFacilityCards = ({
   dogs,
   selected,
   // info,
-  calculateDogAgeAtGraduation,
+  // calculateDogAgeAtGraduation,
   toggleCheck,
   facilityName,
 }) => {
@@ -66,7 +66,8 @@ const AdoptionLogFacilityCards = ({
                             {dogname}
                           </Text>
                           <Text fontSize="sm" color="gray.500">
-                            Grad Age: {calculateDogAgeAtGraduation(graddate, age)}
+                            Grad Date: {new Date(graddate).getMonth() + 1}/
+                            {new Date(graddate).getFullYear()}
                           </Text>
                           <Text fontSize="sm" color="gray.500">
                             Breed: {breed}
