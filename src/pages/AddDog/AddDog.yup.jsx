@@ -2,44 +2,43 @@ import * as yup from 'yup';
 
 export default yup.object().shape({
   dogname: yup.string(),
-  age: yup.number(),
-  breed: yup.string(),
-  chiptype: yup.string(),
-  chipnum: yup.number(),
+  age: yup.number().notRequired(),
+  breed: yup.string().notRequired(),
+  chiptype: yup.string().notRequired(),
+  chipnum: yup.number().notRequired(),
 
-  gender: yup.string(),
+  gender: yup.string().notRequired(),
 
-  altname: yup.string(),
-  service: yup.boolean(),
-  therapy: yup.boolean(),
-  staffAdoption: yup.boolean(),
-  specialNeeds: yup.boolean(),
-  deceased: yup.boolean(),
+  altname: yup.string().notRequired(),
+  service: yup.boolean().notRequired(),
+  therapy: yup.boolean().notRequired(),
+  staffAdoption: yup.boolean().notRequired(),
+  specialNeeds: yup.boolean().notRequired(),
+  deceased: yup.boolean().notRequired(),
 
-  shelter: yup.string(),
-  groupnum: yup.string(),
-  graddate: yup.date(),
-  facilityid: yup.string(),
-  facilityUnit: yup.string(),
+  shelter: yup.string().notRequired(),
+  groupnum: yup.string().notRequired(),
+  graddate: yup.date().notRequired(),
+  facilityid: yup.string().notRequired(),
+  facilityUnit: yup.string().notRequired(),
 
   // notes
-  notes: yup.string(),
+  notes: yup.string().notRequired(),
 
   // Adopter Info Section
-  adoptername: yup.string(),
-  adopterphone: yup
-    .string()
+  adoptername: yup.string().notRequired(),
+  adopterphone: yup.string().notRequired(),
 
-    .length(10, 'Phone number must be 10 digits'),
-  adopteremail: yup.string().email('Invalid email address'),
+  // .length(10, 'Phone number must be 10 digits'),
+  adopteremail: yup.string().email('Invalid email address').notRequired(),
 
   // Adopter Address Section
-  adopteraddrline: yup.string(),
-  adoptercity: yup.string(),
-  adopterstate: yup.string(),
-  adopterzip: yup.string().max(5, 'Zip code must be 5 digits'),
+  adopteraddrline: yup.string().notRequired(),
+  adoptercity: yup.string().notRequired(),
+  adopterstate: yup.string().notRequired(),
+  adopterzip: yup.string().max(5, 'Zip code must be 5 digits').notRequired(),
 
   // Financial Info Section
-  fees: yup.number('Must be a number'),
-  revenue: yup.number('Must be a number'),
+  fees: yup.number('Must be a number').notRequired(),
+  revenue: yup.number('Must be a number').notRequired(),
 });
