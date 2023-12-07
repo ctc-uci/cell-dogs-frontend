@@ -1,8 +1,6 @@
 import * as yup from 'yup';
 
 export default yup.object().shape({
-  // dogid
-  // Dog Info Section
   dogname: yup.string().required('Dog name is required'),
   age: yup.number().required('Age is required'),
   breed: yup.string().required('Breed is required'),

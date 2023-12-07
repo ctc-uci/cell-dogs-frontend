@@ -30,10 +30,10 @@ import AdopterAddressSchema from './Form/FormSchemas/AdopterAddressSchema';
 import DogInfoSchema from './Form/FormSchemas/DogInfoSchema';
 import NotesSchema from './Form/FormSchemas/NotesSchema';
 import FacilityInfoSchema from './Form/FormSchemas/FacilityInfoSchema';
-
 import FinancialInfoSchema from './Form/FormSchemas/FinancialInfoSchema';
 import ShowTags from './ShowTags';
 import { useForm } from 'react-hook-form';
+
 const AddDog = () => {
   const { backend } = useBackend();
   const Navigate = useNavigate();
@@ -128,7 +128,7 @@ const AddDog = () => {
         </MenuButton>
         <MenuList>
           <TagSetup tagBoolean={serviceTag} tagName="Service" setTag={setServiceTag} />
-          <TagSetup tagBoolean={therapyTag} tagName="Therapy" setTag={setTherapyTag} />
+          <TagSetup tagBoolean={therapyTag} tagName="Pets" setTag={setTherapyTag} />
           <TagSetup tagBoolean={staffAdoptionTag} tagName="Stf Adpt" setTag={setStaffAdoptionTag} />
           <TagSetup tagBoolean={specialTag} tagName="Other" setTag={setSpecialTag} />
           <TagSetup tagBoolean={deceasedTag} tagName="Decsd" setTag={setDeceasedTag} />
