@@ -1,13 +1,13 @@
 import * as yup from 'yup';
 
 export default yup.object().shape({
-  dogname: yup.string().required('Dog name is required'),
-  age: yup.number().required('Age is required'),
-  breed: yup.string().required('Breed is required'),
-  chiptype: yup.string().required('Chip type is required'),
-  chipnum: yup.number().required('Chip number is required'),
+  dogname: yup.string(),
+  age: yup.number(),
+  breed: yup.string(),
+  chiptype: yup.string(),
+  chipnum: yup.number(),
 
-  gender: yup.string().required('Gender is required'),
+  gender: yup.string(),
 
   altname: yup.string(),
   service: yup.boolean(),
@@ -16,28 +16,28 @@ export default yup.object().shape({
   specialNeeds: yup.boolean(),
   deceased: yup.boolean(),
 
-  shelter: yup.string().required('Shelter is required'),
-  groupnum: yup.string().required('Group number is required'),
-  graddate: yup.date().required('Graduation date is required'),
-  facilityid: yup.string().required('Facility ID is required'),
+  shelter: yup.string(),
+  groupnum: yup.string(),
+  graddate: yup.date(),
+  facilityid: yup.string(),
   facilityUnit: yup.string(),
 
   // notes
   notes: yup.string(),
 
   // Adopter Info Section
-  adoptername: yup.string().required('Adopter name is required'),
+  adoptername: yup.string(),
   adopterphone: yup
     .string()
-    .required('Adopter phone number is required')
+
     .length(10, 'Phone number must be 10 digits'),
-  adopteremail: yup.string().email('Invalid email address').required('Adopter email is required'),
+  adopteremail: yup.string().email('Invalid email address'),
 
   // Adopter Address Section
-  adopteraddrline: yup.string().required('Address line is required'),
-  adoptercity: yup.string().required('City is required'),
-  adopterstate: yup.string().required('State is required'),
-  adopterzip: yup.string().required('Zip code is required').max(5, 'Zip code must be 5 digits'),
+  adopteraddrline: yup.string(),
+  adoptercity: yup.string(),
+  adopterstate: yup.string(),
+  adopterzip: yup.string().max(5, 'Zip code must be 5 digits'),
 
   // Financial Info Section
   fees: yup.number('Must be a number'),
